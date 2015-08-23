@@ -1,0 +1,76 @@
+@font-face {
+    font-family: LolFont;
+    src: url("../font/FrizQuadrataRegular.ttf");
+}
+
+html{
+    background-color: black;
+    background-image: url(../img/fondo.jpg);
+    background-position: top center;
+    background-repeat: no-repeat;
+}
+
+body{
+    font-family:LolFont;
+}
+
+.content{
+    background-image: url(../img/fondoDIV.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    border:18px solid;
+    padding: 15px;
+    border-image:url(../img/bordeR.png) 30 stretch;
+    width: 80%;
+    color:black;
+    margin: auto;
+    text-align: center;
+}
+
+nav li {
+    display: inline;
+}
+
+nav ul {
+    display: inline-block;
+}
+
+/* Barra de Navegación*/ 
+.menu a{
+    background-image: url(../img/btnNavMiddle.png);
+    background-size: contain;
+    font-size:14px;
+    text-decoration: none;
+    float:left; 
+    color: #fff;
+    padding: 10px 60px;
+
+    -webkit-transition: all 0.2s linear;
+    -moz-transition: all 0.2s linear;
+    -ms-transition: all 0.2s linear;
+    -o-transition: all 0.2s linear;
+    transition: all 0.2s linear;
+}
+
+.menu a:hover {
+    background-image:  url(../img/btnHover.png), url(../img/btnNavMiddle.png);
+    background-size: cover, cover;
+}
+
+.menu .first{
+    background-image: url(../img/btnNavLeft.png);
+
+}.menu .first:hover{
+    background-image: url(../img/btnHover.png), url(../img/btnNavLeft.png);
+    background-size: cover,cover;
+    background-position: center,center;
+    padding-left: auto;
+}
+
+.menu .last{
+    background-image: url(../img/btnNavRight.png);
+    background-size: cover, cover;
+}.menu .last:hover{
+    background-image: url(../img/btnHover.png), url(../img/btnNavRight.png);
+    background-size: cover, cover;
+}
