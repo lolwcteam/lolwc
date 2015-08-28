@@ -2,29 +2,67 @@
     <head>
         <link rel="icon" type="image/png" href="/img/log.png"/>
         <title>LOL Client</title>
+        <link rel="stylesheet" type="text/css" href="css/materialize.css"/>
         <link rel="stylesheet" type="text/css" href="css/style.css"/>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     </head>
-    <body>
-        <div class="header" style="text-align:center">
-            <img src="img/barra.png" style="margin-top:-8;width:70%" draggable="false" border=0>
+    <body class="cyan darken-2">
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <script type="text/javascript" src="js/materialize.min.js"></script>
+        <header>
             <nav>
-                <ul class="menu" id="menu">
-                    <li><a class="first" href="#">Home</a></li>
-                    <li><a href="#">Perfil</a></li>
-                    <li><a href="#">Tienda</a></li>
-                    <li><a href="#">Historial</a></li>
-                    <li><a href="#">Runas</a></li>
-                    <li><a class="last" href="#">Campeones</a></li>
-                </ul>
+                <div class="nav-wrapper light-blue darken-4">
+                    <ul id="nav-mobile" class="left hide-on-med-and-down">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Perfil</a></li>
+                        <li><a href="#">Tienda</a></li>
+                        <li><a href="#">Historial</a></li>
+                        <li><a href="#">Runas</a></li>
+                        <li><a href="#">Campeones</a></li>
+                    </ul>
+                    <form>
+                        <div class="right input-field">
+                            <input id="search" type="search" required>
+                            <label for="search"><i class="material-icons">search</i></label>
+                        </div>
+                    </form>
+                </div>
             </nav>
+        </header>
+
+
+        <div class="fondo-content">
+            <div class="izquierdo">
+                <div class="summoner">
+                    <img id="summoner_img" src="#"/>
+                    <span id="summoner_name">Adriex</span><br>
+                    <img src="summoner_league_img"/>
+                    <span id="summoner_league_name">League Summoner</span><br>
+                    <span id="summoner_rank">Summoner Rank</span><br>
+                    <span id="summoner_matches_count">Numero de Partidas</span><br>
+                    <span id="summoner_winrate_count">Win Rate</span><br>
+                    <span id="summoner_loserate_count">Loose Rate</span><br>
+                </div>
+                
+                <div class="content">
+                </div>
+            </div>
         </div>
-        <br>
-        <div class="content">
-            "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids plea
-
-"At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat."
 
 
-        </div>
     </body>
+    <footer class="page-footer light-blue darken-4">
+        <div class="container">
+            <div class="section">
+                <div class="row center">
+                    <p>Rito no afiliado de ninguna manera con nuestra poderosa empresa.</p>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright light-blue darken-4">
+            <div class="container">
+                <span>2015</span>
+            </div>
+        </div>
+    </footer>
 </html>
