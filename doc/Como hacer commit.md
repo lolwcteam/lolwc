@@ -8,6 +8,10 @@
 #Por Terminal
 
 ####Primera vez
+Esto va a descargar el repositorio en una carpeta del mismo nombre
+
+	git clone https://github.com/lolwcteam/lolwc
+
 Esto va a configurar su mail y nombre de usuario para que cuando hagan el comando *commit* no les de error
 	
 	git config --global user.email "ACA VA TU EMAIL ENTRE COMILLAS"
