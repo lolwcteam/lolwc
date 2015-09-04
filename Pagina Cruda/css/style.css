@@ -1,25 +1,51 @@
 .fondo-content{
-    width: 90%;
+    width: 1220px;
     margin-left: auto;
     margin-right: auto;
     background-color: #1A486D;
     -webkit-box-shadow: 0 1px 8px 1px #474747;
     box-shadow: 0 1px 8px 1px #474747;
     overflow: hidden;
-    padding: 5px;
+    padding-top: 11px;
+    font-size: 80%;
 }
 
 .summoner{
-    background-color: white;
-    width: 50%;
+    width: 860px;    
+    height: 142px;
+    background-image: url(../img/picture_champion.jpg);
+}.summoner-data{
+    height: 142px;
+    background: rgba(0,0,0,1);
+    background: -moz-linear-gradient(left, rgba(0,0,0,1) 0%, rgba(15,19,22,1) 11%, rgba(74,96,112,0) 55%, rgba(134,174,204,0) 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(0,0,0,1)), color-stop(11%, rgba(15,19,22,1)), color-stop(55%, rgba(74,96,112,0)), color-stop(100%, rgba(134,174,204,0)));
+    background: -webkit-linear-gradient(left, rgba(0,0,0,1) 0%, rgba(15,19,22,1) 11%, rgba(74,96,112,0) 55%, rgba(134,174,204,0) 100%);
+    background: -o-linear-gradient(left, rgba(0,0,0,1) 0%, rgba(15,19,22,1) 11%, rgba(74,96,112,0) 55%, rgba(134,174,204,0) 100%);
+    background: -ms-linear-gradient(left, rgba(0,0,0,1) 0%, rgba(15,19,22,1) 11%, rgba(74,96,112,0) 55%, rgba(134,174,204,0) 100%);
+    background: linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(15,19,22,1) 11%, rgba(74,96,112,0) 55%, rgba(134,174,204,0) 100%);
+
+    color:white;
+    text-shadow: 1px 1px 4px #000000;
     -webkit-box-shadow: 0 1px 8px -1px #474747;
     box-shadow: 0 1px 8px -1px #474747;
+    padding: 10px;
 }
 
+.champion{
+    color:white;
+    padding: 10px;
+    width: auto;
+    height: 142px;
+    background-color: #303030;
+}
+
+.col s8{
+    margin-left: 5px;
+}
 .content{
     background-color: white;
     width: 50%;
     margin-left:
-    -webkit-box-shadow:inset 0 1px 8px -1px #474747;
+        -webkit-box-shadow:inset 0 1px 8px -1px #474747;
     box-shadow:inset 0 1px 8px -1px #474747;
 }

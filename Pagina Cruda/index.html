@@ -16,8 +16,7 @@
                         <li><a href="#">Home</a></li>
                         <li><a href="#">Perfil</a></li>
                         <li><a href="#">Tienda</a></li>
-                        <li><a href="#">Historial</a></li>
-                        <li><a href="#">Runas</a></li>
+                        <li><a href="#">Chat</a></li>
                         <li><a href="#">Campeones</a></li>
                     </ul>
                     <form>
@@ -32,19 +31,39 @@
 
 
         <div class="fondo-content">
-            <div class="izquierdo">
-                <div class="summoner">
-                    <img id="summoner_img" src="#"/>
-                    <span id="summoner_name">Adriex</span><br>
-                    <img src="summoner_league_img"/>
-                    <span id="summoner_league_name">League Summoner</span><br>
-                    <span id="summoner_rank">Summoner Rank</span><br>
-                    <span id="summoner_matches_count">Numero de Partidas</span><br>
-                    <span id="summoner_winrate_count">Win Rate</span><br>
-                    <span id="summoner_loserate_count">Loose Rate</span><br>
+            <div class="row">
+                <div class="col s8">
+                    <div class="summoner">
+                        <div class="summoner-data">
+                            <div class="summoner-nombre">
+                                <img id="summoner_img" src="img/picture_profile.png" width="64px" height="64px" class="left" style="margin-right:5px"/>
+                                <span id="summoner_name" style="font-size:130%">Cargando Invocador</span>
+                            </div>
+                            <img id="summoner_league_img" src="img/picture_league.png" width="40px" height="40px"/>
+                            <span id="summoner_league_name">League</span> <span id="summoner_rank">Rank</span><br>
+                            <span style="color:yellow">Partidas Jugadas: <span id="summoner_matches_count">0</span></span><br>
+                            <span style="color:green">Partidas Ganadas: <span id="summoner_winrate_count">0</span></span><br>
+                            <span style="color:red">Partidas Perdidas: <span id="summoner_loserate_count">0</span></span><br>
+                        </div>
+                    </div>
                 </div>
-                
-                <div class="content">
+
+                <div class="col s4">
+                    <div class="champion">
+                        <span>Campeón más Jugado</span><br>
+                        <img id="mostPlayedChamp_img" src="#"/><br>
+                        <span id="mostPlayedChamp_name">Nombre</span><br>
+                        <span id="mostPlayedChamp_kda_coefiecient">Coeficiente de kda</span><br>
+                        <span id="mostPlayedChamp_kda">K/D/A</span><br>
+                        <span id="mostPlayedChamp_cs">Minions</span><br>
+                        <span id="mostPlayedChamp_gold">Oro Promedio</span><br>
+                        <span id="mostPlayedChamp_matches_count">Numero de Partidas</span><br>
+                        <span id="mostPlayedChamp_winrate_per100">Win Rate Porcentaje</span><br>
+                        <span id="mostPlayedChamp_winrate_count">Win Rate</span><br>
+                        <span id="mostPlayedChamp_loserate_per100">Loose Rate Porcentaje</span><br>
+                        <span id="mostPlayedChamp_loserate_count">Loose Rate</span><br>
+                        <br><hr><br>
+                    </div>
                 </div>
             </div>
         </div>
@@ -53,16 +72,9 @@
     </body>
     <footer class="page-footer light-blue darken-4">
         <div class="container">
-            <div class="section">
-                <div class="row center">
-                    <p>Rito no afiliado de ninguna manera con nuestra poderosa empresa.</p>
-                </div>
-            </div>
         </div>
         <div class="footer-copyright light-blue darken-4">
-            <div class="container">
-                <span>2015</span>
-            </div>
+            <span>2015</span>
         </div>
     </footer>
 </html>
