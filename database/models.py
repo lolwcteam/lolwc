@@ -1,4 +1,6 @@
 from django.db import models
+#Las variables que estaban reservadas cambiaron su nombre por: "ex" + "NOMBREdeVARIABLE"
+#Las variables son:   format=exFormat, type=exType, id=exId, range=exRange, vars=exVars, map=exMap
 
 #####################################################################################################
 class Champions(models.Model):
@@ -13,16 +15,16 @@ class Champions(models.Model):
 #####################################################################################################
 class CurrentGame(models.Model):
 #Informacion de X match
-    bannedChampions=models.ManyToManyField(BannedChampions)
+    bannedChampions=models.CharField(BannedChampions)
     gameId=models.BigIntegerField(u'Id del Partido')
     gameLength=models.BigIntegerField(u'Cuantos Segundos lleva durando')
     gameMode=models.CharField(u'Modo(CLASSIC, ODIN, ARAM, TUTORIAL, ONEFORALL, ASCENSION, FIRSTBLOOD, KINGPORO)')
-    gameQueueConfigId=models.BigIntegerField(u'NO TENGO IDEA :D')#The queue type (queue types are documented on the Game Constants page)
+    gameQueueConfigId=models.BigIntegerField(u'Tipo de partida(RANKED_SOLO_5x5, RANKED_TEAM_3x3, RANKED_TEAM_5x5)')#The queue type (queue types are documented on the Game Constants page)
     gameStartTime=models.BigIntegerField(u'Hora de inicio en milisegundos')
     gameType=models.CharField(u'Tipo de Juego(CUSTOM_GAME, MATCHED_GAME, TUTORIAL_GAME)')
     mapId=models.BigIntegerField(u'Id del mapa')
-    observers=models.ManyToManyField(Observer)
-    participants=models.ManyToManyField(CurrentGameParicipant)
+    observers=models.CharField(Observer)
+    participants=models.CharField(CurrentGameParicipant)
     platformId=models.CharField(u'Id de la plataforma en la que esta siendo jugado')
 
 class BannedChampions(models.Model):
@@ -35,9 +37,9 @@ class CurrentGameParticipant(models.Model):
 #Info de un jugador en X match
     bot=models.BooleanField(u'Es un bot')
     championId=models.BigIntegerField(u'Id del jugador')
-    masteries=models.ManyToManyField(Mastery)
+    masteries=models.CharField(Mastery)
     profileIconId=models.BigIntegerField(u'Id del icono de invocador que esta usando')
-    runes=models.ManyToManyField(Rune)
+    runes=models.CharField(Rune)
     spell1Id=models.BigIntegerField(u'Id del Summoner Spell 1')
     spell2Id=models.BigIntegerField(u'Id del Summoner Spell 2')
     summonerId=models.BigIntegerField(u'Id del jugador')
@@ -63,34 +65,34 @@ class Observer(models.Model):
 class FeaturedGames(models.Model):
 #Juegos Importantes
     clientRefreshInterval=models.BigIntegerField(u'Tiempo de espera antes de  actualizar los juegos importantes')
-    gameList=models.ManyToManyField(FeaturedGameInfo)
+    gameList=models.CharField(FeaturedGameInfo)
 
 class FeaturedGamesInfo(models.Model):
 #Datos de los juegos Importantes
-    bannedChampions=models.ManyToManyField(BannedChampions)
+    bannedChampions=models.CharField(BannedChampions)
     gameId=models.BigIntegerField(u'Id del Partido')
     gameLength=models.BigIntegerField(u'Cuantos Segundos lleva durando')
     gameMode=models.CharField(u'Modo(CLASSIC, ODIN, ARAM, TUTORIAL, ONEFORALL, ASCENSION, FIRSTBLOOD, KINGPORO)')
-    gameQueueConfigId=models.BigIntegerField(u'The queue type (queue types are documented on the Game Constants page)')
+    gameQueueConfigId=models.BigIntegerField(u'Tipo de partida(RANKED_SOLO_5x5, RANKED_TEAM_3x3, RANKED_TEAM_5x5)')
     gameStartTime=models.BigIntegerField(u'Hora de inicio en milisegundos')
     gameType=models.CharField(u'Tipo de Juego(CUSTOM_GAME, MATCHED_GAME, TUTORIAL_GAME)')
     mapId=models.BigIntegerField(u'Id del mapa')
-    observers=models.ManyToManyField(Observer)
-    participants=models.ManyToManyField(CurrentGameParicipant)
+    observers=models.CharField(Observer)
+    participants=models.CharField(CurrentGameParicipant)
     platformId=models.CharField(u'Id de la plataforma en la que esta siendo jugado')
 
 #####################################################################################################
 
 class RecentGamesDto(models.Model):
 #Juegos recientes de X jugador
-    games=models.ManyToManyField(GameDto)
+    games=models.CharField(GameDto)
     summonerId=models.BigIntegerField(u'Id del jugador')
 
 class GameDto(models.Model):
 #Informacion de los juegos recientes de X jugador
     championId=models.IntegerField(u'Id del Pj usado')
     createDate=models.BigIntegerField(u'Fecha en la que se grabo los datos del final del partido')
-    fellowPlayers=models.ManyToManyField(PlayerDto)
+    fellowPlayers=models.CharField(PlayerDto)
     gameId=models.models.BigIntegerField(u'Id de la partida')
     gameMode=models.CharField(u'Modo(CLASSIC, ODIN, ARAM, TUTORIAL, ONEFORALL, ASCENSION, FIRSTBLOOD, KINGPORO)')
     gameType=models.CharField(u'Tipo de Juego(CUSTOM_GAME, MATCHED_GAME, TUTORIAL_GAME)')
@@ -123,7 +125,7 @@ class RawStatsDto(models.Model):
     gold=models.IntegerField(u'Oro ganado')
     goldEarned=models.IntegerField(u'Oro ganado')
     goldSpent=models.IntegerField(u'Oro gastado')
-    item0=models.IntegerField(u'Item 0')
+    item0=models.IntegerField(u'Item 0') 
     item1=models.IntegerField(u'Item 1')
     item2=models.IntegerField(u'Item 2')
     item3=models.IntegerField(u'Item 3')
@@ -195,10 +197,10 @@ class RawStatsDto(models.Model):
 
 class LeagueDto(models.Model):
     #INFO de la liga
-    entries=models.ManyToManyField(LeagueEntryDto)
-    name=models.CharField(u'This name is an internal place-holder name only. Display and localization of names in the game client are handled client-side.')
+    entries=models.CharField(LeagueEntryDto)
+    name=models.CharField(u'Nombre expresado del jugador en esta liga')
     participantId=models.CharField(u'Id del perteneciente a esta liga (Sea un team o un jugador)')
-    queue=models.CharField(u'(RANKED_SOLO_5x5, RANKED_TEAM_3x3, RANKED_TEAM_5x5)')
+    queue=models.CharField(u'Tipo de juego(RANKED_SOLO_5x5, RANKED_TEAM_3x3, RANKED_TEAM_5x5)')
     tier=models.CharField(u'Liga (CHALLENGER, MASTER, DIAMOND, PLATINUM, GOLD, SILVER, BRONZE)')
     
 class LeagueEntryDto(models.Model):
@@ -227,17 +229,17 @@ class MiniSeriesDto(models.Model):
 class ChampionListDto(models.Model):
     #Lista de la INFO de los campeones
     data=REFERENCIARaMAP(string,ChampionDto)
-    format=models.CharField(u'Formato')
+    exFormat=models.CharField(u'Formato')
     keys=REFERENCIARaMAP(string,string)
-    type=models.CharField(u'Qué está enlistado')
+    exType=models.CharField(u'Qué está enlistado')
     version=models.CharField(u'Version de la Info')
     
 class ChampionsDto(models.Model):
     #Datos del campeon
-    allytips=models.ManyToManyField(string)#Tips para los aliados del Pj
+    allytips=models.CharField(string)#Tips para los aliados del Pj
     blurb=models.CharField(u'')
-    enemytips=models.ManyToManyField(string)#Tips para los enemigos del Pj
-    id=models.IntegerField(u'Id del Pj')
+    enemytips=models.CharField(string)#Tips para los enemigos del Pj
+    exId=models.IntegerField(u'Id del Pj')
     image=models.OneToOneField(ImageDto)
     info=models.OneToOneField(InfoDto)
     key=models.CharField(u'Nombre clave del Pj (cumple una funcion similar a la ID, pero no son lo mismo)')
@@ -245,36 +247,36 @@ class ChampionsDto(models.Model):
     name=models.CharField(u'Nombre del Pj')
     partype=models.CharField(u'Qué tiene en la segunda barra(Heat, Mana, Energy, None, Battlefury; los campeones que usan vida para pagar el coste de sus habilidades figuran como "partype:None")')
     passive=models.OneToOneField(PassiveDto)
-    recommended=models.ManyToManyField(RecommendedDto)
-    skins=models.ManyToManyField(SkinDto)
-    spells=models.ManyToManyField(ChampionSpellDto)
+    recommended=models.CharField(RecommendedDto)
+    skins=models.CharField(SkinDto)
+    spells=models.CharField(ChampionSpellDto)
     stats=models.OneToOneField(StatsDto)
-    tags=models.ManyToManyField(string)#Roles que puede cumplir el Pj
+    tags=models.CharField(string)#Roles que puede cumplir el Pj
     title=models.CharField(u'Titulo del Pj')
     
 class ChampionsSpellDto(models.Model):
     #INFO de los spells
-    altimages=models.ManyToManyField(ImageDto)
-    cooldown=models.ManyToManyField(double)
+    altimages=models.CharField(ImageDto)
+    cooldown=models.CharField(double)
     cooldownBurn=models.CharField(u'Cooldown a travez de los niveles de la habilidad')
-    cost=models.ManyToManyField(int)
+    cost=models.CharField(int)
     costBurn=models.CharField(u'Coste de Energia/Mana/Furia/Heat  (no incluye coste de vida)')
     costType=models.CharField(u'Tipo de Coste pofcurrentHealth(vida)/Energia/Mana/Furia/Heat(calor)')
     description=models.CharField(u'Descripcion de la habilidad')
-    effect=models.ManyToManyField(object)
-    effectBurn=models.ManyToManyField(string)
+    effect=models.CharField(object)
+    effectBurn=models.CharField(string)
     image=models.OneToOneField(ImageDto)
     key=models.CharField(u'Key de la habilidad')
     leveltip=models.OneToOneField(LevelTipDto)
     maxrank=models.IntegerField(u'Nivel maximo de la habilidad')
     name=models.CharField(u'Nombre de la habilidad')
-    range=models.OBJECTO(u'Lista con los rango de la habilidad(This field is either a List of Integer or the String ''self'' for spells that target ones own champion)')
+    exRange=models.OBJECTO(u'Lista con los rango de la habilidad(This field is either a List of Integer or the String ''self'' for spells that target ones own champion)')
     rangeBurn=models.CharField(u'Rango a travez de los niveles de la habilidad')
     resource=models.CharField(u'Muestra el coste de la habilidad, obteniendolo desde la variable "cost"')
     sanitizedTooltip=models.CharField(u'Funcion concreta de la habilidad')
     sanitizedDescription=models.CharField(u'Descripcion concreta de lo que hace la habilidad')
     tooltip=models.CharField(u'Funcion de la habilidad')
-    vars=models.ManyToManyField(SpellsVarDto)
+    exVars=models.CharField(SpellsVarDto)
     
     
 class ImageDto(models.Model) #NOSE
@@ -303,17 +305,17 @@ class PassiveDto(models.Model):
     
 class RecommendedDto(models.Model):
     #Data de las recomendaciones para los campeones
-    blockseffectBurn=models.ManyToManyField(BlockDto)
+    blockseffectBurn=models.CharField(BlockDto)
     champion=models.CharField(u'Nombre del Campeon')
-    map=models.CharField(u'Mapa')
+    exMap=models.CharField(u'Mapa')
     mode=models.CharField(u'Modo en el que se recomiendan(CLASSIC, ARAM, etc)')
     priority=models.BooleanField(u'Prioridad')
     title=models.CharField(u'Titulo de la Build')
-    type=models.CharField(u'Titulo del conjunto de items(iniciales, finales, etc)')
+    exType=models.CharField(u'Titulo del conjunto de items(iniciales, finales, etc)')
     
 class SkinDto(models.Model):
     #Data de los Skins
-    id=models.IntegerField(u'Id de la skin')
+    exId=models.IntegerField(u'Id de la skin')
     name=models.CharField(u'Nombre de la skin')
     num=models.IntegerField(u'Numero de skin de este Pj(Default=0)')
     
@@ -339,23 +341,23 @@ class StatsDto (models.Model):#Estos Valores deberian ser Double
     
 class LevelTipDto(models.Model):
     #This object contains champion level tip data.
-    effect=models.ManyToManyField(string)
-    label=models.ManyToManyField(string)
+    effect=models.CharField(string)
+    label=models.CharField(string)
     
 class SpellVarsDto(models.Model):
-    #Data de los spells
-    coeff=models.ManyToManyField(double)
-    dyn=models.CharField(u'')
-    keyslink=models.CharField(u'')
-    link=models.CharField(u'')
-    ranksWith=models.CharField(u'')
+    #Data de los spells	
+    coeff=models.CharField(double)
+    dyn=models.CharField(u'Si el spell tiene daño dinamico, especifica si el daño aumenta(+) o diminuye(-)')
+    keyslink=models.CharField(u'Key del spell')
+    link=models.CharField(u'Link del spell, donde se especifica si tiene un daño estatico o dinamico(que depende de otra variable)')
+    ranksWith=models.CharField(u'Variable rara que solo tiene karma(value=KarmaMantra)')
     
 class BlockDto(models.Model):
     #Datos de los items recomendados
-    items=models.ManyToManyField(BlockItemDto)
-    recMath=models.BooleanGield(u'')
-    type=models.CharField(u'')
+    items=models.CharField(BlockItemDto)
+    recMath=models.BooleanGield(u'Item con "Unica Pasiva"')
+    exType=models.CharField(u'Tipo de los items')
     
 class BlockItemDto(models.Model):
-    count=models.IntegerField(u'')
-    id=models.IntegerField(u'')
+    count=models.IntegerField(u'Cantidad de el item a comprar')
+    exId=models.IntegerField(u'ID del item')   
