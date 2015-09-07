@@ -19,6 +19,7 @@ este no es obligatorio, pero si se quisiese acceder directamente a una sección,
 
 #NOMBRES E INFORMACIÓN POR PÁGINA
 se muestran elementos que debe haber necesariamente en cada página, si es necesario algunas propiedades y descripción también
+
 ##NAV
 - logo de la página
 - alerta del servidor
@@ -29,10 +30,12 @@ se muestran elementos que debe haber necesariamente en cada página, si es neces
 - combobox para seleccionar server de busqueda
 - botón para buscar
 - botón para loguearse
+
 ##FOOTER
 - logo de riot
 - informaciono de que no estamos relacionados a riot
 - botones facebook-twitter-google+
+
 ##PERFIL
 *summoner info*
 - imagen baner del champion mas usado
@@ -41,7 +44,6 @@ se muestran elementos que debe haber necesariamente en cada página, si es neces
 - imagen de la liga actual del sumoner
 - liga actual del sumoner (ej:Silver IV)
 - server del summoner
-- ranking en el server
 - prom kda (8.8/2.4/9.2)
 - kda
 - porcentaje de victorias
