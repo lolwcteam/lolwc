@@ -38,27 +38,30 @@ se muestran elementos que debe haber necesariamente en cada página, si es neces
 
 ##PERFIL
 *summoner info*
-- imagen baner del champion mas usado
-- imagen del summoner
-- nombre del summoner
-- imagen de la liga actual del sumoner
-- liga actual del sumoner (ej:Silver IV)
-- server del summoner
-- prom kda (8.8/2.4/9.2)
-- kda
-- porcentaje de victorias
+- imagen baner del champion mas usado: mostPlayedChamp_banner_img
+- imagen del summoner: summoner_img
+- nombre del summoner: summoner_name
+- imagen de la liga actual del sumoner: summoner_league_img
+- liga actual del sumoner (ej:Silver IV): summoner_league_name
+- server del summoner: summoner_server
+- prom kills: summoner_kills
+- prom deaths: summoner_deaths
+- prom assists: summoner_assist
+- kda: summoner_kda_ratio
+- porcentaje de victorias: summoner_winrate
 
 *most played champ info*
-- nombre (riven)
-- cantidad de jugadas
-- cantidad de victorias
-- cantidad de derrotas
-- kda
-- prom kills
-- prom deaths
-- prom asssists
-- prom creeps
-- prom gold
+- imagen (icono): mostPlayedChamp_icon_img
+- nombre: mostPlayedChamp_name
+- cantidad de jugada: mostPlayedChamp_matches_count
+- cantidad de victorias: mostPlayedChamp_matches_win_count
+- cantidad de derrotas: mostPlayedChamp_matches_loose_count 
+- kda: mostPlayedChamp_kda_coefiecient
+- prom kills: mostPlayedChamp_kills
+- prom deaths: mostPlayedChamp_deaths
+- prom asssists: mostPlayedChamp_assist
+- prom creeps: mostPlayedChamp_cs
+- prom gold: mostPlayedChamp_gold
 
 *free week champs*
 lista de
