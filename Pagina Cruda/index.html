@@ -7,10 +7,16 @@
         <link rel="stylesheet" type="text/css" href="css/style.css"/>
         <link rel="stylesheet" type="text/css" href="css/pestana.css"/>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
+        <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+        <script type="text/javascript" src="js/materialize.min.js"></script>
+        <script>
+            $(function() {
+                $( "#tabs" ).tabs();
+            });
+        </script>
     </head>
     <body>
-        <script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
-        <script type="text/javascript" src="js/materialize.min.js"></script>
         <header>
             <nav>
                 <div class="nav-wrapper color_nav">
@@ -48,9 +54,9 @@
                     </div>
                     <div id="summoner-data_div_2">
                         <span id="summoner_kills">0</span>
-                        <span class="blue_caract">/</span>
+                        <span class="blue_caract"> / </span>
                         <span id="summoner_deaths">0</span>
-                        <span class="blue_caract">/</span>
+                        <span class="blue_caract"> / </span>
                         <span id="summoner_assist">0</span><br>
                         <span>KDA: </span><span id="summoner_kda_ratio">0</span><br>
                         <span>WinRate: </span><span id="summoner_winrate">0</span><span class="blue_caract">%</span><br>
@@ -64,9 +70,9 @@
                 <img id="mostPlayedChamp_icon_img" src="img/champion_face.png"/>
                 <span id="mostPlayedChamp_name">Heimerdinger</span><br>
                 <div id="champion-data">
-                    <span class="blue_caract">Partidas: </span><span class="assist" id="mostPlayedChamp_matches_count">0</span><br>
-                    <span class="blue_caract">Ganadas: </span><span class="win" id="mostPlayedChamp_matches_win_count">0</span><br>
-                    <span class="blue_caract">Perdidas: </span><span class="death" id="mostPlayedChamp_matches_loose_count">0</span><br>
+                    <span class="assist">Partidas: </span><span class="assist" id="mostPlayedChamp_matches_count">0</span><br>
+                    <span class="win">Ganadas: </span><span class="win" id="mostPlayedChamp_matches_win_count">0</span><br>
+                    <span class="death">Perdidas: </span><span class="death" id="mostPlayedChamp_matches_loose_count">0</span>
                 </div>
                 <div id="champion-data-2">  
                     <span id="mostPlayedChamp_kills">0</span><span class="blue_caract"> / </span>
@@ -81,14 +87,28 @@
             </div>
 
             <div class="content_summoner">
-                <div id="pestanas">
+                <div id="tabs">
                     <ul id="pestanas_opciones">
-                        <li><a href="#"><img src="img/profile.svg" class="img" draggable="false"></li>
-                        <li><a href="#"><img src="img/league.svg"  class="img" draggable="false"></li>
-                        <li><a href="#"><img src="img/spells.svg" class="img" draggable="false"></li>
-                        <li><a href="#"><img src="img/chat.svg" class="img" draggable="false"></li>
+                        <li id="profile"><img src="img/profile.svg" class="img" draggable="false"/></li>
+                        <li id="league"><img src="img/league.svg"  class="img" draggable="false"/></li>
+                        <li><img src="img/spells.svg" class="img" draggable="false"/></li>
+                        <li><img src="img/chat.svg" class="img" draggable="false"/></li>
                     </ul>
+
+                    <div id="tabs-1">
+                        <p>Adriel</p>
+                    </div>
+                    <div id="tabs-2">
+                        <p>Adriel Adriel</p>
+                    </div>
+                    <div id="tabs-3">
+                        <p>Adriel</p>
+                    </div>
+                    <div id="tabs-4">
+                        <p>Adriel Adriel</p>
+                    </div>
                 </div>
+
             </div>
         </div>
 
