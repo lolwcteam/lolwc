@@ -2,6 +2,7 @@ from django.db import models
 #Las variables que estaban reservadas cambiaron su nombre por: "ex" + "NOMBREdeVARIABLE"
 #Las variables son: format=exFormat, type=exType, id=exId, range=exRange, vars=exVars, map=exMap
 #Tareas por terminar estan Taggeadas como #TODO
+#Los FloatField seran rellenados con valores del tipo "double"
 
 class AggregatedStatsDto(models.Model):
     averageAssists=models.IntegerField(u'') # Dominion only.
@@ -62,14 +63,15 @@ class AggregatedStatsDto(models.Model):
     totalUnrealKills=models.IntegerField(u'')
 
 class BannedChampion(models.Model):
-    championId=models.IntegerField(u'') # Banned champion ID
-    pickTurn=models.IntegerField(u'') # Turn during which the champion was banned
+#Campeones baneados
+    championId=models.IntegerField(u'Id del campeon banneado')
+    pickTurn=models.IntegerField(u'Turno en el que fue banneado')
 
 class BannedChampions(models.Model):
-#PJ baneados en X match
-    championId=models.BigIntegerField(u'Id del Pj baneado')
-    pickTurn=models.IntegerField(u'El turno en el que el pj fue baneado')
-    teamId=models.BigIntegerField(u'Id del equipo que baneo el Pj')
+#Campeones baneados en X match
+    championId=models.BigIntegerField(u'Id del campeon baneado')
+    pickTurn=models.IntegerField(u'El turno en el que el campeon fue baneado')
+    teamId=models.BigIntegerField(u'Id del equipo que baneo el campeon')
 
 class BasicDataDto(models.Model):
     colloq=models.CharField(u'')
@@ -82,18 +84,18 @@ class BasicDataDto(models.Model):
     group=models.CharField(u'')
     hideFromAll=models.BooleanField(u'')
     exId=models.IntegerField(u'')
-    image ImageDto#TODO
+    image=#TODO#ImageDto
     inStore=models.BooleanField(u'')
     into=models.TextField(u'')#Lista en JSON compuesta de valores tipo string
     maps=models.TextField(u'')#Map en JSON compuesta de valores de los siguientes tipos: string, boolean
     name=models.CharField(u'')
     plaintext=models.CharField(u'')
     requiredChampion=models.CharField(u'')
-    rune MetaDataDto#TODO
+    rune=#TODO#MetaDataDto
     sanitizedDescription=models.CharField(u'')
     specialRecipe=models.IntegerField(u'')
     stacks=models.IntegerField(u'')
-    stats BasicDataStatsDto#TODO
+    stats=#TODO#BasicDataStatsDto
     tags=models.TextField(u'')#Lista en JSON compuesta de valores tipo string
 
 class BasicDataStatsDto(models.Model):
@@ -161,7 +163,7 @@ class BasicDataStatsDto(models.Model):
     rPercentMagicPenetrationModPerLevel=models.FloatField(u'')
     rPercentMovementSpeedModPerLevel=models.FloatField(u'')
     rPercentTimeDeadMod=models.FloatField(u'')
-    rPercentTimeDeadModPerLevel double
+    rPercentTimeDeadModPerLevel=models.FloatField(u'')
 
 class BlockDto(models.Model):
 #Datos de los items recomendados
@@ -179,7 +181,7 @@ class ChampionListDto(models.Model):
 
 class ChampionStatsDto(models.Model):
     exId=models.IntegerField(u'') # Champion ID. Note that champion ID 0 represents the combined stats for all champions. For static information correlating to champion IDs, please refer to the LoL Static Data API.
-    stats AggregatedStatsDto#TODO # Aggregated stats associated with the champion.
+    stats=#TODO#AggregatedStatsDto # Aggregated stats associated with the champion.
 
 class ChampionsDto(models.Model):
     active=models.BooleanField(u'')
@@ -255,7 +257,7 @@ class Event(models.Model):
     monsterType=models.CharField(u'') # The monster type of the event. Only present if relevant. (Legal values: BARON_NASHOR, BLUE_GOLEM, DRAGON, RED_LIZARD, VILEMAW)
     participantId=models.IntegerField(u'') # The participant ID of the event. Only present if relevant.
     pointCaptured=models.CharField(u'') # The point captured in the event. Only present if relevant. (Legal values: POINT_A, POINT_B, POINT_C, POINT_D, POINT_E)
-    position Position#TODO # The position of the event. Only present if relevant.
+    position=#TODO#Position # The position of the event. Only present if relevant.
     skillSlot=models.IntegerField(u'') # The skill slot of the event. Only present if relevant.
     teamId=models.IntegerField(u'') # The team ID of the event. Only present if relevant.
     timestamp=models.BigIntegerField(u'') # Represents how many milliseconds into the game the event occurred.
@@ -325,7 +327,6 @@ class ImageDto(models.Model):
     w=models.IntegerField(u'')
     x=models.IntegerField(u'')
     y=models.IntegerField(u'')
-
 
 class Incident(models.Model):
     active=models.BooleanField(u'')
@@ -545,9 +546,9 @@ class Participant(models.Model):
     runes=models.TextField(u'')#Lista en JSON compuesta de valores tipo Rune List of rune information
     spell1Id=models.IntegerField(u'') # First summoner spell ID
     spell2Id=models.IntegerField(u'') # Second summoner spell ID
-    stats ParticipantStats#TODO # Participant statistics
+    stats=#TODO#ParticipantStats# Participant statistics
     teamId=models.IntegerField(u'') # Team ID
-    timeline ParticipantTimeline#TODO # Timeline data. Delta fields refer to values for the specified period (e.g., the gold per minute over the first 10 minutes of the game versus the second 20 minutes of the game. Diffs fields refer to the deltas versus the calculated lane opponent(s).
+    timeline=#TODO#ParticipantTimeline # Timeline data. Delta fields refer to values for the specified period (e.g., the gold per minute over the first 10 minutes of the game versus the second 20 minutes of the game. Diffs fields refer to the deltas versus the calculated lane opponent(s).
 
 class ParticipantFrame(models.Model):
     currentGold=models.IntegerField(u'') # Participant's current gold
@@ -556,7 +557,7 @@ class ParticipantFrame(models.Model):
     level=models.IntegerField(u'') # Participant's current level
     minionsKilled=models.IntegerField(u'') # Number of minions killed by participant
     participantId=models.IntegerField(u'') # Participant ID
-    position Position#TODO # Participant's position
+    position=#TODO#Position # Participant's position
     teamScore=models.IntegerField(u'') # Team score of the participant
     totalGold=models.IntegerField(u'') # Participant's total gold
     xp=models.IntegerField(u'') # Experience earned by participant
@@ -689,7 +690,7 @@ class PlayerHistory(models.Model):
 
 
 class PlayerStatsSummaryDto(models.Model):
-    aggregatedStats AggregatedStatsDto#TODO # Aggregated stats.
+    aggregatedStats=#TODO#AggregatedStatsDto# Aggregated stats.
     losses=models.IntegerField(u'') # Number of losses for this queue type. Returned for ranked queue types only.
     modifyDate=models.BigIntegerField(u'') # Date stats were last modified specified as epoch milliseconds.
     playerStatSummaryType=models.CharField(u'') # Player stats summary type. (Legal values: AramUnranked5x5, Ascension, CAP5x5, CoopVsAI, CoopVsAI3x3, CounterPick, FirstBlood1x1, FirstBlood2x2, Hexakill, KingPoro, NightmareBot, OdinUnranked, OneForAll5x5, RankedPremade3x3, RankedPremade5x5, RankedSolo5x5, RankedTeam3x3, RankedTeam5x5, SummonersRift6x6, Unranked, Unranked3x3, URF, URFBots, Bilgewater)
@@ -835,18 +836,18 @@ class RuneDto(models.Model):
     group=models.CharField(u'')
     hideFromAll=models.BooleanField(u'')
     exId=models.IntegerField(u'')
-    image ImageDto#TODO
+    image=#TODO#ImageDto
     inStore=models.BooleanField(u'')
     into=models.TextField(u'')#Lista en JSON compuesta de valores tipo string
     maps=models.TextField(u'')#Map en JSON compuesta de valores de los siguientes tipos: string, boolean
     name=models.CharField(u'')
     plaintext=models.CharField(u'')
     requiredChampion=models.CharField(u'')
-    rune MetaDataDto#TODO
+    rune=#TODO#MetaDataDto
     sanitizedDescription=models.CharField(u'')
     specialRecipe=models.IntegerField(u'')
     stacks=models.IntegerField(u'')
-    stats BasicDataStatsDto#TODO
+    stats=#TODO#BasicDataStatsDto
     tags=models.TextField(u'')#Lista en JSON compuesta de valores tipo string
 
 class RuneListDto(models.Model):
@@ -859,10 +860,10 @@ class RunePageDto(models.Model):
     current=models.BooleanField(u'') # Indicates if the page is the current page.
     exId=models.BigIntegerField(u'') # Rune page ID.
     name=models.CharField(u'') # Rune page name.
-    slots=#TODO#Set#RuneSlotDto # Collection of rune slots associated with the rune page.
+    slots=#TODO#SET#RuneSlotDto # Collection of rune slots associated with the rune page.
 
 class RunePagesDto(models.Model):
-    pages=#TODO#Set#RunePageDto # Collection of rune pages associated with the summoner.
+    pages=#TODO#SET#RunePageDto # Collection of rune pages associated with the summoner.
     summonerId=models.BigIntegerField(u'') # Summoner ID.
 
 class RuneSlotDto(models.Model):
@@ -989,13 +990,13 @@ class SummonerSpellDto(models.Model):
     effect=models.TextField(u'')#Lista en JSON compuesta de valores tipo object # This field is a List of List of Double.
     effectBurn=models.TextField(u'')#Lista en JSON compuesta de valores tipo string
     exId=models.IntegerField(u'')
-    image ImageDto#TODO
+    image=#TODO#ImageDto
     key=models.CharField(u'')
-    leveltip LevelTipDto#TODO
+    leveltip=#TODO#LevelTipDto
     maxrank=models.IntegerField(u'')
     modes=models.TextField(u'')#Lista en JSON compuesta de valores tipo string
     name=models.CharField(u'')
-    exRange object#TODO #This field is either a List of Integer or the String 'self' for spells that target one's own champion.
+    exRange=#TODO#object #This field is either a List of Integer or the String 'self' for spells that target one's own champion.
     rangeBurn=models.CharField(u'')
     resource=models.CharField(u'')
     sanitizedDescription=models.CharField(u'')
