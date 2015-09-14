@@ -1,30 +1,30 @@
 from django.db import models
 #Las variables que estaban reservadas cambiaron su nombre por: "ex" + "NOMBREdeVARIABLE"
 #Las variables son:   format=exFormat, type=exType, id=exId, range=exRange, vars=exVars, map=exMap
+#Tareas por terminar estan Taggeadas como #TODO
 
-#####################################################################################################
-class Champions(models.Model):
-#lista de todos los pj    
-    botEnabled = models.BooleanField(u'Puede usarlo un bot en customs')
-    active = models.BooleanField(u'Esta activado')
-    botMmEnabled = models.BooleanField(u'Puede ser un bot en Coop vs IA')
-    freeToPlay = models.BooleanField(u'En rotacion semanal')
-    idChampion = models.BigIntegerField(u'id')
-    rankedPlayEnabled = models.BooleanField(u'puede ser elegido en ranked')
+class ChampionListDto(models.Model):
+    champions=models.TextField(u'')#Lista en JSON compuesta de valores tipo ChampionDto
 
-#####################################################################################################
-class CurrentGame(models.Model):
-#Informacion de X match
-    bannedChampions=models.CharField(BannedChampions)
+class ChampionsDto(models.Model):
+    active=models.BooleanField(u'')
+    botEnabled=models.BooleanField(u'')
+    botMmEnabled=models.BooleanField(u'')
+    freeToPlay=models.BooleanField(u'')
+    exId=models.BigIntegerField(u'')
+    rankedPlayEnabled=models.BooleanField(u'')
+class CurrentGameInfo(models.Model):
+    #Informacion de X match
+    bannedChampions=models.TextField(u'')#Lista en JSON compuesta de valores tipo BannedChampions
     gameId=models.BigIntegerField(u'Id del Partido')
     gameLength=models.BigIntegerField(u'Cuantos Segundos lleva durando')
     gameMode=models.CharField(u'Modo(CLASSIC, ODIN, ARAM, TUTORIAL, ONEFORALL, ASCENSION, FIRSTBLOOD, KINGPORO)')
-    gameQueueConfigId=models.BigIntegerField(u'Tipo de partida(RANKED_SOLO_5x5, RANKED_TEAM_3x3, RANKED_TEAM_5x5)')#The queue type (queue types are documented on the Game Constants page)
+    gameQueueConfigId=models.BigIntegerField(u'Tipo de partida(RANKED_SOLO_5x5, RANKED_TEAM_3x3, RANKED_TEAM_5x5)')
     gameStartTime=models.BigIntegerField(u'Hora de inicio en milisegundos')
     gameType=models.CharField(u'Tipo de Juego(CUSTOM_GAME, MATCHED_GAME, TUTORIAL_GAME)')
     mapId=models.BigIntegerField(u'Id del mapa')
-    observers=models.CharField(Observer)
-    participants=models.CharField(CurrentGameParicipant)
+    observers=#TODO#Observer
+    participants=models.TextField(u'')#Lista en JSON compuesta de valores tipo CurrentGameParicipant  
     platformId=models.CharField(u'Id de la plataforma en la que esta siendo jugado')
 
 class BannedChampions(models.Model):
@@ -37,9 +37,9 @@ class CurrentGameParticipant(models.Model):
 #Info de un jugador en X match
     bot=models.BooleanField(u'Es un bot')
     championId=models.BigIntegerField(u'Id del jugador')
-    masteries=models.CharField(Mastery)
+    masteries=models.TextField(u'')#Lista en JSON compuesta de valores tipo Mastery
     profileIconId=models.BigIntegerField(u'Id del icono de invocador que esta usando')
-    runes=models.CharField(Rune)
+    runes=models.TextField(u'')#Lista en JSON compuesta de valores tipo Rune
     spell1Id=models.BigIntegerField(u'Id del Summoner Spell 1')
     spell2Id=models.BigIntegerField(u'Id del Summoner Spell 2')
     summonerId=models.BigIntegerField(u'Id del jugador')
@@ -57,19 +57,17 @@ class Rune(models.Model):
     count=models.IntegerField(u'Cantidad de copias de esta runa')
 
 class Observer(models.Model):
-#Espectador
+    #Espectador
     encryptionKey=models.CharField(u'Key used to decrypt the spectator grid game data for playback')
-
-#####################################################################################################
 
 class FeaturedGames(models.Model):
 #Juegos Importantes
     clientRefreshInterval=models.BigIntegerField(u'Tiempo de espera antes de  actualizar los juegos importantes')
-    gameList=models.CharField(FeaturedGameInfo)
+    gameList=models.TextField(u'')#Lista en JSON compuesta de valores tipo FeaturedGameInfo
 
 class FeaturedGamesInfo(models.Model):
 #Datos de los juegos Importantes
-    bannedChampions=models.CharField(BannedChampions)
+    bannedChampions=models.TextField(u'')#Lista en JSON compuesta de valores tipo BannedChampions
     gameId=models.BigIntegerField(u'Id del Partido')
     gameLength=models.BigIntegerField(u'Cuantos Segundos lleva durando')
     gameMode=models.CharField(u'Modo(CLASSIC, ODIN, ARAM, TUTORIAL, ONEFORALL, ASCENSION, FIRSTBLOOD, KINGPORO)')
@@ -78,21 +76,19 @@ class FeaturedGamesInfo(models.Model):
     gameType=models.CharField(u'Tipo de Juego(CUSTOM_GAME, MATCHED_GAME, TUTORIAL_GAME)')
     mapId=models.BigIntegerField(u'Id del mapa')
     observers=models.CharField(Observer)
-    participants=models.CharField(CurrentGameParicipant)
+    participants=models.TextField(u'')#Lista en JSON compuesta de valores tipo CurrentGameParicipant
     platformId=models.CharField(u'Id de la plataforma en la que esta siendo jugado')
-
-#####################################################################################################
 
 class RecentGamesDto(models.Model):
 #Juegos recientes de X jugador
-    games=models.CharField(GameDto)
+    games=#TODO#SET#GameDto
     summonerId=models.BigIntegerField(u'Id del jugador')
 
 class GameDto(models.Model):
 #Informacion de los juegos recientes de X jugador
     championId=models.IntegerField(u'Id del Pj usado')
     createDate=models.BigIntegerField(u'Fecha en la que se grabo los datos del final del partido')
-    fellowPlayers=models.CharField(PlayerDto)
+    fellowPlayers=models.TextField(u'')#Lista en JSON compuesta de valores tipo PlayerDto
     gameId=models.models.BigIntegerField(u'Id de la partida')
     gameMode=models.CharField(u'Modo(CLASSIC, ODIN, ARAM, TUTORIAL, ONEFORALL, ASCENSION, FIRSTBLOOD, KINGPORO)')
     gameType=models.CharField(u'Tipo de Juego(CUSTOM_GAME, MATCHED_GAME, TUTORIAL_GAME)')
@@ -102,7 +98,7 @@ class GameDto(models.Model):
     mapId=models.IntegerField(u'Id del mapa')
     spell1=models.IntegerField(u'Id del Summoner Spell 1')
     spell2=models.IntegerField(u'Id del Summoner Spell 2')
-    stats=models.OneToOneField(RawStatsDto)#KDA y otros datos
+    stats=#TODO#RawStatsDto
     subType=models.CharField(u'SubTipo de partida(NONE, NORMAL, BOT, RANKED_SOLO_5x5, RANKED_PREMADE_3x3, RANKED_PREMADE_5x5, ODIN_UNRANKED, RANKED_TEAM_3x3, RANKED_TEAM_5x5, NORMAL_3x3, BOT_3x3, CAP_5x5, ARAM_UNRANKED_5x5, ONEFORALL_5x5, FIRSTBLOOD_1x1, FIRSTBLOOD_2x2, SR_6x6, URF, URF_BOT, NIGHTMARE_BOT, ASCENSION, HEXAKILL, KING_PORO, COUNTER_PICK, BILGEWATER)'),
     teamId=models.IntegerField(u'Id del lado en el que jugaba (100=Blue, 200=Purple)')
     
@@ -192,12 +188,10 @@ class RawStatsDto(models.Model):
     wardKilled=models.IntegerField(u'Wards destruidos')
     wardPlaced=models.IntegerField(u'Wards colocados')
     win=models.BooleanField(u'Partida ganada')
-    
-#####################################################################################################
 
 class LeagueDto(models.Model):
     #INFO de la liga
-    entries=models.CharField(LeagueEntryDto)
+    entries=models.TextField(u'')#Lista en JSON compuesta de valores tipo LeagueEntryDto
     name=models.CharField(u'Nombre expresado del jugador en esta liga')
     participantId=models.CharField(u'Id del perteneciente a esta liga (Sea un team o un jugador)')
     queue=models.CharField(u'Tipo de juego(RANKED_SOLO_5x5, RANKED_TEAM_3x3, RANKED_TEAM_5x5)')
@@ -212,7 +206,7 @@ class LeagueEntryDto(models.Model):
     isVeteran=models.BooleanField(u'Especifica si es un veterano en la liga')
     leaguePoints=models.IntegerField(u'Puntos en la liga')
     losses=models.IntegerField(u'Derrotas')
-    miniSeries=models.OneToOneField(MiniSeriesDto)
+    miniSeries=#TODO#MiniSeriesDto
     playerOrTeamId=models.CharField(u'Id del jugador o del team')
     playerOrTeamName=models.CharField(u'Nombre del jugador o del team')
     wins=models.IntegerField(u'Victorias')
@@ -223,22 +217,20 @@ class MiniSeriesDto(models.Model):
     progress=models.CharField(u'Muestra la promocion actual (W=Victoria L=Derrota N=Falta Jugar)')
     target=models.IntegerField(u'Numero de victorias necesarias para promocionar')
     wins=models.IntegerField(u'Numero de partidas que ganó en promo')
-    
-#####################################################################################################
-
+                                    
 class ChampionListDto(models.Model):
     #Lista de la INFO de los campeones
-    data=REFERENCIARaMAP(string,ChampionDto)
+    data=models.TextField(u'')#Map en JSON compuesta de valores de los siguientes tipos: string,ChampionDto
     exFormat=models.CharField(u'Formato')
-    keys=REFERENCIARaMAP(string,string)
+    keys=models.TextField(u'')#Map en JSON compuesta de valores de los siguientes tipos: string,string
     exType=models.CharField(u'Qué está enlistado')
     version=models.CharField(u'Version de la Info')
     
 class ChampionsDto(models.Model):
     #Datos del campeon
-    allytips=models.CharField(string)#Tips para los aliados del Pj
+    allytips=models.TextField(u'')#Lista en JSON compuesta de valores tipo string
     blurb=models.CharField(u'')
-    enemytips=models.CharField(string)#Tips para los enemigos del Pj
+    enemytips=models.TextField(u'')#Lista en JSON compuesta de valores tipo string
     exId=models.IntegerField(u'Id del Pj')
     image=models.OneToOneField(ImageDto)
     info=models.OneToOneField(InfoDto)
@@ -246,37 +238,37 @@ class ChampionsDto(models.Model):
     lore=models.CharField(u'Historia del Pj')
     name=models.CharField(u'Nombre del Pj')
     partype=models.CharField(u'Qué tiene en la segunda barra(Heat, Mana, Energy, None, Battlefury; los campeones que usan vida para pagar el coste de sus habilidades figuran como "partype:None")')
-    passive=models.OneToOneField(PassiveDto)
-    recommended=models.CharField(RecommendedDto)
-    skins=models.CharField(SkinDto)
-    spells=models.CharField(ChampionSpellDto)
+    passive=#TODO#PassiveDto
+    recommended=models.TextField(u'')#Lista en JSON compuesta de valores tipo RecommendedDto
+    skins=models.TextField(u'')#Lista en JSON compuesta de valores tipo SkinDto
+    spells=models.TextField(u'')#Lista en JSON compuesta de valores tipo ChampionSpellDto
     stats=models.OneToOneField(StatsDto)
-    tags=models.CharField(string)#Roles que puede cumplir el Pj
+    tags=models.TextField(u'')#Lista en JSON compuesta de valores tipo string     #   Roles que puede cumplir el Pj
     title=models.CharField(u'Titulo del Pj')
     
 class ChampionsSpellDto(models.Model):
     #INFO de los spells
-    altimages=models.CharField(ImageDto)
-    cooldown=models.CharField(double)
+    altimages=models.TextField(u'')#Lista en JSON compuesta de valores tipo ImageDto
+    cooldown=models.TextField(u'')#Lista en JSON compuesta de valores tipo double
     cooldownBurn=models.CharField(u'Cooldown a travez de los niveles de la habilidad')
-    cost=models.CharField(int)
+    cost=models.TextField(u'')#Lista en JSON compuesta de valores tipo int
     costBurn=models.CharField(u'Coste de Energia/Mana/Furia/Heat  (no incluye coste de vida)')
     costType=models.CharField(u'Tipo de Coste pofcurrentHealth(vida)/Energia/Mana/Furia/Heat(calor)')
     description=models.CharField(u'Descripcion de la habilidad')
-    effect=models.CharField(object)
-    effectBurn=models.CharField(string)
-    image=models.OneToOneField(ImageDto)
+    effect=models.TextField(u'')#Lista en JSON compuesta de valores tipo object       #   This field is a List of List of Double.
+    effectBurn=models.TextField(u'')#Lista en JSON compuesta de valores tipo string
+    image=#TODO#ImageDto
     key=models.CharField(u'Key de la habilidad')
-    leveltip=models.OneToOneField(LevelTipDto)
+    leveltip=#TODO#LevelTipDto
     maxrank=models.IntegerField(u'Nivel maximo de la habilidad')
     name=models.CharField(u'Nombre de la habilidad')
-    exRange=models.OBJECTO(u'Lista con los rango de la habilidad(This field is either a List of Integer or the String ''self'' for spells that target ones own champion)')
+    exRange=#TODO#Object        #   This field is either a List of Integer or the String 'self' for spells that target one's own champion.
     rangeBurn=models.CharField(u'Rango a travez de los niveles de la habilidad')
     resource=models.CharField(u'Muestra el coste de la habilidad, obteniendolo desde la variable "cost"')
     sanitizedTooltip=models.CharField(u'Funcion concreta de la habilidad')
     sanitizedDescription=models.CharField(u'Descripcion concreta de lo que hace la habilidad')
     tooltip=models.CharField(u'Funcion de la habilidad')
-    exVars=models.CharField(SpellsVarDto)
+    exVars=#TODO#SpellsVarDto
     
     
 class ImageDto(models.Model)
@@ -299,13 +291,13 @@ class InfoDto(models.Model):
 class PassiveDto(models.Model):
     #Datos de la pasiva del campeon
     description=models.CharField(u'Descripcion')
-    image=models.OneToOneField(ImageDto)#Icono de la pasiva
+    image=models.TextField(u'')#Lista en JSON compuesta de valores tipo ImageDto
     name=models.CharField(u'Nombre de la pasiva')
     sanitizedDescription=models.CharField(u'Descripcion concreta')
     
 class RecommendedDto(models.Model):
     #Data de las recomendaciones para los campeones
-    blockseffectBurn=models.CharField(BlockDto)
+    blocks=models.TextField(u'')#Lista en JSON compuesta de valores tipo BlockDto
     champion=models.CharField(u'Nombre del Campeon')
     exMap=models.CharField(u'Mapa')
     mode=models.CharField(u'Modo en el que se recomiendan(CLASSIC, ARAM, etc)')
@@ -319,7 +311,7 @@ class SkinDto(models.Model):
     name=models.CharField(u'Nombre de la skin')
     num=models.IntegerField(u'Numero de skin de este Pj(Default=0)')
     
-class StatsDto (models.Model):#Estos Valores deberian ser Double
+class StatsDto (models.Model):
     #Data de las estadisticas del campeon
     armor=models.FloatField(u'Armadura')
     armorperlevel=models.FloatField(u'Armadura ganada por nivel')
@@ -341,12 +333,12 @@ class StatsDto (models.Model):#Estos Valores deberian ser Double
     
 class LevelTipDto(models.Model):
     #This object contains champion level tip data.
-    effect=models.CharField(string)
-    label=models.CharField(string)
+    effect=models.TextField(u'')#Lista en JSON compuesta de valores tipo string
+    label=models.TextField(u'')#Lista en JSON compuesta de valores tipo string
     
 class SpellVarsDto(models.Model):
     #Data de los spells	
-    coeff=models.CharField(double)
+    coeff=models.TextField(u'')#Lista en JSON compuesta de valores tipo double
     dyn=models.CharField(u'Si el spell tiene daño dinamico, especifica si el daño aumenta(+) o diminuye(-)')
     keyslink=models.CharField(u'Key del spell')
     link=models.CharField(u'Link del spell, donde se especifica si tiene un daño estatico o dinamico(que depende de otra variable)')
@@ -354,1156 +346,1110 @@ class SpellVarsDto(models.Model):
     
 class BlockDto(models.Model):
     #Datos de los items recomendados
-    items=models.CharField(BlockItemDto)
+    items=models.TextField(u'')#Lista en JSON compuesta de valores tipo BlockItemDto
     recMath=models.BooleanGield(u'Item con "Unica Pasiva"')
     exType=models.CharField(u'Tipo de los items')
     
 class BlockItemDto(models.Model):
     count=models.IntegerField(u'Cantidad de el item a comprar')
-    exId=models.IntegerField(u'ID del item')   
-
-#####################################################################################################
-
+    exId=models.IntegerField(u'ID del item')  
+                                    
 class ItemListDto(models.Model):
-    basic	BasicDataDto	
-    data	Map[string, ItemDto]
-    groups	List[GroupDto]
-    tree	List[ItemTreeDto]
-    exType	string	
-    version	string
+    basic	BasicDataDto#TODO
+    data=models.TextField(u'')#Map en JSON compuesta de valores de los siguientes tipos: string, ItemDto
+    groups=models.TextField(u'')#Lista en JSON compuesta de valores tipo GroupDto
+    tree=models.TextField(u'')#Lista en JSON compuesta de valores tipo ItemTreeDto
+    exType=models.CharField(u'')
+    version=models.CharField(u'')
     
 class BasicDataDto(models.Model):
-    colloq	string	
-    consumeOnFull	boolean	
-    consumed	boolean	
-    depth	int	
-    description	string	
-    exFrom	List[string]	
-    gold	GoldDto	Data Dragon includes the gold field for basic data, which is shared by both rune and item. However, only items have a gold field on them, representing their gold cost in the store. Since runes are not sold in the store, they have no gold cost.
-    group	string	
-    hideFromAll	boolean	
-    exId	int	
-    image	ImageDto	
-    inStore	boolean	
-    into	List[string]	
-    maps	Map[string, boolean]	
-    name	string	
-    plaintext	string	
-    requiredChampion	string	
-    rune	MetaDataDto	
-    sanitizedDescription	string	
-    specialRecipe	int	
-    stacks	int	
-    stats	BasicDataStatsDto	
-    tags	List[string]
+    colloq=models.CharField(u'')
+    consumeOnFull=models.BooleanField(u'')
+    consumed=models.BooleanField(u'')
+    depth=models.IntegerField(u'')
+    description=models.CharField(u'')
+    exFrom=models.TextField(u'')#Lista en JSON compuesta de valores tipo string
+    gold=#TODO#GoldDto       #Data Dragon includes the gold field for basic data, which is shared by both rune and item. However, only items have a gold field on them, representing their gold cost in the store. Since runes are not sold in the store, they have no gold cost.
+    group=models.CharField(u'')
+    hideFromAll=models.BooleanField(u'')
+    exId=models.IntegerField(u'')
+    image	ImageDto#TODO
+    inStore=models.BooleanField(u'')
+    into=models.TextField(u'')#Lista en JSON compuesta de valores tipo string
+    maps=models.TextField(u'')#Map en JSON compuesta de valores de los siguientes tipos: string, boolean
+    name=models.CharField(u'')
+    plaintext=models.CharField(u'')
+    requiredChampion=models.CharField(u'')
+    rune	MetaDataDto#TODO
+    sanitizedDescription=models.CharField(u'')
+    specialRecipe=models.IntegerField(u'')
+    stacks=models.IntegerField(u'')
+    stats	BasicDataStatsDto#TODO	
+    tags=models.TextField(u'')#Lista en JSON compuesta de valores tipo string
     
 class GroupDto(models.Model):
-    MaxGroupOwnable	string	
-    key	string
+    MaxGroupOwnable=models.CharField(u'')
+    key=models.CharField(u'')
     
 class ItemDto(models.Model):
-    colloq	string	
-    consumeOnFull	boolean	
-    consumed	boolean	
-    depth	int	
-    description	string	
-    effect	Map[string, string]	
-    from	List[string]	
-    gold	GoldDto	Data Dragon includes the gold field for basic data, which is shared by both rune and item. However, only items have a gold field on them, representing their gold cost in the store. Since runes are not sold in the store, they have no gold cost.
-    group	string	
-    hideFromAll	boolean	
-    id	int	
-    image	ImageDto	
-    inStore	boolean	
-    into	List[string]	
-    maps	Map[string, boolean]	
-    name	string	
-    plaintext	string	
-    requiredChampion	string	
-    rune	MetaDataDto	
-    sanitizedDescription	string	
-    specialRecipe	int	
-    stacks	int	
-    stats	BasicDataStatsDto	
-    tags	List[string]
+    colloq=models.CharField(u'')
+    consumeOnFull=models.BooleanField(u'')
+    consumed=models.BooleanField(u'')
+    depth=models.IntegerField(u'')
+    description=models.CharField(u'')
+    effect=models.TextField(u'')#Map en JSON compuesta de valores de los siguientes tipos: string, string
+    exFrom=models.TextField(u'')#Lista en JSON compuesta de valores tipo string
+    gold=#TODO#GoldDto       #Data Dragon includes the gold field for basic data, which is shared by both rune and item. However, only items have a gold field on them, representing their gold cost in the store. Since runes are not sold in the store, they have no gold cost.
+    group=models.CharField(u'')
+    hideFromAll=models.BooleanField(u'')
+    exId=models.IntegerField(u'')
+    image=#TODO#ImageDto
+    inStore=models.BooleanField(u'')
+    into=models.TextField(u'')#Lista en JSON compuesta de valores tipo string
+    maps=models.TextField(u'')#Map en JSON compuesta de valores de los siguientes tipos: string, boolean
+    name=models.CharField(u'')
+    plaintext=models.CharField(u'')
+    requiredChampion=models.CharField(u'')
+    rune=#TODO#MetaDataDto
+    sanitizedDescription=models.CharField(u'')
+    specialRecipe=models.IntegerField(u'')
+    stacks=models.IntegerField(u'')
+    stats=#TODO#BasicDataStatsDto
+    tags=models.TextField(u'')#Lista en JSON compuesta de valores tipo string
     
 class ItemTreeDto(models.Model):
-    header	string	
-    tags	List[string]
+    header=models.CharField(u'')
+    tags=models.TextField(u'')#Lista en JSON compuesta de valores tipo string
     
 class BasicDataStatsDto(models.Model):
-    FlatArmorMod	double	
-    FlatAttackSpeedMod	double	
-    FlatBlockMod	double	
-    FlatCritChanceMod	double	
-    FlatCritDamageMod	double	
-    FlatEXPBonus	double	
-    FlatEnergyPoolMod	double	
-    FlatEnergyRegenMod	double	
-    FlatHPPoolMod	double	
-    FlatHPRegenMod	double	
-    FlatMPPoolMod	double	
-    FlatMPRegenMod	double	
-    FlatMagicDamageMod	double	
-    FlatMovementSpeedMod	double	
-    FlatPhysicalDamageMod	double	
-    FlatSpellBlockMod	double	
-    PercentArmorMod	double	
-    PercentAttackSpeedMod	double	
-    PercentBlockMod	double	
-    PercentCritChanceMod	double	
-    PercentCritDamageMod	double	
-    PercentDodgeMod	double	
-    PercentEXPBonus	double	
-    PercentHPPoolMod	double	
-    PercentHPRegenMod	double	
-    PercentLifeStealMod	double	
-    PercentMPPoolMod	double	
-    PercentMPRegenMod	double	
-    PercentMagicDamageMod	double	
-    PercentMovementSpeedMod	double	
-    PercentPhysicalDamageMod	double	
-    PercentSpellBlockMod	double	
-    PercentSpellVampMod	double	
-    rFlatArmorModPerLevel	double	
-    rFlatArmorPenetrationMod	double	
-    rFlatArmorPenetrationModPerLevel	double	
-    rFlatCritChanceModPerLevel	double	
-    rFlatCritDamageModPerLevel	double	
-    rFlatDodgeMod	double	
-    rFlatDodgeModPerLevel	double	
-    rFlatEnergyModPerLevel	double	
-    rFlatEnergyRegenModPerLevel	double	
-    rFlatGoldPer10Mod	double	
-    rFlatHPModPerLevel	double	
-    rFlatHPRegenModPerLevel	double	
-    rFlatMPModPerLevel	double	
-    rFlatMPRegenModPerLevel	double	
-    rFlatMagicDamageModPerLevel	double	
-    rFlatMagicPenetrationMod	double	
-    rFlatMagicPenetrationModPerLevel	double	
-    rFlatMovementSpeedModPerLevel	double	
-    rFlatPhysicalDamageModPerLevel	double	
-    rFlatSpellBlockModPerLevel	double	
-    rFlatTimeDeadMod	double	
-    rFlatTimeDeadModPerLevel	double	
-    rPercentArmorPenetrationMod	double	
-    rPercentArmorPenetrationModPerLevel	double	
-    rPercentAttackSpeedModPerLevel	double	
-    rPercentCooldownMod	double	
-    rPercentCooldownModPerLevel	double	
-    rPercentMagicPenetrationMod	double	
-    rPercentMagicPenetrationModPerLevel	double	
-    rPercentMovementSpeedModPerLevel	double	
-    rPercentTimeDeadMod	double	
+    FlatArmorMod=models.FloatField(u'')
+    FlatAttackSpeedMod=models.FloatField(u'')
+    FlatBlockMod=models.FloatField(u'')
+    FlatCritChanceMod=models.FloatField(u'')
+    FlatCritDamageMod=models.FloatField(u'')
+    FlatEXPBonus=models.FloatField(u'')
+    FlatEnergyPoolMod=models.FloatField(u'')
+    FlatEnergyRegenMod=models.FloatField(u'')
+    FlatHPPoolMod=models.FloatField(u'')
+    FlatHPRegenMod=models.FloatField(u'')
+    FlatMPPoolMod=models.FloatField(u'')
+    FlatMPRegenMod=models.FloatField(u'')
+    FlatMagicDamageMod=models.FloatField(u'')
+    FlatMovementSpeedMod=models.FloatField(u'')
+    FlatPhysicalDamageMod=models.FloatField(u'')
+    FlatSpellBlockMod=models.FloatField(u'')
+    PercentArmorMod=models.FloatField(u'')
+    PercentAttackSpeedMod=models.FloatField(u'')
+    PercentBlockMod=models.FloatField(u'')
+    PercentCritChanceMod=models.FloatField(u'')
+    PercentCritDamageMod=models.FloatField(u'')
+    PercentDodgeMod=models.FloatField(u'')
+    PercentEXPBonus=models.FloatField(u'')
+    PercentHPPoolMod=models.FloatField(u'')
+    PercentHPRegenMod=models.FloatField(u'')
+    PercentLifeStealMod=models.FloatField(u'')
+    PercentMPPoolMod=models.FloatField(u'')
+    PercentMPRegenMod=models.FloatField(u'')
+    PercentMagicDamageMod=models.FloatField(u'')
+    PercentMovementSpeedMod=models.FloatField(u'')
+    PercentPhysicalDamageMod=models.FloatField(u'')
+    PercentSpellBlockMod=models.FloatField(u'')
+    PercentSpellVampMod=models.FloatField(u'')
+    rFlatArmorModPerLevel=models.FloatField(u'')
+    rFlatArmorPenetrationMod=models.FloatField(u'')
+    rFlatArmorPenetrationModPerLevel=models.FloatField(u'')
+    rFlatCritChanceModPerLevel=models.FloatField(u'')
+    rFlatCritDamageModPerLevel=models.FloatField(u'')
+    rFlatDodgeMod=models.FloatField(u'')
+    rFlatDodgeModPerLevel=models.FloatField(u'')
+    rFlatEnergyModPerLevel=models.FloatField(u'')
+    rFlatEnergyRegenModPerLevel=models.FloatField(u'')
+    rFlatGoldPer10Mod=models.FloatField(u'')
+    rFlatHPModPerLevel=models.FloatField(u'')
+    rFlatHPRegenModPerLevel=models.FloatField(u'')
+    rFlatMPModPerLevel=models.FloatField(u'')
+    rFlatMPRegenModPerLevel=models.FloatField(u'')
+    rFlatMagicDamageModPerLevel=models.FloatField(u'')
+    rFlatMagicPenetrationMod=models.FloatField(u'')
+    rFlatMagicPenetrationModPerLevel=models.FloatField(u'')
+    rFlatMovementSpeedModPerLevel=models.FloatField(u'')
+    rFlatPhysicalDamageModPerLevel=models.FloatField(u'')
+    rFlatSpellBlockModPerLevel=models.FloatField(u'')
+    rFlatTimeDeadMod=models.FloatField(u'')
+    rFlatTimeDeadModPerLevel=models.FloatField(u'')
+    rPercentArmorPenetrationMod=models.FloatField(u'')
+    rPercentArmorPenetrationModPerLevel=models.FloatField(u'')
+    rPercentAttackSpeedModPerLevel=models.FloatField(u'')
+    rPercentCooldownMod=models.FloatField(u'')
+    rPercentCooldownModPerLevel=models.FloatField(u'')
+    rPercentMagicPenetrationMod=models.FloatField(u'')
+    rPercentMagicPenetrationModPerLevel=models.FloatField(u'')
+    rPercentMovementSpeedModPerLevel=models.FloatField(u'')
+    rPercentTimeDeadMod=models.FloatField(u'')
     rPercentTimeDeadModPerLevel    double
     
 class GoldDto(models.Model):
-    base	int	
-    purchasable	boolean	
-    sell	int	
-    total	int
+    base=models.IntegerField(u'')
+    purchasable=models.BooleanField(u'')
+    sell=models.IntegerField(u'')
+    total=models.IntegerField(u'')
     
 class ImageDto(models.Model):
-    full	string	
-    group	string	
-    h	int	
-    sprite	string	
-    w	int	
-    x	int	
-    y	int
+    full=models.CharField(u'')
+    group=models.CharField(u'')
+    h=models.IntegerField(u'')
+    sprite=models.CharField(u'')
+    w=models.IntegerField(u'')
+    x=models.IntegerField(u'')
+    y=models.IntegerField(u'')
     
 class MetaDataDto(models.Model):
-    isRune	boolean	
-    tier	string	
-    exType	string
-    
-#####################################################################################################
-
+    isRune=models.BooleanField(u'')
+    tier=models.CharField(u'')
+    exType=models.CharField(u'')
+                                 
 class LanguageStringsDto(models.Model):
-    data	Map[string, string]	
-    exType	string	
-    version	string
-    
-#####################################################################################################
-#PARTE DE LA API SIN BASE DE DATOS.............GET /api/lol/static-data/{region}/v1.2/languages    
-#####################################################################################################
-
+    data=models.TextField(u'')#Map en JSON compuesta de valores de los siguientes tipos: string, string
+    exType=models.CharField(u'')
+    version=models.CharField(u'')
+                                    
 class MapDataDto(models.Model):
-    data	Map[string, MapDetailsDto]	
-    exType	string	
-    version	string
+    data=models.TextField(u'')#Map en JSON compuesta de valores de los siguientes tipos: string, MapDetailsDto
+    exType=models.CharField(u'')
+    version=models.CharField(u'')
     
 class MapDetailsDto(models.Model):
-    image	ImageDto	
-    mapId	long	
-    mapName	string	
-    unpurchasableItemList	List[long]
+    image=models.TextField(u'')#Map en JSON compuesta de valores de los siguientes tipos: ImageDto
+    mapId=models.BigIntegerField(u'')
+    mapName=models.CharField(u'')
+    unpurchasableItemList=models.TextField(u'')#Lista en JSON compuesta de valores tipo long
     
 class ImageDto(models.Model):
-    full	string	
-    group	string	
-    h	int	
-    sprite	string	
-    w	int	
-    x	int	
-    y	int
-    
-#####################################################################################################
+    full=models.CharField(u'')
+    group=models.CharField(u'')
+    h=models.IntegerField(u'')
+    sprite=models.CharField(u'')
+    w=models.IntegerField(u'')
+    x=models.IntegerField(u'')
+    y=models.IntegerField(u'')
 
 class MasteryListDto(models.Model):
-    data	Map[string, MasteryDto]	
-    tree	MasteryTreeDto	
-    exType	string	
-    version	string
+    datamodels.TextField(u'')#Map en JSON compuesta de valores de los siguientes tipos: string, MasteryDto
+    tree#TODO#MasteryTreeDto
+    exType=models.CharField(u'')
+    version=models.CharField(u'')
 
 class MasteryDto(models.Model):
-    description	List[string]	
-    exId	int	
-    image	ImageDto	
-    masteryTree	string	Legal values: Defense, Offense, Utility
-    name	string	
-    prereq	string	
-    ranks	int	
-    sanitizedDescription	List[string]
+    description=models.TextField(u'')#Lista en JSON compuesta de valores tipo string
+    exId=models.IntegerField(u'')
+    image	ImageDto#TODO
+    masteryTree=models.CharField(u'')       #	Legal values: Defense, Offense, Utility
+    name=models.CharField(u'')
+    prereq=models.CharField(u'')
+    ranks=models.IntegerField(u'')
+    sanitizedDescription=models.TextField(u'')#Lista en JSON compuesta de valores tipo string
     
 class MasteryTreeDto(models.Model):
-    Defense	List[MasteryTreeListDto]	
-    Offense	List[MasteryTreeListDto]	
-    Utility	List[MasteryTreeListDto]
+    Defense=models.TextField(u'')#Lista en JSON compuesta de valores tipo MasteryTreeListDto
+    Offense=models.TextField(u'')#Lista en JSON compuesta de valores tipo MasteryTreeListDto
+    Utility=models.TextField(u'')#Lista en JSON compuesta de valores tipo MasteryTreeListDto
     
 class ImageDto(models.Model):
-    full	string	
-    group	string	
-    h	int	
-    sprite	string	
-    w	int	
-    x	int	
-    y	int
+    full=models.CharField(u'')
+    group=models.CharField(u'')
+    h=models.IntegerField(u'')
+    sprite=models.CharField(u'')
+    w=models.IntegerField(u'')
+    x=models.IntegerField(u'')
+    y=models.IntegerField(u'')
     
 class MasteryTreeListDto(models.Model):
-    masteryTreeItems	List[MasteryTreeItemDto]
+    masteryTreeItems=models.TextField(u'')#Lista en JSON compuesta de valores tipo MasteryTreeItemDto
     
 class MasteryTreeItemDto(models.Model):
-    masteryId	int	
-    prereq	string
+    masteryId=models.IntegerField(u'')
+    prereq=models.CharField(u'')
     
-#####################################################################################################
-
 class RealmDto(models.Model):
-    cdn	string	The base CDN url.
-    css	string	Latest changed version of Dragon Magic's css file.
-    dd	string	Latest changed version of Dragon Magic.
-    l	string	Default language for this realm.
-    lg	string	Legacy script mode for IE6 or older.
-    n	Map[string, string]	Latest changed version for each data type listed.
-    profileiconmax	int	Special behavior number identifying the largest profileicon id that can be used under 500. Any profileicon that is requested between this number and 500 should be mapped to 0.
-    store	string	Additional api data drawn from other sources that may be related to data dragon functionality.
-    v	string	Current version of this file for this realm.    
+    cdn=models.CharField(u'')       #	The base CDN url
+    css=models.CharField(u'')       #	Latest changed version of Dragon Magic's css file
+    dd=models.CharField(u'')        #	Latest changed version of Dragon Magic
+    l=models.CharField(u'')     #	Default language for this realm
+    lg=models.CharField(u'')        #	Legacy script mode for IE6 or older
+    n=models.TextField(u'')#Map en JSON compuesta de valores de los siguientes tipos: string, string   #   Latest changed version for each data type listed.
+    profileiconmax=models.IntegerField(u'')     #	Special behavior number identifying the largest profileicon id that can be used under 500. Any profileicon that is requested between this number and 500 should be mapped to 0.
+    store=models.CharField(u'')     #	Additional api data drawn from other sources that may be related to data dragon functionality.
+    v=models.CharField(u'')     #	Current version of this file for this realm.    
     
-#####################################################################################################
-
 class RuneListDto(models.Model):
     basic	BasicDataDto	
-    data	Map[string, RuneDto]	
-    exType	string	
-    version	string
+    data=models.TextField(u'')#Map en JSON compuesta de valores de los siguientes tipos: string, RuneDto
+    exType=models.CharField(u'')
+    version=models.CharField(u'')
 
 class BasicDataDto(models.Model):
-    colloq	string	
-    consumeOnFull	boolean	
-    consumed	boolean	
-    depth	int	
-    description	string	
-    exFrom	List[string]	
-    gold	GoldDto	Data Dragon includes the gold field for basic data, which is shared by both rune and item. However, only items have a gold field on them, representing their gold cost in the store. Since runes are not sold in the store, they have no gold cost.
-    group	string	
-    hideFromAll	boolean	
-    exId	int	
-    image	ImageDto	
-    inStore	boolean	
-    into	List[string]	
-    maps	Map[string, boolean]	
-    name	string	
-    plaintext	string	
-    requiredChampion	string	
+    colloq=models.CharField(u'')
+    consumeOnFull=models.BooleanField(u'')
+    consumed=models.BooleanField(u'')
+    depth=models.IntegerField(u'')
+    description=models.CharField(u'')
+    exFrom=models.TextField(u'')#Lista en JSON compuesta de valores tipo string	
+    gold	GoldDto#TODO       #   Data Dragon includes the gold field for basic data, which is shared by both rune and item. However, only items have a gold field on them, representing their gold cost in the store. Since runes are not sold in the store, they have no gold cost.
+    group=models.CharField(u'')
+    hideFromAll=models.BooleanField(u'')
+    exId=models.IntegerField(u'')
+    image	ImageDto#TODO
+    inStore=models.BooleanField(u'')
+    into=models.TextField(u'')#Lista en JSON compuesta de valores tipo string
+    maps=models.TextField(u'')#Map en JSON compuesta de valores de los siguientes tipos: string, boolean
+    name=models.CharField(u'')
+    plaintext=models.CharField(u'')
+    requiredChampion=models.CharField(u'')
     rune	MetaDataDto	
-    sanitizedDescription	string	
-    specialRecipe	int	
-    stacks	int	
+    sanitizedDescription=models.CharField(u'')
+    specialRecipe=models.IntegerField(u'')
+    stacks=models.IntegerField(u'')
     stats	BasicDataStatsDto	
-    tags	List[string]
+    tags=models.TextField(u'')#Lista en JSON compuesta de valores tipo string
 
 class RuneDto(models.Model):
-    colloq	string	
-    consumeOnFull	boolean	
-    consumed	boolean	
-    depth	int	
-    description	string	
-    exFrom	List[string]	
-    group	string	
-    hideFromAll	boolean	
-    exId	int	
-    image	ImageDto	
-    inStore	boolean	
-    into	List[string]	
-    maps	Map[string, boolean]	
-    name	string	
-    plaintext	string	
-    requiredChampion	string	
-    rune	MetaDataDto	
-    sanitizedDescription	string	
-    specialRecipe	int	
-    stacks	int	
-    stats	BasicDataStatsDto	
-    tags	List[string]
+    colloq=models.CharField(u'')
+    consumeOnFull=models.BooleanField(u'')
+    consumed=models.BooleanField(u'')
+    depth=models.IntegerField(u'')
+    description=models.CharField(u'')
+    exFrom=models.TextField(u'')#Lista en JSON compuesta de valores tipo string
+    group=models.CharField(u'')
+    hideFromAll=models.BooleanField(u'')
+    exId=models.IntegerField(u'')
+    image	ImageDto#TODO	
+    inStore=models.BooleanField(u'')
+    into=models.TextField(u'')#Lista en JSON compuesta de valores tipo string
+    maps=models.TextField(u'')#Map en JSON compuesta de valores de los siguientes tipos: string, boolean
+    name=models.CharField(u'')
+    plaintext=models.CharField(u'')
+    requiredChampion=models.CharField(u'')
+    rune	MetaDataDto#TODO
+    sanitizedDescription=models.CharField(u'')
+    specialRecipe=models.IntegerField(u'')
+    stacks=models.IntegerField(u'')
+    stats	BasicDataStatsDto#TODO
+    tags=models.TextField(u'')#Lista en JSON compuesta de valores tipo string
 
 class BasicDataStatsDto(models.Model):
-    FlatArmorMod	double	
-    FlatAttackSpeedMod	double	
-    FlatBlockMod	double	
-    FlatCritChanceMod	double	
-    FlatCritDamageMod	double	
-    FlatEXPBonus	double	
-    FlatEnergyPoolMod	double	
-    FlatEnergyRegenMod	double	
-    FlatHPPoolMod	double	
-    FlatHPRegenMod	double	
-    FlatMPPoolMod	double	
-    FlatMPRegenMod	double	
-    FlatMagicDamageMod	double	
-    FlatMovementSpeedMod	double	
-    FlatPhysicalDamageMod	double	
-    FlatSpellBlockMod	double	
-    PercentArmorMod	double	
-    PercentAttackSpeedMod	double	
-    PercentBlockMod	double	
-    PercentCritChanceMod	double	
-    PercentCritDamageMod	double	
-    PercentDodgeMod	double	
-    PercentEXPBonus	double	
-    PercentHPPoolMod	double	
-    PercentHPRegenMod	double	
-    PercentLifeStealMod	double	
-    PercentMPPoolMod	double	
-    PercentMPRegenMod	double	
-    PercentMagicDamageMod	double	
-    PercentMovementSpeedMod	double	
-    PercentPhysicalDamageMod	double	
-    PercentSpellBlockMod	double	
-    PercentSpellVampMod	double	
-    rFlatArmorModPerLevel	double	
-    rFlatArmorPenetrationMod	double	
-    rFlatArmorPenetrationModPerLevel	double	
-    rFlatCritChanceModPerLevel	double	
-    rFlatCritDamageModPerLevel	double	
-    rFlatDodgeMod	double	
-    rFlatDodgeModPerLevel	double	
-    rFlatEnergyModPerLevel	double	
-    rFlatEnergyRegenModPerLevel	double	
-    rFlatGoldPer10Mod	double	
-    rFlatHPModPerLevel	double	
-    rFlatHPRegenModPerLevel	double	
-    rFlatMPModPerLevel	double	
-    rFlatMPRegenModPerLevel	double	
-    rFlatMagicDamageModPerLevel	double	
-    rFlatMagicPenetrationMod	double	
-    rFlatMagicPenetrationModPerLevel	double	
-    rFlatMovementSpeedModPerLevel	double	
-    rFlatPhysicalDamageModPerLevel	double	
-    rFlatSpellBlockModPerLevel	double	
-    rFlatTimeDeadMod	double	
-    rFlatTimeDeadModPerLevel	double	
-    rPercentArmorPenetrationMod	double	
-    rPercentArmorPenetrationModPerLevel	double	
-    rPercentAttackSpeedModPerLevel	double	
-    rPercentCooldownMod	double	
-    rPercentCooldownModPerLevel	double	
-    rPercentMagicPenetrationMod	double	
-    rPercentMagicPenetrationModPerLevel	double	
-    rPercentMovementSpeedModPerLevel	double	
-    rPercentTimeDeadMod	double	
-    rPercentTimeDeadModPerLevel	double
+    FlatArmorMod=models.FloatField(u'')
+    FlatAttackSpeedMod=models.FloatField(u'')
+    FlatBlockMod=models.FloatField(u'')
+    FlatCritChanceMod=models.FloatField(u'')
+    FlatCritDamageMod=models.FloatField(u'')
+    FlatEXPBonus=models.FloatField(u'')
+    FlatEnergyPoolMod=models.FloatField(u'')
+    FlatEnergyRegenMod=models.FloatField(u'')
+    FlatHPPoolMod=models.FloatField(u'')
+    FlatHPRegenMod=models.FloatField(u'')
+    FlatMPPoolMod=models.FloatField(u'')
+    FlatMPRegenMod=models.FloatField(u'')
+    FlatMagicDamageMod=models.FloatField(u'')
+    FlatMovementSpeedMod=models.FloatField(u'')
+    FlatPhysicalDamageMod=models.FloatField(u'')
+    FlatSpellBlockMod=models.FloatField(u'')
+    PercentArmorMod=models.FloatField(u'')
+    PercentAttackSpeedMod=models.FloatField(u'')
+    PercentBlockMod=models.FloatField(u'')
+    PercentCritChanceMod=models.FloatField(u'')
+    PercentCritDamageMod=models.FloatField(u'')
+    PercentDodgeMod=models.FloatField(u'')
+    PercentEXPBonus=models.FloatField(u'')
+    PercentHPPoolMod=models.FloatField(u'')
+    PercentHPRegenMod=models.FloatField(u'')
+    PercentLifeStealMod=models.FloatField(u'')
+    PercentMPPoolMod=models.FloatField(u'')
+    PercentMPRegenMod=models.FloatField(u'')
+    PercentMagicDamageMod=models.FloatField(u'')
+    PercentMovementSpeedMod=models.FloatField(u'')
+    PercentPhysicalDamageMod=models.FloatField(u'')
+    PercentSpellBlockMod=models.FloatField(u'')
+    PercentSpellVampMod=models.FloatField(u'')
+    rFlatArmorModPerLevel=models.FloatField(u'')
+    rFlatArmorPenetrationMod=models.FloatField(u'')
+    rFlatArmorPenetrationModPerLevel=models.FloatField(u'')
+    rFlatCritChanceModPerLevel=models.FloatField(u'')
+    rFlatCritDamageModPerLevel=models.FloatField(u'')
+    rFlatDodgeMod=models.FloatField(u'')
+    rFlatDodgeModPerLevel=models.FloatField(u'')
+    rFlatEnergyModPerLevel=models.FloatField(u'')
+    rFlatEnergyRegenModPerLevel=models.FloatField(u'')
+    rFlatGoldPer10Mod=models.FloatField(u'')
+    rFlatHPModPerLevel=models.FloatField(u'')
+    rFlatHPRegenModPerLevel=models.FloatField(u'')
+    rFlatMPModPerLevel=models.FloatField(u'')
+    rFlatMPRegenModPerLevel=models.FloatField(u'')
+    rFlatMagicDamageModPerLevel=models.FloatField(u'')
+    rFlatMagicPenetrationMod=models.FloatField(u'')
+    rFlatMagicPenetrationModPerLevel=models.FloatField(u'')
+    rFlatMovementSpeedModPerLevel=models.FloatField(u'')
+    rFlatPhysicalDamageModPerLevel=models.FloatField(u'')
+    rFlatSpellBlockModPerLevel=models.FloatField(u'')
+    rFlatTimeDeadMod=models.FloatField(u'')
+    rFlatTimeDeadModPerLevel=models.FloatField(u'')
+    rPercentArmorPenetrationMod=models.FloatField(u'')
+    rPercentArmorPenetrationModPerLevel=models.FloatField(u'')
+    rPercentAttackSpeedModPerLevel=models.FloatField(u'')
+    rPercentCooldownMod=models.FloatField(u'')
+    rPercentCooldownModPerLevel=models.FloatField(u'')
+    rPercentMagicPenetrationMod=models.FloatField(u'')
+    rPercentMagicPenetrationModPerLevel=models.FloatField(u'')
+    rPercentMovementSpeedModPerLevel=models.FloatField(u'')
+    rPercentTimeDeadMod=models.FloatField(u'')
+    rPercentTimeDeadModPerLevel=models.FloatField(u'')
 
 class GoldDto(models.Model):
-    base	int	
-    purchasable	boolean	
-    sell	int	
-    total	int
+    base=models.IntegerField(u'')
+    purchasable=models.BooleanField(u'')
+    sell=models.IntegerField(u'')
+    total=models.IntegerField(u'')
 
 class ImageDto(models.Model):
-    full	string	
-    group	string	
-    h	int	
-    sprite	string	
-    w	int	
-    x	int	
-    y	int
+    full=models.CharField(u'')
+    group=models.CharField(u'')
+    h=models.IntegerField(u'')
+    sprite=models.CharField(u'')
+    w=models.IntegerField(u'')
+    x=models.IntegerField(u'')
+    y=models.IntegerField(u'')
 
 class MetaDataDto(models.Model):
-    isRune	boolean	
-    tier	string	
-    exType	string
-
-#####################################################################################################
+    isRune=models.BooleanField(u'')
+    tier=models.CharField(u'')
+    exType=models.CharField(u'')
 
 class SummonerSpellListDto(models.Model):
-    data	Map[string, SummonerSpellDto]	
-    exType	string	
-    version	string
+    data=models.TextField(u'')#Map en JSON compuesta de valores de los siguientes tipos: string, SummonerSpellDto
+    exType=models.CharField(u'')
+    version=models.CharField(u'')
 
 class SummonerSpellDto(models.Model):
-    cooldown	List[double]	
-    cooldownBurn	string	
-    cost	List[int]	
-    costBurn	string	
-    costType	string	
-    description	string	
-    effect	List[object]	This field is a List of List of Double.
-    effectBurn	List[string]	
-    exId	int	
-    image	ImageDto	
-    key	string	
-    leveltip	LevelTipDto	
-    maxrank	int	
-    modes	List[string]	
-    name	string	
-    exRange	object	This field is either a List of Integer or the String 'self' for spells that target one's own champion.
-    rangeBurn	string	
-    resource	string	
-    sanitizedDescription	string	
-    sanitizedTooltip	string	
-    summonerLevel	int	
-    tooltip	string	
-    exVars	List[SpellVarsDto]
+    cooldown=models.TextField(u'')#Lista en JSON compuesta de valores tipo double
+    cooldownBurn=models.CharField(u'')
+    cost=models.TextField(u'')#Lista en JSON compuesta de valores tipo int
+    costBurn=models.CharField(u'')
+    costType=models.CharField(u'')
+    description=models.CharField(u'')
+    effect=models.TextField(u'')#Lista en JSON compuesta de valores tipo object      #   This field is a List of List of Double.
+    effectBurn=models.TextField(u'')#Lista en JSON compuesta de valores tipo string
+    exId=models.IntegerField(u'')
+    image	ImageDto#TODO	
+    key=models.CharField(u'')
+    leveltip	LevelTipDto#TODO
+    maxrank=models.IntegerField(u'')
+    modes=models.TextField(u'')#Lista en JSON compuesta de valores tipo string
+    name=models.CharField(u'')
+    exRange	object#TODO     #This field is either a List of Integer or the String 'self' for spells that target one's own champion.
+    rangeBurn=models.CharField(u'')
+    resource=models.CharField(u'')
+    sanitizedDescription=models.CharField(u'')
+    sanitizedTooltip=models.CharField(u'')
+    summonerLevel=models.IntegerField(u'')
+    tooltip=models.CharField(u'')
+    exVars=models.TextField(u'')#Lista en JSON compuesta de valores tipo SpellVarsDto
 
 class ImageDto(models.Model):
-    full	string	
-    group	string	
-    h	int	
-    sprite	string	
-    w	int	
-    x	int	
-    y	int
+    full=models.CharField(u'')
+    group=models.CharField(u'')
+    h=models.IntegerField(u'')
+    sprite=models.CharField(u'')
+    w=models.IntegerField(u'')
+    x=models.IntegerField(u'')
+    y=models.IntegerField(u'')
 
 class LevelTipDto(models.Model):
-    effect	List[string]	
-    label	List[string]
+    effect=models.TextField(u'')#Lista en JSON compuesta de valores tipo string
+    label=models.TextField(u'')#Lista en JSON compuesta de valores tipo string
 
 class SpellVarsDto(models.Model):
-    coeff	List[double]	
-    dyn	string	
-    key	string	
-    link	string	
-    ranksWith	string
-
-    
-#####################################################################################################
-#PARTE DE LA API SIN BASE DE DATOS.............GET /api/lol/static-data/{region}/v1.2/versions    
-#####################################################################################################
-
+    coeff=models.TextField(u'')#Lista en JSON compuesta de valores tipo double
+    dyn=models.CharField(u'')
+    key=models.CharField(u'')
+    link=models.CharField(u'')
+    ranksWith=models.CharField(u'')
+ 
 class Shard(models.Model):
-    hostname	string	
-    locales	List[string]	
-    name	string	
-    region_tag	string	
-    slug	string
-
-#####################################################################################################
+    hostname=models.CharField(u'')
+    locales=models.TextField(u'')#Lista en JSON compuesta de valores tipo string
+    name=models.CharField(u'')
+    region_tag=models.CharField(u'')
+    slug=models.CharField(u'')
 
 class ShardStatus(models.Model):
-    hostname	string	
-    locales	List[string]	
-    name	string	
-    region_tag	string	
-    services	List[Service]	
-    slug	string
+    hostname=models.CharField(u'')
+    locales=models.TextField(u'')#Lista en JSON compuesta de valores tipo string
+    name=models.CharField(u'')
+    region_tag=models.CharField(u'')
+    services=models.TextField(u'')#Lista en JSON compuesta de valores tipo Service
+    slug=models.CharField(u'')
 
 class Service(models.Model):
-    incidents	List[Incident]	
-    name	string	
-    slug	string	
-    status	string	Legal values: Online, Alert, Offline, Deploying
+    incidents=models.TextField(u'')#Lista en JSON compuesta de valores tipo Incident
+    name=models.CharField(u'')
+    slug=models.CharField(u'')
+    status=models.CharField(u'')        #	Legal values: Online, Alert, Offline, Deploying
 
 class Incident(models.Model):
-    active	boolean	
-    created_at	string	
-    exId	long	
-    updates	List[Message]
+    active=models.BooleanField(u'')
+    created_at=models.CharField(u'')
+    exId=models.BigIntegerField(u'')
+    updates=models.TextField(u'')#Lista en JSON compuesta de valores tipo Message
 
 class Message(models.Model):
-    author	string	
-    content	string	
-    created_at	string	
-    exId	long	
-    severity	string	Legal values: Info, Alert, Error
-    translations	List[Translation]	
-    updated_at	string
+    author=models.CharField(u'')
+    content=models.CharField(u'')
+    created_at=models.CharField(u'')
+    exId=models.BigIntegerField(u'')
+    severity=models.CharField(u'')      #	Legal values: Info, Alert, Error
+    translations=models.TextField(u'')#Lista en JSON compuesta de valores tipo Translation
+    updated_at=models.CharField(u'')
 
 class Translation(models.Model):
-    content	string	
-    locale	string	
-    updated_at	string
-
-#####################################################################################################
+    content=models.CharField(u'')
+    locale=models.CharField(u'')
+    updated_at=models.CharField(u'')
 
 class MatchDetail(models.Model):
-    mapId	int	Match map ID
-    matchCreation	long	Match creation time. Designates when the team select lobby is created and/or the match is made through match making, not when the game actually starts.
-    matchDuration	long	Match duration
-    matchId	long	ID of the match
-    matchMode	string	Match mode (Legal values: CLASSIC, ODIN, ARAM, TUTORIAL, ONEFORALL, ASCENSION, FIRSTBLOOD, KINGPORO)
-    matchType	string	Match type (Legal values: CUSTOM_GAME, MATCHED_GAME, TUTORIAL_GAME)
-    matchVersion	string	Match version
-    participantIdentities	List[ParticipantIdentity]	Participant identity information
-    participants	List[Participant]	Participant information
-    platformId	string	Platform ID of the match
-    queueType	string	Match queue type (Legal values: CUSTOM, NORMAL_5x5_BLIND, RANKED_SOLO_5x5, RANKED_PREMADE_5x5, BOT_5x5, NORMAL_3x3, RANKED_PREMADE_3x3, NORMAL_5x5_DRAFT, ODIN_5x5_BLIND, ODIN_5x5_DRAFT, BOT_ODIN_5x5, BOT_5x5_INTRO, BOT_5x5_BEGINNER, BOT_5x5_INTERMEDIATE, RANKED_TEAM_3x3, RANKED_TEAM_5x5, BOT_TT_3x3, GROUP_FINDER_5x5, ARAM_5x5, ONEFORALL_5x5, FIRSTBLOOD_1x1, FIRSTBLOOD_2x2, SR_6x6, URF_5x5, ONEFORALL_MIRRORMODE_5x5, BOT_URF_5x5, NIGHTMARE_BOT_5x5_RANK1, NIGHTMARE_BOT_5x5_RANK2, NIGHTMARE_BOT_5x5_RANK5, ASCENSION_5x5, HEXAKILL, BILGEWATER_ARAM_5x5, KING_PORO_5x5, COUNTER_PICK, BILGEWATER_5x5)
-    region	string	Region where the match was played
-    season	string	Season match was played (Legal values: PRESEASON3, SEASON3, PRESEASON2014, SEASON2014, PRESEASON2015, SEASON2015)
-    teams	List[Team]	Team information
-    timeline	Timeline	Match timeline data (not included by default)
+    mapId=models.IntegerField(u'')      #	Match map ID
+    matchCreation=models.BigIntegerField(u'')       #	Match creation time. Designates when the team select lobby is created and/or the match is made through match making, not when the game actually starts.
+    matchDuration=models.BigIntegerField(u'')       #	Match duration
+    matchId=models.BigIntegerField(u'')     #	ID of the match
+    matchMode=models.CharField(u'')     #	Match mode (Legal values: CLASSIC, ODIN, ARAM, TUTORIAL, ONEFORALL, ASCENSION, FIRSTBLOOD, KINGPORO)
+    matchType=models.CharField(u'')     #	Match type (Legal values: CUSTOM_GAME, MATCHED_GAME, TUTORIAL_GAME)
+    matchVersion=models.CharField(u'')      #	Match version
+    participantIdentities=models.TextField(u'')#Lista en JSON compuesta de valores tipo ParticipantIdentity	Participant identity information
+    participants=models.TextField(u'')#Lista en JSON compuesta de valores tipo Participant	Participant information
+    platformId=models.CharField(u'')        #	Platform ID of the match
+    queueType=models.CharField(u'')     #	Match queue type (Legal values: CUSTOM, NORMAL_5x5_BLIND, RANKED_SOLO_5x5, RANKED_PREMADE_5x5, BOT_5x5, NORMAL_3x3, RANKED_PREMADE_3x3, NORMAL_5x5_DRAFT, ODIN_5x5_BLIND, ODIN_5x5_DRAFT, BOT_ODIN_5x5, BOT_5x5_INTRO, BOT_5x5_BEGINNER, BOT_5x5_INTERMEDIATE, RANKED_TEAM_3x3, RANKED_TEAM_5x5, BOT_TT_3x3, GROUP_FINDER_5x5, ARAM_5x5, ONEFORALL_5x5, FIRSTBLOOD_1x1, FIRSTBLOOD_2x2, SR_6x6, URF_5x5, ONEFORALL_MIRRORMODE_5x5, BOT_URF_5x5, NIGHTMARE_BOT_5x5_RANK1, NIGHTMARE_BOT_5x5_RANK2, NIGHTMARE_BOT_5x5_RANK5, ASCENSION_5x5, HEXAKILL, BILGEWATER_ARAM_5x5, KING_PORO_5x5, COUNTER_PICK, BILGEWATER_5x5)
+    region=models.CharField(u'')        #	Region where the match was played
+    season=models.CharField(u'')        #	Season match was played (Legal values: PRESEASON3, SEASON3, PRESEASON2014, SEASON2014, PRESEASON2015, SEASON2015)
+    teams=models.TextField(u'')#Lista en JSON compuesta de valores tipo Team	Team information
+    timeline	Timeline#TODO      #   Match timeline data (not included by default)
 
 class Participant(models.Model):
-    championId	int	Champion ID
-    highestAchievedSeasonTier	string	Highest ranked tier achieved for the previous season, if any, otherwise null. Used to display border in game loading screen. (Legal values: CHALLENGER, MASTER, DIAMOND, PLATINUM, GOLD, SILVER, BRONZE, UNRANKED)
-    masteries	List[Mastery]	List of mastery information
-    participantId	int	Participant ID
-    runes	List[Rune]	List of rune information
-    spell1Id	int	First summoner spell ID
-    spell2Id	int	Second summoner spell ID
-    stats	ParticipantStats	Participant statistics
-    teamId	int	Team ID
-    timeline	ParticipantTimeline	Timeline data. Delta fields refer to values for the specified period (e.g., the gold per minute over the first 10 minutes of the game versus the second 20 minutes of the game. Diffs fields refer to the deltas versus the calculated lane opponent(s).
+    championId=models.IntegerField(u'')     #	Champion ID
+    highestAchievedSeasonTier=models.CharField(u'')     #	Highest ranked tier achieved for the previous season, if any, otherwise null. Used to display border in game loading screen. (Legal values: CHALLENGER, MASTER, DIAMOND, PLATINUM, GOLD, SILVER, BRONZE, UNRANKED)
+    masteries=models.TextField(u'')#Lista en JSON compuesta de valores tipo Mastery	List of mastery information
+    participantId=models.IntegerField(u'')      #	Participant ID
+    runes=models.TextField(u'')#Lista en JSON compuesta de valores tipo Rune	List of rune information
+    spell1Id=models.IntegerField(u'')       #	First summoner spell ID
+    spell2Id=models.IntegerField(u'')       #	Second summoner spell ID
+    stats	ParticipantStats#TODO     #   Participant statistics
+    teamId=models.IntegerField(u'')     #	Team ID
+    timeline	ParticipantTimeline#TODO       #   Timeline data. Delta fields refer to values for the specified period (e.g., the gold per minute over the first 10 minutes of the game versus the second 20 minutes of the game. Diffs fields refer to the deltas versus the calculated lane opponent(s).
 
 class ParticipantIdentity(models.Model):
-    participantId	int	Participant ID
-    player	Player	Player information
+    participantId=models.IntegerField(u'')      #	Participant ID
+    player	Player#TODO      #   Player information
 
 class Team(models.Model):
-    bans	List[BannedChampion]	If game was draft mode, contains banned champion data, otherwise null
-    baronKills	int	Number of times the team killed baron
-    dominionVictoryScore	long	If game was a dominion game, specifies the points the team had at game end, otherwise null
-    dragonKills	int	Number of times the team killed dragon
-    firstBaron	boolean	Flag indicating whether or not the team got the first baron kill
-    firstBlood	boolean	Flag indicating whether or not the team got first blood
-    firstDragon	boolean	Flag indicating whether or not the team got the first dragon kill
-    firstInhibitor	boolean	Flag indicating whether or not the team destroyed the first inhibitor
-    firstTower	boolean	Flag indicating whether or not the team destroyed the first tower
-    inhibitorKills	int	Number of inhibitors the team destroyed
-    teamId	int	Team ID
-    towerKills	int	Number of towers the team destroyed
-    vilemawKills	int	Number of times the team killed vilemaw
-    winner	boolean	Flag indicating whether or not the team won
+    bans=models.TextField(u'')#Lista en JSON compuesta de valores tipo BannedChampion	If game was draft mode, contains banned champion data, otherwise null
+    baronKills=models.IntegerField(u'')     #	Number of times the team killed baron
+    dominionVictoryScore=models.BigIntegerField(u'')        #	If game was a dominion game, specifies the points the team had at game end, otherwise null
+    dragonKills=models.IntegerField(u'')        #	Number of times the team killed dragon
+    firstBaron=models.BooleanField(u'')     #	Flag indicating whether or not the team got the first baron kill
+    firstBlood=models.BooleanField(u'')     #	Flag indicating whether or not the team got first blood
+    firstDragon=models.BooleanField(u'')        #	Flag indicating whether or not the team got the first dragon kill
+    firstInhibitor=models.BooleanField(u'')     #	Flag indicating whether or not the team destroyed the first inhibitor
+    firstTower=models.BooleanField(u'')     #	Flag indicating whether or not the team destroyed the first tower
+    inhibitorKills=models.IntegerField(u'')     #	Number of inhibitors the team destroyed
+    teamId=models.IntegerField(u'')     #	Team ID
+    towerKills=models.IntegerField(u'')     #	Number of towers the team destroyed
+    vilemawKills=models.IntegerField(u'')       #	Number of times the team killed vilemaw
+    winner=models.BooleanField(u'')     #	Flag indicating whether or not the team won
 
 class Timeline(models.Model):
-    frameInterval	long	Time between each returned frame in milliseconds.
-    frames	List[Frame]	List of timeline frames for the game.
+    frameInterval=models.BigIntegerField(u'')       #	Time between each returned frame in milliseconds.
+    frames=models.TextField(u'')#Lista en JSON compuesta de valores tipo Frame	List of timeline frames for the game.
 
 class Mastery(models.Model):
-    masteryId	long	Mastery ID
-    rank	long	Mastery rank
+    masteryId=models.BigIntegerField(u'')       #	Mastery ID
+    rank=models.BigIntegerField(u'')        #	Mastery rank
 
 class ParticipantStats(models.Model):
-    assists	long	Number of assists
-    champLevel	long	Champion level achieved
-    combatPlayerScore	long	If game was a dominion game, player's combat score, otherwise 0
-    deaths	long	Number of deaths
-    doubleKills	long	Number of double kills
-    firstBloodAssist	boolean	Flag indicating if participant got an assist on first blood
-    firstBloodKill	boolean	Flag indicating if participant got first blood
-    firstInhibitorAssist	boolean	Flag indicating if participant got an assist on the first inhibitor
-    firstInhibitorKill	boolean	Flag indicating if participant destroyed the first inhibitor
-    firstTowerAssist	boolean	Flag indicating if participant got an assist on the first tower
-    firstTowerKill	boolean	Flag indicating if participant destroyed the first tower
-    goldEarned	long	Gold earned
-    goldSpent	long	Gold spent
-    inhibitorKills	long	Number of inhibitor kills
-    item0	long	First item ID
-    item1	long	Second item ID
-    item2	long	Third item ID
-    item3	long	Fourth item ID
-    item4	long	Fifth item ID
-    item5	long	Sixth item ID
-    item6	long	Seventh item ID
-    killingSprees	long	Number of killing sprees
-    kills	long	Number of kills
-    largestCriticalStrike	long	Largest critical strike
-    largestKillingSpree	long	Largest killing spree
-    largestMultiKill	long	Largest multi kill
-    magicDamageDealt	long	Magical damage dealt
-    magicDamageDealtToChampions	long	Magical damage dealt to champions
-    magicDamageTaken	long	Magic damage taken
-    minionsKilled	long	Minions killed
-    neutralMinionsKilled	long	Neutral minions killed
-    neutralMinionsKilledEnemyJungle	long	Neutral jungle minions killed in the enemy team's jungle
-    neutralMinionsKilledTeamJungle	long	Neutral jungle minions killed in your team's jungle
-    nodeCapture	long	If game was a dominion game, number of node captures
-    nodeCaptureAssist	long	If game was a dominion game, number of node capture assists
-    nodeNeutralize	long	If game was a dominion game, number of node neutralizations
-    nodeNeutralizeAssist	long	If game was a dominion game, number of node neutralization assists
-    objectivePlayerScore	long	If game was a dominion game, player's objectives score, otherwise 0
-    pentaKills	long	Number of penta kills
-    physicalDamageDealt	long	Physical damage dealt
-    physicalDamageDealtToChampions	long	Physical damage dealt to champions
-    physicalDamageTaken	long	Physical damage taken
-    quadraKills	long	Number of quadra kills
-    sightWardsBoughtInGame	long	Sight wards purchased
-    teamObjective	long	If game was a dominion game, number of completed team objectives (i.e., quests)
-    totalDamageDealt	long	Total damage dealt
-    totalDamageDealtToChampions	long	Total damage dealt to champions
-    totalDamageTaken	long	Total damage taken
-    totalHeal	long	Total heal amount
-    totalPlayerScore	long	If game was a dominion game, player's total score, otherwise 0
-    totalScoreRank	long	If game was a dominion game, team rank of the player's total score (e.g., 1-5)
-    totalTimeCrowdControlDealt	long	Total dealt crowd control time
-    totalUnitsHealed	long	Total units healed
-    towerKills	long	Number of tower kills
-    tripleKills	long	Number of triple kills
-    trueDamageDealt	long	True damage dealt
-    trueDamageDealtToChampions	long	True damage dealt to champions
-    trueDamageTaken	long	True damage taken
-    unrealKills	long	Number of unreal kills
-    visionWardsBoughtInGame	long	Vision wards purchased
-    wardsKilled	long	Number of wards killed
-    wardsPlaced	long	Number of wards placed
-    winner	boolean	Flag indicating whether or not the participant won
+    assists=models.BigIntegerField(u'')     #	Number of assists
+    champLevel=models.BigIntegerField(u'')      #	Champion level achieved
+    combatPlayerScore=models.BigIntegerField(u'')       #	If game was a dominion game, player's combat score, otherwise 0
+    deaths=models.BigIntegerField(u'')      #	Number of deaths
+    doubleKills=models.BigIntegerField(u'')     #	Number of double kills
+    firstBloodAssist=models.BooleanField(u'')       #	Flag indicating if participant got an assist on first blood
+    firstBloodKill=models.BooleanField(u'')     #	Flag indicating if participant got first blood
+    firstInhibitorAssist=models.BooleanField(u'')       #	Flag indicating if participant got an assist on the first inhibitor
+    firstInhibitorKill=models.BooleanField(u'')     #	Flag indicating if participant destroyed the first inhibitor
+    firstTowerAssist=models.BooleanField(u'')       #	Flag indicating if participant got an assist on the first tower
+    firstTowerKill=models.BooleanField(u'')     #	Flag indicating if participant destroyed the first tower
+    goldEarned=models.BigIntegerField(u'')      #	Gold earned
+    goldSpent=models.BigIntegerField(u'')       #	Gold spent
+    inhibitorKills=models.BigIntegerField(u'')      #	Number of inhibitor kills
+    item0=models.BigIntegerField(u'')       #	First item ID
+    item1=models.BigIntegerField(u'')       #	Second item ID
+    item2=models.BigIntegerField(u'')       #	Third item ID
+    item3=models.BigIntegerField(u'')       #	Fourth item ID
+    item4=models.BigIntegerField(u'')       #	Fifth item ID
+    item5=models.BigIntegerField(u'')       #	Sixth item ID
+    item6=models.BigIntegerField(u'')       #	Seventh item ID
+    killingSprees=models.BigIntegerField(u'')       #	Number of killing sprees
+    kills=models.BigIntegerField(u'')       #	Number of kills
+    largestCriticalStrike=models.BigIntegerField(u'')       #	Largest critical strike
+    largestKillingSpree=models.BigIntegerField(u'')     #	Largest killing spree
+    largestMultiKill=models.BigIntegerField(u'')        #	Largest multi kill
+    magicDamageDealt=models.BigIntegerField(u'')        #	Magical damage dealt
+    magicDamageDealtToChampions=models.BigIntegerField(u'')     #	Magical damage dealt to champions
+    magicDamageTaken=models.BigIntegerField(u'')        #	Magic damage taken
+    minionsKilled=models.BigIntegerField(u'')       #	Minions killed
+    neutralMinionsKilled=models.BigIntegerField(u'')        #	Neutral minions killed
+    neutralMinionsKilledEnemyJungle=models.BigIntegerField(u'')     #	Neutral jungle minions killed in the enemy team's jungle
+    neutralMinionsKilledTeamJungle=models.BigIntegerField(u'')      #	Neutral jungle minions killed in your team's jungle
+    nodeCapture=models.BigIntegerField(u'')     #	If game was a dominion game, number of node captures
+    nodeCaptureAssist=models.BigIntegerField(u'')       #	If game was a dominion game, number of node capture assists
+    nodeNeutralize=models.BigIntegerField(u'')      #	If game was a dominion game, number of node neutralizations
+    nodeNeutralizeAssist=models.BigIntegerField(u'')        #	If game was a dominion game, number of node neutralization assists
+    objectivePlayerScore=models.BigIntegerField(u'')        #	If game was a dominion game, player's objectives score, otherwise 0
+    pentaKills=models.BigIntegerField(u'')      #	Number of penta kills
+    physicalDamageDealt=models.BigIntegerField(u'')     #	Physical damage dealt
+    physicalDamageDealtToChampions=models.BigIntegerField(u'')      #	Physical damage dealt to champions
+    physicalDamageTaken=models.BigIntegerField(u'')     #	Physical damage taken
+    quadraKills=models.BigIntegerField(u'')     #	Number of quadra kills
+    sightWardsBoughtInGame=models.BigIntegerField(u'')      #	Sight wards purchased
+    teamObjective=models.BigIntegerField(u'')       #	If game was a dominion game, number of completed team objectives (i.e., quests)
+    totalDamageDealt=models.BigIntegerField(u'')        #	Total damage dealt
+    totalDamageDealtToChampions=models.BigIntegerField(u'')     #	Total damage dealt to champions
+    totalDamageTaken=models.BigIntegerField(u'')        #	Total damage taken
+    totalHeal=models.BigIntegerField(u'')       #	Total heal amount
+    totalPlayerScore=models.BigIntegerField(u'')        #	If game was a dominion game, player's total score, otherwise 0
+    totalScoreRank=models.BigIntegerField(u'')      #	If game was a dominion game, team rank of the player's total score (e.g., 1-5)
+    totalTimeCrowdControlDealt=models.BigIntegerField(u'')      #	Total dealt crowd control time
+    totalUnitsHealed=models.BigIntegerField(u'')        #	Total units healed
+    towerKills=models.BigIntegerField(u'')      #	Number of tower kills
+    tripleKills=models.BigIntegerField(u'')     #	Number of triple kills
+    trueDamageDealt=models.BigIntegerField(u'')     #	True damage dealt
+    trueDamageDealtToChampions=models.BigIntegerField(u'')      #	True damage dealt to champions
+    trueDamageTaken=models.BigIntegerField(u'')     #	True damage taken
+    unrealKills=models.BigIntegerField(u'')     #	Number of unreal kills
+    visionWardsBoughtInGame=models.BigIntegerField(u'')     #	Vision wards purchased
+    wardsKilled=models.BigIntegerField(u'')     #	Number of wards killed
+    wardsPlaced=models.BigIntegerField(u'')     #	Number of wards placed
+    winner=models.BooleanField(u'')     #	Flag indicating whether or not the participant won
 
 class ParticipantTimeline(models.Model):
-    ancientGolemAssistsPerMinCounts	ParticipantTimelineData	Ancient golem assists per minute timeline counts
-    ancientGolemKillsPerMinCounts	ParticipantTimelineData	Ancient golem kills per minute timeline counts
-    assistedLaneDeathsPerMinDeltas	ParticipantTimelineData	Assisted lane deaths per minute timeline data
-    assistedLaneKillsPerMinDeltas	ParticipantTimelineData	Assisted lane kills per minute timeline data
-    baronAssistsPerMinCounts	ParticipantTimelineData	Baron assists per minute timeline counts
-    baronKillsPerMinCounts	ParticipantTimelineData	Baron kills per minute timeline counts
-    creepsPerMinDeltas	ParticipantTimelineData	Creeps per minute timeline data
-    csDiffPerMinDeltas	ParticipantTimelineData	Creep score difference per minute timeline data
-    damageTakenDiffPerMinDeltas	ParticipantTimelineData	Damage taken difference per minute timeline data
-    damageTakenPerMinDeltas	ParticipantTimelineData	Damage taken per minute timeline data
-    dragonAssistsPerMinCounts	ParticipantTimelineData	Dragon assists per minute timeline counts
-    dragonKillsPerMinCounts	ParticipantTimelineData	Dragon kills per minute timeline counts
-    elderLizardAssistsPerMinCounts	ParticipantTimelineData	Elder lizard assists per minute timeline counts
-    elderLizardKillsPerMinCounts	ParticipantTimelineData	Elder lizard kills per minute timeline counts
-    goldPerMinDeltas	ParticipantTimelineData	Gold per minute timeline data
-    inhibitorAssistsPerMinCounts	ParticipantTimelineData	Inhibitor assists per minute timeline counts
-    inhibitorKillsPerMinCounts	ParticipantTimelineData	Inhibitor kills per minute timeline counts
-    lane	string	Participant's lane (Legal values: MID, MIDDLE, TOP, JUNGLE, BOT, BOTTOM)
-    role	string	Participant's role (Legal values: DUO, NONE, SOLO, DUO_CARRY, DUO_SUPPORT)
-    towerAssistsPerMinCounts	ParticipantTimelineData	Tower assists per minute timeline counts
-    towerKillsPerMinCounts	ParticipantTimelineData	Tower kills per minute timeline counts
-    towerKillsPerMinDeltas	ParticipantTimelineData	Tower kills per minute timeline data
-    vilemawAssistsPerMinCounts	ParticipantTimelineData	Vilemaw assists per minute timeline counts
-    vilemawKillsPerMinCounts	ParticipantTimelineData	Vilemaw kills per minute timeline counts
-    wardsPerMinDeltas	ParticipantTimelineData	Wards placed per minute timeline data
-    xpDiffPerMinDeltas	ParticipantTimelineData	Experience difference per minute timeline data
-    xpPerMinDeltas	ParticipantTimelineData	Experience per minute timeline data
+    ancientGolemAssistsPerMinCounts	ParticipantTimelineData#TODO        #   Ancient golem assists per minute timeline counts
+    ancientGolemKillsPerMinCounts	ParticipantTimelineData#TODO      #   Ancient golem kills per minute timeline counts
+    assistedLaneDeathsPerMinDeltas	ParticipantTimelineData#TODO     #   Assisted lane deaths per minute timeline data
+    assistedLaneKillsPerMinDeltas	ParticipantTimelineData#TODO      #   Assisted lane kills per minute timeline data
+    baronAssistsPerMinCounts	ParticipantTimelineData#TODO       #   Baron assists per minute timeline counts
+    baronKillsPerMinCounts	ParticipantTimelineData#TODO     #   Baron kills per minute timeline counts
+    creepsPerMinDeltas	ParticipantTimelineData#TODO     #   Creeps per minute timeline data
+    csDiffPerMinDeltas	ParticipantTimelineData#TODO     #   Creep score difference per minute timeline data
+    damageTakenDiffPerMinDeltas	ParticipantTimelineData#TODO        #   Damage taken difference per minute timeline data
+    damageTakenPerMinDeltas	ParticipantTimelineData#TODO        #   Damage taken per minute timeline data
+    dragonAssistsPerMinCounts	ParticipantTimelineData#TODO      #   Dragon assists per minute timeline counts
+    dragonKillsPerMinCounts	ParticipantTimelineData#TODO        #   Dragon kills per minute timeline counts
+    elderLizardAssistsPerMinCounts	ParticipantTimelineData#TODO     #   Elder lizard assists per minute timeline counts
+    elderLizardKillsPerMinCounts	ParticipantTimelineData#TODO       #   Elder lizard kills per minute timeline counts
+    goldPerMinDeltas	ParticipantTimelineData#TODO       #   Gold per minute timeline data
+    inhibitorAssistsPerMinCounts	ParticipantTimelineData#TODO       #   Inhibitor assists per minute timeline counts
+    inhibitorKillsPerMinCounts	ParticipantTimelineData#TODO     #   Inhibitor kills per minute timeline counts
+    lane=models.CharField(u'')      #	Participant's lane (Legal values: MID, MIDDLE, TOP, JUNGLE, BOT, BOTTOM)
+    role=models.CharField(u'')      #	Participant's role (Legal values: DUO, NONE, SOLO, DUO_CARRY, DUO_SUPPORT)
+    towerAssistsPerMinCounts	ParticipantTimelineData#TODO       #   Tower assists per minute timeline counts
+    towerKillsPerMinCounts	ParticipantTimelineData#TODO     #   Tower kills per minute timeline counts
+    towerKillsPerMinDeltas	ParticipantTimelineData#TODO     #   Tower kills per minute timeline data
+    vilemawAssistsPerMinCounts	ParticipantTimelineData#TODO     #   Vilemaw assists per minute timeline counts
+    vilemawKillsPerMinCounts	ParticipantTimelineData#TODO       #   Vilemaw kills per minute timeline counts
+    wardsPerMinDeltas	ParticipantTimelineData#TODO      #   Wards placed per minute timeline data
+    xpDiffPerMinDeltas	ParticipantTimelineData#TODO     #   Experience difference per minute timeline data
+    xpPerMinDeltas	ParticipantTimelineData#TODO     #   Experience per minute timeline data
 
 class Rune(models.Model):
-    rank	long	Rune rank
-    runeId	long	Rune ID
+    rank=models.BigIntegerField(u'')        #	Rune rank
+    runeId=models.BigIntegerField(u'')      #	Rune ID
 
 class Player(models.Model):
-    matchHistoryUri	string	Match history URI
-    profileIcon	int	Profile icon ID
-    summonerId	long	Summoner ID
-    summonerName	string	Summoner name
+    matchHistoryUri=models.CharField(u'')       #	Match history URI
+    profileIcon=models.IntegerField(u'')        #	Profile icon ID
+    summonerId=models.BigIntegerField(u'')      #	Summoner ID
+    summonerName=models.CharField(u'')      #	Summoner name
 
 class BannedChampion(models.Model):
-    championId	int	Banned champion ID
-    pickTurn	int	Turn during which the champion was banned
+    championId=models.IntegerField(u'')     #	Banned champion ID
+    pickTurn=models.IntegerField(u'')       #	Turn during which the champion was banned
 
 class Frame(models.Model):
-    events	List[Event]	List of events for this frame.
-    participantFrames	Map[string, ParticipantFrame]	Map of each participant ID to the participant's information for the frame.
-    timestamp	long	Represents how many milliseconds into the game the frame occurred.
+    events=models.TextField(u'')#Lista en JSON compuesta de valores tipo Event       #   List of events for this frame.
+    participantFrames=models.TextField(u'')#Map en JSON compuesta de valores de los siguientes tipos: string, ParticipantFrame     #   Map of each participant ID to the participant's information for the frame.
+    timestamp=models.BigIntegerField(u'')       #	Represents how many milliseconds into the game the frame occurred.
 
 class ParticipantTimelineData(models.Model):
-    tenToTwenty	double	Value per minute from 10 min to 20 min
-    thirtyToEnd	double	Value per minute from 30 min to the end of the game
-    twentyToThirty	double	Value per minute from 20 min to 30 min
-    zeroToTen	double	Value per minute from the beginning of the game to 10 min
+    tenToTwenty=models.FloatField(u'')      #	Value per minute from 10 min to 20 min
+    thirtyToEnd=models.FloatField(u'')      #	Value per minute from 30 min to the end of the game
+    twentyToThirty=models.FloatField(u'')       #	Value per minute from 20 min to 30 min
+    zeroToTen=models.FloatField(u'')        #	Value per minute from the beginning of the game to 10 min
 
 class Event(models.Model):
-    ascendedType	string	The ascended type of the event. Only present if relevant. Note that CLEAR_ASCENDED refers to when a participants kills the ascended player. (Legal values: CHAMPION_ASCENDED, CLEAR_ASCENDED, MINION_ASCENDED)
-    assistingParticipantIds	List[int]	The assisting participant IDs of the event. Only present if relevant.
-    buildingType	string	The building type of the event. Only present if relevant. (Legal values: INHIBITOR_BUILDING, TOWER_BUILDING)
-    creatorId	int	The creator ID of the event. Only present if relevant.
-    eventType	string	Event type. (Legal values: ASCENDED_EVENT, BUILDING_KILL, CAPTURE_POINT, CHAMPION_KILL, ELITE_MONSTER_KILL, ITEM_DESTROYED, ITEM_PURCHASED, ITEM_SOLD, ITEM_UNDO, PORO_KING_SUMMON, SKILL_LEVEL_UP, WARD_KILL, WARD_PLACED)
-    itemAfter	int	The ending item ID of the event. Only present if relevant.
-    itemBefore	int	The starting item ID of the event. Only present if relevant.
-    itemId	int	The item ID of the event. Only present if relevant.
-    killerId	int	The killer ID of the event. Only present if relevant. Killer ID 0 indicates a minion.
-    laneType	string	The lane type of the event. Only present if relevant. (Legal values: BOT_LANE, MID_LANE, TOP_LANE)
-    levelUpType	string	The level up type of the event. Only present if relevant. (Legal values: EVOLVE, NORMAL)
-    monsterType	string	The monster type of the event. Only present if relevant. (Legal values: BARON_NASHOR, BLUE_GOLEM, DRAGON, RED_LIZARD, VILEMAW)
-    participantId	int	The participant ID of the event. Only present if relevant.
-    pointCaptured	string	The point captured in the event. Only present if relevant. (Legal values: POINT_A, POINT_B, POINT_C, POINT_D, POINT_E)
-    position	Position	The position of the event. Only present if relevant.
-    skillSlot	int	The skill slot of the event. Only present if relevant.
-    teamId	int	The team ID of the event. Only present if relevant.
-    timestamp	long	Represents how many milliseconds into the game the event occurred.
-    towerType	string	The tower type of the event. Only present if relevant. (Legal values: BASE_TURRET, FOUNTAIN_TURRET, INNER_TURRET, NEXUS_TURRET, OUTER_TURRET, UNDEFINED_TURRET)
-    victimId	int	The victim ID of the event. Only present if relevant.
-    wardType	string	The ward type of the event. Only present if relevant. (Legal values: SIGHT_WARD, TEEMO_MUSHROOM, UNDEFINED, VISION_WARD, YELLOW_TRINKET, YELLOW_TRINKET_UPGRADE)
+    ascendedType=models.CharField(u'')      #	The ascended type of the event. Only present if relevant. Note that CLEAR_ASCENDED refers to when a participants kills the ascended player. (Legal values: CHAMPION_ASCENDED, CLEAR_ASCENDED, MINION_ASCENDED)
+    assistingParticipantIds=models.TextField(u'')#Lista en JSON compuesta de valores tipo int	The assisting participant IDs of the event. Only present if relevant.
+    buildingType=models.CharField(u'')      #	The building type of the event. Only present if relevant. (Legal values: INHIBITOR_BUILDING, TOWER_BUILDING)
+    creatorId=models.IntegerField(u'')      #	The creator ID of the event. Only present if relevant.
+    eventType=models.CharField(u'')     #	Event type. (Legal values: ASCENDED_EVENT, BUILDING_KILL, CAPTURE_POINT, CHAMPION_KILL, ELITE_MONSTER_KILL, ITEM_DESTROYED, ITEM_PURCHASED, ITEM_SOLD, ITEM_UNDO, PORO_KING_SUMMON, SKILL_LEVEL_UP, WARD_KILL, WARD_PLACED)
+    itemAfter=models.IntegerField(u'')      #	The ending item ID of the event. Only present if relevant.
+    itemBefore=models.IntegerField(u'')     #	The starting item ID of the event. Only present if relevant.
+    itemId=models.IntegerField(u'')     #	The item ID of the event. Only present if relevant.
+    killerId=models.IntegerField(u'')       #	The killer ID of the event. Only present if relevant. Killer ID 0 indicates a minion.
+    laneType=models.CharField(u'')      #	The lane type of the event. Only present if relevant. (Legal values: BOT_LANE, MID_LANE, TOP_LANE)
+    levelUpType=models.CharField(u'')       #	The level up type of the event. Only present if relevant. (Legal values: EVOLVE, NORMAL)
+    monsterType=models.CharField(u'')       #	The monster type of the event. Only present if relevant. (Legal values: BARON_NASHOR, BLUE_GOLEM, DRAGON, RED_LIZARD, VILEMAW)
+    participantId=models.IntegerField(u'')      #	The participant ID of the event. Only present if relevant.
+    pointCaptured=models.CharField(u'')     #	The point captured in the event. Only present if relevant. (Legal values: POINT_A, POINT_B, POINT_C, POINT_D, POINT_E)
+    position	Position#TODO      #   The position of the event. Only present if relevant.
+    skillSlot=models.IntegerField(u'')      #	The skill slot of the event. Only present if relevant.
+    teamId=models.IntegerField(u'')     #	The team ID of the event. Only present if relevant.
+    timestamp=models.BigIntegerField(u'')       #	Represents how many milliseconds into the game the event occurred.
+    towerType=models.CharField(u'')     #	The tower type of the event. Only present if relevant. (Legal values: BASE_TURRET, FOUNTAIN_TURRET, INNER_TURRET, NEXUS_TURRET, OUTER_TURRET, UNDEFINED_TURRET)
+    victimId=models.IntegerField(u'')       #	The victim ID of the event. Only present if relevant.
+    wardType=models.CharField(u'')      #	The ward type of the event. Only present if relevant. (Legal values: SIGHT_WARD, TEEMO_MUSHROOM, UNDEFINED, VISION_WARD, YELLOW_TRINKET, YELLOW_TRINKET_UPGRADE)
 
 class ParticipantFrame(models.Model):
-    currentGold	int	Participant's current gold
-    dominionScore	int	Dominion score of the participant
-    jungleMinionsKilled	int	Number of jungle minions killed by participant
-    level	int	Participant's current level
-    minionsKilled	int	Number of minions killed by participant
-    participantId	int	Participant ID
-    position	Position	Participant's position
-    teamScore	int	Team score of the participant
-    totalGold	int	Participant's total gold
-    xp	int	Experience earned by participant
+    currentGold=models.IntegerField(u'')        #	Participant's current gold
+    dominionScore=models.IntegerField(u'')      #	Dominion score of the participant
+    jungleMinionsKilled=models.IntegerField(u'')        #	Number of jungle minions killed by participant
+    level=models.IntegerField(u'')      #	Participant's current level
+    minionsKilled=models.IntegerField(u'')      #	Number of minions killed by participant
+    participantId=models.IntegerField(u'')      #	Participant ID
+    position	Position#TODO      #   Participant's position
+    teamScore=models.IntegerField(u'')      #	Team score of the participant
+    totalGold=models.IntegerField(u'')      #	Participant's total gold
+    xp=models.IntegerField(u'')     #	Experience earned by participant
 
 class Position(models.Model):
-    x	int	
-    y	int
-
-#####################################################################################################
+    x=models.IntegerField(u'')
+    y=models.IntegerField(u'')
 
 class PlayerHistory(models.Model):
-    matches	List[MatchSummary]	List of matches for the player
+    matches=models.TextField(u'')#Lista en JSON compuesta de valores tipo MatchSummary        #   List of matches for the player
 
 class MatchSummary(models.Model):
-    mapId	int	Match map ID
-    matchCreation	long	Match creation time. Designates when the team select lobby is created and/or the match is made through match making, not when the game actually starts.
-    matchDuration	long	Match duration
-    matchId	long	ID of the match
-    matchMode	string	Match mode (Legal values: CLASSIC, ODIN, ARAM, TUTORIAL, ONEFORALL, ASCENSION, FIRSTBLOOD, KINGPORO)
-    matchType	string	Match type (Legal values: CUSTOM_GAME, MATCHED_GAME, TUTORIAL_GAME)
-    matchVersion	string	Match version
-    participantIdentities	List[ParticipantIdentity]	Participant identity information
-    participants	List[Participant]	Participant information
-    platformId	string	Platform ID of the match
-    queueType	string	Match queue type (Legal values: CUSTOM, NORMAL_5x5_BLIND, RANKED_SOLO_5x5, RANKED_PREMADE_5x5, BOT_5x5, NORMAL_3x3, RANKED_PREMADE_3x3, NORMAL_5x5_DRAFT, ODIN_5x5_BLIND, ODIN_5x5_DRAFT, BOT_ODIN_5x5, BOT_5x5_INTRO, BOT_5x5_BEGINNER, BOT_5x5_INTERMEDIATE, RANKED_TEAM_3x3, RANKED_TEAM_5x5, BOT_TT_3x3, GROUP_FINDER_5x5, ARAM_5x5, ONEFORALL_5x5, FIRSTBLOOD_1x1, FIRSTBLOOD_2x2, SR_6x6, URF_5x5, ONEFORALL_MIRRORMODE_5x5, BOT_URF_5x5, NIGHTMARE_BOT_5x5_RANK1, NIGHTMARE_BOT_5x5_RANK2, NIGHTMARE_BOT_5x5_RANK5, ASCENSION_5x5, HEXAKILL, BILGEWATER_ARAM_5x5, KING_PORO_5x5, COUNTER_PICK, BILGEWATER_5x5)
-    region	string	Region where the match was played
-    season	string	Season match was played (Legal values: PRESEASON3, SEASON3, PRESEASON2014, SEASON2014, PRESEASON2015, SEASON2015)
+    mapId=models.IntegerField(u'')      #	Match map ID
+    matchCreation=models.BigIntegerField(u'')       #	Match creation time. Designates when the team select lobby is created and/or the match is made through match making, not when the game actually starts.
+    matchDuration=models.BigIntegerField(u'')       #	Match duration
+    matchId=models.BigIntegerField(u'')     #	ID of the match
+    matchMode=models.CharField(u'')     #	Match mode (Legal values: CLASSIC, ODIN, ARAM, TUTORIAL, ONEFORALL, ASCENSION, FIRSTBLOOD, KINGPORO)
+    matchType=models.CharField(u'')     #	Match type (Legal values: CUSTOM_GAME, MATCHED_GAME, TUTORIAL_GAME)
+    matchVersion=models.CharField(u'')      #	Match version
+    participantIdentities=models.TextField(u'')#Lista en JSON compuesta de valores tipo ParticipantIdentity     #   Participant identity information
+    participants=models.TextField(u'')#Lista en JSON compuesta de valores tipo Participant     #   Participant information
+    platformId=models.CharField(u'')        #	Platform ID of the match
+    queueType=models.CharField(u'')     #	Match queue type (Legal values: CUSTOM, NORMAL_5x5_BLIND, RANKED_SOLO_5x5, RANKED_PREMADE_5x5, BOT_5x5, NORMAL_3x3, RANKED_PREMADE_3x3, NORMAL_5x5_DRAFT, ODIN_5x5_BLIND, ODIN_5x5_DRAFT, BOT_ODIN_5x5, BOT_5x5_INTRO, BOT_5x5_BEGINNER, BOT_5x5_INTERMEDIATE, RANKED_TEAM_3x3, RANKED_TEAM_5x5, BOT_TT_3x3, GROUP_FINDER_5x5, ARAM_5x5, ONEFORALL_5x5, FIRSTBLOOD_1x1, FIRSTBLOOD_2x2, SR_6x6, URF_5x5, ONEFORALL_MIRRORMODE_5x5, BOT_URF_5x5, NIGHTMARE_BOT_5x5_RANK1, NIGHTMARE_BOT_5x5_RANK2, NIGHTMARE_BOT_5x5_RANK5, ASCENSION_5x5, HEXAKILL, BILGEWATER_ARAM_5x5, KING_PORO_5x5, COUNTER_PICK, BILGEWATER_5x5)
+    region=models.CharField(u'')        #	Region where the match was played
+    season=models.CharField(u'')        #	Season match was played (Legal values: PRESEASON3, SEASON3, PRESEASON2014, SEASON2014, PRESEASON2015, SEASON2015)
 
 class Participant(models.Model):
-    championId	int	Champion ID
-    highestAchievedSeasonTier	string	Highest ranked tier achieved for the previous season, if any, otherwise null. Used to display border in game loading screen. (Legal values: CHALLENGER, MASTER, DIAMOND, PLATINUM, GOLD, SILVER, BRONZE, UNRANKED)
-    masteries	List[Mastery]	List of mastery information
-    participantId	int	Participant ID
-    runes	List[Rune]	List of rune information
-    spell1Id	int	First summoner spell ID
-    spell2Id	int	Second summoner spell ID
-    stats	ParticipantStats	Participant statistics
-    teamId	int	Team ID
-    timeline	ParticipantTimeline	Timeline data. Delta fields refer to values for the specified period (e.g., the gold per minute over the first 10 minutes of the game versus the second 20 minutes of the game. Diffs fields refer to the deltas versus the calculated lane opponent(s).
+    championId=models.IntegerField(u'')     #	Champion ID
+    highestAchievedSeasonTier=models.CharField(u'')     #	Highest ranked tier achieved for the previous season, if any, otherwise null. Used to display border in game loading screen. (Legal values: CHALLENGER, MASTER, DIAMOND, PLATINUM, GOLD, SILVER, BRONZE, UNRANKED)
+    masteries=models.TextField(u'')#Lista en JSON compuesta de valores tipo Mastery	List of mastery information
+    participantId=models.IntegerField(u'')      #	Participant ID
+    runes=models.TextField(u'')#Lista en JSON compuesta de valores tipo Rune	List of rune information
+    spell1Id=models.IntegerField(u'')       #	First summoner spell ID
+    spell2Id=models.IntegerField(u'')       #	Second summoner spell ID
+    stats	ParticipantStats#TODO     #   Participant statistics
+    teamId=models.IntegerField(u'')     #	Team ID
+    timeline	ParticipantTimeline#TODO       #   Timeline data. Delta fields refer to values for the specified period (e.g., the gold per minute over the first 10 minutes of the game versus the second 20 minutes of the game. Diffs fields refer to the deltas versus the calculated lane opponent(s).
 
 class ParticipantIdentity(models.Model):
-    participantId	int	Participant ID
-    player	Player	Player information
+    participantId=models.IntegerField(u'')      #	Participant ID
+    player	Player#TODO      #   Player information
 
 class Mastery(models.Model):
-    masteryId	long	Mastery ID
-    rank	long	Mastery rank
+    masteryId=models.BigIntegerField(u'')       #	Mastery ID
+    rank=models.BigIntegerField(u'')        #	Mastery rank
 
 class ParticipantStats(models.Model):
-    assists	long	Number of assists
-    champLevel	long	Champion level achieved
-    combatPlayerScore	long	If game was a dominion game, player's combat score, otherwise 0
-    deaths	long	Number of deaths
-    doubleKills	long	Number of double kills
-    firstBloodAssist	boolean	Flag indicating if participant got an assist on first blood
-    firstBloodKill	boolean	Flag indicating if participant got first blood
-    firstInhibitorAssist	boolean	Flag indicating if participant got an assist on the first inhibitor
-    firstInhibitorKill	boolean	Flag indicating if participant destroyed the first inhibitor
-    firstTowerAssist	boolean	Flag indicating if participant got an assist on the first tower
-    firstTowerKill	boolean	Flag indicating if participant destroyed the first tower
-    goldEarned	long	Gold earned
-    goldSpent	long	Gold spent
-    inhibitorKills	long	Number of inhibitor kills
-    item0	long	First item ID
-    item1	long	Second item ID
-    item2	long	Third item ID
-    item3	long	Fourth item ID
-    item4	long	Fifth item ID
-    item5	long	Sixth item ID
-    item6	long	Seventh item ID
-    killingSprees	long	Number of killing sprees
-    kills	long	Number of kills
-    largestCriticalStrike	long	Largest critical strike
-    largestKillingSpree	long	Largest killing spree
-    largestMultiKill	long	Largest multi kill
-    magicDamageDealt	long	Magical damage dealt
-    magicDamageDealtToChampions	long	Magical damage dealt to champions
-    magicDamageTaken	long	Magic damage taken
-    minionsKilled	long	Minions killed
-    neutralMinionsKilled	long	Neutral minions killed
-    neutralMinionsKilledEnemyJungle	long	Neutral jungle minions killed in the enemy team's jungle
-    neutralMinionsKilledTeamJungle	long	Neutral jungle minions killed in your team's jungle
-    nodeCapture	long	If game was a dominion game, number of node captures
-    nodeCaptureAssist	long	If game was a dominion game, number of node capture assists
-    nodeNeutralize	long	If game was a dominion game, number of node neutralizations
-    nodeNeutralizeAssist	long	If game was a dominion game, number of node neutralization assists
-    objectivePlayerScore	long	If game was a dominion game, player's objectives score, otherwise 0
-    pentaKills	long	Number of penta kills
-    physicalDamageDealt	long	Physical damage dealt
-    physicalDamageDealtToChampions	long	Physical damage dealt to champions
-    physicalDamageTaken	long	Physical damage taken
-    quadraKills	long	Number of quadra kills
-    sightWardsBoughtInGame	long	Sight wards purchased
-    teamObjective	long	If game was a dominion game, number of completed team objectives (i.e., quests)
-    totalDamageDealt	long	Total damage dealt
-    totalDamageDealtToChampions	long	Total damage dealt to champions
-    totalDamageTaken	long	Total damage taken
-    totalHeal	long	Total heal amount
-    totalPlayerScore	long	If game was a dominion game, player's total score, otherwise 0
-    totalScoreRank	long	If game was a dominion game, team rank of the player's total score (e.g., 1-5)
-    totalTimeCrowdControlDealt	long	Total dealt crowd control time
-    totalUnitsHealed	long	Total units healed
-    towerKills	long	Number of tower kills
-    tripleKills	long	Number of triple kills
-    trueDamageDealt	long	True damage dealt
-    trueDamageDealtToChampions	long	True damage dealt to champions
-    trueDamageTaken	long	True damage taken
-    unrealKills	long	Number of unreal kills
-    visionWardsBoughtInGame	long	Vision wards purchased
-    wardsKilled	long	Number of wards killed
-    wardsPlaced	long	Number of wards placed
-    winner	boolean	Flag indicating whether or not the participant won
+    assists=models.BigIntegerField(u'')     #	Number of assists
+    champLevel=models.BigIntegerField(u'')      #	Champion level achieved
+    combatPlayerScore=models.BigIntegerField(u'')       #	If game was a dominion game, player's combat score, otherwise 0
+    deaths=models.BigIntegerField(u'')      #	Number of deaths
+    doubleKills=models.BigIntegerField(u'')     #	Number of double kills
+    firstBloodAssist=models.BooleanField(u'')       #	Flag indicating if participant got an assist on first blood
+    firstBloodKill=models.BooleanField(u'')     #	Flag indicating if participant got first blood
+    firstInhibitorAssist=models.BooleanField(u'')       #	Flag indicating if participant got an assist on the first inhibitor
+    firstInhibitorKill=models.BooleanField(u'')     #	Flag indicating if participant destroyed the first inhibitor
+    firstTowerAssist=models.BooleanField(u'')       #	Flag indicating if participant got an assist on the first tower
+    firstTowerKill=models.BooleanField(u'')     #	Flag indicating if participant destroyed the first tower
+    goldEarned=models.BigIntegerField(u'')      #	Gold earned
+    goldSpent=models.BigIntegerField(u'')       #	Gold spent
+    inhibitorKills=models.BigIntegerField(u'')      #	Number of inhibitor kills
+    item0=models.BigIntegerField(u'')       #	First item ID
+    item1=models.BigIntegerField(u'')       #	Second item ID
+    item2=models.BigIntegerField(u'')       #	Third item ID
+    item3=models.BigIntegerField(u'')       #	Fourth item ID
+    item4=models.BigIntegerField(u'')       #	Fifth item ID
+    item5=models.BigIntegerField(u'')       #	Sixth item ID
+    item6=models.BigIntegerField(u'')       #	Seventh item ID
+    killingSprees=models.BigIntegerField(u'')       #	Number of killing sprees
+    kills=models.BigIntegerField(u'')       #	Number of kills
+    largestCriticalStrike=models.BigIntegerField(u'')       #	Largest critical strike
+    largestKillingSpree=models.BigIntegerField(u'')     #	Largest killing spree
+    largestMultiKill=models.BigIntegerField(u'')        #	Largest multi kill
+    magicDamageDealt=models.BigIntegerField(u'')        #	Magical damage dealt
+    magicDamageDealtToChampions=models.BigIntegerField(u'')     #	Magical damage dealt to champions
+    magicDamageTaken=models.BigIntegerField(u'')        #	Magic damage taken
+    minionsKilled=models.BigIntegerField(u'')       #	Minions killed
+    neutralMinionsKilled=models.BigIntegerField(u'')        #	Neutral minions killed
+    neutralMinionsKilledEnemyJungle=models.BigIntegerField(u'')     #	Neutral jungle minions killed in the enemy team's jungle
+    neutralMinionsKilledTeamJungle=models.BigIntegerField(u'')      #	Neutral jungle minions killed in your team's jungle
+    nodeCapture=models.BigIntegerField(u'')     #	If game was a dominion game, number of node captures
+    nodeCaptureAssist=models.BigIntegerField(u'')       #	If game was a dominion game, number of node capture assists
+    nodeNeutralize=models.BigIntegerField(u'')      #	If game was a dominion game, number of node neutralizations
+    nodeNeutralizeAssist=models.BigIntegerField(u'')        #	If game was a dominion game, number of node neutralization assists
+    objectivePlayerScore=models.BigIntegerField(u'')        #	If game was a dominion game, player's objectives score, otherwise 0
+    pentaKills=models.BigIntegerField(u'')      #	Number of penta kills
+    physicalDamageDealt=models.BigIntegerField(u'')     #	Physical damage dealt
+    physicalDamageDealtToChampions=models.BigIntegerField(u'')      #	Physical damage dealt to champions
+    physicalDamageTaken=models.BigIntegerField(u'')     #	Physical damage taken
+    quadraKills=models.BigIntegerField(u'')     #	Number of quadra kills
+    sightWardsBoughtInGame=models.BigIntegerField(u'')      #	Sight wards purchased
+    teamObjective=models.BigIntegerField(u'')       #	If game was a dominion game, number of completed team objectives (i.e., quests)
+    totalDamageDealt=models.BigIntegerField(u'')        #	Total damage dealt
+    totalDamageDealtToChampions=models.BigIntegerField(u'')     #	Total damage dealt to champions
+    totalDamageTaken=models.BigIntegerField(u'')        #	Total damage taken
+    totalHeal=models.BigIntegerField(u'')       #	Total heal amount
+    totalPlayerScore=models.BigIntegerField(u'')        #	If game was a dominion game, player's total score, otherwise 0
+    totalScoreRank=models.BigIntegerField(u'')      #	If game was a dominion game, team rank of the player's total score (e.g., 1-5)
+    totalTimeCrowdControlDealt=models.BigIntegerField(u'')      #	Total dealt crowd control time
+    totalUnitsHealed=models.BigIntegerField(u'')        #	Total units healed
+    towerKills=models.BigIntegerField(u'')      #	Number of tower kills
+    tripleKills=models.BigIntegerField(u'')     #	Number of triple kills
+    trueDamageDealt=models.BigIntegerField(u'')     #	True damage dealt
+    trueDamageDealtToChampions=models.BigIntegerField(u'')      #	True damage dealt to champions
+    trueDamageTaken=models.BigIntegerField(u'')     #	True damage taken
+    unrealKills=models.BigIntegerField(u'')     #	Number of unreal kills
+    visionWardsBoughtInGame=models.BigIntegerField(u'')     #	Vision wards purchased
+    wardsKilled=models.BigIntegerField(u'')     #	Number of wards killed
+    wardsPlaced=models.BigIntegerField(u'')     #	Number of wards placed
+    winner=models.BooleanField(u'')     #	Flag indicating whether or not the participant won
 
 class ParticipantTimeline(models.Model):
-    ancientGolemAssistsPerMinCounts	ParticipantTimelineData	Ancient golem assists per minute timeline counts
-    ancientGolemKillsPerMinCounts	ParticipantTimelineData	Ancient golem kills per minute timeline counts
-    assistedLaneDeathsPerMinDeltas	ParticipantTimelineData	Assisted lane deaths per minute timeline data
-    assistedLaneKillsPerMinDeltas	ParticipantTimelineData	Assisted lane kills per minute timeline data
-    baronAssistsPerMinCounts	ParticipantTimelineData	Baron assists per minute timeline counts
-    baronKillsPerMinCounts	ParticipantTimelineData	Baron kills per minute timeline counts
-    creepsPerMinDeltas	ParticipantTimelineData	Creeps per minute timeline data
-    csDiffPerMinDeltas	ParticipantTimelineData	Creep score difference per minute timeline data
-    damageTakenDiffPerMinDeltas	ParticipantTimelineData	Damage taken difference per minute timeline data
-    damageTakenPerMinDeltas	ParticipantTimelineData	Damage taken per minute timeline data
-    dragonAssistsPerMinCounts	ParticipantTimelineData	Dragon assists per minute timeline counts
-    dragonKillsPerMinCounts	ParticipantTimelineData	Dragon kills per minute timeline counts
-    elderLizardAssistsPerMinCounts	ParticipantTimelineData	Elder lizard assists per minute timeline counts
-    elderLizardKillsPerMinCounts	ParticipantTimelineData	Elder lizard kills per minute timeline counts
-    goldPerMinDeltas	ParticipantTimelineData	Gold per minute timeline data
-    inhibitorAssistsPerMinCounts	ParticipantTimelineData	Inhibitor assists per minute timeline counts
-    inhibitorKillsPerMinCounts	ParticipantTimelineData	Inhibitor kills per minute timeline counts
-    lane	string	Participant's lane (Legal values: MID, MIDDLE, TOP, JUNGLE, BOT, BOTTOM)
-    role	string	Participant's role (Legal values: DUO, NONE, SOLO, DUO_CARRY, DUO_SUPPORT)
-    towerAssistsPerMinCounts	ParticipantTimelineData	Tower assists per minute timeline counts
-    towerKillsPerMinCounts	ParticipantTimelineData	Tower kills per minute timeline counts
-    towerKillsPerMinDeltas	ParticipantTimelineData	Tower kills per minute timeline data
-    vilemawAssistsPerMinCounts	ParticipantTimelineData	Vilemaw assists per minute timeline counts
-    vilemawKillsPerMinCounts	ParticipantTimelineData	Vilemaw kills per minute timeline counts
-    wardsPerMinDeltas	ParticipantTimelineData	Wards placed per minute timeline data
-    xpDiffPerMinDeltas	ParticipantTimelineData	Experience difference per minute timeline data
-    xpPerMinDeltas	ParticipantTimelineData	Experience per minute timeline data
+    ancientGolemAssistsPerMinCounts	ParticipantTimelineData#TODO        #   Ancient golem assists per minute timeline counts
+    ancientGolemKillsPerMinCounts	ParticipantTimelineData#TODO      #   Ancient golem kills per minute timeline counts
+    assistedLaneDeathsPerMinDeltas	ParticipantTimelineData#TODO     #   Assisted lane deaths per minute timeline data
+    assistedLaneKillsPerMinDeltas	ParticipantTimelineData#TODO      #   Assisted lane kills per minute timeline data
+    baronAssistsPerMinCounts	ParticipantTimelineData#TODO       #   Baron assists per minute timeline counts
+    baronKillsPerMinCounts	ParticipantTimelineData#TODO     #   Baron kills per minute timeline counts
+    creepsPerMinDeltas	ParticipantTimelineData#TODO     #   Creeps per minute timeline data
+    csDiffPerMinDeltas	ParticipantTimelineData#TODO     #   Creep score difference per minute timeline data
+    damageTakenDiffPerMinDeltas	ParticipantTimelineData#TODO        #   Damage taken difference per minute timeline data
+    damageTakenPerMinDeltas	ParticipantTimelineData#TODO        #   Damage taken per minute timeline data
+    dragonAssistsPerMinCounts	ParticipantTimelineData#TODO      #   Dragon assists per minute timeline counts
+    dragonKillsPerMinCounts	ParticipantTimelineData#TODO        #   Dragon kills per minute timeline counts
+    elderLizardAssistsPerMinCounts	ParticipantTimelineData#TODO     #   Elder lizard assists per minute timeline counts
+    elderLizardKillsPerMinCounts	ParticipantTimelineData#TODO       #   Elder lizard kills per minute timeline counts
+    goldPerMinDeltas	ParticipantTimelineData#TODO       #   Gold per minute timeline data
+    inhibitorAssistsPerMinCounts	ParticipantTimelineData#TODO       #   Inhibitor assists per minute timeline counts
+    inhibitorKillsPerMinCounts	ParticipantTimelineData#TODO     #   Inhibitor kills per minute timeline counts
+    lane=models.CharField(u'')      #	Participant's lane (Legal values: MID, MIDDLE, TOP, JUNGLE, BOT, BOTTOM)
+    role=models.CharField(u'')      #	Participant's role (Legal values: DUO, NONE, SOLO, DUO_CARRY, DUO_SUPPORT)
+    towerAssistsPerMinCounts	ParticipantTimelineData#TODO       #   Tower assists per minute timeline counts
+    towerKillsPerMinCounts	ParticipantTimelineData#TODO     #   Tower kills per minute timeline counts
+    towerKillsPerMinDeltas	ParticipantTimelineData#TODO     #   Tower kills per minute timeline data
+    vilemawAssistsPerMinCounts	ParticipantTimelineData#TODO     #   Vilemaw assists per minute timeline counts
+    vilemawKillsPerMinCounts	ParticipantTimelineData#TODO       #   Vilemaw kills per minute timeline counts
+    wardsPerMinDeltas	ParticipantTimelineData#TODO      #   Wards placed per minute timeline data
+    xpDiffPerMinDeltas	ParticipantTimelineData#TODO     #   Experience difference per minute timeline data
+    xpPerMinDeltas	ParticipantTimelineData#TODO     #   Experience per minute timeline data
 
 class Rune(models.Model):
-    rank	long	Rune rank
-    runeId	long	Rune ID
+    rank=models.BigIntegerField(u'')        #	Rune rank
+    runeId=models.BigIntegerField(u'')      #	Rune ID
 
 class Player(models.Model):
-    matchHistoryUri	string	Match history URI
-    profileIcon	int	Profile icon ID
-    summonerId	long	Summoner ID
-    summonerName	string	Summoner name
+    matchHistoryUri=models.CharField(u'')       #	Match history URI
+    profileIcon=models.IntegerField(u'')        #	Profile icon ID
+    summonerId=models.BigIntegerField(u'')      #	Summoner ID
+    summonerName=models.CharField(u'')      #	Summoner name
 
 class ParticipantTimelineData(models.Model):
-    tenToTwenty	double	Value per minute from 10 min to 20 min
-    thirtyToEnd	double	Value per minute from 30 min to the end of the game
-    twentyToThirty	double	Value per minute from 20 min to 30 min
-    zeroToTen	double	Value per minute from the beginning of the game to 10 min
-
-#####################################################################################################
+    tenToTwenty=models.FloatField(u'')      #	Value per minute from 10 min to 20 min
+    thirtyToEnd=models.FloatField(u'')      #	Value per minute from 30 min to the end of the game
+    twentyToThirty=models.FloatField(u'')       #	Value per minute from 20 min to 30 min
+    zeroToTen=models.FloatField(u'')        #	Value per minute from the beginning of the game to 10 min
 
 class MatchList(models.Model):
-    endIndex	int	
-    matches	List[MatchReference]	
-    startIndex	int	
-    totalGames	int
+    endIndex=models.IntegerField(u'')
+    matches=models.TextField(u'')#Lista en JSON compuesta de valores tipo MatchReference
+    startIndex=models.IntegerField(u'')
+    totalGames=models.IntegerField(u'')
 
 class MatchReference(models.Model):
-    champion	long	
-    lane	string	Legal values: MID, MIDDLE, TOP, JUNGLE, BOT, BOTTOM
-    matchId	long	
-    platformId	string	
-    queue	string	Legal values: RANKED_SOLO_5x5, RANKED_TEAM_3x3, RANKED_TEAM_5x5
-    role	string	Legal values: DUO, NONE, SOLO, DUO_CARRY, DUO_SUPPORT
-    season	string	Legal values: PRESEASON3, SEASON3, PRESEASON2014, SEASON2014, PRESEASON2015, SEASON2015
-    timestamp	long
-
-#####################################################################################################
+    champion=models.BigIntegerField(u'')
+    lane=models.CharField(u'')      #	Legal values: MID, MIDDLE, TOP, JUNGLE, BOT, BOTTOM
+    matchId=models.BigIntegerField(u'')
+    platformId=models.CharField(u'')
+    queue=models.CharField(u'')     #	Legal values: RANKED_SOLO_5x5, RANKED_TEAM_3x3, RANKED_TEAM_5x5
+    role=models.CharField(u'')      #	Legal values: DUO, NONE, SOLO, DUO_CARRY, DUO_SUPPORT
+    season=models.CharField(u'')        #	Legal values: PRESEASON3, SEASON3, PRESEASON2014, SEASON2014, PRESEASON2015, SEASON2015
+    timestamp=models.BigIntegerField(u'')
 
 class RankedStatsDto(models.Model):
-    champions	List[ChampionStatsDto]	Collection of aggregated stats summarized by champion.
-    modifyDate	long	Date stats were last modified specified as epoch milliseconds.
-    summonerId	long	Summoner ID.
+    champions=models.TextField(u'')#Lista en JSON compuesta de valores tipo ChampionStatsDto        #   Collection of aggregated stats summarized by champion
+    modifyDate=models.BigIntegerField(u'')      #	Date stats were last modified specified as epoch milliseconds.
+    summonerId=models.BigIntegerField(u'')      #	Summoner ID.
 
 class ChampionStatsDto(models.Model):
-    exId	int	Champion ID. Note that champion ID 0 represents the combined stats for all champions. For static information correlating to champion IDs, please refer to the LoL Static Data API.
-    stats	AggregatedStatsDto	Aggregated stats associated with the champion.
+    exId=models.IntegerField(u'')       #	Champion ID. Note that champion ID 0 represents the combined stats for all champions. For static information correlating to champion IDs, please refer to the LoL Static Data API.
+    stats	AggregatedStatsDto#TODO       #   Aggregated stats associated with the champion.
 
 class AggregatedStatsDto(models.Model):
-    averageAssists	int	Dominion only.
-    averageChampionsKilled	int	Dominion only.
-    averageCombatPlayerScore	int	Dominion only.
-    averageNodeCapture	int	Dominion only.
-    averageNodeCaptureAssist	int	Dominion only.
-    averageNodeNeutralize	int	Dominion only.
-    averageNodeNeutralizeAssist	int	Dominion only.
-    averageNumDeaths	int	Dominion only.
-    averageObjectivePlayerScore	int	Dominion only.
-    averageTeamObjective	int	Dominion only.
-    averageTotalPlayerScore	int	Dominion only.
-    botGamesPlayed	int	
-    killingSpree	int	
-    maxAssists	int	Dominion only.
-    maxChampionsKilled	int	
-    maxCombatPlayerScore	int	Dominion only.
-    maxLargestCriticalStrike	int	
-    maxLargestKillingSpree	int	
-    maxNodeCapture	int	Dominion only.
-    maxNodeCaptureAssist	int	Dominion only.
-    maxNodeNeutralize	int	Dominion only.
-    maxNodeNeutralizeAssist	int	Dominion only.
-    maxNumDeaths	int	Only returned for ranked statistics.
-    maxObjectivePlayerScore	int	Dominion only.
-    maxTeamObjective	int	Dominion only.
-    maxTimePlayed	int	
-    maxTimeSpentLiving	int	
-    maxTotalPlayerScore	int	Dominion only.
-    mostChampionKillsPerSession	int	
-    mostSpellsCast	int	
-    normalGamesPlayed	int	
-    rankedPremadeGamesPlayed	int	
-    rankedSoloGamesPlayed	int	
-    totalAssists	int	
-    totalChampionKills	int	
-    totalDamageDealt	int	
-    totalDamageTaken	int	
-    totalDeathsPerSession	int	Only returned for ranked statistics.
-    totalDoubleKills	int	
-    totalFirstBlood	int	
-    totalGoldEarned	int	
-    totalHeal	int	
-    totalMagicDamageDealt	int	
-    totalMinionKills	int	
-    totalNeutralMinionsKilled	int	
-    totalNodeCapture	int	Dominion only.
-    totalNodeNeutralize	int	Dominion only.
-    totalPentaKills	int	
-    totalPhysicalDamageDealt	int	
-    totalQuadraKills	int	
-    totalSessionsLost	int	
-    totalSessionsPlayed	int	
-    totalSessionsWon	int	
-    totalTripleKills	int	
-    totalTurretsKilled	int	
-    totalUnrealKills	int
-
-
-#####################################################################################################
+    averageAssists=models.IntegerField(u'')     #	Dominion only.
+    averageChampionsKilled=models.IntegerField(u'')     #	Dominion only.
+    averageCombatPlayerScore=models.IntegerField(u'')       #	Dominion only.
+    averageNodeCapture=models.IntegerField(u'')     #	Dominion only.
+    averageNodeCaptureAssist=models.IntegerField(u'')       #	Dominion only.
+    averageNodeNeutralize=models.IntegerField(u'')      #	Dominion only.
+    averageNodeNeutralizeAssist=models.IntegerField(u'')        #	Dominion only.
+    averageNumDeaths=models.IntegerField(u'')       #	Dominion only.
+    averageObjectivePlayerScore=models.IntegerField(u'')        #	Dominion only.
+    averageTeamObjective=models.IntegerField(u'')       #	Dominion only.
+    averageTotalPlayerScore=models.IntegerField(u'')        #	Dominion only.
+    botGamesPlayed=models.IntegerField(u'')
+    killingSpree=models.IntegerField(u'')
+    maxAssists=models.IntegerField(u'')     #	Dominion only.
+    maxChampionsKilled=models.IntegerField(u'')
+    maxCombatPlayerScore=models.IntegerField(u'')       #	Dominion only.
+    maxLargestCriticalStrike=models.IntegerField(u'')
+    maxLargestKillingSpree=models.IntegerField(u'')
+    maxNodeCapture=models.IntegerField(u'')     #	Dominion only.
+    maxNodeCaptureAssist=models.IntegerField(u'')       #	Dominion only.
+    maxNodeNeutralize=models.IntegerField(u'')      #	Dominion only.
+    maxNodeNeutralizeAssist=models.IntegerField(u'')        #	Dominion only.
+    maxNumDeaths=models.IntegerField(u'')       #	Only returned for ranked statistics.
+    maxObjectivePlayerScore=models.IntegerField(u'')        #	Dominion only.
+    maxTeamObjective=models.IntegerField(u'')       #	Dominion only.
+    maxTimePlayed=models.IntegerField(u'')
+    maxTimeSpentLiving=models.IntegerField(u'')
+    maxTotalPlayerScore=models.IntegerField(u'')        #	Dominion only.
+    mostChampionKillsPerSession=models.IntegerField(u'')
+    mostSpellsCast=models.IntegerField(u'')
+    normalGamesPlayed=models.IntegerField(u'')
+    rankedPremadeGamesPlayed=models.IntegerField(u'')
+    rankedSoloGamesPlayed=models.IntegerField(u'')
+    totalAssists=models.IntegerField(u'')
+    totalChampionKills=models.IntegerField(u'')
+    totalDamageDealt=models.IntegerField(u'')
+    totalDamageTaken=models.IntegerField(u'')
+    totalDeathsPerSession=models.IntegerField(u'')      #	Only returned for ranked statistics.
+    totalDoubleKills=models.IntegerField(u'')
+    totalFirstBlood=models.IntegerField(u'')
+    totalGoldEarned=models.IntegerField(u'')
+    totalHeal=models.IntegerField(u'')
+    totalMagicDamageDealt=models.IntegerField(u'')
+    totalMinionKills=models.IntegerField(u'')
+    totalNeutralMinionsKilled=models.IntegerField(u'')
+    totalNodeCapture=models.IntegerField(u'')       #	Dominion only.
+    totalNodeNeutralize=models.IntegerField(u'')        #	Dominion only.
+    totalPentaKills=models.IntegerField(u'')
+    totalPhysicalDamageDealt=models.IntegerField(u'')
+    totalQuadraKills=models.IntegerField(u'')
+    totalSessionsLost=models.IntegerField(u'')
+    totalSessionsPlayed=models.IntegerField(u'')
+    totalSessionsWon=models.IntegerField(u'')
+    totalTripleKills=models.IntegerField(u'')
+    totalTurretsKilled=models.IntegerField(u'')
+    totalUnrealKills=models.IntegerField(u'')
 
 class PlayerStatsSummaryListDto(models.Model):
-    playerStatSummaries	List[PlayerStatsSummaryDto]	Collection of player stats summaries associated with the summoner.
-    summonerId	long	Summoner ID.
+    playerStatSummaries=models.TextField(u'')#Lista en JSON compuesta de valores tipo PlayerStatsSummaryDto	Collection of player stats summaries associated with the summoner.
+    summonerId=models.BigIntegerField(u'')      #	Summoner ID
 
 class PlayerStatsSummaryDto(models.Model):
-    aggregatedStats	AggregatedStatsDto	Aggregated stats.
-    losses	int	Number of losses for this queue type. Returned for ranked queue types only.
-    modifyDate	long	Date stats were last modified specified as epoch milliseconds.
-    playerStatSummaryType	string	Player stats summary type. (Legal values: AramUnranked5x5, Ascension, CAP5x5, CoopVsAI, CoopVsAI3x3, CounterPick, FirstBlood1x1, FirstBlood2x2, Hexakill, KingPoro, NightmareBot, OdinUnranked, OneForAll5x5, RankedPremade3x3, RankedPremade5x5, RankedSolo5x5, RankedTeam3x3, RankedTeam5x5, SummonersRift6x6, Unranked, Unranked3x3, URF, URFBots, Bilgewater)
-    wins	int	Number of wins for this queue type.
+    aggregatedStats	AggregatedStatsDto#TODO     #   Aggregated stats.
+    losses=models.IntegerField(u'')     #	Number of losses for this queue type. Returned for ranked queue types only.
+    modifyDate=models.BigIntegerField(u'')      #	Date stats were last modified specified as epoch milliseconds.
+    playerStatSummaryType=models.CharField(u'')     #	Player stats summary type. (Legal values: AramUnranked5x5, Ascension, CAP5x5, CoopVsAI, CoopVsAI3x3, CounterPick, FirstBlood1x1, FirstBlood2x2, Hexakill, KingPoro, NightmareBot, OdinUnranked, OneForAll5x5, RankedPremade3x3, RankedPremade5x5, RankedSolo5x5, RankedTeam3x3, RankedTeam5x5, SummonersRift6x6, Unranked, Unranked3x3, URF, URFBots, Bilgewater)
+    wins=models.IntegerField(u'')       #	Number of wins for this queue type.
 
 class AggregatedStatsDto(models.Model):
-    averageAssists	int	Dominion only.
-    averageChampionsKilled	int	Dominion only.
-    averageCombatPlayerScore	int	Dominion only.
-    averageNodeCapture	int	Dominion only.
-    averageNodeCaptureAssist	int	Dominion only.
-    averageNodeNeutralize	int	Dominion only.
-    averageNodeNeutralizeAssist	int	Dominion only.
-    averageNumDeaths	int	Dominion only.
-    averageObjectivePlayerScore	int	Dominion only.
-    averageTeamObjective	int	Dominion only.
-    averageTotalPlayerScore	int	Dominion only.
-    botGamesPlayed	int	
-    killingSpree	int	
-    maxAssists	int	Dominion only.
-    maxChampionsKilled	int	
-    maxCombatPlayerScore	int	Dominion only.
-    maxLargestCriticalStrike	int	
-    maxLargestKillingSpree	int	
-    maxNodeCapture	int	Dominion only.
-    maxNodeCaptureAssist	int	Dominion only.
-    maxNodeNeutralize	int	Dominion only.
-    maxNodeNeutralizeAssist	int	Dominion only.
-    maxNumDeaths	int	Only returned for ranked statistics.
-    maxObjectivePlayerScore	int	Dominion only.
-    maxTeamObjective	int	Dominion only.
-    maxTimePlayed	int	
-    maxTimeSpentLiving	int	
-    maxTotalPlayerScore	int	Dominion only.
-    mostChampionKillsPerSession	int	
-    mostSpellsCast	int	
-    normalGamesPlayed	int	
-    rankedPremadeGamesPlayed	int	
-    rankedSoloGamesPlayed	int	
-    totalAssists	int	
-    totalChampionKills	int	
-    totalDamageDealt	int	
-    totalDamageTaken	int	
-    totalDeathsPerSession	int	Only returned for ranked statistics.
-    totalDoubleKills	int	
-    totalFirstBlood	int	
-    totalGoldEarned	int	
-    totalHeal	int	
-    totalMagicDamageDealt	int	
-    totalMinionKills	int	
-    totalNeutralMinionsKilled	int	
-    totalNodeCapture	int	Dominion only.
-    totalNodeNeutralize	int	Dominion only.
-    totalPentaKills	int	
-    totalPhysicalDamageDealt	int	
-    totalQuadraKills	int	
-    totalSessionsLost	int	
-    totalSessionsPlayed	int	
-    totalSessionsWon	int	
-    totalTripleKills	int	
-    totalTurretsKilled	int	
-    totalUnrealKills	int
-
-#####################################################################################################
+    averageAssists=models.IntegerField(u'')     #	Dominion only.
+    averageChampionsKilled=models.IntegerField(u'')     #	Dominion only.
+    averageCombatPlayerScore=models.IntegerField(u'')       #	Dominion only.
+    averageNodeCapture=models.IntegerField(u'')     #	Dominion only.
+    averageNodeCaptureAssist=models.IntegerField(u'')       #	Dominion only.
+    averageNodeNeutralize=models.IntegerField(u'')      #	Dominion only.
+    averageNodeNeutralizeAssist=models.IntegerField(u'')        #	Dominion only.
+    averageNumDeaths=models.IntegerField(u'')       #	Dominion only.
+    averageObjectivePlayerScore=models.IntegerField(u'')        #	Dominion only.
+    averageTeamObjective=models.IntegerField(u'')       #	Dominion only.
+    averageTotalPlayerScore=models.IntegerField(u'')        #	Dominion only.
+    botGamesPlayed=models.IntegerField(u'')
+    killingSpree=models.IntegerField(u'')
+    maxAssists=models.IntegerField(u'')     #	Dominion only.
+    maxChampionsKilled=models.IntegerField(u'')
+    maxCombatPlayerScore=models.IntegerField(u'')       #	Dominion only.
+    maxLargestCriticalStrike=models.IntegerField(u'')
+    maxLargestKillingSpree=models.IntegerField(u'')
+    maxNodeCapture=models.IntegerField(u'')     #	Dominion only.
+    maxNodeCaptureAssist=models.IntegerField(u'')       #	Dominion only.
+    maxNodeNeutralize=models.IntegerField(u'')      #	Dominion only.
+    maxNodeNeutralizeAssist=models.IntegerField(u'')        #	Dominion only.
+    maxNumDeaths=models.IntegerField(u'')       #	Only returned for ranked statistics.
+    maxObjectivePlayerScore=models.IntegerField(u'')        #	Dominion only.
+    maxTeamObjective=models.IntegerField(u'')       #	Dominion only.
+    maxTimePlayed=models.IntegerField(u'')
+    maxTimeSpentLiving=models.IntegerField(u'')
+    maxTotalPlayerScore=models.IntegerField(u'')        #	Dominion only.
+    mostChampionKillsPerSession=models.IntegerField(u'')
+    mostSpellsCast=models.IntegerField(u'')
+    normalGamesPlayed=models.IntegerField(u'')
+    rankedPremadeGamesPlayed=models.IntegerField(u'')
+    rankedSoloGamesPlayed=models.IntegerField(u'')
+    totalAssists=models.IntegerField(u'')
+    totalChampionKills=models.IntegerField(u'')
+    totalDamageDealt=models.IntegerField(u'')
+    totalDamageTaken=models.IntegerField(u'')
+    totalDeathsPerSession=models.IntegerField(u'')      #	Only returned for ranked statistics.
+    totalDoubleKills=models.IntegerField(u'')
+    totalFirstBlood=models.IntegerField(u'')
+    totalGoldEarned=models.IntegerField(u'')
+    totalHeal=models.IntegerField(u'')
+    totalMagicDamageDealt=models.IntegerField(u'')
+    totalMinionKills=models.IntegerField(u'')
+    totalNeutralMinionsKilled=models.IntegerField(u'')
+    totalNodeCapture=models.IntegerField(u'')       #	Dominion only.
+    totalNodeNeutralize=models.IntegerField(u'')        #	Dominion only.
+    totalPentaKills=models.IntegerField(u'')
+    totalPhysicalDamageDealt=models.IntegerField(u'')
+    totalQuadraKills=models.IntegerField(u'')
+    totalSessionsLost=models.IntegerField(u'')
+    totalSessionsPlayed=models.IntegerField(u'')
+    totalSessionsWon=models.IntegerField(u'')
+    totalTripleKills=models.IntegerField(u'')
+    totalTurretsKilled=models.IntegerField(u'')
+    totalUnrealKills=models.IntegerField(u'')
 
 class SummonerDto(models.Model):
-    exId	long	Summoner ID.
-    name	string	Summoner name.
-    profileIconId	int	ID of the summoner icon associated with the summoner.
-    revisionDate	long	Date summoner was last modified specified as epoch milliseconds. The following events will update this timestamp: profile icon change, playing the tutorial or advanced tutorial, finishing a game, summoner name change
-    summonerLevel	long	Summoner level associated with the summoner.
-
-#####################################################################################################
+    exId=models.BigIntegerField(u'')        #	Summoner ID.
+    name=models.CharField(u'')      #	Summoner name.
+    profileIconId=models.IntegerField(u'')      #	ID of the summoner icon associated with the summoner.
+    revisionDate=models.BigIntegerField(u'')        #	Date summoner was last modified specified as epoch milliseconds. The following events will update this timestamp: profile icon change, playing the tutorial or advanced tutorial, finishing a game, summoner name change
+    summonerLevel=models.BigIntegerField(u'')       #	Summoner level associated with the summoner.
 
 class MasteryPagesDto(models.Model):
-    pages	Set[MasteryPageDto]	Collection of mastery pages associated with the summoner.
-    summonerId	long	Summoner ID.
+    pages=#TODO#Set#MasteryPageDto      #   Collection of mastery pages associated with the summoner.
+    summonerId=models.BigIntegerField(u'')      #	Summoner ID.
 
 class MasteryPageDto(models.Model):
-    current	boolean	Indicates if the mastery page is the current mastery page.
-    exId	long	Mastery page ID.
-    masteries	List[MasteryDto]	Collection of masteries associated with the mastery page.
-    name	string	Mastery page name.
+    current=models.BooleanField(u'')        #	Indicates if the mastery page is the current mastery page.
+    exId=models.BigIntegerField(u'')        #	Mastery page ID.
+    masteries=models.TextField(u'')#Lista en JSON compuesta de valores tipo MasteryDto	Collection of masteries associated with the mastery page.
+    name=models.CharField(u'')      #	Mastery page name.
 
 class MasteryDto(models.Model):
-    exId	int	Mastery ID. For static information correlating to masteries, please refer to the LoL Static Data API.
-    rank	int	Mastery rank (i.e., the number of points put into this mastery).
-    
-#####################################################################################################
-#PARTE DE LA API SIN BASE DE DATOS.............GET /api/lol/{region}/v1.4/summoner/{summonerIds}/name
-#####################################################################################################
+    exId=models.IntegerField(u'')       #	Mastery ID. For static information correlating to masteries, please refer to the LoL Static Data API.
+    rank=models.IntegerField(u'')       #	Mastery rank (i.e., the number of points put into this mastery).
 
 class RunePagesDto(models.Model):
-    pages	Set[RunePageDto]	Collection of rune pages associated with the summoner.
-    summonerId	long	Summoner ID.
+    pages=#TODO#Set#RunePageDto     #   Collection of rune pages associated with the summoner.
+    summonerId=models.BigIntegerField(u'')      #	Summoner ID.
 
 class RunePageDto(models.Model):
-    current	boolean	Indicates if the page is the current page.
-    exId	long	Rune page ID.
-    name	string	Rune page name.
-    slots	Set[RuneSlotDto]	Collection of rune slots associated with the rune page.
+    current=models.BooleanField(u'')        #	Indicates if the page is the current page.
+    exId=models.BigIntegerField(u'')        #	Rune page ID.
+    name=models.CharField(u'')      #	Rune page name.
+    slots=#TODO#Set#RuneSlotDto     #   Collection of rune slots associated with the rune page.
 
 class RuneSlotDto(models.Model):
-    runeId	int	Rune ID associated with the rune slot. For static information correlating to rune IDs, please refer to the LoL Static Data API.
-    runeSlotId	int	Rune slot ID.
-    
-#####################################################################################################
+    runeId=models.IntegerField(u'')     #	Rune ID associated with the rune slot. For static information correlating to rune IDs, please refer to the LoL Static Data API.
+    runeSlotId=models.IntegerField(u'')     #	Rune slot ID.
 
 class TeamDto(models.Model):
-    createDate	long	Date that team was created specified as epoch milliseconds.
-    fullId	string	
-    lastGameDate	long	Date that last game played by team ended specified as epoch milliseconds.
-    lastJoinDate	long	Date that last member joined specified as epoch milliseconds.
-    lastJoinedRankedTeamQueueDate	long	Date that team last joined the ranked team queue specified as epoch milliseconds.
-    matchHistory	List[MatchHistorySummaryDto]	
-    modifyDate	long	Date that team was last modified specified as epoch milliseconds.
-    name	string	
-    roster	RosterDto	
-    secondLastJoinDate	long	Date that second to last member joined specified as epoch milliseconds.
-    status	string	
-    tag	string	
-    teamStatDetails	List[TeamStatDetailDto]	
-    thirdLastJoinDate	long	Date that third to last member joined specified as epoch milliseconds.
+    createDate=models.BigIntegerField(u'')      #	Date that team was created specified as epoch milliseconds.
+    fullId=models.CharField(u'')
+    lastGameDate=models.BigIntegerField(u'')        #	Date that last game played by team ended specified as epoch milliseconds.
+    lastJoinDate=models.BigIntegerField(u'')        #	Date that last member joined specified as epoch milliseconds.
+    lastJoinedRankedTeamQueueDate=models.BigIntegerField(u'')       #	Date that team last joined the ranked team queue specified as epoch milliseconds.
+    matchHistory=models.TextField(u'')#Lista en JSON compuesta de valores tipo MatchHistorySummaryDto	
+    modifyDate=models.BigIntegerField(u'')      #	Date that team was last modified specified as epoch milliseconds.
+    name=models.CharField(u'')
+    roster=#TODO#RosterDto	
+    secondLastJoinDate=models.BigIntegerField(u'')      #	Date that second to last member joined specified as epoch milliseconds.
+    status=models.CharField(u'')
+    tag=models.CharField(u'')
+    teamStatDetails=models.TextField(u'')#Lista en JSON compuesta de valores tipo TeamStatDetailDto	
+    thirdLastJoinDate=models.BigIntegerField(u'')       #	Date that third to last member joined specified as epoch milliseconds.
 
 class MatchHistorySummaryDto(models.Model):
-    assists	int	
-    date	long	Date that match was completed specified as epoch milliseconds.
-    deaths	int	
-    gameId	long	
-    gameMode	string	
-    invalid	boolean	
-    kills	int	
-    mapId	int	
-    opposingTeamKills	int	
-    opposingTeamName	string	
-    win	boolean
+    assists=models.IntegerField(u'')
+    date=models.BigIntegerField(u'')        #	Date that match was completed specified as epoch milliseconds.
+    deaths=models.IntegerField(u'')
+    gameId=models.BigIntegerField(u'')
+    gameMode=models.CharField(u'')
+    invalid=models.BooleanField(u'')
+    kills=models.IntegerField(u'')
+    mapId=models.IntegerField(u'')
+    opposingTeamKills=models.IntegerField(u'')
+    opposingTeamName=models.CharField(u'')
+    win=models.BooleanField(u'')
 
 class RosterDto(models.Model):
-    memberList	List[TeamMemberInfoDto]	
-    ownerId	long
+    memberList=models.TextField(u'')#Lista en JSON compuesta de valores tipo TeamMemberInfoDto
+    ownerId=models.BigIntegerField(u'')
 
 class TeamStatDetailDto(models.Model):
-    averageGamesPlayed	int	
-    losses	int	
-    teamStatType	string	
-    wins	int
+    averageGamesPlayed=models.IntegerField(u'')
+    losses=models.IntegerField(u'')
+    teamStatType=models.CharField(u'')
+    wins=models.IntegerField(u'')
 
 class TeamMemberInfoDto(models.Model):
-    inviteDate	long	Date that team member was invited to team specified as epoch milliseconds.
-    joinDate	long	Date that team member joined team specified as epoch milliseconds.
-    playerId	long	
-    status	string
-    
-#####################################################################################################
+    inviteDate=models.BigIntegerField(u'')      #	Date that team member was invited to team specified as epoch milliseconds.
+    joinDate=models.BigIntegerField(u'')        #	Date that team member joined team specified as epoch milliseconds.
+    playerId=models.BigIntegerField(u'')
+    status=models.CharField(u'')
 
 class TeamDto(models.Model):
-    createDate	long	Date that team was created specified as epoch milliseconds.
-    fullId	string	
-    lastGameDate	long	Date that last game played by team ended specified as epoch milliseconds.
-    lastJoinDate	long	Date that last member joined specified as epoch milliseconds.
-    lastJoinedRankedTeamQueueDate	long	Date that team last joined the ranked team queue specified as epoch milliseconds.
-    matchHistory	List[MatchHistorySummaryDto]	
-    modifyDate	long	Date that team was last modified specified as epoch milliseconds.
-    name	string	
-    roster	RosterDto	
-    secondLastJoinDate	long	Date that second to last member joined specified as epoch milliseconds.
-    status	string	
-    tag	string	
-    teamStatDetails	List[TeamStatDetailDto]	
-    thirdLastJoinDate	long	Date that third to last member joined specified as epoch milliseconds.
+    createDate=models.BigIntegerField(u'')      #	Date that team was created specified as epoch milliseconds.
+    fullId=models.CharField(u'')
+    lastGameDate=models.BigIntegerField(u'')        #	Date that last game played by team ended specified as epoch milliseconds.
+    lastJoinDate=models.BigIntegerField(u'')        #	Date that last member joined specified as epoch milliseconds.
+    lastJoinedRankedTeamQueueDate=models.BigIntegerField(u'')       #	Date that team last joined the ranked team queue specified as epoch milliseconds.
+    matchHistory=models.TextField(u'')#Lista en JSON compuesta de valores tipo MatchHistorySummaryDto	
+    modifyDate=models.BigIntegerField(u'')      #	Date that team was last modified specified as epoch milliseconds.
+    name=models.CharField(u'')
+    roster	RosterDto#TODO	
+    secondLastJoinDate=models.BigIntegerField(u'')      #	Date that second to last member joined specified as epoch milliseconds.
+    status=models.CharField(u'')
+    tag=models.CharField(u'')
+    teamStatDetails=models.TextField(u'')#Lista en JSON compuesta de valores tipo TeamStatDetailDto	
+    thirdLastJoinDate=models.BigIntegerField(u'')       #	Date that third to last member joined specified as epoch milliseconds.
 
 class MatchHistorySummaryDto(models.Model):
-    assists	int	
-    date	long	Date that match was completed specified as epoch milliseconds.
-    deaths	int	
-    gameId	long	
-    gameMode	string	
-    invalid	boolean	
-    kills	int	
-    mapId	int	
-    opposingTeamKills	int	
-    opposingTeamName	string	
-    win	boolean
+    assists=models.IntegerField(u'')
+    date=models.BigIntegerField(u'')        #	Date that match was completed specified as epoch milliseconds.
+    deaths=models.IntegerField(u'')
+    gameId=models.BigIntegerField(u'')
+    gameMode=models.CharField(u'')
+    invalid=models.BooleanField(u'')
+    kills=models.IntegerField(u'')
+    mapId=models.IntegerField(u'')
+    opposingTeamKills=models.IntegerField(u'')
+    opposingTeamName=models.CharField(u'')
+    win=models.BooleanField(u'')
 
 class RosterDto(models.Model):
-    memberList	List[TeamMemberInfoDto]	
-    ownerId	long
+    memberList=models.TextField(u'')#Lista en JSON compuesta de valores tipo TeamMemberInfoDto	
+    ownerId=models.BigIntegerField(u'')
 
 class TeamStatDetailDto(models.Model):
-    averageGamesPlayed	int	
-    losses	int	
-    teamStatType	string	
-    wins	int
+    averageGamesPlayed=models.IntegerField(u'')
+    losses=models.IntegerField(u'')
+    teamStatType=models.CharField(u'')
+    wins=models.IntegerField(u'')
 
 class TeamMemberInfoDto(models.Model):
-    inviteDate	long	Date that team member was invited to team specified as epoch milliseconds.
-    joinDate	long	Date that team member joined team specified as epoch milliseconds.
-    playerId	long	
-    status	string
+    inviteDate=models.BigIntegerField(u'')      #	Date that team member was invited to team specified as epoch milliseconds.
+    joinDate=models.BigIntegerField(u'')        #	Date that team member joined team specified as epoch milliseconds.
+    playerId=models.BigIntegerField(u'')
+    status=models.CharField(u'')
