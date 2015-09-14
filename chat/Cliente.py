@@ -40,10 +40,11 @@ class Cliente(object):
             return "connect failed":
         if not self.conn.auth(self.user, "AIR_" + self.password, "xiff"):
             return "auth failed."
-        return "connect stablished"
         conn.RegisterHandler("message", self.recvMessage)
         conn.sendInitPresence(requestRoster=1)
         self.roster = self.conn.getRoster()
+        return "connect stablished"
+
 
     def recvMessage(self, conn, msg):
         user = roster.getName(str(msg.getFrom()))
@@ -52,6 +53,6 @@ class Cliente(object):
         self.sendReply(conn, msg, text)
 
     def sendReply(self, conn, msg, text):
-        reply = msg.buildReply("[ECHO] %s" % (text))
+        reply = msg.buildReply(text)
         reply.setType("chat")
         self.conn.send(reply)
