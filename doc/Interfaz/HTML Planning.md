@@ -37,11 +37,11 @@ se muestran elementos que debe haber necesariamente en cada página, si es neces
 - botones facebook-twitter-google+
 
 ##PERFIL
-*summoner info*
-- imagen baner del champion mas usado: mostPlayedChamp_banner_img
-- imagen del summoner: summoner_img
-- nombre del summoner: summoner_name
-- imagen de la liga actual del sumoner: summoner_league_img
+*summoner info*:"summonerInfo"
+- imagen baner del champion mas usado: mostPlayedChampBannerImg
+- imagen del summoner: summonerImg
+- nombre del summoner: summonerName
+- imagen de la liga actual del sumoner: summonereagueImg
 - liga actual del sumoner (ej:Silver IV): summoner_league_name
 - server del summoner: summoner_server
 - prom kills: summoner_kills

@@ -45,22 +45,16 @@
 </html>
 
 <script>
-    $( document ).ready(function(){        
-        var data={
-            csrfmiddlewaretoken: '{{ csrf_token }}',
-            id:'{{post.id}}',
-            nombre:$('#name').val(),
-            mensaje:$('#message').val(),
-        }
+    $( document ).ready(function(){
         
         $.ajax({
             type: "POST",
             url: "{% url 'app_blog:comentar' %}",
-            data: data,
+            data: "summonerInfo",
             dataType: "json",
             success: function(result){
                 console.log(result)
-                $("#comentarios").prepend("<h5>"+result.nombre+"</h5><small>"+result.fecha+"</small><p>"+result.mensaje+"</p><hr>");
+                
             },
             error: function(err){
                 console.log("Error");

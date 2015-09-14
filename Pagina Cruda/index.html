@@ -1,17 +1,19 @@
+<meta charset="utf-8">
 <html>
     <head>
         <link rel="icon" type="image/png" href="/img/log.png"/>
         <title>LOL Client</title>
         <link rel="stylesheet" type="text/css" href="css/materialize.css"/>
         <link rel="stylesheet" type="text/css" href="css/style.css"/>
+        <link rel="stylesheet" type="text/css" href="css/pestana.css"/>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     </head>
-    <body class="cyan darken-2">
-        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <body>
+        <script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
         <script type="text/javascript" src="js/materialize.min.js"></script>
         <header>
             <nav>
-                <div class="nav-wrapper light-blue darken-4">
+                <div class="nav-wrapper color_nav">
                     <ul id="nav-mobile" class="left hide-on-med-and-down">
                         <li><a href="#">Home</a></li>
                         <li><a href="#">Perfil</a></li>
@@ -31,50 +33,68 @@
 
 
         <div class="fondo-content">
-            <div class="row">
-                <div class="col s8">
-                    <div class="summoner">
-                        <div class="summoner-data">
-                            <div class="summoner-nombre">
-                                <img id="summoner_img" src="img/picture_profile.png" width="64px" height="64px" class="left" style="margin-right:5px"/>
-                                <span id="summoner_name" style="font-size:130%">Cargando Invocador</span>
-                            </div>
-                            <img id="summoner_league_img" src="img/picture_league.png" width="40px" height="40px"/>
-                            <span id="summoner_league_name">League</span> <span id="summoner_rank">Rank</span><br>
-                            <span style="color:yellow">Partidas Jugadas: <span id="summoner_matches_count">0</span></span><br>
-                            <span style="color:green">Partidas Ganadas: <span id="summoner_winrate_count">0</span></span><br>
-                            <span style="color:red">Partidas Perdidas: <span id="summoner_loserate_count">0</span></span><br>
-                        </div>
+            <div class="summoner">
+                <div class="summoner-data">
+                    <div class="summoner-nombre">
+                        <img id="summoner_img" src="img/picture_profile.png"/>
+                        <span id="summoner_name" style="font-size:25px">Cargando Invocador</span>
+                    </div>
+                    <img id="summoner_league_img" src="img/picture_league.png"/>
+
+                    <div id="summoner-data_div">
+                        <span id="summoner_league_name">Unranked</span><br>
+                        <span>Rank: </span><span id="summoner_rank">0</span><br>
+                        <span id="summoner_server">Cargando...</span><br>
+                    </div>
+                    <div id="summoner-data_div_2">
+                        <span id="summoner_kills">0</span>
+                        <span class="blue_caract">/</span>
+                        <span id="summoner_deaths">0</span>
+                        <span class="blue_caract">/</span>
+                        <span id="summoner_assist">0</span><br>
+                        <span>KDA: </span><span id="summoner_kda_ratio">0</span><br>
+                        <span>WinRate: </span><span id="summoner_winrate">0</span><span class="blue_caract">%</span><br>
                     </div>
                 </div>
+            </div>
 
-                <div class="col s4">
-                    <div class="champion">
-                        <span>Campeón más Jugado</span><br>
-                        <img id="mostPlayedChamp_img" src="#"/><br>
-                        <span id="mostPlayedChamp_name">Nombre</span><br>
-                        <span id="mostPlayedChamp_kda_coefiecient">Coeficiente de kda</span><br>
-                        <span id="mostPlayedChamp_kda">K/D/A</span><br>
-                        <span id="mostPlayedChamp_cs">Minions</span><br>
-                        <span id="mostPlayedChamp_gold">Oro Promedio</span><br>
-                        <span id="mostPlayedChamp_matches_count">Numero de Partidas</span><br>
-                        <span id="mostPlayedChamp_winrate_per100">Win Rate Porcentaje</span><br>
-                        <span id="mostPlayedChamp_winrate_count">Win Rate</span><br>
-                        <span id="mostPlayedChamp_loserate_per100">Loose Rate Porcentaje</span><br>
-                        <span id="mostPlayedChamp_loserate_count">Loose Rate</span><br>
-                        <br><hr><br>
-                    </div>
+
+            <div class="champion">
+                <span style="font-size:10px">Campeón más Jugado</span><br>
+                <img id="mostPlayedChamp_icon_img" src="img/champion_face.png"/>
+                <span id="mostPlayedChamp_name">Heimerdinger</span><br>
+                <div id="champion-data">
+                    <span class="blue_caract">Partidas: </span><span class="assist" id="mostPlayedChamp_matches_count">0</span><br>
+                    <span class="blue_caract">Ganadas: </span><span class="win" id="mostPlayedChamp_matches_win_count">0</span><br>
+                    <span class="blue_caract">Perdidas: </span><span class="death" id="mostPlayedChamp_matches_loose_count">0</span><br>
+                </div>
+                <div id="champion-data-2">  
+                    <span id="mostPlayedChamp_kills">0</span><span class="blue_caract"> / </span>
+                    <span id="mostPlayedChamp_deaths">0</span><span class="blue_caract"> / </span>
+                    <span id="mostPlayedChamp_assist">0</span><br>
+                    <span class="minions">Minions: </span><span class="minions" id="mostPlayedChamp_cs">0</span><br>
+                    <span class="gold">Gold: </span><span class="gold" id="mostPlayedChamp_gold">0</span><br>
+                </div>
+                <div id="champion-data-3">
+                    <span class="blue_caract">KDA: </span><span id="mostPlayedChamp_kda_coefiecient">0</span><br>
+                </div>
+            </div>
+
+            <div class="content_summoner">
+                <div id="pestanas">
+                    <ul id="pestanas_opciones">
+                        <li><a href="#"><img src="img/profile.svg" class="img" draggable="false"></li>
+                        <li><a href="#"><img src="img/league.svg"  class="img" draggable="false"></li>
+                        <li><a href="#"><img src="img/spells.svg" class="img" draggable="false"></li>
+                        <li><a href="#"><img src="img/chat.svg" class="img" draggable="false"></li>
+                    </ul>
                 </div>
             </div>
         </div>
 
-
+        <br>
     </body>
-    <footer class="page-footer light-blue darken-4">
-        <div class="container">
-        </div>
-        <div class="footer-copyright light-blue darken-4">
-            <span>2015</span>
-        </div>
-    </footer>
+    <div class="color_nav page-footer">
+        <span>2015</span>
+    </div>
 </html>
