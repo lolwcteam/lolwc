@@ -37,31 +37,31 @@ se muestran elementos que debe haber necesariamente en cada página, si es neces
 - botones facebook-twitter-google+
 
 ##PERFIL
-*summoner info*:"summonerInfo"
+*summoner info*: "summonerInfo"
 - imagen baner del champion mas usado: mostPlayedChampBannerImg
 - imagen del summoner: summonerImg
 - nombre del summoner: summonerName
-- imagen de la liga actual del sumoner: summonereagueImg
-- liga actual del sumoner (ej:Silver IV): summoner_league_name
-- server del summoner: summoner_server
-- prom kills: summoner_kills
-- prom deaths: summoner_deaths
-- prom assists: summoner_assist
-- kda: summoner_kda_ratio
-- porcentaje de victorias: summoner_winrate
+- imagen de la liga actual del sumoner: summonerLeagueImg
+- liga actual del sumoner (ej:Silver IV): summonerLeagueName
+- server del summoner: summonerServer
+- prom kills: summonerKills
+- prom deaths: summonerDeaths
+- prom assists: summonerAssist
+- kda: summonerKdaRatio
+- porcentaje de victorias: summonerWinrate
 
 *most played champ info*
-- imagen (icono): mostPlayedChamp_icon_img
-- nombre: mostPlayedChamp_name
-- cantidad de jugada: mostPlayedChamp_matches_count
-- cantidad de victorias: mostPlayedChamp_matches_win_count
-- cantidad de derrotas: mostPlayedChamp_matches_loose_count 
-- kda: mostPlayedChamp_kda_coefiecient
-- prom kills: mostPlayedChamp_kills
-- prom deaths: mostPlayedChamp_deaths
-- prom asssists: mostPlayedChamp_assist
-- prom creeps: mostPlayedChamp_cs
-- prom gold: mostPlayedChamp_gold
+- imagen (icono): mostPlayedChampIconImg
+- nombre: mostPlayedChampName
+- cantidad de jugada: mostPlayedChampMatchesCount
+- cantidad de victorias: mostPlayedChampMatchesWinCount
+- cantidad de derrotas: mostPlayedChampMatchesLooseCount 
+- kda: mostPlayedChampKdaRatio
+- prom kills: mostPlayedChampKills
+- prom deaths: mostPlayedChampDeaths
+- prom asssists: mostPlayedChampAssist
+- prom creeps: mostPlayedChampCs
+- prom gold: mostPlayedChampGold
 
 *free week champs*
 lista de
