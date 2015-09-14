@@ -1,0 +1,65 @@
+<html>
+    <head>
+        <title>LOL Client</title>
+    </head>
+    <body>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <hr>
+        <div>
+            <h3>Summoner Info</h3>
+
+            <img id="mostPlayedChamp_banner_img" src="#"/><br>
+            <img id="summoner_img" src="#"/>
+            <span id="summoner_name">Cargando Invocador</span><br>
+            <img id="summoner_league_img" src="img/picture_league.png"/>
+            <span id="summoner_league_name">Unranked</span><br>
+            <span>Rank: </span><span id="summoner_rank">0</span><br>
+            <span id="summoner_server">Server</span><br>
+
+            <span id="summoner_kills">0</span>
+            <span>/</span>
+            <span id="summoner_deaths">0</span>
+            <span>/</span>
+            <span id="summoner_assist">0</span><br>
+
+            <span>KDA: </span><span id="summoner_kda_ratio">0</span><br>
+            <span>WinRate: </span><span id="summoner_winrate">0</span><span>%</span><br>
+        </div>
+        <br><hr>
+        <div>
+            <h3>most played champ info</h3>
+
+            <img id="mostPlayedChamp_icon_img" src="#"/>
+            <span id="mostPlayedChamp_name">Heimerdinger</span><br>
+            <span>Partidas: </span><span id="mostPlayedChamp_matches_count">0</span><br>
+            <span>Ganadas: </span><span id="mostPlayedChamp_matches_win_count">0</span><br>
+            <span>Perdidas: </span><span id="mostPlayedChamp_matches_loose_count">0</span>
+            <span>KDA: </span><span id="mostPlayedChamp_kda_coefiecient">0</span><br>
+            <span id="mostPlayedChamp_kills">0</span><span class="blue_caract"> / </span>
+            <span id="mostPlayedChamp_deaths">0</span><span class="blue_caract"> / </span>
+            <span id="mostPlayedChamp_assist">0</span><br>
+            <span>Minions: </span><span id="mostPlayedChamp_cs">0</span><br>
+            <span>Gold: </span><span  id="mostPlayedChamp_gold">0</span><br>
+        </div>
+    </body>
+</html>
+
+<script>
+    $( document ).ready(function(){
+        
+        $.ajax({
+            type: "POST",
+            url: "{% url 'app_blog:comentar' %}",
+            data: "summonerInfo",
+            dataType: "json",
+            success: function(result){
+                console.log(result)
+                
+            },
+            error: function(err){
+                console.log("Error");
+                console.log(err.responseText);
+            },
+        });
+    });
+</script>

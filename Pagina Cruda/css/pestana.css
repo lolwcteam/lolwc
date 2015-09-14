@@ -1,0 +1,28 @@
+#pestanas_opciones li{
+    background-color: #04242f;
+    width: 45px;
+    height: 50px;
+    padding-top: 10px;
+    padding-left: 10px;
+    -webkit-transition: all 0.2s linear;
+    -moz-transition: all 0.2s linear;
+    -ms-transition: all 0.2s linear;
+    -o-transition: all 0.2s linear;
+    transition: all 0.2s linear;
+}
+
+#pestanas_opciones li:hover{
+    background-color: #3D6985;
+}
+
+.img{
+    width: 25px; 
+}
+
+.pestana_opciones_active{
+    background-color: #0f4668;
+}
+
+.pestana_disable{
+    display: none;
+}
