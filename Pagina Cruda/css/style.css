@@ -141,7 +141,13 @@ html{
 .content_summoner {
     position: relative;    
     background-color: #0f4668;
-    width: 838px;
-    top:-140px;
-    left:12px;
+    width: 793px;
+    top: -365px;
+    left:57px;
+}
+
+.summoner_tabs {
+    position: relative;
+    top: -150px;
+    left: 12px;
 }

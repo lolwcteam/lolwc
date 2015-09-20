@@ -10,11 +10,7 @@
         <script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
         <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
         <script type="text/javascript" src="js/materialize.min.js"></script>
-        <script>
-            $(function() {
-                $( "#tabs" ).tabs();
-            });
-        </script>
+        <script type="text/javascript" src="js/pestanas.js"></script>
     </head>
     <body>
         <header>
@@ -85,27 +81,29 @@
                     <span class="blue_caract">KDA: </span><span id="mostPlayedChamp_kda_coefiecient">0</span><br>
                 </div>
             </div>
-
+            
+            <div class="summoner_tabs">
+                <ul id="pestanas_opciones">
+                    <li value="1" onclick="tab(this)"><img src="img/profile.svg" class="img" draggable="false"/></li>
+                    <li value="2" onclick="tab(this)"><img src="img/league.svg"  class="img" draggable="false"/></li>
+                    <li value="3" onclick="tab(this)"><img src="img/spells.svg" class="img" draggable="false"/></li>
+                    <li value="4" onclick="tab(this)"><img src="img/chat.svg" class="img" draggable="false"/></li>
+                </ul>
+            </div>
+            
             <div class="content_summoner">
                 <div id="tabs">
-                    <ul id="pestanas_opciones">
-                        <li id="profile"><img src="img/profile.svg" class="img" draggable="false"/></li>
-                        <li id="league"><img src="img/league.svg"  class="img" draggable="false"/></li>
-                        <li><img src="img/spells.svg" class="img" draggable="false"/></li>
-                        <li><img src="img/chat.svg" class="img" draggable="false"/></li>
-                    </ul>
-
-                    <div id="tabs-1">
-                        <p>Adriel</p>
+                    <div id="tabs-1" class="hidden_Div">
+                        <p>tabs-1</p>
                     </div>
-                    <div id="tabs-2">
-                        <p>Adriel Adriel</p>
+                    <div id="tabs-2" class="hidden_Div">
+                        <p>tabs-2</p>
                     </div>
-                    <div id="tabs-3">
-                        <p>Adriel</p>
+                    <div id="tabs-3" class="hidden_Div">
+                        <p>tabs-3</p>
                     </div>
-                    <div id="tabs-4">
-                        <p>Adriel Adriel</p>
+                    <div id="tabs-4" class="hidden_Div">
+                        <p>tabs-4</p>
                     </div>
                 </div>
 
