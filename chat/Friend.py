@@ -1,7 +1,8 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 class Friend(object):
     #Del roster
     jid = None #Jabber ID del conectado
-    statusRawXml = None #El status en xml directo
     statusChat = None #chat, dnd (do not disturb) y away
     name = None #Nombre de invocador
     #De roster.getStatus()
@@ -28,9 +29,8 @@ class Friend(object):
     gameStatus = None #inGame, outOfGame, champSelect, hostingNormalGame
     timeStamp = None #?si inGame, timestamp de cuando empezo, si no INDEFINIDO
     
-    def __init__(self, jid, statusRawXml, statusChat, name, profileIcon, level, wins, leaves, odinWins, odinLeaves, queueType, rankedLosses, rankedRating, tier, rankedSoloRestricted, championMasteryScore, statusMsg, rankedLeagueName, rankedLeagueDivision, rankedLeagueTier, rankedLeagueQueue, rankedWins, skinname, gameQueueType, gameStatus, timeStamp):
+    def __init__(self, jid, statusChat, name, profileIcon, level, wins, leaves, odinWins, odinLeaves, queueType, rankedLosses, rankedRating, tier, rankedSoloRestricted, championMasteryScore, statusMsg, rankedLeagueName, rankedLeagueDivision, rankedLeagueTier, rankedLeagueQueue, rankedWins, skinname, gameQueueType, gameStatus, timeStamp):
         self.jid = jid
-        self.statusRawXml = statusRawXml
         self.statusChat = statusChat
         self.name = name
         self.profileIcon = profileIcon
@@ -55,3 +55,32 @@ class Friend(object):
         self.gameQueueType = gameQueueType
         self.gameStatus = gameStatus
         self.timeStamp = timeStamp
+        
+        
+        
+    #jid
+    #statusChat
+    #name
+
+    #profileIcon
+    #level
+    #wins
+    #leaves
+    #odinWins
+    #odinLeaves
+    #queueType
+    #rankedLosses
+    #rankedRating
+    #tier
+    #rankedSoloRestricted
+    #championMasteryScore
+    #statusMsg
+    #rankedLeagueName
+    #rankedLeagueDivision
+    #rankedLeagueTier
+    #rankedLeagueQueue
+    #rankedWins
+    #skinname
+    #gameQueueType
+    #gameStatus
+    #timeStamp
