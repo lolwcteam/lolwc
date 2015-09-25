@@ -38,13 +38,14 @@
             <div class="summoner">
                 <div class="summoner-data">
                     <div class="summoner-nombre">
-                        <img id="summoner_img" src="img/picture_profile.png"/>
+                        <img id="summoner_img" src="img/picture_profile.png" draggable="false"/>
                         <span id="summoner_name" style="font-size:25px">Cargando Invocador</span>
                     </div>
-                    <img id="summoner_league_img" src="img/picture_league.png"/>
+                    <img id="summoner_league_img" src="img/picture_league.png"  draggable="false"/>
 
                     <div id="summoner-data_div">
-                        <span id="summoner_league_name">Unranked</span><br>
+                        <span class="summoner_league_name">Unranked</span>
+                        <span class="summoner_league_division"></span><br>
                         <span>Rank: </span><span id="summoner_rank">0</span><br>
                         <span id="summoner_server">Cargando...</span><br>
                     </div>
@@ -63,7 +64,7 @@
 
             <div class="champion">
                 <span style="font-size:10px">Campeón más Jugado</span><br>
-                <img id="mostPlayedChamp_icon_img" src="img/champion_face.png"/>
+                <img id="mostPlayedChamp_icon_img" src="img/champion_face.png"  draggable="false"/>
                 <span id="mostPlayedChamp_name">Heimerdinger</span><br>
                 <div id="champion-data">
                     <span class="assist">Partidas: </span><span class="assist" id="mostPlayedChamp_matches_count">0</span><br>
@@ -81,23 +82,28 @@
                     <span class="blue_caract">KDA: </span><span id="mostPlayedChamp_kda_coefiecient">0</span><br>
                 </div>
             </div>
-            
+
             <div class="summoner_tabs">
                 <ul id="pestanas_opciones">
                     <li value="1" onclick="tab(this)"><img src="img/profile.svg" class="img" draggable="false"/></li>
                     <li value="2" onclick="tab(this)"><img src="img/league.svg"  class="img" draggable="false"/></li>
-                    <li value="3" onclick="tab(this)"><img src="img/spells.svg" class="img" draggable="false"/></li>
-                    <li value="4" onclick="tab(this)"><img src="img/chat.svg" class="img" draggable="false"/></li>
+                    <li value="3" onclick="tab(this)"><img src="img/history.svg" class="img" draggable="false"/></li>
+                    <li value="4" onclick="tab(this)"><img src="img/rune.svg" class="img" draggable="false"/></li>
+                    <li value="5" onclick="tab(this)"><img src="img/spells.svg" class="img" draggable="false"/></li>
+                    <li value="6" onclick="tab(this)"><img src="img/mastery.svg" class="img" draggable="false"/></li>
                 </ul>
             </div>
-            
+
             <div class="content_summoner">
                 <div id="tabs">
                     <div id="tabs-1" class="hidden_Div">
                         <p>tabs-1</p>
                     </div>
                     <div id="tabs-2" class="hidden_Div">
-                        <p>tabs-2</p>
+                        <img id="summoner_league_img_tab" src="img/picture_league.png" draggable="false"/><br>
+                        <span class="summoner_league_name">Unranked</span><span></span>
+                        <hr>
+                        Adriel
                     </div>
                     <div id="tabs-3" class="hidden_Div">
                         <p>tabs-3</p>
@@ -105,8 +111,13 @@
                     <div id="tabs-4" class="hidden_Div">
                         <p>tabs-4</p>
                     </div>
+                    <div id="tabs-5" class="hidden_Div">
+                        <p>tabs-5</p>
+                    </div>
+                    <div id="tabs-6" class="hidden_Div">
+                        <p>tabs-6</p>
+                    </div>
                 </div>
-
             </div>
         </div>
 

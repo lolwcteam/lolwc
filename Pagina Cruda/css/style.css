@@ -142,12 +142,25 @@ html{
     position: relative;    
     background-color: #0f4668;
     width: 793px;
-    top: -365px;
+    top: -465px;
     left:57px;
+    text-align: center;
+    color:whitesmoke;
 }
 
 .summoner_tabs {
     position: relative;
     top: -150px;
     left: 12px;
+}
+
+#summoner_league_img_tab {
+    height: 100px;
+}
+
+hr {
+    border: 0;
+    width: 80%;
+    height: 2px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0),rgb(0, 102, 204), rgba(0, 0, 0, 0));
 }

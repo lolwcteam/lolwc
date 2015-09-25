@@ -112,9 +112,9 @@ lista de 5
 ###profile
 
 ###league
-- icono de liga
-- nombre de liga
-- descripción de liga(plata, division 3)
+- icono de liga: summoner_league_img_tab
+- nombre de liga: summoner_league_name (idem anterior variable)
+- division de liga: summoner_league_division
 - lista de en promo
 	- rank de sumoner en la liga
 	- change (fijarse en lolking)
