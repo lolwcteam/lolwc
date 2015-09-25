@@ -1,4 +1,4 @@
-#pestanas_opciones li{
+.tab{
     background-color: #04242f;
     width: 45px;
     height: 50px;
@@ -11,7 +11,7 @@
     transition: all 0.2s linear;
 }
 
-#pestanas_opciones li:hover{
+.tab:hover{
     background-color: #3D6985;
 }
 
