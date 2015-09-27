@@ -65,8 +65,8 @@ se muestran elementos que debe haber necesariamente en cada página, si es neces
 
 *free week champs*
 lista de
-- imagen del champ
-- nombre del champ
+- imagen del champ: freeChamp_1
+- nombre del champ: FreeChamp_name
 - link del champ en static (lolwc.com/static/champs/riven)
 - precio ip
 - precio rp
@@ -138,22 +138,22 @@ lista de 5
 
 ###history
 lista de 
-- imagen del champ
+- imagen del champ: history_champ_img
 - link del champ
-- nombre del champ
-- level del champ
-- img spell1
+- nombre del champ: history_champ_name
+- level del champ: history_level_champ
+- img spell1: history_spell1_img
 - link spell1
 - img spell2
 - link spell2
-- victoria o derrota
-- mapa
-- tipo de juego
-- score
-- oro
-- creeps
+- victoria o derrota: history_win_or_def
+- mapa: history_map
+- tipo de juego: histoy_game_type
+- score: history_score
+- oro: history_gold
+- creeps: history_creeps
 - imagen item1
-- link item1
+- link item1: history_item1
 - imagen item2
 - link item2
 - imagen item3
