@@ -1,5 +1,5 @@
 {% load staticfiles %}
-
+{% load lolwc_tags %}
 <html>
     <head>
         <title>LOL Client</title>
@@ -73,16 +73,14 @@
             <br><hr><br>
             
             <!-- Featured Games-->
+            {% for k in '01234' %}
             <span id="type">Clasificatoria</span><br>
-            <span id="time">tiempo: {{ tiempo }} min {{segundos}} sec</span><br>
-            {% for c in champFGc %}
-            <span id="player_blue_1_name">{{ c }}</span><br><img id="player_blue_1_img" src="#">
-            {% endfor %}
+            {% getTime k minutos segundos %}
+            {% getChampions k champPartida %}
             <span>VS</span><br>
-            {% for d in champFGd %}
-            <span id="player_red_1_name">{{ d }}</span><br><img id="player_red_1_img" src="#">
-
+            {% getChampionsb k champPartida %}
             {% endfor %}
+
             <br><hr><br>
             <!-- History-->
             <img id="history_champ_img" src="#"><span id="history_champ_name">Name</span>
