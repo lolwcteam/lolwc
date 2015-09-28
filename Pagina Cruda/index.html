@@ -6,9 +6,13 @@
         <link rel="stylesheet" type="text/css" href="css/materialize.css"/>
         <link rel="stylesheet" type="text/css" href="css/style.css"/>
         <link rel="stylesheet" type="text/css" href="css/pestana.css"/>
+        <link rel="stylesheet" type="text/css" href="css/match.css"/>
+
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
         <script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
         <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
         <script type="text/javascript" src="js/materialize.min.js"></script>
         <script type="text/javascript" src="js/pestanas.js"></script>
     </head>
@@ -46,7 +50,7 @@
                     <div id="summoner-data_div">
                         <span class="summoner_league_name">Unranked</span>
                         <span class="summoner_league_division"></span><br>
-                        <span>Rank: </span><span id="summoner_rank">0</span><br>
+                        <span>Rank: </span><span class="summoner_rank">0</span><br>
                         <span id="summoner_server">Cargando...</span><br>
                     </div>
                     <div id="summoner-data_div_2">
@@ -96,25 +100,53 @@
 
             <div class="content_summoner">
                 <div id="tabs">
-                    <div id="tabs-1" class="hidden_Div">
+                    <div id="tabs-1" class="tabs-div">
                         <p>tabs-1</p>
                     </div>
-                    <div id="tabs-2" class="hidden_Div">
+                    <div id="tabs-2" class="tabs-div">
                         <img id="summoner_league_img_tab" src="img/picture_league.png" draggable="false"/><br>
-                        <span class="summoner_league_name">Unranked</span><span></span>
+                        <span class="summoner_league_name">Unranked</span><span class="summoner_league_division"></span><br>
+                        <span>#</span><span class="summoner_rank"></span>
                         <hr>
                         Adriel
                     </div>
-                    <div id="tabs-3" class="hidden_Div">
-                        <p>tabs-3</p>
+
+                    <div id="tabs-3" class="tabs-div">
+                        <h5>Partidas</h5>
+                        <hr>
+
+                        <div class="match">
+                            <div class="m_title"><span id="history_win_or_def" class="win">Victory</span></div>
+                            <!-- Necesario codigo para definir "Victory" o "Derrota" y respectivos colorcitos --> 
+                            <img class="history_champion_img" src="img/62.png" draggable="false"/><br>
+                            <span>Lvl: </span><span id="history_level_champ">0</span><br>
+
+                            <div class="history_stats_1">
+                                <span class="history_game_type">Classic</span><br>
+                                <span class="history_game_date">11 sep 2015 vieja</span><br>
+                                <span class="history_map">YourMotherMap</span>
+                            </div>
+
+                            <div class="history_stats_2">
+                                <span class="history_kills win">0</span>
+                                <span class="blue_caract"> / </span>
+                                <span class="history_deaths death">0</span>
+                                <span class="blue_caract"> / </span>
+                                <span class="history_assist assist">0</span><br>
+                                <span>+</span><span class="history_pi">2</span><br>
+                            </div>
+
+                        </div>
+
                     </div>
-                    <div id="tabs-4" class="hidden_Div">
+
+                    <div id="tabs-4" class="tabs-div">
                         <p>tabs-4</p>
                     </div>
-                    <div id="tabs-5" class="hidden_Div">
+                    <div id="tabs-5" class="tabs-div">
                         <p>tabs-5</p>
                     </div>
-                    <div id="tabs-6" class="hidden_Div">
+                    <div id="tabs-6" class="tabs-div">
                         <p>tabs-6</p>
                     </div>
                 </div>

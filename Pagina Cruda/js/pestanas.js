@@ -1,11 +1,11 @@
 $(document).ready(function() {
-    $(".hidden_Div").hide();
-    $("#tabs-2").show();
+    $(".tabs-div").hide();
+    $("#tabs-3").show();
 })
 
 function tab(tab){
     numTab=tab.value;
-    $(".hidden_Div").hide();
+    $(".tabs-div").hide();
     $(".tab").removeClass("pestana_opciones_active")
     $(tab).addClass("pestana_opciones_active");
     $("#tabs-"+numTab).show();

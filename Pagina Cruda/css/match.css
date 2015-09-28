@@ -1,0 +1,21 @@
+
+.match {
+    border: 2px solid #04242F;
+    text-align: left;
+    padding: 5px;
+    adriel: Adriel;
+    font-size: 10px;
+    margin-bottom: 5px;
+}
+
+.history_champion_img {
+    border-radius: 24px;
+}
+
+.m_title {
+    font-size: 16px;
+    margin:-5px;
+    margin-bottom: 5px;
+    background: #04242F;
+    text-align: center;s
+}

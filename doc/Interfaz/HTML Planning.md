@@ -138,20 +138,23 @@ lista de 5
 
 ###history
 lista de 
+- victoria o derrota: history_win_or_def
 - imagen del champ: history_champ_img
 - link del champ
-- nombre del champ: history_champ_name
 - level del champ: history_level_champ
 - img spell1: history_spell1_img
 - link spell1
 - img spell2
 - link spell2
-- victoria o derrota: history_win_or_def
+
+- tipo de juego: history_game_type
 - mapa: history_map
-- tipo de juego: histoy_game_type
+- duracion de partida
+- pi ganados: 
 - score: history_score
 - oro: history_gold
 - creeps: history_creeps
+- fecha de partida
 - imagen item1
 - link item1: history_item1
 - imagen item2
@@ -166,9 +169,6 @@ lista de
 - link item6
 - imagen baratija
 - link baratija
-- duracion de partida
-- fecha de partida
-- pi ganados
 
 ###runes
 - numero pagina activa
