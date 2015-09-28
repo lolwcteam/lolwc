@@ -31,3 +31,14 @@
     left:200;
     top: -90;
 }
+
+.item {
+    width: 35px;
+}
+
+.history_items {
+    position: relative;
+    padding: 5px;
+    text-align: center;
+    border: 1px solid red;
+}
