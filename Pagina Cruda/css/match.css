@@ -19,3 +19,15 @@
     background: #04242F;
     text-align: center;s
 }
+
+.history_stats_1 {
+    position: relative;
+    left:55px;
+    top:-45px;
+}
+
+.history_stats_2 {
+    position:relative;
+    left:200;
+    top: -90;
+}
