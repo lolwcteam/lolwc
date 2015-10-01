@@ -164,3 +164,25 @@ hr {
     height: 2px;
     background-image: linear-gradient(to right, rgba(0, 0, 0, 0),rgb(0, 102, 204), rgba(0, 0, 0, 0));
 }
+.champs_content {
+    background: #0f4668;
+    margin: 10px;
+}
+
+.hex-text {
+  color: #00FFFF !important; }
+}
+
+.tabs {
+  position: relative;
+  height: 48px;
+  margin: 0 auto;
+  width: 100%;
+  white-space: nowrap; }
+
+  .tabs .indicator {
+    position: absolute;
+    bottom: 0;
+    height: 2px;
+    background-color: #00FF00;
+    will-change: left, right; }

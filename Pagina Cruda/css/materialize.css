@@ -5691,7 +5691,6 @@ small {
 .tabs {
   position: relative;
   height: 48px;
-  background-color: #fff;
   margin: 0 auto;
   width: 100%;
   white-space: nowrap; }
@@ -5705,7 +5704,9 @@ small {
     margin: 0;
     text-transform: uppercase;
     letter-spacing: .8px;
-    width: 15%; }
+    width: 15%;
+    background: #0f4668;
+  }
     .tabs .tab a {
       color: #ee6e73;
       display: block;

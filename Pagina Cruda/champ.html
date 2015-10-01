@@ -1,0 +1,77 @@
+<meta charset="utf-8">
+<html>
+    <head>
+        <link rel="icon" type="image/png" href="/img/log.png"/>
+        <title>LOL Client</title>
+        <link rel="stylesheet" type="text/css" href="css/materialize.css"/>
+        <link rel="stylesheet" type="text/css" href="css/style.css"/>
+        <link rel="stylesheet" type="text/css" href="css/pestana.css"/>
+        <link rel="stylesheet" type="text/css" href="css/match.css"/>
+
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+        <script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
+        <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+        <script type="text/javascript" src="js/materialize.min.js"></script>
+        <script type="text/javascript" src="js/pestanas.js"></script>
+    </head>
+    <body>
+        <header>
+            <nav>
+                <div class="nav-wrapper color_nav">
+                    <ul id="nav-mobile" class="left hide-on-med-and-down">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Perfil</a></li>
+                        <li><a href="#">Tienda</a></li>
+                        <li><a href="#">Chat</a></li>
+                        <li><a href="#">Campeones</a></li>
+                    </ul>
+                    <form>
+                        <div class="right input-field">
+                            <input id="search" type="search" required>
+                            <label for="search"><i class="material-icons">search</i></label>
+                        </div>
+                    </form>
+                </div>
+            </nav>
+        </header>
+
+
+        <div class="fondo-content">
+            <div class="champs_content">
+                <div class="input-field">
+                    <input id="search" type="search" required>
+                    <label for="search"><i class="material-icons">search</i></label>
+                </div>
+                <!-- Adriel HacER esto otra vez-->
+                <ul class="tabs" style="width:400px">
+                    <li class="tab col"><a class="hex-text" href="#test0">All</a></li>
+                    <li class="tab col"><a href="#test1">Fighter</a></li>
+                    <li class="tab col"><a href="#test2">Tank</a></li>
+                    <li class="tab col"><a href="#test3">Assassin</a></li>
+                    <li class="tab col"><a href="#test4">Mage</a></li>
+                    <li class="tab col"><a href="#test5">Support</a></li>
+                    <li class="tab col"><a href="#test6">Marksman</a></li>
+                </ul>
+                <div id="test0" class="col s12">Test 0</div>
+                <div id="test1" class="col s12">Test 1</div>
+                <div id="test2" class="col s12">Test 2</div>
+                <div id="test3" class="col s12">Test 3</div>
+                <div id="test4" class="col s12">Test 4</div>
+                <div id="test5" class="col s12">Test 5</div>
+                <div id="test6" class="col s12">Test 6</div>
+
+            </div>
+        </div>
+
+    </body>
+    <div class="color_nav page-footer">
+        <span>2015</span>
+    </div>
+</html>
+<script>
+    $(document).ready(function(){
+        $('ul.tabs').tabs();
+    });
+</script>
