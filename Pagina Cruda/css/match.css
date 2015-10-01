@@ -6,9 +6,12 @@
     adriel: Adriel;
     font-size: 10px;
     margin-bottom: 5px;
+    max-height: 99px;
 }
 
 .history_champion_img {
+    position: relative;
+    top: 5px;
     border-radius: 24px;
 }
 
@@ -17,28 +20,39 @@
     margin:-5px;
     margin-bottom: 5px;
     background: #04242F;
-    text-align: center;s
+    text-align: center;
 }
 
 .history_stats_1 {
     position: relative;
     left:55px;
-    top:-45px;
+    top:-40px;
 }
 
 .history_stats_2 {
     position:relative;
     left:200;
-    top: -90;
+    top: -85;
 }
 
 .item {
-    width: 35px;
+    border-radius: 6px;
+    width: 40px;
 }
 
 .history_items {
     position: relative;
+    top:-180;
+    left: 452px;
     padding: 5px;
     text-align: center;
-    border: 1px solid red;
+    border: 1px solid #04242F;
+    width: 315px;
+}
+
+.history_stats_3 {
+    position: relative;
+    adriel: Adriel;
+    top: -130px;
+    left: 350px;
 }

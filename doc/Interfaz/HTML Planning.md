@@ -66,7 +66,7 @@ se muestran elementos que debe haber necesariamente en cada página, si es neces
 *free week champs*
 lista de
 - imagen del champ: freeChamp_1
-- nombre del champ: FreeChamp_name
+- nombre del champ: freeChamp_name
 - link del champ en static (lolwc.com/static/champs/riven)
 - precio ip
 - precio rp
