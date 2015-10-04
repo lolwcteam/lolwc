@@ -6,29 +6,29 @@ class Friend(object):
     statusChat = None #chat, dnd (do not disturb) y away
     name = None #Nombre de invocador
     #De roster.getStatus()
-    profileIcon = None #Número de icono de invocado
-    level = None #Level
-    wins = None #?Victorias en general (de normal, ranked, todo?)    
-    leaves = None #Cantidad de abandonos
-    odinWins = None #?Cantidad de victorias en Odin? 3v3?
-    odinLeaves = None #?Cantidad de abandonos en Odin
-    queueType= None #?INDEFINIDO siempre da None
-    rankedLosses = None #?INDEFINIDO siempre da 0
-    rankedRating = None #?INDEFINIDO siempre da 0
-    tier = None #?Alguna liga quizás la del elo más alto (DIAMOND, BRONZE, etc)
-    rankedSoloRestricted = None #?INDEFINIDO generalmente false
-    championMasteryScore = None #Mastery Champ Score
-    statusMsg = None #Mensaje de estado
-    rankedLeagueName = None #Nombre de la liga, Leona Urfriders, etc
-    rankedLeagueDivision = None #Division de la anterior I, IV, V
-    rankedLeagueTier = None #Liga solo queue, BRONZE, GOLD
-    rankedLeagueQueue = None #? suele decir RANKED_SOLO_5x5
-    rankedWins = None #Victorias en ranked
-    skinname = None #si inGame, el champ jugado
-    gameQueueType = None #?Generalmente dice NORMAL
-    gameStatus = None #inGame, outOfGame, champSelect, hostingNormalGame
-    timeStamp = None #?si inGame, timestamp de cuando empezo, si no INDEFINIDO
-    
+    profileIcon = None
+    level = None
+    wins = None
+    leaves = None
+    odinWins = None
+    odinLeaves = None
+    queueType= None
+    rankedLosses = None
+    rankedRating = None
+    tier = None
+    rankedSoloRestricted = None
+    championMasteryScore = None
+    statusMsg = None
+    rankedLeagueName = None
+    rankedLeagueDivision = None
+    rankedLeagueTier = None
+    rankedLeagueQueue = None
+    rankedWins = None
+    skinname = None
+    gameQueueType = None
+    gameStatus = None
+    timeStamp = None
+
     def __init__(self, jid, statusChat, name, profileIcon, level, wins, leaves, odinWins, odinLeaves, queueType, rankedLosses, rankedRating, tier, rankedSoloRestricted, championMasteryScore, statusMsg, rankedLeagueName, rankedLeagueDivision, rankedLeagueTier, rankedLeagueQueue, rankedWins, skinname, gameQueueType, gameStatus, timeStamp):
         self.jid = jid
         self.statusChat = statusChat
@@ -55,9 +55,9 @@ class Friend(object):
         self.gameQueueType = gameQueueType
         self.gameStatus = gameStatus
         self.timeStamp = timeStamp
-        
-        
-        
+
+
+
     #jid
     #statusChat
     #name
