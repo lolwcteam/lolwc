@@ -154,9 +154,7 @@ html{
     left: 12px;
 }
 
-#summoner_league_img_tab {
-    height: 100px;
-}
+
 
 hr {
     border: 0;
@@ -186,3 +184,9 @@ hr {
     height: 2px;
     background-color: #00FF00;
     will-change: left, right; }
+
+.bgdark {
+    background: #04242f;
+}
+
+

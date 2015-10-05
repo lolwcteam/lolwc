@@ -119,7 +119,7 @@ lista de 5
 	- rank de sumoner en la liga
 	- change (fijarse en lolking)
 	- nombre de summoner
-	- icono de summoner
+	- icono de summoner: league_champion_img
 	- isRecienteenliga
 	- isEnRacha
 	- wins
@@ -128,12 +128,12 @@ lista de 5
 	- cantidad perdidas
 - lista de el resto
 	- rank de sumoner en la liga
-	- change
-	- nombre de sumoner
-	- icono de sumoner
+	- change: 
+	- nombre de sumoner: league_summoner_name
+	- icono de sumoner: league_champion_img
 	- isRecienteenliga
 	- isEnRacha
-	- wins
+	- Wins
 	- puntos(LP)
 
 ###history
