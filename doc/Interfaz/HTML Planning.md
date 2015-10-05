@@ -116,25 +116,25 @@ lista de 5
 - nombre de liga: summoner_league_name (idem anterior variable)
 - division de liga: summoner_league_division
 - lista de en promo
-	- rank de sumoner en la liga
-	- change (fijarse en lolking)
-	- nombre de summoner
+	- rank de sumoner en la liga: league_summoner_rank
+	- change (fijarse en lolking): league_summoner_change
+	- nombre de summoner: league_summoner_name
 	- icono de summoner: league_champion_img
-	- isRecienteenliga
-	- isEnRacha
-	- wins
-	- cantidad de partidas que tiene que jugar para promocionar
-	- cantidad ganadas
-	- cantidad perdidas
+	- isRecienteenliga: league_isRecent
+	- isEnRacha: league_isOnFire
+	- wins: league_summoner_wins
+	- cantidad de partidas que tiene que jugar para pasar de liga: 
+	- cantidad ganadas: 
+	- cantidad perdidas: 
 - lista de el resto
-	- rank de sumoner en la liga
-	- change: 
+	- rank de sumoner en la liga: league_summoner_rank
+	- change: league_summoner_change
 	- nombre de sumoner: league_summoner_name
 	- icono de sumoner: league_champion_img
-	- isRecienteenliga
-	- isEnRacha
-	- Wins
-	- puntos(LP)
+	- isRecienteenliga: league_isRecent
+	- isEnRacha: league_isOnFire
+	- wins: league_summoner_wins
+	- puntos(LP): league_summoner_points
 
 ###history
 lista de 
