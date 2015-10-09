@@ -1,8 +1,11 @@
-from django.db import models
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 #Las variables que estaban reservadas cambiaron su nombre por: "ex" + "NOMBREdeVARIABLE"
 #Las variables son: format=exFormat, type=exType, id=exId, range=exRange, vars=exVars, map=exMap
 #Tareas por terminar estan Taggeadas como #TODO
 #Los FloatField seran rellenados con valores del tipo "double"
+from django.db import models
 
 class AggregatedStatsDto(models.Model): #Datos de un Jugador
     averageAssists=models.IntegerField(u'Promedio de asistencias en dominion') # Dominion only.
@@ -72,28 +75,28 @@ class BannedChampions(models.Model):  #Lista de los personajes banneados en una 
     teamId=models.BigIntegerField(u'Id del equipo que baneo el campeon')
 
 class BasicDataDto(models.Model):  #Datos basicos de un Item
-    colloq=models.CharField(u'')
+    colloq=models.TextField(u'')
     consumeOnFull=models.BooleanField(u'')
     consumed=models.BooleanField(u'')
     depth=models.IntegerField(u'')
-    description=models.CharField(u'')
+    description=models.TextField(u'')
     exFrom=models.TextField(u'')#Lista en JSON compuesta de valores tipo string
-    gold=#TODO#GoldDto #Data Dragon includes the gold field for basic data, which is shared by both rune and item. However, only items have a gold field on them, representing their gold cost in the store. Since runes are not sold in the store, they have no gold cost.
-    group=models.CharField(u'')
+    gold=models.TextField(u'oro')#JSON de un valor GoldDto
+    group=models.TextField(u'')
     hideFromAll=models.BooleanField(u'')
     exId=models.IntegerField(u'')
-    image=#TODO#ImageDto
+    image=models.TextField(u'')#JSON con un valor ImageDto
     inStore=models.BooleanField(u'')
     into=models.TextField(u'')#Lista en JSON compuesta de valores tipo string
     maps=models.TextField(u'')#Map en JSON compuesta de valores de los siguientes tipos: string, boolean
-    name=models.CharField(u'')
-    plaintext=models.CharField(u'')
-    requiredChampion=models.CharField(u'')
-    rune=#TODO#MetaDataDto
-    sanitizedDescription=models.CharField(u'')
+    name=models.TextField(u'')
+    plaintext=models.TextField(u'')
+    requiredChampion=models.TextField(u'')
+    rune=models.TextField(u'')#JSON con un valor MetaDataDto
+    sanitizedDescription=models.TextField(u'')
     specialRecipe=models.IntegerField(u'')
     stacks=models.IntegerField(u'')
-    stats=#TODO#BasicDataStatsDto
+    stats=models.TextField(u'')#JSON con un valor BasicDataStatsDto
     tags=models.TextField(u'')#Lista en JSON compuesta de valores tipo string
 
 class BasicDataStatsDto(models.Model):  #Datos de las bonificaciones de un Item
@@ -165,8 +168,8 @@ class BasicDataStatsDto(models.Model):  #Datos de las bonificaciones de un Item
 
 class BlockDto(models.Model):  #Datos de cada bloque
     items=models.TextField(u'')#Lista en JSON compuesta de valores tipo BlockItemDto
-    recMath=models.BooleanGield(u'Item con "Unica Pasiva"')
-    exType=models.CharField(u'Tipo de los items')
+    recMath=models.BooleanField(u'Item con "Unica Pasiva"')
+    exType=models.TextField(u'T,max_length=300ipo de los items')
 
 class BlockItemDto(models.Model):  #Datos de qué item aparece en un bloque
     count=models.IntegerField(u'Cantidad de el item a comprar')
@@ -177,7 +180,7 @@ class ChampionListDto(models.Model):  #Lista de los campeones
 
 class ChampionStatsDto(models.Model):  #Stats de cada campeon
     exId=models.IntegerField(u'') # Champion ID. Note that champion ID 0 represents the combined stats for all champions. For static information correlating to champion IDs, please refer to the LoL Static Data API.
-    stats=#TODO#AggregatedStatsDto # Aggregated stats associated with the champion.
+    stats=models.TextField(u'')#JSON con un valor AggregatedStatsDto # Aggregated stats associated with the champion.
 
 class ChampionsDto(models.Model):  #Detalles de las limitaciones de cada campeon
     active=models.BooleanField(u'')
@@ -190,38 +193,38 @@ class ChampionsDto(models.Model):  #Detalles de las limitaciones de cada campeon
 class ChampionsSpellDto(models.Model):  #Informacion de los spells de cada campeon
     altimages=models.TextField(u'')#Lista en JSON compuesta de valores tipo ImageDto
     cooldown=models.TextField(u'')#Lista en JSON compuesta de valores tipo double
-    cooldownBurn=models.CharField(u'Cooldown a travez de los niveles de la habilidad')
+    cooldownBurn=models.TextField(u'C,max_length=300ooldown a travez de los niveles de la habilidad')
     cost=models.TextField(u'')#Lista en JSON compuesta de valores tipo int
-    costBurn=models.CharField(u'Coste de Energia/Mana/Furia/Heat (no incluye coste de vida)')
-    costType=models.CharField(u'Tipo de Coste pofcurrentHealth(vida)/Energia/Mana/Furia/Heat(calor)')
-    description=models.CharField(u'Descripcion de la habilidad')
+    costBurn=models.TextField(u'C,max_length=300oste de Energia/Mana/Furia/Heat (no incluye coste de vida)')
+    costType=models.TextField(u'T,max_length=300ipo de Coste pofcurrentHealth(vida)/Energia/Mana/Furia/Heat(calor)')
+    description=models.TextField(u'D,max_length=300escripcion de la habilidad')
     effect=models.TextField(u'')#Lista en JSON compuesta de valores tipo object # This field is a List of List of Double.
     effectBurn=models.TextField(u'')#Lista en JSON compuesta de valores tipo string
-    image=#TODO#ImageDto
-    key=models.CharField(u'Key de la habilidad')
-    leveltip=#TODO#LevelTipDto
+    image=models.TextField(u'')#JSON con un valor ImageDto
+    key=models.TextField(u'K,max_length=300ey de la habilidad')
+    leveltip=models.TextField(u'')#JSON con un valor LevelTipDto
     maxrank=models.IntegerField(u'Nivel maximo de la habilidad')
-    name=models.CharField(u'Nombre de la habilidad')
-    exRange=#TODO#Object # This field is either a List of Integer or the String 'self' for spells that target one's own champion.
-    rangeBurn=models.CharField(u'Rango a travez de los niveles de la habilidad')
-    resource=models.CharField(u'Muestra el coste de la habilidad, obteniendolo desde la variable "cost"')
-    sanitizedTooltip=models.CharField(u'Funcion concreta de la habilidad')
-    sanitizedDescription=models.CharField(u'Descripcion concreta de lo que hace la habilidad')
-    tooltip=models.CharField(u'Funcion de la habilidad')
-    exVars=#TODO#SpellsVarDto
+    name=models.TextField(u'N,max_length=300ombre de la habilidad')
+    exRange=models.TextField(u'')#JSON con un valor Object # This field is either a List of Integer or the String 'self' for spells that target one's own champion.
+    rangeBurn=models.TextField(u'R,max_length=300ango a travez de los niveles de la habilidad')
+    resource=models.TextField(u'M,max_length=300uestra el coste de la habilidad, obteniendolo desde la variable "cost"')
+    sanitizedTooltip=models.TextField(u'F,max_length=300uncion concreta de la habilidad')
+    sanitizedDescription=models.TextField(u'D,max_length=300escripcion concreta de lo que hace la habilidad')
+    tooltip=models.TextField(u'F,max_length=300uncion de la habilidad')
+    exVars=models.TextField(u'')#JSON con un valor SpellsVarDto
 
 class CurrentGameInfo(models.Model):  #Informacion de una partida en especifico
     bannedChampions=models.TextField(u'')#Lista en JSON compuesta de valores tipo BannedChampions
     gameId=models.BigIntegerField(u'Id del Partido')
     gameLength=models.BigIntegerField(u'Cuantos Segundos lleva durando')
-    gameMode=models.CharField(u'Modo(CLASSIC, ODIN, ARAM, TUTORIAL, ONEFORALL, ASCENSION, FIRSTBLOOD, KINGPORO)')
+    gameMode=models.TextField(u'M,max_length=300odo(CLASSIC, ODIN, ARAM, TUTORIAL, ONEFORALL, ASCENSION, FIRSTBLOOD, KINGPORO)')
     gameQueueConfigId=models.BigIntegerField(u'Tipo de partida(RANKED_SOLO_5x5, RANKED_TEAM_3x3, RANKED_TEAM_5x5)')
     gameStartTime=models.BigIntegerField(u'Hora de inicio en milisegundos')
-    gameType=models.CharField(u'Tipo de Juego(CUSTOM_GAME, MATCHED_GAME, TUTORIAL_GAME)')
+    gameType=models.TextField(u'T,max_length=300ipo de Juego(CUSTOM_GAME, MATCHED_GAME, TUTORIAL_GAME)')
     mapId=models.BigIntegerField(u'Id del mapa')
-    observers=#TODO#Observer
+    observers=models.TextField(u'')#JSON con un valor Observer
     participants=models.TextField(u'')#Lista en JSON compuesta de valores tipo CurrentGameParicipant
-    platformId=models.CharField(u'Id de la plataforma en la que esta siendo jugado')
+    platformId=models.TextField(u'I,max_length=300d de la plataforma en la que esta siendo jugado')
 
 class CurrentGameParticipant(models.Model):  #Informacion de un jugador en una partida en especifico
     bot=models.BooleanField(u'Es un bot')
@@ -232,31 +235,31 @@ class CurrentGameParticipant(models.Model):  #Informacion de un jugador en una p
     spell1Id=models.BigIntegerField(u'Id del Summoner Spell 1')
     spell2Id=models.BigIntegerField(u'Id del Summoner Spell 2')
     summonerId=models.BigIntegerField(u'Id del jugador')
-    summonerName=models.CharField(u'Nombre publico del jugador')
+    summonerName=models.TextField(u'N,max_length=300ombre publico del jugador')
     teamId=models.BigIntegerField(u'Id del equipo en el participa')
 
 class Event(models.Model):  #Eventos que suceden a lo largo de la partida
-    ascendedType=models.CharField(u'') # The ascended type of the event. Only present if relevant. Note that CLEAR_ASCENDED refers to when a participants kills the ascended player. (Legal values: CHAMPION_ASCENDED, CLEAR_ASCENDED, MINION_ASCENDED)
+    ascendedType=models.TextField(u'') # The ascended type of the event. Only present if relevant. Note that CLEAR_ASCENDED refers to when a participants kills the ascended player. (Legal values: CHAMPION_ASCENDED, CLEAR_ASCENDED, MINION_ASCENDED)
     assistingParticipantIds=models.TextField(u'')#Lista en JSON compuesta de valores tipo int The assisting participant IDs of the event. Only present if relevant.
-    buildingType=models.CharField(u'') # The building type of the event. Only present if relevant. (Legal values: INHIBITOR_BUILDING, TOWER_BUILDING)
+    buildingType=models.TextField(u'') # The building type of the event. Only present if relevant. (Legal values: INHIBITOR_BUILDING, TOWER_BUILDING)
     creatorId=models.IntegerField(u'') # The creator ID of the event. Only present if relevant.
-    eventType=models.CharField(u'') # Event type. (Legal values: ASCENDED_EVENT, BUILDING_KILL, CAPTURE_POINT, CHAMPION_KILL, ELITE_MONSTER_KILL, ITEM_DESTROYED, ITEM_PURCHASED, ITEM_SOLD, ITEM_UNDO, PORO_KING_SUMMON, SKILL_LEVEL_UP, WARD_KILL, WARD_PLACED)
+    eventType=models.TextField(u'') # Event type. (Legal values: ASCENDED_EVENT, BUILDING_KILL, CAPTURE_POINT, CHAMPION_KILL, ELITE_MONSTER_KILL, ITEM_DESTROYED, ITEM_PURCHASED, ITEM_SOLD, ITEM_UNDO, PORO_KING_SUMMON, SKILL_LEVEL_UP, WARD_KILL, WARD_PLACED)
     itemAfter=models.IntegerField(u'') # The ending item ID of the event. Only present if relevant.
     itemBefore=models.IntegerField(u'') # The starting item ID of the event. Only present if relevant.
     itemId=models.IntegerField(u'') # The item ID of the event. Only present if relevant.
     killerId=models.IntegerField(u'') # The killer ID of the event. Only present if relevant. Killer ID 0 indicates a minion.
-    laneType=models.CharField(u'') # The lane type of the event. Only present if relevant. (Legal values: BOT_LANE, MID_LANE, TOP_LANE)
-    levelUpType=models.CharField(u'') # The level up type of the event. Only present if relevant. (Legal values: EVOLVE, NORMAL)
-    monsterType=models.CharField(u'') # The monster type of the event. Only present if relevant. (Legal values: BARON_NASHOR, BLUE_GOLEM, DRAGON, RED_LIZARD, VILEMAW)
+    laneType=models.TextField(u'') # The lane type of the event. Only present if relevant. (Legal values: BOT_LANE, MID_LANE, TOP_LANE)
+    levelUpType=models.TextField(u'') # The level up type of the event. Only present if relevant. (Legal values: EVOLVE, NORMAL)
+    monsterType=models.TextField(u'') # The monster type of the event. Only present if relevant. (Legal values: BARON_NASHOR, BLUE_GOLEM, DRAGON, RED_LIZARD, VILEMAW)
     participantId=models.IntegerField(u'') # The participant ID of the event. Only present if relevant.
-    pointCaptured=models.CharField(u'') # The point captured in the event. Only present if relevant. (Legal values: POINT_A, POINT_B, POINT_C, POINT_D, POINT_E)
-    position=#TODO#Position # The position of the event. Only present if relevant.
+    pointCaptured=models.TextField(u'') # The point captured in the event. Only present if relevant. (Legal values: POINT_A, POINT_B, POINT_C, POINT_D, POINT_E)
+    position=models.TextField(u'')#JSON con un valor Position # The position of the event. Only present if relevant.
     skillSlot=models.IntegerField(u'') # The skill slot of the event. Only present if relevant.
     teamId=models.IntegerField(u'') # The team ID of the event. Only present if relevant.
     timestamp=models.BigIntegerField(u'') # Represents how many milliseconds into the game the event occurred.
-    towerType=models.CharField(u'') # The tower type of the event. Only present if relevant. (Legal values: BASE_TURRET, FOUNTAIN_TURRET, INNER_TURRET, NEXUS_TURRET, OUTER_TURRET, UNDEFINED_TURRET)
+    towerType=models.TextField(u'') # The tower type of the event. Only present if relevant. (Legal values: BASE_TURRET, FOUNTAIN_TURRET, INNER_TURRET, NEXUS_TURRET, OUTER_TURRET, UNDEFINED_TURRET)
     victimId=models.IntegerField(u'') # The victim ID of the event. Only present if relevant.
-    wardType=models.CharField(u'') # The ward type of the event. Only present if relevant. (Legal values: SIGHT_WARD, TEEMO_MUSHROOM, UNDEFINED, VISION_WARD, YELLOW_TRINKET, YELLOW_TRINKET_UPGRADE)
+    wardType=models.TextField(u'') # The ward type of the event. Only present if relevant. (Legal values: SIGHT_WARD, TEEMO_MUSHROOM, UNDEFINED, VISION_WARD, YELLOW_TRINKET, YELLOW_TRINKET_UPGRADE)
 
 class FeaturedGames(models.Model):  #Juegos destacados
     clientRefreshInterval=models.BigIntegerField(u'Tiempo de espera antes de actualizar los juegos importantes')
@@ -266,14 +269,14 @@ class FeaturedGamesInfo(models.Model):  #Datos de los juegos destacados
     bannedChampions=models.TextField(u'')#Lista en JSON compuesta de valores tipo BannedChampions
     gameId=models.BigIntegerField(u'Id del Partido')
     gameLength=models.BigIntegerField(u'Cuantos Segundos lleva durando')
-    gameMode=models.CharField(u'Modo(CLASSIC, ODIN, ARAM, TUTORIAL, ONEFORALL, ASCENSION, FIRSTBLOOD, KINGPORO)')
+    gameMode=models.TextField(u'M,max_length=300odo(CLASSIC, ODIN, ARAM, TUTORIAL, ONEFORALL, ASCENSION, FIRSTBLOOD, KINGPORO)')
     gameQueueConfigId=models.BigIntegerField(u'Tipo de partida(RANKED_SOLO_5x5, RANKED_TEAM_3x3, RANKED_TEAM_5x5)')
     gameStartTime=models.BigIntegerField(u'Hora de inicio en milisegundos')
-    gameType=models.CharField(u'Tipo de Juego(CUSTOM_GAME, MATCHED_GAME, TUTORIAL_GAME)')
+    gameType=models.TextField(u'T,max_length=300ipo de Juego(CUSTOM_GAME, MATCHED_GAME, TUTORIAL_GAME)')
     mapId=models.BigIntegerField(u'Id del mapa')
-    observers=models.CharField(Observer)
+    observers=models.TextField(u'')#JSON con valor Observer
     participants=models.TextField(u'')#Lista en JSON compuesta de valores tipo CurrentGameParicipant
-    platformId=models.CharField(u'Id de la plataforma en la que esta siendo jugado')
+    platformId=models.TextField(u'I,max_length=300d de la plataforma en la que esta siendo jugado')
 
 
 class Frame(models.Model):  #Datos sobre cada Frame
@@ -285,17 +288,17 @@ class GameDto(models.Model):  #Informacion de los juegos recientes de un jugador
     championId=models.IntegerField(u'Id del Pj usado')
     createDate=models.BigIntegerField(u'Fecha en la que se grabo los datos del final del partido')
     fellowPlayers=models.TextField(u'')#Lista en JSON compuesta de valores tipo PlayerDto
-    gameId=models.models.BigIntegerField(u'Id de la partida')
-    gameMode=models.CharField(u'Modo(CLASSIC, ODIN, ARAM, TUTORIAL, ONEFORALL, ASCENSION, FIRSTBLOOD, KINGPORO)')
-    gameType=models.CharField(u'Tipo de Juego(CUSTOM_GAME, MATCHED_GAME, TUTORIAL_GAME)')
+    gameId=models.BigIntegerField(u'Id de la partida')
+    gameMode=models.TextField(u'M,max_length=300odo(CLASSIC, ODIN, ARAM, TUTORIAL, ONEFORALL, ASCENSION, FIRSTBLOOD, KINGPORO)')
+    gameType=models.TextField(u'T,max_length=300ipo de Juego(CUSTOM_GAME, MATCHED_GAME, TUTORIAL_GAME)')
     invalid=models.BooleanField(u'Invalid flag(Supongo que es derrota evitada)')
     ipEarned=models.IntegerField(u'IP ganado')
     level=models.IntegerField(u'Nivel en el que termino')
     mapId=models.IntegerField(u'Id del mapa')
     spell1=models.IntegerField(u'Id del Summoner Spell 1')
     spell2=models.IntegerField(u'Id del Summoner Spell 2')
-    stats=#TODO#RawStatsDto
-    subType=models.CharField(u'SubTipo de partida(NONE, NORMAL, BOT, RANKED_SOLO_5x5, RANKED_PREMADE_3x3, RANKED_PREMADE_5x5, ODIN_UNRANKED, RANKED_TEAM_3x3, RANKED_TEAM_5x5, NORMAL_3x3, BOT_3x3, CAP_5x5, ARAM_UNRANKED_5x5, ONEFORALL_5x5, FIRSTBLOOD_1x1, FIRSTBLOOD_2x2, SR_6x6, URF, URF_BOT, NIGHTMARE_BOT, ASCENSION, HEXAKILL, KING_PORO, COUNTER_PICK, BILGEWATER)'),
+    stats=models.TextField(u'')#JSON con un valor RawStatsDto
+    subType=models.TextField(u'S,max_length=300ubTipo de partida(NONE, NORMAL, BOT, RANKED_SOLO_5x5, RANKED_PREMADE_3x3, RANKED_PREMADE_5x5, ODIN_UNRANKED, RANKED_TEAM_3x3, RANKED_TEAM_5x5, NORMAL_3x3, BOT_3x3, CAP_5x5, ARAM_UNRANKED_5x5, ONEFORALL_5x5, FIRSTBLOOD_1x1, FIRSTBLOOD_2x2, SR_6x6, URF, URF_BOT, NIGHTMARE_BOT, ASCENSION, HEXAKILL, KING_PORO, COUNTER_PICK, BILGEWATER)'),
     teamId=models.IntegerField(u'Id del lado en el que jugaba (100=Blue, 200=Purple)')
 
 class GoldDto(models.Model):  #Datos sobre el manejo del oro durante la partida
@@ -305,21 +308,21 @@ class GoldDto(models.Model):  #Datos sobre el manejo del oro durante la partida
     total=models.IntegerField(u'')
 
 class GroupDto(models.Model):  #Datos sobre los grupos de items
-    MaxGroupOwnable=models.CharField(u'')
-    key=models.CharField(u'')
+    MaxGroupOwnable=models.TextField(u'')
+    key=models.TextField(u'')
 
 class ImageDto(models.Model):  #Imagenes y sus datos
-    full=models.CharField(u'')
-    group=models.CharField(u'')
+    full=models.TextField(u'')
+    group=models.TextField(u'')
     h=models.IntegerField(u'')
-    sprite=models.CharField(u'')
+    sprite=models.TextField(u'')
     w=models.IntegerField(u'')
     x=models.IntegerField(u'')
     y=models.IntegerField(u'')
 
 class Incident(models.Model):  #TODO Informacion sobre el servidor
     active=models.BooleanField(u'')
-    created_at=models.CharField(u'')
+    created_at=models.TextField(u'')
     exId=models.BigIntegerField(u'')
     updates=models.TextField(u'')#Lista en JSON compuesta de valores tipo Message
 
@@ -330,58 +333,58 @@ class InfoDto(models.Model):  #INFO basica de los campeones
     magic=models.IntegerField(u'Poder magico segun Riot')
 
 class ItemDto(models.Model):  #Informacion registrada sobre cada item
-    colloq=models.CharField(u'')
+    colloq=models.TextField(u'')
     consumeOnFull=models.BooleanField(u'')
     consumed=models.BooleanField(u'')
     depth=models.IntegerField(u'')
-    description=models.CharField(u'')
+    description=models.TextField(u'')
     effect=models.TextField(u'')#Map en JSON compuesta de valores de los siguientes tipos: string, string
     exFrom=models.TextField(u'')#Lista en JSON compuesta de valores tipo string
-    gold=#TODO#GoldDto #Data Dragon includes the gold field for basic data, which is shared by both rune and item. However, only items have a gold field on them, representing their gold cost in the store. Since runes are not sold in the store, they have no gold cost.
-    group=models.CharField(u'')
+    gold=models.TextField(u'')#JSON con un valor GoldDto #Data Dragon includes the gold field for basic data, which is shared by both rune and item. However, only items have a gold field on them, representing their gold cost in the store. Since runes are not sold in the store, they have no gold cost.
+    group=models.TextField(u'')
     hideFromAll=models.BooleanField(u'')
     exId=models.IntegerField(u'')
-    image=#TODO#ImageDto
+    image=models.TextField(u'')#JSON con un valor ImageDto
     inStore=models.BooleanField(u'')
     into=models.TextField(u'')#Lista en JSON compuesta de valores tipo string
     maps=models.TextField(u'')#Map en JSON compuesta de valores de los siguientes tipos: string, boolean
-    name=models.CharField(u'')
-    plaintext=models.CharField(u'')
-    requiredChampion=models.CharField(u'')
-    rune=#TODO#MetaDataDto
-    sanitizedDescription=models.CharField(u'')
+    name=models.TextField(u'')
+    plaintext=models.TextField(u'')
+    requiredChampion=models.TextField(u'')
+    rune=models.TextField(u'')#JSON con un valor MetaDataDto
+    sanitizedDescription=models.TextField(u'')
     specialRecipe=models.IntegerField(u'')
     stacks=models.IntegerField(u'')
-    stats=#TODO#BasicDataStatsDto
+    stats=models.TextField(u'')#JSON con un valor BasicDataStatsDto
     tags=models.TextField(u'')#Lista en JSON compuesta de valores tipo string
 
 class ItemTreeDto(models.Model):  #Informacion de cada arbol de items
-    header=models.CharField(u'')
+    header=models.TextField(u'')
     tags=models.TextField(u'')#Lista en JSON compuesta de valores tipo string
 
 class LanguageStringsDto(models.Model):  #Informacion de los strings de cada idioma
     data=models.TextField(u'')#Map en JSON compuesta de valores de los siguientes tipos: string, string
-    exType=models.CharField(u'')
-    version=models.CharField(u'')
+    exType=models.TextField(u'')
+    version=models.TextField(u'')
 
 class LeagueDto(models.Model):  #INFO de la liga
     entries=models.TextField(u'')#Lista en JSON compuesta de valores tipo LeagueEntryDto
-    name=models.CharField(u'Nombre expresado del jugador en esta liga')
-    participantId=models.CharField(u'Id del perteneciente a esta liga (Sea un team o un jugador)')
-    queue=models.CharField(u'Tipo de juego(RANKED_SOLO_5x5, RANKED_TEAM_3x3, RANKED_TEAM_5x5)')
-    tier=models.CharField(u'Liga (CHALLENGER, MASTER, DIAMOND, PLATINUM, GOLD, SILVER, BRONZE)')
+    name=models.TextField(u'N,max_length=300ombre expresado del jugador en esta liga')
+    participantId=models.TextField(u'I,max_length=300d del perteneciente a esta liga (Sea un team o un jugador)')
+    queue=models.TextField(u'T,max_length=300ipo de juego(RANKED_SOLO_5x5, RANKED_TEAM_3x3, RANKED_TEAM_5x5)')
+    tier=models.TextField(u'L,max_length=300iga (CHALLENGER, MASTER, DIAMOND, PLATINUM, GOLD, SILVER, BRONZE)')
 
 class LeagueEntryDto(models.Model):  #Informacion sobre los integrantes de esta liga
-    division=models.CharField(u'Division en la que esta')
+    division=models.TextField(u'D,max_length=300ivision en la que esta')
     isFreshBlood=models.BooleanField(u'Especifica si es nuevo en la liga')
     isHotStreak=models.BooleanField(u'Especifica si está en racha')
     isInactive=models.BooleanField(u'Especifica si está inactivo')
     isVeteran=models.BooleanField(u'Especifica si es un veterano en la liga')
     leaguePoints=models.IntegerField(u'Puntos en la liga')
     losses=models.IntegerField(u'Derrotas')
-    miniSeries=#TODO#MiniSeriesDto
-    playerOrTeamId=models.CharField(u'Id del jugador o del team')
-    playerOrTeamName=models.CharField(u'Nombre del jugador o del team')
+    miniSeries=models.TextField(u'')#JSON con un valor MiniSeriesDto
+    playerOrTeamId=models.TextField(u'I,max_length=300d del jugador o del team')
+    playerOrTeamName=models.TextField(u'N,max_length=300ombre del jugador o del team')
     wins=models.IntegerField(u'Victorias')
 
 class LevelTipDto(models.Model):  #Contiene la informacion de qué gana un campeon al levear
@@ -390,13 +393,13 @@ class LevelTipDto(models.Model):  #Contiene la informacion de qué gana un campe
 
 class MapDataDto(models.Model):  #Informacion del mapa
     data=models.TextField(u'')#Map en JSON compuesta de valores de los siguientes tipos: string, MapDetailsDto
-    exType=models.CharField(u'')
-    version=models.CharField(u'')
+    exType=models.TextField(u'')
+    version=models.TextField(u'')
 
 class MapDetailsDto(models.Model): #Detalles del mapa en el que se esta jugando
     image=models.TextField(u'')#Map en JSON compuesta de valores de los siguientes tipos: ImageDto
     mapId=models.BigIntegerField(u'')
-    mapName=models.CharField(u'')
+    mapName=models.TextField(u'')
     unpurchasableItemList=models.TextField(u'')#Lista en JSON compuesta de valores tipo long
 
 class Mastery(models.Model):  #Datos individuales de cada maestria activa
@@ -408,19 +411,19 @@ class MasteryDto(models.Model):#Informacion de cada maestria
     rank=models.IntegerField(u'') # Mastery rank (i.e., the number of points put into this mastery).
 
 class MasteryListDto(models.Model):  #Conjunto de maestrias utilizadas
-    datamodels.TextField(u'')#Map en JSON compuesta de valores de los siguientes tipos: string, MasteryDto
-    tree#TODO#MasteryTreeDto
-    exType=models.CharField(u'')
-    version=models.CharField(u'')
+    data=models.TextField(u'')#Map en JSON compuesta de valores de los siguientes tipos: string, MasteryDto
+    tree=models.TextField(u'')#JSON con un valor MasteryTreeDto
+    exType=models.TextField(u'')
+    version=models.TextField(u'')
 
 class MasteryPageDto(models.Model):  #Datos de las paginas de maestrias configuradas
     current=models.BooleanField(u'') # Indicates if the mastery page is the current mastery page.
     exId=models.BigIntegerField(u'') # Mastery page ID.
     masteries=models.TextField(u'')#Lista en JSON compuesta de valores tipo MasteryDto Collection of masteries associated with the mastery page.
-    name=models.CharField(u'') # Mastery page name.
+    name=models.TextField(u'') # Mastery page name.
 
 class MasteryPagesDto(models.Model):  
-    pages=#TODO#Set#MasteryPageDto # Collection of mastery pages associated with the summoner.
+    pages=models.TextField(u'')#JSON con un valor Set#MasteryPageDto # Collection of mastery pages associated with the summoner.
     summonerId=models.BigIntegerField(u'') # Summoner ID.
 
 
@@ -431,7 +434,7 @@ class MasteryTreeDto(models.Model):
 
 class MasteryTreeItemDto(models.Model):
     masteryId=models.IntegerField(u'')
-    prereq=models.CharField(u'')
+    prereq=models.TextField(u'')
 
 class MasteryTreeListDto(models.Model):
     masteryTreeItems=models.TextField(u'')#Lista en JSON compuesta de valores tipo MasteryTreeItemDto
@@ -442,29 +445,29 @@ class MatchDetail(models.Model):
     matchCreation=models.BigIntegerField(u'') # Match creation time. Designates when the team select lobby is created and/or the match is made through match making, not when the game actually starts.
     matchDuration=models.BigIntegerField(u'') # Match duration
     matchId=models.BigIntegerField(u'') # ID of the match
-    matchMode=models.CharField(u'') # Match mode (Legal values: CLASSIC, ODIN, ARAM, TUTORIAL, ONEFORALL, ASCENSION, FIRSTBLOOD, KINGPORO)
-    matchType=models.CharField(u'') # Match type (Legal values: CUSTOM_GAME, MATCHED_GAME, TUTORIAL_GAME)
-    matchVersion=models.CharField(u'') # Match version
+    matchMode=models.TextField(u'') # Match mode (Legal values: CLASSIC, ODIN, ARAM, TUTORIAL, ONEFORALL, ASCENSION, FIRSTBLOOD, KINGPORO)
+    matchType=models.TextField(u'') # Match type (Legal values: CUSTOM_GAME, MATCHED_GAME, TUTORIAL_GAME)
+    matchVersion=models.TextField(u'') # Match version
     participantIdentities=models.TextField(u'')#Lista en JSON compuesta de valores tipo ParticipantIdentity Participant identity information
     participants=models.TextField(u'')#Lista en JSON compuesta de valores tipo Participant Participant information
-    platformId=models.CharField(u'') # Platform ID of the match
-    queueType=models.CharField(u'') # Match queue type (Legal values: CUSTOM, NORMAL_5x5_BLIND, RANKED_SOLO_5x5, RANKED_PREMADE_5x5, BOT_5x5, NORMAL_3x3, RANKED_PREMADE_3x3, NORMAL_5x5_DRAFT, ODIN_5x5_BLIND, ODIN_5x5_DRAFT, BOT_ODIN_5x5, BOT_5x5_INTRO, BOT_5x5_BEGINNER, BOT_5x5_INTERMEDIATE, RANKED_TEAM_3x3, RANKED_TEAM_5x5, BOT_TT_3x3, GROUP_FINDER_5x5, ARAM_5x5, ONEFORALL_5x5, FIRSTBLOOD_1x1, FIRSTBLOOD_2x2, SR_6x6, URF_5x5, ONEFORALL_MIRRORMODE_5x5, BOT_URF_5x5, NIGHTMARE_BOT_5x5_RANK1, NIGHTMARE_BOT_5x5_RANK2, NIGHTMARE_BOT_5x5_RANK5, ASCENSION_5x5, HEXAKILL, BILGEWATER_ARAM_5x5, KING_PORO_5x5, COUNTER_PICK, BILGEWATER_5x5)
-    region=models.CharField(u'') # Region where the match was played
-    season=models.CharField(u'') # Season match was played (Legal values: PRESEASON3, SEASON3, PRESEASON2014, SEASON2014, PRESEASON2015, SEASON2015)
+    platformId=models.TextField(u'') # Platform ID of the match
+    queueType=models.TextField(u'') # Match queue type (Legal values: CUSTOM, NORMAL_5x5_BLIND, RANKED_SOLO_5x5, RANKED_PREMADE_5x5, BOT_5x5, NORMAL_3x3, RANKED_PREMADE_3x3, NORMAL_5x5_DRAFT, ODIN_5x5_BLIND, ODIN_5x5_DRAFT, BOT_ODIN_5x5, BOT_5x5_INTRO, BOT_5x5_BEGINNER, BOT_5x5_INTERMEDIATE, RANKED_TEAM_3x3, RANKED_TEAM_5x5, BOT_TT_3x3, GROUP_FINDER_5x5, ARAM_5x5, ONEFORALL_5x5, FIRSTBLOOD_1x1, FIRSTBLOOD_2x2, SR_6x6, URF_5x5, ONEFORALL_MIRRORMODE_5x5, BOT_URF_5x5, NIGHTMARE_BOT_5x5_RANK1, NIGHTMARE_BOT_5x5_RANK2, NIGHTMARE_BOT_5x5_RANK5, ASCENSION_5x5, HEXAKILL, BILGEWATER_ARAM_5x5, KING_PORO_5x5, COUNTER_PICK, BILGEWATER_5x5)
+    region=models.TextField(u'') # Region where the match was played
+    season=models.TextField(u'') # Season match was played (Legal values: PRESEASON3, SEASON3, PRESEASON2014, SEASON2014, PRESEASON2015, SEASON2015)
     teams=models.TextField(u'')#Lista en JSON compuesta de valores tipo Team Team information
-    timeline=#TODO#Timeline    # Match timeline data (not included by default)
+    timeline=models.TextField(u'')#JSON con un valor Timeline    # Match timeline data (not included by default)
 
 class MatchHistorySummaryDto(models.Model):
     assists=models.IntegerField(u'')
     date=models.BigIntegerField(u'') # Date that match was completed specified as epoch milliseconds.
     deaths=models.IntegerField(u'')
     gameId=models.BigIntegerField(u'')
-    gameMode=models.CharField(u'')
+    gameMode=models.TextField(u'')
     invalid=models.BooleanField(u'')
     kills=models.IntegerField(u'')
     mapId=models.IntegerField(u'')
     opposingTeamKills=models.IntegerField(u'')
-    opposingTeamName=models.CharField(u'')
+    opposingTeamName=models.TextField(u'')
     win=models.BooleanField(u'')
 
 class MatchList(models.Model):
@@ -475,12 +478,12 @@ class MatchList(models.Model):
 
 class MatchReference(models.Model):
     champion=models.BigIntegerField(u'')
-    lane=models.CharField(u'') # Legal values: MID, MIDDLE, TOP, JUNGLE, BOT, BOTTOM
+    lane=models.TextField(u'') # Legal values: MID, MIDDLE, TOP, JUNGLE, BOT, BOTTOM
     matchId=models.BigIntegerField(u'')
-    platformId=models.CharField(u'')
-    queue=models.CharField(u'') # Legal values: RANKED_SOLO_5x5, RANKED_TEAM_3x3, RANKED_TEAM_5x5
-    role=models.CharField(u'') # Legal values: DUO, NONE, SOLO, DUO_CARRY, DUO_SUPPORT
-    season=models.CharField(u'') # Legal values: PRESEASON3, SEASON3, PRESEASON2014, SEASON2014, PRESEASON2015, SEASON2015
+    platformId=models.TextField(u'')
+    queue=models.TextField(u'') # Legal values: RANKED_SOLO_5x5, RANKED_TEAM_3x3, RANKED_TEAM_5x5
+    role=models.TextField(u'') # Legal values: DUO, NONE, SOLO, DUO_CARRY, DUO_SUPPORT
+    season=models.TextField(u'') # Legal values: PRESEASON3, SEASON3, PRESEASON2014, SEASON2014, PRESEASON2015, SEASON2015
     timestamp=models.BigIntegerField(u'')
 
 class MatchSummary(models.Model):
@@ -488,52 +491,52 @@ class MatchSummary(models.Model):
     matchCreation=models.BigIntegerField(u'') # Match creation time. Designates when the team select lobby is created and/or the match is made through match making, not when the game actually starts.
     matchDuration=models.BigIntegerField(u'') # Match duration
     matchId=models.BigIntegerField(u'') # ID of the match
-    matchMode=models.CharField(u'') # Match mode (Legal values: CLASSIC, ODIN, ARAM, TUTORIAL, ONEFORALL, ASCENSION, FIRSTBLOOD, KINGPORO)
-    matchType=models.CharField(u'') # Match type (Legal values: CUSTOM_GAME, MATCHED_GAME, TUTORIAL_GAME)
-    matchVersion=models.CharField(u'') # Match version
+    matchMode=models.TextField(u'') # Match mode (Legal values: CLASSIC, ODIN, ARAM, TUTORIAL, ONEFORALL, ASCENSION, FIRSTBLOOD, KINGPORO)
+    matchType=models.TextField(u'') # Match type (Legal values: CUSTOM_GAME, MATCHED_GAME, TUTORIAL_GAME)
+    matchVersion=models.TextField(u'') # Match version
     participantIdentities=models.TextField(u'')#Lista en JSON compuesta de valores tipo ParticipantIdentity # Participant identity information
     participants=models.TextField(u'')#Lista en JSON compuesta de valores tipo Participant # Participant information
-    platformId=models.CharField(u'') # Platform ID of the match
-    queueType=models.CharField(u'') # Match queue type (Legal values: CUSTOM, NORMAL_5x5_BLIND, RANKED_SOLO_5x5, RANKED_PREMADE_5x5, BOT_5x5, NORMAL_3x3, RANKED_PREMADE_3x3, NORMAL_5x5_DRAFT, ODIN_5x5_BLIND, ODIN_5x5_DRAFT, BOT_ODIN_5x5, BOT_5x5_INTRO, BOT_5x5_BEGINNER, BOT_5x5_INTERMEDIATE, RANKED_TEAM_3x3, RANKED_TEAM_5x5, BOT_TT_3x3, GROUP_FINDER_5x5, ARAM_5x5, ONEFORALL_5x5, FIRSTBLOOD_1x1, FIRSTBLOOD_2x2, SR_6x6, URF_5x5, ONEFORALL_MIRRORMODE_5x5, BOT_URF_5x5, NIGHTMARE_BOT_5x5_RANK1, NIGHTMARE_BOT_5x5_RANK2, NIGHTMARE_BOT_5x5_RANK5, ASCENSION_5x5, HEXAKILL, BILGEWATER_ARAM_5x5, KING_PORO_5x5, COUNTER_PICK, BILGEWATER_5x5)
-    region=models.CharField(u'') # Region where the match was played
-    season=models.CharField(u'') # Season match was played (Legal values: PRESEASON3, SEASON3, PRESEASON2014, SEASON2014, PRESEASON2015, SEASON2015)
+    platformId=models.TextField(u'') # Platform ID of the match
+    queueType=models.TextField(u'') # Match queue type (Legal values: CUSTOM, NORMAL_5x5_BLIND, RANKED_SOLO_5x5, RANKED_PREMADE_5x5, BOT_5x5, NORMAL_3x3, RANKED_PREMADE_3x3, NORMAL_5x5_DRAFT, ODIN_5x5_BLIND, ODIN_5x5_DRAFT, BOT_ODIN_5x5, BOT_5x5_INTRO, BOT_5x5_BEGINNER, BOT_5x5_INTERMEDIATE, RANKED_TEAM_3x3, RANKED_TEAM_5x5, BOT_TT_3x3, GROUP_FINDER_5x5, ARAM_5x5, ONEFORALL_5x5, FIRSTBLOOD_1x1, FIRSTBLOOD_2x2, SR_6x6, URF_5x5, ONEFORALL_MIRRORMODE_5x5, BOT_URF_5x5, NIGHTMARE_BOT_5x5_RANK1, NIGHTMARE_BOT_5x5_RANK2, NIGHTMARE_BOT_5x5_RANK5, ASCENSION_5x5, HEXAKILL, BILGEWATER_ARAM_5x5, KING_PORO_5x5, COUNTER_PICK, BILGEWATER_5x5)
+    region=models.TextField(u'') # Region where the match was played
+    season=models.TextField(u'') # Season match was played (Legal values: PRESEASON3, SEASON3, PRESEASON2014, SEASON2014, PRESEASON2015, SEASON2015)
 
 class Message(models.Model):
-    author=models.CharField(u'')
-    content=models.CharField(u'')
-    created_at=models.CharField(u'')
+    author=models.TextField(u'')
+    content=models.TextField(u'')
+    created_at=models.TextField(u'')
     exId=models.BigIntegerField(u'')
-    severity=models.CharField(u'') # Legal values: Info, Alert, Error
+    severity=models.TextField(u'') # Legal values: Info, Alert, Error
     translations=models.TextField(u'')#Lista en JSON compuesta de valores tipo Translation
-    updated_at=models.CharField(u'')
+    updated_at=models.TextField(u'')
 
 class MetaDataDto(models.Model):
     isRune=models.BooleanField(u'')
-    tier=models.CharField(u'')
-    exType=models.CharField(u'')
+    tier=models.TextField(u'')
+    exType=models.TextField(u'')
 
 class MiniSeriesDto(models.Model):
 #Informacion de las miniseries
     losses=models.IntegerField(u'Numero de partidas que perdió en promo')
-    progress=models.CharField(u'Muestra la promocion actual (W=Victoria L=Derrota N=Falta Jugar)')
+    progress=models.TextField(u'M,max_length=300uestra la promocion actual (W=Victoria L=Derrota N=Falta Jugar)')
     target=models.IntegerField(u'Numero de victorias necesarias para promocionar')
     wins=models.IntegerField(u'Numero de partidas que ganó en promo')
 
 class Observer(models.Model):
 #Espectador
-    encryptionKey=models.CharField(u'Key used to decrypt the spectator grid game data for playback')
+    encryptionKey=models.TextField(u'K,max_length=300ey used to decrypt the spectator grid game data for playback')
 
 class Participant(models.Model):
     championId=models.IntegerField(u'') # Champion ID
-    highestAchievedSeasonTier=models.CharField(u'') # Highest ranked tier achieved for the previous season, if any, otherwise null. Used to display border in game loading screen. (Legal values: CHALLENGER, MASTER, DIAMOND, PLATINUM, GOLD, SILVER, BRONZE, UNRANKED)
+    highestAchievedSeasonTier=models.TextField(u'') # Highest ranked tier achieved for the previous season, if any, otherwise null. Used to display border in game loading screen. (Legal values: CHALLENGER, MASTER, DIAMOND, PLATINUM, GOLD, SILVER, BRONZE, UNRANKED)
     masteries=models.TextField(u'')#Lista en JSON compuesta de valores tipo Mastery List of mastery information
     participantId=models.IntegerField(u'') # Participant ID
     runes=models.TextField(u'')#Lista en JSON compuesta de valores tipo Rune List of rune information
     spell1Id=models.IntegerField(u'') # First summoner spell ID
     spell2Id=models.IntegerField(u'') # Second summoner spell ID
-    stats=#TODO#ParticipantStats# Participant statistics
+    stats=models.TextField(u'')#JSON con un valor ParticipantStats# Participant statistics
     teamId=models.IntegerField(u'') # Team ID
-    timeline=#TODO#ParticipantTimeline # Timeline data. Delta fields refer to values for the specified period (e.g., the gold per minute over the first 10 minutes of the game versus the second 20 minutes of the game. Diffs fields refer to the deltas versus the calculated lane opponent(s).
+    timeline=models.TextField(u'')#JSON con un valor ParticipantTimeline # Timeline data. Delta fields refer to values for the specified period (e.g., the gold per minute over the first 10 minutes of the game versus the second 20 minutes of the game. Diffs fields refer to the deltas versus the calculated lane opponent(s).
 
 class ParticipantFrame(models.Model):
     currentGold=models.IntegerField(u'') # Participant's current gold
@@ -542,14 +545,14 @@ class ParticipantFrame(models.Model):
     level=models.IntegerField(u'') # Participant's current level
     minionsKilled=models.IntegerField(u'') # Number of minions killed by participant
     participantId=models.IntegerField(u'') # Participant ID
-    position=#TODO#Position # Participant's position
+    position=models.TextField(u'')#JSON con un valor Position # Participant's position
     teamScore=models.IntegerField(u'') # Team score of the participant
     totalGold=models.IntegerField(u'') # Participant's total gold
     xp=models.IntegerField(u'') # Experience earned by participant
 
 class ParticipantIdentity(models.Model):
     participantId=models.IntegerField(u'') # Participant ID
-    player Player#TODO # Player information
+    player=models.TextField(u'')#JSON con un valor Player
 
 class ParticipantStats(models.Model):
     assists=models.BigIntegerField(u'') # Number of assists
@@ -617,33 +620,33 @@ class ParticipantStats(models.Model):
     winner=models.BooleanField(u'') # Flag indicating whether or not the participant won
 
 class ParticipantTimeline(models.Model):
-    ancientGolemAssistsPerMinCounts=#TODO#ParticipantTimelineData     # Ancient golem assists per minute timeline counts
-    ancientGolemKillsPerMinCounts=#TODO#ParticipantTimelineData     # Ancient golem kills per minute timeline counts
-    assistedLaneDeathsPerMinDeltas=#TODO#ParticipantTimelineData     # Assisted lane deaths per minute timeline data
-    assistedLaneKillsPerMinDeltas=#TODO#ParticipantTimelineData     # Assisted lane kills per minute timeline data
-    baronAssistsPerMinCounts=#TODO#ParticipantTimelineData     # Baron assists per minute timeline counts
-    baronKillsPerMinCounts=#TODO#ParticipantTimelineData     # Baron kills per minute timeline counts
-    creepsPerMinDeltas=#TODO#ParticipantTimelineData     # Creeps per minute timeline data
-    csDiffPerMinDeltas=#TODO#ParticipantTimelineData     # Creep score difference per minute timeline data
-    damageTakenDiffPerMinDeltas=#TODO#ParticipantTimelineData     # Damage taken difference per minute timeline data
-    damageTakenPerMinDeltas=#TODO#ParticipantTimelineData     # Damage taken per minute timeline data
-    dragonAssistsPerMinCounts=#TODO#ParticipantTimelineData     # Dragon assists per minute timeline counts
-    dragonKillsPerMinCounts=#TODO#ParticipantTimelineData     # Dragon kills per minute timeline counts
-    elderLizardAssistsPerMinCounts=#TODO#ParticipantTimelineData     # Elder lizard assists per minute timeline counts
-    elderLizardKillsPerMinCounts=#TODO#ParticipantTimelineData     # Elder lizard kills per minute timeline counts
-    goldPerMinDeltas=#TODO#ParticipantTimelineData     # Gold per minute timeline data
-    inhibitorAssistsPerMinCounts=#TODO#ParticipantTimelineData     # Inhibitor assists per minute timeline counts
-    inhibitorKillsPerMinCounts=#TODO#ParticipantTimelineData     # Inhibitor kills per minute timeline counts
-    lane=models.CharField(u'') # Participant's lane (Legal values: MID, MIDDLE, TOP, JUNGLE, BOT, BOTTOM)
-    role=models.CharField(u'') # Participant's role (Legal values: DUO, NONE, SOLO, DUO_CARRY, DUO_SUPPORT)
-    towerAssistsPerMinCounts=#TODO#ParticipantTimelineData     # Tower assists per minute timeline counts
-    towerKillsPerMinCounts=#TODO#ParticipantTimelineData     # Tower kills per minute timeline counts
-    towerKillsPerMinDeltas=#TODO#ParticipantTimelineData     # Tower kills per minute timeline data
-    vilemawAssistsPerMinCounts=#TODO#ParticipantTimelineData     # Vilemaw assists per minute timeline counts
-    vilemawKillsPerMinCounts=#TODO#ParticipantTimelineData     # Vilemaw kills per minute timeline counts
-    wardsPerMinDeltas=#TODO#ParticipantTimelineData     # Wards placed per minute timeline data
-    xpDiffPerMinDeltas=#TODO#ParticipantTimelineData     # Experience difference per minute timeline data
-    xpPerMinDeltas=#TODO#ParticipantTimelineData     # Experience per minute timeline data
+    ancientGolemAssistsPerMinCounts=models.TextField(u'')#JSON con un valor ParticipantTimelineData     # Ancient golem assists per minute timeline counts
+    ancientGolemKillsPerMinCounts=models.TextField(u'')#JSON con un valor ParticipantTimelineData     # Ancient golem kills per minute timeline counts
+    assistedLaneDeathsPerMinDeltas=models.TextField(u'')#JSON con un valor ParticipantTimelineData     # Assisted lane deaths per minute timeline data
+    assistedLaneKillsPerMinDeltas=models.TextField(u'')#JSON con un valor ParticipantTimelineData     # Assisted lane kills per minute timeline data
+    baronAssistsPerMinCounts=models.TextField(u'')#JSON con un valor ParticipantTimelineData     # Baron assists per minute timeline counts
+    baronKillsPerMinCounts=models.TextField(u'')#JSON con un valor ParticipantTimelineData     # Baron kills per minute timeline counts
+    creepsPerMinDeltas=models.TextField(u'')#JSON con un valor ParticipantTimelineData     # Creeps per minute timeline data
+    csDiffPerMinDeltas=models.TextField(u'')#JSON con un valor ParticipantTimelineData     # Creep score difference per minute timeline data
+    damageTakenDiffPerMinDeltas=models.TextField(u'')#JSON con un valor ParticipantTimelineData     # Damage taken difference per minute timeline data
+    damageTakenPerMinDeltas=models.TextField(u'')#JSON con un valor ParticipantTimelineData     # Damage taken per minute timeline data
+    dragonAssistsPerMinCounts=models.TextField(u'')#JSON con un valor ParticipantTimelineData     # Dragon assists per minute timeline counts
+    dragonKillsPerMinCounts=models.TextField(u'')#JSON con un valor ParticipantTimelineData     # Dragon kills per minute timeline counts
+    elderLizardAssistsPerMinCounts=models.TextField(u'')#JSON con un valor ParticipantTimelineData     # Elder lizard assists per minute timeline counts
+    elderLizardKillsPerMinCounts=models.TextField(u'')#JSON con un valor ParticipantTimelineData     # Elder lizard kills per minute timeline counts
+    goldPerMinDeltas=models.TextField(u'')#JSON con un valor ParticipantTimelineData     # Gold per minute timeline data
+    inhibitorAssistsPerMinCounts=models.TextField(u'')#JSON con un valor ParticipantTimelineData     # Inhibitor assists per minute timeline counts
+    inhibitorKillsPerMinCounts=models.TextField(u'')#JSON con un valor ParticipantTimelineData     # Inhibitor kills per minute timeline counts
+    lane=models.TextField(u'') # Participant's lane (Legal values: MID, MIDDLE, TOP, JUNGLE, BOT, BOTTOM)
+    role=models.TextField(u'') # Participant's role (Legal values: DUO, NONE, SOLO, DUO_CARRY, DUO_SUPPORT)
+    towerAssistsPerMinCounts=models.TextField(u'')#JSON con un valor ParticipantTimelineData     # Tower assists per minute timeline counts
+    towerKillsPerMinCounts=models.TextField(u'')#JSON con un valor ParticipantTimelineData     # Tower kills per minute timeline counts
+    towerKillsPerMinDeltas=models.TextField(u'')#JSON con un valor ParticipantTimelineData     # Tower kills per minute timeline data
+    vilemawAssistsPerMinCounts=models.TextField(u'')#JSON con un valor ParticipantTimelineData     # Vilemaw assists per minute timeline counts
+    vilemawKillsPerMinCounts=models.TextField(u'')#JSON con un valor ParticipantTimelineData     # Vilemaw kills per minute timeline counts
+    wardsPerMinDeltas=models.TextField(u'')#JSON con un valor ParticipantTimelineData     # Wards placed per minute timeline data
+    xpDiffPerMinDeltas=models.TextField(u'')#JSON con un valor ParticipantTimelineData     # Experience difference per minute timeline data
+    xpPerMinDeltas=models.TextField(u'')#JSON con un valor ParticipantTimelineData     # Experience per minute timeline data
 
 class ParticipantTimelineData(models.Model):
     tenToTwenty=models.FloatField(u'') # Value per minute from 10 min to 20 min
@@ -653,16 +656,16 @@ class ParticipantTimelineData(models.Model):
 
 class PassiveDto(models.Model):
 #Datos de la pasiva del campeon
-    description=models.CharField(u'Descripcion')
+    description=models.TextField(u'D,max_length=300escripcion')
     image=models.TextField(u'')#Lista en JSON compuesta de valores tipo ImageDto
-    name=models.CharField(u'Nombre de la pasiva')
-    sanitizedDescription=models.CharField(u'Descripcion concreta')
+    name=models.TextField(u'N,max_length=300ombre de la pasiva')
+    sanitizedDescription=models.TextField(u'D,max_length=300escripcion concreta')
 
 class Player(models.Model):
-    matchHistoryUri=models.CharField(u'') # Match history URI
+    matchHistoryUri=models.TextField(u'') # Match history URI
     profileIcon=models.IntegerField(u'') # Profile icon ID
     summonerId=models.BigIntegerField(u'') # Summoner ID
-    summonerName=models.CharField(u'') # Summoner name
+    summonerName=models.TextField(u'') # Summoner name
 
 class PlayerDto(models.Model):
 #INFO de los pj que usa y su team
@@ -675,10 +678,10 @@ class PlayerHistory(models.Model):
 
 
 class PlayerStatsSummaryDto(models.Model):
-    aggregatedStats=#TODO#AggregatedStatsDto# Aggregated stats.
+    aggregatedStats=models.TextField(u'')#JSON con un valor AggregatedStatsDto# Aggregated stats.
     losses=models.IntegerField(u'') # Number of losses for this queue type. Returned for ranked queue types only.
     modifyDate=models.BigIntegerField(u'') # Date stats were last modified specified as epoch milliseconds.
-    playerStatSummaryType=models.CharField(u'') # Player stats summary type. (Legal values: AramUnranked5x5, Ascension, CAP5x5, CoopVsAI, CoopVsAI3x3, CounterPick, FirstBlood1x1, FirstBlood2x2, Hexakill, KingPoro, NightmareBot, OdinUnranked, OneForAll5x5, RankedPremade3x3, RankedPremade5x5, RankedSolo5x5, RankedTeam3x3, RankedTeam5x5, SummonersRift6x6, Unranked, Unranked3x3, URF, URFBots, Bilgewater)
+    playerStatSummaryType=models.TextField(u'') # Player stats summary type. (Legal values: AramUnranked5x5, Ascension, CAP5x5, CoopVsAI, CoopVsAI3x3, CounterPick, FirstBlood1x1, FirstBlood2x2, Hexakill, KingPoro, NightmareBot, OdinUnranked, OneForAll5x5, RankedPremade3x3, RankedPremade5x5, RankedSolo5x5, RankedTeam3x3, RankedTeam5x5, SummonersRift6x6, Unranked, Unranked3x3, URF, URFBots, Bilgewater)
     wins=models.IntegerField(u'') # Number of wins for this queue type.
 
 class PlayerStatsSummaryListDto(models.Model):
@@ -730,7 +733,7 @@ class RawStatsDto(models.Model):
     neutralMinionsKilled=models.IntegerField(u'Minions neutrales asesinados')
     neutralMinionsKilledEnemyJungle=models.IntegerField(u'Minions de la jungla enemiga asesinados')
     neutralMinionsKilledYourJungle=models.IntegerField(u'Minions de tu jungla enemiga asesinados')
-    nexusKilled=models.BooleanField(u'Partida ganada'
+    nexusKilled=models.BooleanField(u'Partida ganada')
     nodeCapture=models.IntegerField(u'Torres capturadas')
     nodeCaptureAssist=models.IntegerField(u'Asistencias al capturar torres')
     nodeNeutralize=models.IntegerField(u'Torres neutralizadas')
@@ -777,30 +780,30 @@ class RawStatsDto(models.Model):
     win=models.BooleanField(u'Partida ganada')
 
 class RealmDto(models.Model):
-    cdn=models.CharField(u'') # The base CDN url
-    css=models.CharField(u'') # Latest changed version of Dragon Magic's css file
-    dd=models.CharField(u'') # Latest changed version of Dragon Magic
-    l=models.CharField(u'') # Default language for this realm
-    lg=models.CharField(u'') # Legacy script mode for IE6 or older
+    cdn=models.TextField(u'') # The base CDN url
+    css=models.TextField(u'') # Latest changed version of Dragon Magic's css file
+    dd=models.TextField(u'') # Latest changed version of Dragon Magic
+    l=models.TextField(u'') # Default language for this realm
+    lg=models.TextField(u'') # Legacy script mode for IE6 or older
     n=models.TextField(u'')#Map en JSON compuesta de valores de los siguientes tipos: string, string # Latest changed version for each data type listed.
     profileiconmax=models.IntegerField(u'') # Special behavior number identifying the largest profileicon id that can be used under 500. Any profileicon that is requested between this number and 500 should be mapped to 0.
-    store=models.CharField(u'') # Additional api data drawn from other sources that may be related to data dragon functionality.
-    v=models.CharField(u'') # Current version of this file for this realm. 
+    store=models.TextField(u'') # Additional api data drawn from other sources that may be related to data dragon functionality.
+    v=models.TextField(u'') # Current version of this file for this realm. 
 
 class RecentGamesDto(models.Model):
 #Juegos recientes de X jugador
-    games=#TODO#SET#GameDto
+    games=models.TextField(u'')#JSON con un valor SET#GameDto
     summonerId=models.BigIntegerField(u'Id del jugador')
 
 class RecommendedDto(models.Model):
 #Data de las recomendaciones para los campeones
     blocks=models.TextField(u'')#Lista en JSON compuesta de valores tipo BlockDto
-    champion=models.CharField(u'Nombre del Campeon')
-    exMap=models.CharField(u'Mapa')
-    mode=models.CharField(u'Modo en el que se recomiendan(CLASSIC, ARAM, etc)')
+    champion=models.TextField(u'N,max_length=300ombre del Campeon')
+    exMap=models.TextField(u'M,max_length=300apa')
+    mode=models.TextField(u'M,max_length=300odo en el que se recomiendan(CLASSIC, ARAM, etc)')
     priority=models.BooleanField(u'Prioridad')
-    title=models.CharField(u'Titulo de la Build')
-    exType=models.CharField(u'Titulo del conjunto de items(iniciales, finales, etc)')
+    title=models.TextField(u'T,max_length=300itulo de la Build')
+    exType=models.TextField(u'T,max_length=300itulo del conjunto de items(iniciales, finales, etc)')
 
 class RosterDto(models.Model):
     memberList=models.TextField(u'')#Lista en JSON compuesta de valores tipo TeamMemberInfoDto
@@ -812,43 +815,43 @@ class Rune(models.Model):
     count=models.IntegerField(u'Cantidad de copias de esta runa')
 
 class RuneDto(models.Model):
-    colloq=models.CharField(u'')
+    colloq=models.TextField(u'')
     consumeOnFull=models.BooleanField(u'')
     consumed=models.BooleanField(u'')
     depth=models.IntegerField(u'')
-    description=models.CharField(u'')
+    description=models.TextField(u'')
     exFrom=models.TextField(u'')#Lista en JSON compuesta de valores tipo string
-    group=models.CharField(u'')
+    group=models.TextField(u'')
     hideFromAll=models.BooleanField(u'')
     exId=models.IntegerField(u'')
-    image=#TODO#ImageDto
+    image=models.TextField(u'')#JSON con un valor ImageDto
     inStore=models.BooleanField(u'')
     into=models.TextField(u'')#Lista en JSON compuesta de valores tipo string
     maps=models.TextField(u'')#Map en JSON compuesta de valores de los siguientes tipos: string, boolean
-    name=models.CharField(u'')
-    plaintext=models.CharField(u'')
-    requiredChampion=models.CharField(u'')
-    rune=#TODO#MetaDataDto
-    sanitizedDescription=models.CharField(u'')
+    name=models.TextField(u'')
+    plaintext=models.TextField(u'')
+    requiredChampion=models.TextField(u'')
+    rune=models.TextField(u'')#JSON con un valor MetaDataDto
+    sanitizedDescription=models.TextField(u'')
     specialRecipe=models.IntegerField(u'')
     stacks=models.IntegerField(u'')
-    stats=#TODO#BasicDataStatsDto
+    stats=models.TextField(u'')#JSON con un valor BasicDataStatsDto
     tags=models.TextField(u'')#Lista en JSON compuesta de valores tipo string
 
 class RuneListDto(models.Model):
-    basic BasicDataDto
+    basic=models.TextField(u'')#JSON con un valor BasicDataDto
     data=models.TextField(u'')#Map en JSON compuesta de valores de los siguientes tipos: string, RuneDto
-    exType=models.CharField(u'')
-    version=models.CharField(u'')
+    exType=models.TextField(u'')
+    version=models.TextField(u'')
 
 class RunePageDto(models.Model):
     current=models.BooleanField(u'') # Indicates if the page is the current page.
     exId=models.BigIntegerField(u'') # Rune page ID.
-    name=models.CharField(u'') # Rune page name.
-    slots=#TODO#SET#RuneSlotDto # Collection of rune slots associated with the rune page.
+    name=models.TextField(u'') # Rune page name.
+    slots=models.TextField(u'')#JSON con un valor SET#RuneSlotDto # Collection of rune slots associated with the rune page.
 
 class RunePagesDto(models.Model):
-    pages=#TODO#SET#RunePageDto # Collection of rune pages associated with the summoner.
+    pages=models.TextField(u'')#JSON con un valor SET#RunePageDto # Collection of rune pages associated with the summoner.
     summonerId=models.BigIntegerField(u'') # Summoner ID.
 
 class RuneSlotDto(models.Model):
@@ -857,143 +860,76 @@ class RuneSlotDto(models.Model):
 
 class Service(models.Model):
     incidents=models.TextField(u'')#Lista en JSON compuesta de valores tipo Incident
-    name=models.CharField(u'')
-    slug=models.CharField(u'')
-    status=models.CharField(u'') # Legal values: Online, Alert, Offline, Deploying
+    name=models.TextField(u'')
+    slug=models.TextField(u'')
+    status=models.TextField(u'') # Legal values: Online, Alert, Offline, Deploying
 
 class Shard(models.Model):
-    hostname=models.CharField(u'')
+    hostname=models.TextField(u'')
     locales=models.TextField(u'')#Lista en JSON compuesta de valores tipo string
-    name=models.CharField(u'')
-    region_tag=models.CharField(u'')
-    slug=models.CharField(u'')
+    name=models.TextField(u'')
+    region_tag=models.TextField(u'')
+    slug=models.TextField(u'')
 
 
 class ShardStatus(models.Model):
-    hostname=models.CharField(u'')
+    hostname=models.TextField(u'')
     locales=models.TextField(u'')#Lista en JSON compuesta de valores tipo string
-    name=models.CharField(u'')
-    region_tag=models.CharField(u'')
+    name=models.TextField(u'')
+    region_tag=models.TextField(u'')
     services=models.TextField(u'')#Lista en JSON compuesta de valores tipo Service
-    slug=models.CharField(u'')
+    slug=models.TextField(u'')
 
 class SkinDto(models.Model):
 #Data de los Skins
     exId=models.IntegerField(u'Id de la skin')
-    name=models.CharField(u'Nombre de la skin')
+    name=models.TextField(u'N,max_length=300ombre de la skin')
     num=models.IntegerField(u'Numero de skin de este Pj(Default=0)')
 
 class SpellVarsDto(models.Model):
 #Data de los spells
     coeff=models.TextField(u'')#Lista en JSON compuesta de valores tipo double
-    dyn=models.CharField(u'Si el spell tiene daño dinamico, especifica si el daño aumenta(+) o diminuye(-)')
-    keyslink=models.CharField(u'Key del spell')
-    link=models.CharField(u'Link del spell, donde se especifica si tiene un daño estatico o dinamico(que depende de otra variable)')
-    ranksWith=models.CharField(u'Variable rara que solo tiene karma(value=KarmaMantra)')
-
-class BasicDataStatsDto(models.Model):
-    FlatArmorMod=models.FloatField(u'')
-    FlatAttackSpeedMod=models.FloatField(u'')
-    FlatBlockMod=models.FloatField(u'')
-    FlatCritChanceMod=models.FloatField(u'')
-    FlatCritDamageMod=models.FloatField(u'')
-    FlatEXPBonus=models.FloatField(u'')
-    FlatEnergyPoolMod=models.FloatField(u'')
-    FlatEnergyRegenMod=models.FloatField(u'')
-    FlatHPPoolMod=models.FloatField(u'')
-    FlatHPRegenMod=models.FloatField(u'')
-    FlatMPPoolMod=models.FloatField(u'')
-    FlatMPRegenMod=models.FloatField(u'')
-    FlatMagicDamageMod=models.FloatField(u'')
-    FlatMovementSpeedMod=models.FloatField(u'')
-    FlatPhysicalDamageMod=models.FloatField(u'')
-    FlatSpellBlockMod=models.FloatField(u'')
-    PercentArmorMod=models.FloatField(u'')
-    PercentAttackSpeedMod=models.FloatField(u'')
-    PercentBlockMod=models.FloatField(u'')
-    PercentCritChanceMod=models.FloatField(u'')
-    PercentCritDamageMod=models.FloatField(u'')
-    PercentDodgeMod=models.FloatField(u'')
-    PercentEXPBonus=models.FloatField(u'')
-    PercentHPPoolMod=models.FloatField(u'')
-    PercentHPRegenMod=models.FloatField(u'')
-    PercentLifeStealMod=models.FloatField(u'')
-    PercentMPPoolMod=models.FloatField(u'')
-    PercentMPRegenMod=models.FloatField(u'')
-    PercentMagicDamageMod=models.FloatField(u'')
-    PercentMovementSpeedMod=models.FloatField(u'')
-    PercentPhysicalDamageMod=models.FloatField(u'')
-    PercentSpellBlockMod=models.FloatField(u'')
-    PercentSpellVampMod=models.FloatField(u'')
-    rFlatArmorModPerLevel=models.FloatField(u'')
-    rFlatArmorPenetrationMod=models.FloatField(u'')
-    rFlatArmorPenetrationModPerLevel=models.FloatField(u'')
-    rFlatCritChanceModPerLevel=models.FloatField(u'')
-    rFlatCritDamageModPerLevel=models.FloatField(u'')
-    rFlatDodgeMod=models.FloatField(u'')
-    rFlatDodgeModPerLevel=models.FloatField(u'')
-    rFlatEnergyModPerLevel=models.FloatField(u'')
-    rFlatEnergyRegenModPerLevel=models.FloatField(u'')
-    rFlatGoldPer10Mod=models.FloatField(u'')
-    rFlatHPModPerLevel=models.FloatField(u'')
-    rFlatHPRegenModPerLevel=models.FloatField(u'')
-    rFlatMPModPerLevel=models.FloatField(u'')
-    rFlatMPRegenModPerLevel=models.FloatField(u'')
-    rFlatMagicDamageModPerLevel=models.FloatField(u'')
-    rFlatMagicPenetrationMod=models.FloatField(u'')
-    rFlatMagicPenetrationModPerLevel=models.FloatField(u'')
-    rFlatMovementSpeedModPerLevel=models.FloatField(u'')
-    rFlatPhysicalDamageModPerLevel=models.FloatField(u'')
-    rFlatSpellBlockModPerLevel=models.FloatField(u'')
-    rFlatTimeDeadMod=models.FloatField(u'')
-    rFlatTimeDeadModPerLevel=models.FloatField(u'')
-    rPercentArmorPenetrationMod=models.FloatField(u'')
-    rPercentArmorPenetrationModPerLevel=models.FloatField(u'')
-    rPercentAttackSpeedModPerLevel=models.FloatField(u'')
-    rPercentCooldownMod=models.FloatField(u'')
-    rPercentCooldownModPerLevel=models.FloatField(u'')
-    rPercentMagicPenetrationMod=models.FloatField(u'')
-    rPercentMagicPenetrationModPerLevel=models.FloatField(u'')
-    rPercentMovementSpeedModPerLevel=models.FloatField(u'')
-    rPercentTimeDeadMod=models.FloatField(u'')
-    rPercentTimeDeadModPerLevel=models.FloatField(u'')
+    dyn=models.TextField(u'S,max_length=300i el spell tiene daño dinamico, especifica si el daño aumenta(+) o diminuye(-)')
+    keyslink=models.TextField(u'K,max_length=300ey del spell')
+    link=models.TextField(u'L,max_length=300ink del spell, donde se especifica si tiene un daño estatico o dinamico(que depende de otra variable)')
+    ranksWith=models.TextField(u'V,max_length=300ariable rara que solo tiene karma(value=KarmaMantra)')
 
 class SummonerDto(models.Model):
     exId=models.BigIntegerField(u'') # Summoner ID.
-    name=models.CharField(u'') # Summoner name.
+    name=models.TextField(u'') # Summoner name.
     profileIconId=models.IntegerField(u'') # ID of the summoner icon associated with the summoner.
     revisionDate=models.BigIntegerField(u'') # Date summoner was last modified specified as epoch milliseconds. The following events will update this timestamp: profile icon change, playing the tutorial or advanced tutorial, finishing a game, summoner name change
     summonerLevel=models.BigIntegerField(u'') # Summoner level associated with the summoner.
 
 class SummonerSpellDto(models.Model):
     cooldown=models.TextField(u'')#Lista en JSON compuesta de valores tipo double
-    cooldownBurn=models.CharField(u'')
+    cooldownBurn=models.TextField(u'')
     cost=models.TextField(u'')#Lista en JSON compuesta de valores tipo int
-    costBurn=models.CharField(u'')
-    costType=models.CharField(u'')
-    description=models.CharField(u'')
+    costBurn=models.TextField(u'')
+    costType=models.TextField(u'')
+    description=models.TextField(u'')
     effect=models.TextField(u'')#Lista en JSON compuesta de valores tipo object # This field is a List of List of Double.
     effectBurn=models.TextField(u'')#Lista en JSON compuesta de valores tipo string
     exId=models.IntegerField(u'')
-    image=#TODO#ImageDto
-    key=models.CharField(u'')
-    leveltip=#TODO#LevelTipDto
+    image=models.TextField(u'')#JSON con un valor ImageDto
+    key=models.TextField(u'')
+    leveltip=models.TextField(u'')#JSON con un valor LevelTipDto
     maxrank=models.IntegerField(u'')
     modes=models.TextField(u'')#Lista en JSON compuesta de valores tipo string
-    name=models.CharField(u'')
-    exRange=#TODO#object #This field is either a List of Integer or the String 'self' for spells that target one's own champion.
-    rangeBurn=models.CharField(u'')
-    resource=models.CharField(u'')
-    sanitizedDescription=models.CharField(u'')
-    sanitizedTooltip=models.CharField(u'')
+    name=models.TextField(u'')
+    exRange=models.TextField(u'')#JSON con un valor object #This field is either a List of Integer or the String 'self' for spells that target one's own champion.
+    rangeBurn=models.TextField(u'')
+    resource=models.TextField(u'')
+    sanitizedDescription=models.TextField(u'')
+    sanitizedTooltip=models.TextField(u'')
     summonerLevel=models.IntegerField(u'')
-    tooltip=models.CharField(u'')
+    tooltip=models.TextField(u'')
     exVars=models.TextField(u'')#Lista en JSON compuesta de valores tipo SpellVarsDto
 
 class SummonerSpellListDto(models.Model):
     data=models.TextField(u'')#Map en JSON compuesta de valores de los siguientes tipos: string, SummonerSpellDto
-    exType=models.CharField(u'')
-    version=models.CharField(u'')
+    exType=models.TextField(u'')
+    version=models.TextField(u'')
 
 class Team(models.Model):
     bans=models.TextField(u'')#Lista en JSON compuesta de valores tipo BannedChampion If game was draft mode, contains banned champion data, otherwise null
@@ -1013,17 +949,17 @@ class Team(models.Model):
 
 class TeamDto(models.Model):
     createDate=models.BigIntegerField(u'') # Date that team was created specified as epoch milliseconds.
-    fullId=models.CharField(u'')
+    fullId=models.TextField(u'')
     lastGameDate=models.BigIntegerField(u'') # Date that last game played by team ended specified as epoch milliseconds.
     lastJoinDate=models.BigIntegerField(u'') # Date that last member joined specified as epoch milliseconds.
     lastJoinedRankedTeamQueueDate=models.BigIntegerField(u'') # Date that team last joined the ranked team queue specified as epoch milliseconds.
     matchHistory=models.TextField(u'')#Lista en JSON compuesta de valores tipo MatchHistorySummaryDto
     modifyDate=models.BigIntegerField(u'') # Date that team was last modified specified as epoch milliseconds.
-    name=models.CharField(u'')
-    roster=#TODO#RosterDto
+    name=models.TextField(u'')
+    roster=models.TextField(u'')#JSON con un valor RosterDto
     secondLastJoinDate=models.BigIntegerField(u'') # Date that second to last member joined specified as epoch milliseconds.
-    status=models.CharField(u'')
-    tag=models.CharField(u'')
+    status=models.TextField(u'')
+    tag=models.TextField(u'')
     teamStatDetails=models.TextField(u'')#Lista en JSON compuesta de valores tipo TeamStatDetailDto
     thirdLastJoinDate=models.BigIntegerField(u'') # Date that third to last member joined specified as epoch milliseconds.
 
@@ -1031,12 +967,12 @@ class TeamMemberInfoDto(models.Model):
     inviteDate=models.BigIntegerField(u'') # Date that team member was invited to team specified as epoch milliseconds.
     joinDate=models.BigIntegerField(u'') # Date that team member joined team specified as epoch milliseconds.
     playerId=models.BigIntegerField(u'')
-    status=models.CharField(u'')
+    status=models.TextField(u'')
 
 class TeamStatDetailDto(models.Model):
     averageGamesPlayed=models.IntegerField(u'')
     losses=models.IntegerField(u'')
-    teamStatType=models.CharField(u'')
+    teamStatType=models.TextField(u'')
     wins=models.IntegerField(u'')
 
 
@@ -1046,6 +982,6 @@ class Timeline(models.Model):
 
 
 class Translation(models.Model):
-    content=models.CharField(u'')
-    locale=models.CharField(u'')
-    updated_at=models.CharField(u'')
+    content=models.TextField(u'')
+    locale=models.TextField(u'')
+    updated_at=models.TextField(u'')
