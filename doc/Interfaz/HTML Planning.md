@@ -1,10 +1,10 @@
 #URLS
-**PERFIL por nombre (te debería detectar la región)-** lolwc.com/las/sadjockerking
-**PERFIL por id -** lolwc.com/las/id=426174
-**PERFIL profile/league/history/runes/masteries -** lolwc.com/las/sadjockerking/history
+**PERFIL por nombre (te debería detectar la región)-** lolwc.com/profile/las/sadjockerking
+**PERFIL por id -** lolwc.com/profile/las/id=426174
+**PERFIL profile/league/history/runes/masteries -** lolwc.com/profile/las/sadjockerking/history
 este no es obligatorio, pero si se quisiese acceder directamente a una sección, poniendo la url funcionaría
-**CHAT -** lolwc.com/las/chat
-**CHAT por contacto (abre el chat con ese contacto) -** lolwc.com/las/chat/groll
+**CHAT -** lolwc.com/chat/las
+**CHAT por contacto (abre el chat con ese contacto) -** lolwc.com/chat/las/groll
 **STATIC -** lolwc.com/static
 - runes
 	- todas: lolwc.com/static/runes
@@ -55,7 +55,7 @@ se muestran elementos que debe haber necesariamente en cada página, si es neces
 - nombre: mostPlayedChampName
 - cantidad de jugada: mostPlayedChampMatchesCount
 - cantidad de victorias: mostPlayedChampMatchesWinCount
-- cantidad de derrotas: mostPlayedChampMatchesLooseCount 
+- cantidad de derrotas: mostPlayedChampMatchesLooseCount
 - kda: mostPlayedChampKdaRatio
 - prom kills: mostPlayedChampKills
 - prom deaths: mostPlayedChampDeaths
@@ -123,9 +123,9 @@ lista de 5
 	- isRecienteenliga: league_isRecent
 	- isEnRacha: league_isOnFire
 	- wins: league_summoner_wins
-	- cantidad de partidas que tiene que jugar para pasar de liga: 
-	- cantidad ganadas: 
-	- cantidad perdidas: 
+	- cantidad de partidas que tiene que jugar para pasar de liga:
+	- cantidad ganadas:
+	- cantidad perdidas:
 - lista de el resto
 	- rank de sumoner en la liga: league_summoner_rank
 	- change: league_summoner_change
@@ -137,7 +137,7 @@ lista de 5
 	- puntos(LP): league_summoner_points
 
 ###history
-lista de 
+lista de
 - victoria o derrota: history_win_or_def
 - imagen del champ: history_champ_img
 - link del champ
@@ -150,7 +150,7 @@ lista de
 - tipo de juego: history_game_type
 - mapa: history_map
 - duracion de partida
-- pi ganados: 
+- pi ganados:
 - score: history_score
 - oro: history_gold
 - creeps: history_creeps
@@ -191,5 +191,3 @@ lista de
 	- id de maestria
 	- cantidad de puntos
 	- imagen de maestria
-
-
