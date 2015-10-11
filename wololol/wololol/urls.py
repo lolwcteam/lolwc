@@ -21,7 +21,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    url(r'^', include('lolProfile.urls'), name='profileApp'),
+    url(r'^', include('lolProfile.urls', namespace = "profileApp")),
     url(r'^admin/', include(admin.site.urls)),
 ]
 if settings.DEBUG:

@@ -1,12 +1,13 @@
 
 from django.conf.urls import patterns, include, url
 urlpatterns = patterns('',
-                       url(r'^$', 'blog.views.home', name='home'),
+                       url(r'^$', 'lolProfile.views.profile', name='home'),
+                       url(r'^profile/$', 'lolProfile.views.profile', name='profile'),
 
-                       url(r'^profile/(?P<region>[a-z]+)/(?P<summoner>.+)$', 'lolProfile.views.profile', name='profileByName'),
-                       url(r'^profile/(?P<region>[a-z]+)/(?P<summoner>.+)/(?P<info>[a-z]+)$', 'lolProfile.views.profile', name='profileInfoByName'),
                        url(r'^profile/(?P<region>[a-z]+)/id=(?P<idSum>[0-9]+)$', 'lolProfile.views.profile', name='profileById'),
                        url(r'^profile/(?P<region>[a-z]+)/id=(?P<idSum>[0-9]+)/(?P<info>[a-z]+)$', 'lolProfile.views.profile', name='profileInfoById'),
+                       url(r'^profile/(?P<region>[a-z]+)/(?P<summoner>.+)$', 'lolProfile.views.profile', name='profileByName'),
+                       url(r'^profile/(?P<region>[a-z]+)/(?P<summoner>.+)/(?P<info>[a-z]+)$', 'lolProfile.views.profile', name='profileInfoByName'),
 
                        url(r'^chat/(?P<region>[a-z]+)$', 'lolProfile.views.chat', name='chat'),
                        url(r'^chat/(?P<region>[a-z]+)/(?P<friend>.+)$', 'lolProfile.views.chat', name='chatToFriend'),

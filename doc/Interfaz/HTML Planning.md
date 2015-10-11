@@ -172,20 +172,19 @@ lista de
 
 ###runes
 - numero pagina activa
-lista de
+- lista de
 - nombre de pagina de runas
 - lista de
 	- id de runa
 	- posicion de runa
 	- imagen de runa
-- lista de
 	- tipo de runa
 	- total de stats que suma
 
 ###masteries
 - numero de pagina activa
-- distribucion de runa (21/9/0)
-lista de
+- distribucion de maestrias (21/9/0)
+- lista de
 - nombre de pagina de maestrias
 - lista de
 	- id de maestria
