@@ -50,7 +50,7 @@ se muestran elementos que debe haber necesariamente en cada página, si es neces
 - kda: summonerKdaRatio
 - porcentaje de victorias: summonerWinrate
 
-*most played champ info*
+*most played champ info*: "mostPlayedChampInfo"
 - imagen (icono): mostPlayedChampIconImg
 - nombre: mostPlayedChampName
 - cantidad de jugada: mostPlayedChampMatchesCount
@@ -63,7 +63,7 @@ se muestran elementos que debe haber necesariamente en cada página, si es neces
 - prom creeps: mostPlayedChampCs
 - prom gold: mostPlayedChampGold
 
-*free week champs*
+*free week champs*: "freeWeekChamps"
 lista de
 - imagen del champ: freeChamp_1
 - nombre del champ: freeChamp_name
@@ -71,19 +71,19 @@ lista de
 - precio ip
 - precio rp
 
-*skin sales*
+*skin sales*: "skinSales"
 lista de
 - imagen del skin
 - rp del skin
 - link al champ en static
 
-*champ sales*
+*champ sales*: "champSales"
 lista de
 - imagen del champ
 - rp del champ
 - link al champ en static
 
-*featured games*
+*featured games*: "featuredGames"
 lista de 5
 - tipo de juego
 - tiempo transcurrido
@@ -136,7 +136,7 @@ lista de 5
 	- wins: league_summoner_wins
 	- puntos(LP): league_summoner_points
 
-###history
+###history: "history"
 lista de
 - victoria o derrota: history_win_or_def
 - imagen del champ: history_champ_img
@@ -172,19 +172,20 @@ lista de
 
 ###runes
 - numero pagina activa
-- lista de
+lista de
 - nombre de pagina de runas
 - lista de
 	- id de runa
 	- posicion de runa
 	- imagen de runa
+- lista de
 	- tipo de runa
 	- total de stats que suma
 
 ###masteries
 - numero de pagina activa
-- distribucion de maestrias (21/9/0)
-- lista de
+- distribucion de runa (21/9/0)
+lista de
 - nombre de pagina de maestrias
 - lista de
 	- id de maestria
