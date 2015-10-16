@@ -2,10 +2,10 @@
     width: 30px;
 }
 
-#summoner_league_img_tab {
+.summoner_league_img_tab {
     height: 100px;
 }
-#league_champion_img {
+.league_champion_img {
     position: relative;
     left:3px;
     width: 30px;
@@ -24,43 +24,43 @@
 }
 
 
-#league_summoner_name {
+.league_summoner_name {
     position: relative;
     left: 25px;
     top:-10px;
 }
 
-#league_summoner_rank {
+.league_summoner_rank {
     position: relative;
     left:150px;
     top:-10px;
 }
 
-#league_summoner_change {
+.league_summoner_change {
     position: relative;
     left: 215px;
     top:-10px;
 }
 
-#league_isRecent {
+.league_isRecent {
     position: relative;
     left:290px;
     top:-10px;
 }
 
-#league_isOnFire {
+.league_isOnFire {
     position: relative;
     left:370px;
     top:-10px;
 }
 
-#league_summoner_wins {
+.league_summoner_wins {
     position: relative;
     left:470px;
     top:-10px;
 }
 
-#league_summoner_points {
+.league_summoner_points {
     position: relative;
     left:564px;
     top:-10px;

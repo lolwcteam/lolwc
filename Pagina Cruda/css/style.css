@@ -168,21 +168,21 @@ hr {
 }
 
 .hex-text {
-  color: #00FFFF !important; }
+    color: #82B4FF !important; }
 }
 
 .tabs {
-  position: relative;
-  height: 48px;
-  margin: 0 auto;
-  width: 100%;
-  white-space: nowrap; }
+    position: relative;
+    height: 48px;
+    margin: 0 auto;
+    width: 100%;
+    white-space: nowrap; }
 
-  .tabs .indicator {
+.tabs .indicator {
     position: absolute;
     bottom: 0;
     height: 2px;
-    background-color: #00FF00;
+    background-color: #82B4FF;
     will-change: left, right; }
 
 .bgdark {
@@ -190,3 +190,32 @@ hr {
 }
 
 
+
+.champion_img_tab {
+
+}
+
+.champion_div {
+    display:inline-block;
+    color: ghostwhite;
+    width: 80px;
+    height: 80px;
+    padding: 10px;
+    text-align: center;
+}
+
+.champion_img {
+    width: 60px;
+    border-radius: 30px;
+    transition: all linear 0.2s;
+}
+.champion_img:hover{
+    cursor: pointer;
+    -webkit-filter: brightness(1.4);
+    filter: brightness(1.4);
+    transform: scale(1.2,1.2);
+}
+
+.relative {
+    position: relative;
+}

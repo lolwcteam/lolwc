@@ -1,6 +1,6 @@
 $(document).ready(function() {
     $(".tabs-div").hide();
-    $("#tabs-2").show();
+    $("#tabs-4").show();
 })
 
 function tab(tab){
