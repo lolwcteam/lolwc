@@ -125,29 +125,30 @@ lista de 5
 - lp 3v3
 
 ###league
-- icono de liga: summoner_league_img_tab
-- nombre de liga: summoner_league_name (idem anterior variable)
-- division de liga: summoner_league_division
-- lista de en promo
-	- rank de sumoner en la liga: league_summoner_rank
-	- change (fijarse en lolking): league_summoner_change
-	- nombre de summoner: league_summoner_name
-	- icono de summoner: league_champion_img
-	- isRecienteenliga: league_isRecent
-	- isEnRacha: league_isOnFire
-	- wins: league_summoner_wins
-	- cantidad de partidas que tiene que jugar para pasar de liga:
-	- cantidad ganadas:
-	- cantidad perdidas:
-- lista de el resto
-	- rank de sumoner en la liga: league_summoner_rank
-	- change: league_summoner_change
-	- nombre de sumoner: league_summoner_name
-	- icono de sumoner: league_champion_img
-	- isRecienteenliga: league_isRecent
-	- isEnRacha: league_isOnFire
-	- wins: league_summoner_wins
-	- puntos(LP): league_summoner_points
+- icono de liga: summonerLeagueTabImg
+- nombre de liga: summonerLeagueTabName (montaurfs de oriana)
+- rank de liga: summonerLeagueTabRank (Silver)
+- division de liga: summonerLeagueTabDivision (IV)
+- lista de en P: summonerLeagueTabPList
+	- rank de sumoner en la liga: summonerLeagueTabPListRank
+	- change (fijarse en lolking): summonerLeagueTabPListChange
+	- nombre de summoner: summonerLeagueTabPListName
+	- icono de summoner: summonerLeagueTabPListImg
+	- isRecienteenliga: summonerLeagueTabPListIsRecent
+	- isEnRacha: summonerLeagueTabPListIsOnFire
+	- wins: summonerLeagueTabPListWins
+	- cantidad de partidas que tiene que jugar para pasar de liga:summonerLeagueTabPListMatchCount
+	- cantidad ganadas: summonerLeagueTabPListWinCount
+	- cantidad perdidas: summonerLeagueTabPListLoseCount
+- lista de el resto: summonerLeagueTabList
+	- rank de sumoner en la liga: summonerLeagueTabListRank
+	- change: summonerLeagueTabListChange
+	- nombre de sumoner: summonerLeagueTabListName
+	- icono de sumoner: summonerLeagueTabListImg
+	- isRecienteenliga: summonerLeagueTabListIsRecent
+	- isEnRacha: summonerLeagueTabListIsOnFire
+	- wins: summonerLeagueTabListWins
+	- puntos(LP): summonerLeagueTabPListLP
 
 ###history: "history"
 lista de

@@ -38,21 +38,20 @@ se muestran elementos que debe haber necesariamente en cada página, si es neces
 
 ##PERFIL
 *summoner info*: "summonerInfo"
-- (#)imagen baner del champion mas usado: mostPlayedChampBanerImg
+- imagen baner del champion mas usado: mostPlayedChampBannerImg
 - imagen del summoner: summonerImg
 - nombre del summoner: summonerName
-- (#)imagen de la liga actual del sumoner: summonerLeagueImg
-- liga actual del sumoner (ej:Silver): summonerLeague
-- division actual del summoner(ej:IV): summonerDivision
-- (#)server del summoner: summonerServer
-- prom kills en ranked: summonerKills
-- prom deaths en ranked: summonerDeaths
-- prom assists en ranked: summonerAssists
-- (#)kda: summonerKdaRatio
-- porcentaje de victorias en ranked: summonerWinrate
+- imagen de la liga actual del sumoner: summonerLeagueImg
+- liga actual del sumoner (ej:Silver IV): summonerLeagueName
+- server del summoner: summonerServer
+- prom kills: summonerKills
+- prom deaths: summonerDeaths
+- prom assists: summonerAssist
+- kda: summonerKdaRatio
+- porcentaje de victorias: summonerWinrate
 
 *most played champ info*: "mostPlayedChampInfo"
-- imagen (icono): mostPlayedChampImg
+- imagen (icono): mostPlayedChampIconImg
 - nombre: mostPlayedChampName
 - cantidad de jugada: mostPlayedChampMatchesCount
 - cantidad de victorias: mostPlayedChampMatchesWinCount
@@ -111,44 +110,31 @@ lista de 5
 - imagenChamp 5 rojo
 
 ###profile
-- Icono liga individu/dobles
-- nombre liga i/d
-- division liga i/d
-- lp i/d
-- Icono liga 5v5
-- nombre liga 5v5
-- division 5v5
-- lp 5v5
-- Icono liga 3v3
-- nombre liga 3v3
-- division 3v3
-- lp 3v3
 
 ###league
-- icono de liga: summonerLeagueTabImg
-- nombre de liga: summonerLeagueTabName (montaurfs de oriana)
-- rank de liga: summonerLeagueTabRank (Silver)
-- division de liga: summonerLeagueTabDivision (IV)
-- lista de en P: summonerLeagueTabPList
-	- rank de sumoner en la liga: summonerLeagueTabPListRank
-	- change (fijarse en lolking): summonerLeagueTabPListChange
-	- nombre de summoner: summonerLeagueTabPListName
-	- icono de summoner: summonerLeagueTabPListImg
-	- isRecienteenliga: summonerLeagueTabPListIsRecent
-	- isEnRacha: summonerLeagueTabPListIsOnFire
-	- wins: summonerLeagueTabPListWins
-	- cantidad de partidas que tiene que jugar para pasar de liga:summonerLeagueTabPListMatchCount
-	- cantidad ganadas: summonerLeagueTabPListWinCount
-	- cantidad perdidas: summonerLeagueTabPListLoseCount
-- lista de el resto: summonerLeagueTabList
-	- rank de sumoner en la liga: summonerLeagueTabListRank
-	- change: summonerLeagueTabListChange
-	- nombre de sumoner: summonerLeagueTabListName
-	- icono de sumoner: summonerLeagueTabListImg
-	- isRecienteenliga: summonerLeagueTabListIsRecent
-	- isEnRacha: summonerLeagueTabListIsOnFire
-	- wins: summonerLeagueTabListWins
-	- puntos(LP): summonerLeagueTabPListLP
+- icono de liga: summoner_league_img_tab
+- nombre de liga: summoner_league_name (idem anterior variable)
+- division de liga: summoner_league_division
+- lista de en promo
+	- rank de sumoner en la liga: league_summoner_rank
+	- change (fijarse en lolking): league_summoner_change
+	- nombre de summoner: league_summoner_name
+	- icono de summoner: league_champion_img
+	- isRecienteenliga: league_isRecent
+	- isEnRacha: league_isOnFire
+	- wins: league_summoner_wins
+	- cantidad de partidas que tiene que jugar para pasar de liga:
+	- cantidad ganadas:
+	- cantidad perdidas:
+- lista de el resto
+	- rank de sumoner en la liga: league_summoner_rank
+	- change: league_summoner_change
+	- nombre de sumoner: league_summoner_name
+	- icono de sumoner: league_champion_img
+	- isRecienteenliga: league_isRecent
+	- isEnRacha: league_isOnFire
+	- wins: league_summoner_wins
+	- puntos(LP): league_summoner_points
 
 ###history: "history"
 lista de
