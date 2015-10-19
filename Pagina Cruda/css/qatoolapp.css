@@ -1,4 +1,3 @@
-
 #fullarea
 {
 	width: 1155px;
@@ -188,7 +187,8 @@
 
 .masterytree
 {
-	width: 827px;
+    background-size: 775px;
+	width: 782px;
 	height: 479px;
 }
 	.masterytree .rg-mastery-trunk
