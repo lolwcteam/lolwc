@@ -11,18 +11,23 @@ nav .brand-logo {
     color: #444;
 }
 
+body{
+    background-color: #04242f;
+}
 p {
     line-height: 2rem;
 }
 
+/*
 .button-collapse {
-    color: #26a69a;
+color: #26a69a;
 }
+*/
 
 .parallax-container {
-    min-height: 380px;
+    min-height: 128px;
     line-height: 0;
-    height: auto;
+    height: 128px;
     color: rgba(255,255,255,.9);
 }
 .parallax-container .section {
@@ -59,18 +64,23 @@ footer.page-footer {
     background-color: rgba(121, 85, 72, 0.65);
 }
 .waves-effect.waves-cyan .waves-ripple {
-    background-color: rgba(34, 153, 170 , 0.65);
+    background-color: rgba(81, 165, 224 , 0.25);
 }
 .cyan-text {
-    color: #2299AA !important; }
+    color: #2299AA !important;
+}
 
 .cyan-light-text{
     color:#00CCEE !important;
 }
 
+.dark-text{
+    color: rgba(255, 255, 255, 0.3);
+}
 
 nav ul li:hover, nav ul li.active{
-    background-color: rgba(34, 153, 170, 0.5);
+    /*#51a5e0*/
+    background-color: rgba(81, 165, 224 , 0.25);
 }
 
 .imgProfundidad{
@@ -91,4 +101,180 @@ nav ul li:hover, nav ul li.active{
     top: 0;
     bottom: 0;
     background-color: #26a69a;
+}
+.blue {
+    background-color: #0b324b !important; }
+
+.lightblue {
+    background-color: #0f4668 !important; }
+
+.darkblue {
+    background-color: #04242f !important; }
+
+.selectblue {
+    background-color: #51a5e0 !important; }
+
+.side-nav {
+    position: fixed;
+    width: 96px;
+    left: -105%;
+    top: 0;
+    margin: 0;
+    height: 100%;
+    height: calc(100% + 60px);
+    height: -moz-calc(100%);
+    padding-bottom: 60px;
+    background-color: #fff;
+    z-index: 999;
+    overflow-y: auto;
+    will-change: left; }
+
+.side-nav li:hover, .side-nav li.active {
+    background-color:rgba(81, 165, 224 , 0.25);}
+
+.input-field {
+    position: relative;
+    margin-top: 1rem; }
+
+.input-field input[type=search]:focus {
+    background-color: rgba(81, 165, 224 , 0.25); 
+    border: 0;
+    box-shadow: none;
+    color: #fff; }
+
+.input-field input[type=search]:focus + label i, .input-field input[type=search]:focus ~ .mdi-navigation-close, .input-field input[type=search]:focus ~ .material-icons {
+    color: #fff; }
+
+.tabs{
+    display: flex;
+    position: relative;
+    height: 48px;
+    background-color: #04242f;
+    margin: 0px auto;
+    width: 100%;
+    white-space: nowrap;
+}
+
+.tabs .tab a {
+    color: #ddd;
+    display: block;
+    width: 100%;
+    height: 100%;
+    transition: color 0.28s ease 0s;
+    transition: background-color 0.28s ease 0s;
+}
+.tabs .tab a:hover {
+    background-color: #0f4668;
+    /*    color: rgba(81, 165, 224 , 0.25);*/
+    color: white;
+
+}
+.tabs .indicator {
+    position: absolute;
+    bottom: 0px;
+    height: 2px;
+    background-color: #0f4668;
+    will-change: left, right;
+}
+
+.summonerImg{
+    border-radius:32px;
+}
+
+.summonerName{
+    position: relative;
+    bottom: 40px; 
+}
+
+.summonerDescription{
+    position: relative;
+    bottom: 46px;
+    left: 102px;
+    font-size: 20px;
+}
+
+.summonerLeagueImg{
+    position: absolute;
+    bottom: 26px;
+    left: 84px;
+    height: 32px;
+    width: 32px;
+}
+
+#kda{
+    position: relative;
+    text-align: right;
+    top:-10px;
+}
+
+#killdeathassist{
+    position: relative;
+    text-align: right;
+    top: 20px;
+    right: -186px;
+}
+
+.hMostPlayedChamp{
+    position: relative;
+    bottom: 16px;
+}
+
+.card .card-content {
+    padding: 20px;
+    border-radius: 0px 0px 2px 2px;
+    height: 110px;
+    cursor: pointer;
+}
+
+.listImg{
+    height: 32px;
+    width: 32px;
+    margin-right: 8px
+}
+
+.top{
+    padding-top: 12px;
+    vertical-align: top;
+}
+
+.mid{
+    vertical-align: middle;
+}
+
+.bot{
+    vertical-align: bottom;
+}
+
+.clase{
+    background-image: url("../img/rivenbaner.jpg");  
+}
+
+@media only screen and (max-width : 992px) {
+    .hide-on-med-and-down {
+        display: none !important; } }
+
+@media only screen and (min-width : 1099px) {
+    nav a.button-collapse {
+        display: none; } }
+
+table.striped > tbody > tr:nth-child(odd) {
+    background-color: rgba(81, 165, 224 , 0.25); }
+
+.large-text{
+    font-size: 2.1rem;
+}
+
+.dropdown-content {
+    background-color: rgba(81, 165, 224 , 0.25);
+    margin: 0;
+    display: none;
+    min-width: 10px;
+    max-height: 650px;
+    overflow-y: auto;
+    opacity: 0;
+    position: absolute;
+    z-index: 999;
+    will-change: width, height; }
+.dropdown-content li:hover, .dropdown-content li.active {
+    background-color: rgba(81, 165, 224 , 0.25);
 }
