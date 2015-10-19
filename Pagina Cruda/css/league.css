@@ -1,19 +1,13 @@
-.league_champion_img{
-    width: 30px;
-}
-
 .summoner_league_img_tab {
     height: 100px;
 }
 .league_champion_img {
     position: relative;
     left:3px;
-    width: 30px;
+    width: 45px;
+    border-radius: 5px 15px 5px 15px;
 }
 
-.one_summoner {
-    
-}
 
 .list {
     border:5px solid #27406e;
@@ -32,37 +26,37 @@
 
 .league_summoner_rank {
     position: relative;
-    left:150px;
+    left:130px;
     top:-10px;
 }
 
 .league_summoner_change {
     position: relative;
-    left: 215px;
+    left: 195px;
     top:-10px;
 }
 
 .league_isRecent {
     position: relative;
-    left:290px;
+    left:275px;
     top:-10px;
 }
 
 .league_isOnFire {
     position: relative;
-    left:370px;
+    left:354px;
     top:-10px;
 }
 
 .league_summoner_wins {
     position: relative;
-    left:470px;
+    left:460px;
     top:-10px;
 }
 
 .league_summoner_points {
     position: relative;
-    left:564px;
+    left:546;
     top:-10px;
 }
 
@@ -100,12 +94,12 @@
 
 #rank {
     position: relative;
-    left:140px;
+    left:139px;
 }
 
 #name {
     position: relative;
-    left:30px;
+    left:48px;
 }
 
 #imgLeague {
