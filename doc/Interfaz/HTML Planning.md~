@@ -152,37 +152,46 @@ lista de 5
 
 ###history: "history"
 lista de
-- victoria o derrota: history_win_or_def
-- imagen del champ: history_champ_img
-- link del champ
-- level del champ: history_level_champ
-- img spell1: history_spell1_img
+- victoria o derrota: isWin
+- id del campeón: champId 
+- (#)imagen del champ: champImg
+- (#)link del champ:
+- level del champ: champLvl
+- img spell1: spell1
 - link spell1
-- img spell2
+- img spell2: spell2
 - link spell2
 
-- tipo de juego: history_game_type
-- mapa: history_map
-- duracion de partida
-- pi ganados:
-- score: history_score
-- oro: history_gold
-- creeps: history_creeps
-- fecha de partida
-- imagen item1
-- link item1: history_item1
-- imagen item2
-- link item2
-- imagen item3
-- link item3
-- imagen item4
-- link item4
-- imagen item5
-- link item5
-- imagen item6
-- link item6
-- imagen baratija
-- link baratija
+- tipo de juego: gameType
+- mapa: map
+- duracion de partida: timeLenght
+- pi ganados: piEarned
+- score: score
+- oro: goldGained
+- creeps: creepScore
+- timestamp de inicio de partida: gameStartingTime
+- item 1: item1
+- (#)imagen item1:
+- (#)link item1:
+- item 1: item1
+- (#)imagen item2
+- (#)link item2
+- item 2: item2
+- (#)imagen item3
+- (#)link item3
+- item 3: item3
+- (#)imagen item4
+- (#)link item4
+- item 4: item4
+- (#)imagen item5
+- (#)link item5
+- item 5: item5
+- (#)imagen item6
+- (#)link item6
+- item 6: item6
+- (#)imagen baratija
+- (#)link baratija
+- baratija: item7
 
 ###runes
 - numero pagina activa
