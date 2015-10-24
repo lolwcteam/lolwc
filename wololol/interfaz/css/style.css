@@ -102,6 +102,7 @@ nav ul li:hover, nav ul li.active{
     bottom: 0;
     background-color: #26a69a;
 }
+
 .blue {
     background-color: #0b324b !important; }
 
@@ -277,4 +278,8 @@ table.striped > tbody > tr:nth-child(odd) {
     will-change: width, height; }
 .dropdown-content li:hover, .dropdown-content li.active {
     background-color: rgba(81, 165, 224 , 0.25);
+}
+
+.historyCard {
+    height: 142px;
 }
