@@ -115,6 +115,12 @@ nav ul li:hover, nav ul li.active{
 .selectblue {
     background-color: #51a5e0 !important; }
 
+.green{
+    background-color: #3ea400 !important;}
+
+.red{
+    background-color: #a43600 !important;}
+
 .side-nav {
     position: fixed;
     width: 96px;
@@ -262,7 +268,11 @@ table.striped > tbody > tr:nth-child(odd) {
     background-color: rgba(81, 165, 224 , 0.25); }
 
 .large-text{
-    font-size: 2.1rem;
+    font-size: 1.5rem;
+}
+
+.mid-text{
+    font-size: 1.0rem;
 }
 
 .dropdown-content {
@@ -282,13 +292,57 @@ table.striped > tbody > tr:nth-child(odd) {
 
 .historyCard {
     height: 142px;
+    padding: 0px !important;
+}
+
+.hLabel{
+    width: 2%;
+    height: 100%;
+    float: left;
+    
+}
+
+.hImg{
+    height: 100%;
+    padding-top: 22px;
+    padding-left: 2%;
+    width:13.5%;
+    float:left;
+/*    background-color: aqua;*/
+}
+
+.hSum{
+    height: 100%;
+    float: left;
+/*    background-color:red;*/
+    width: 6%;
+    padding-top: 22px;
+    
+}
+
+.hMatch{
+    height: 100%;
+    float: left;
+    width: 20%;
+}
+.hStats{
+    height: 100%;
+    float: left;
+    width: 43.5%;
+    padding-top: 22px;
+}
+
+.hInfo{
+    height: 100%;
+    float: left;
+    padding-top:22px;
+    width: 15%;
 }
 
 .rune{
     position: relative;
     width: 55px;
 }
-
 
 #slot1 {
     top:-73px;

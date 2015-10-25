@@ -92,7 +92,7 @@
                         <div style="right: 687px; left: 342px;" class="indicator"></div>
                     </ul>
                     <div style="display: block;" id="tabProfile" class="blue col s12">
-                        
+
                         <div class="text-white col m4 l4 s12">
                             <h4 class="row center white-text">Team 3v3</h4>
                             <div class="row center"><img src="img/unknow.png"/></div>
@@ -114,7 +114,7 @@
                             <h6 class="white-text row center">98 LP</h6>
                             <h5 class="white-text row center">Guerreros de Katarina</h5>
                         </div>                        
-                        
+
                     </div>
                     <div style="display: none;" id="tabLeague" class="blue col s12">
                         <div class="row center">
@@ -246,52 +246,91 @@
                         <br>                
                     </div>
                     <div style="display: none;" id="tabHistory" class="blue col s12">
-                        <div class="historyCard blue card white-text col s12">
-                            <img src="img/hRiven.png"/>
-                            <span class="hMostPlayedChamp">Riven</span>
+                        <div class="darkblue card white-text col s12 historyCard">
+                            <div id="isWin" class="green hLabel"></div>
+                            <div class="hImg">
+                                <div id="hImg" style="text-align:center;padding-top:74px;width:96px;height:96px;background: transparent none repeat scroll center center / 100px auto;background-image: url('img/hRiven.png');">
+                                    <div style="width:100%;background-color:rgba(0,0,0,0.5);"><a id="hChamp" class="white-text" href="#">Riven</a></div>
+                                </div>                                
                             </div>
+                            <div class="hSum">
+                                <img id="hSum1" style="width:45px;height:45px;" src="img/SummonerFlash.png"/><br>
+                                <img id="hSum2" style="width:45px;height:45px;" src="img/SummonerTeleport.png"/>
+                            </div>
+                            <div class="hMatch">
+                                <h4 id="hWinText" class="truncate"><span class="green-text">Victoria</span></h4>
+                                <h6 id="hMap" class="truncate"><strong>La Grieta del Invocador</strong></h6>
+                                <p id="hType" class="truncate"><span>Normal (Selección Oculta)</span></p>
+                            </div>
+                            <div class="hStats">
+                                <div class="truncate" style="width:100%;height:49px;">
+                                    <img id="item1" style="heigh:49px;width:49px" src="img/item1.png"/>                                    
+                                    <img id="item2" style="heigh:49px;width:49px" src="img/item2.png"/>                                    
+                                    <img id="item3" style="heigh:49px;width:49px" src="img/item3.png"/>                                    
+                                    <img id="item4" style="heigh:49px;width:49px" src="img/item4.png"/>                                    
+                                    <img id="item5" style="heigh:49px;width:49px" src="img/item5.png"/>                                    
+                                    <img id="item6" style="heigh:49px;width:49px" src="img/item3.png"/>                                    
+                                    <img id="item7" style="heigh:49px;width:49px" src="img/item2.png"/>                                    
+                                </div>
+                                <div class="truncate" style="width:100%;height:49px;">
+                                    <br>
+                                    <strong class="col l4 s4 m4 row center large-text"><i class="mid material-icons">assessment</i><span id="hKills">3</span>/<span id="hDeaths">5</span>/<span id="hAssists">12</span></strong>
+                                    <strong class="col l4 s4 m4 row center large-text"><i class="mid material-icons">attach_money</i><span id="hGold">17</span>k</strong>
+                                    <strong class="col l4 s4 m4 row center large-text"><i class="mid material-icons">turned_in_not</i><span id="hCreeps">235</span></strong>
+                                </div>
+
+                            </div>
+                            <div class="hInfo">
+                                <strong class="center mid-text"><i class="mid material-icons">timer</i>24:15</strong><br><br>
+                                <strong class="center mid-text"><i class="mid material-icons">access_time</i>19/08/2015</strong><br><br>
+                                <strong class="center mid-text"><i class="mid material-icons">trending_up</i>128 PI</strong>
+
+                            </div>
+
+
                         </div>
-                    <div style="display: none;" id="tabRunes" class="blue col s12">
-                    
-                        <div id="tabs-4" class="tabs-div">
-                        <h5>Runas</h5>
-                        <hr>
-                        <img src="img/rune-bg.png" width="780px" draggable="false" style="border-radius:5px"/>
-
-                        <img id="slot1" class="rune" src="img/runa.png" draggable="false"/>
-                        <img id="slot2" class="rune" src="img/runa.png" draggable="false"/>
-                        <img id="slot3" class="rune" src="img/runa.png" draggable="false"/>
-                        <img id="slot4" class="rune" src="img/runa.png" draggable="false"/>
-                        <img id="slot5" class="rune" src="img/runa.png" draggable="false"/>
-                        <img id="slot6" class="rune" src="img/runa.png" draggable="false"/>
-                        <img id="slot7" class="rune" src="img/runa.png" draggable="false"/>
-                        <img id="slot8" class="rune" src="img/runa.png" draggable="false"/>
-                        <img id="slot9" class="rune" src="img/runa.png" draggable="false"/>
-
-                        <img id="slot10" class="rune" src="img/runa.png" draggable="false"/>
-                        <img id="slot11" class="rune" src="img/runa.png" draggable="false"/>
-                        <img id="slot12" class="rune" src="img/runa.png" draggable="false"/>
-                        <img id="slot13" class="rune" src="img/runa.png" draggable="false"/>
-                        <img id="slot14" class="rune" src="img/runa.png" draggable="false"/>
-                        <img id="slot15" class="rune" src="img/runa.png" draggable="false"/>
-                        <img id="slot16" class="rune" src="img/runa.png" draggable="false"/>
-                        <img id="slot17" class="rune" src="img/runa.png" draggable="false"/>
-                        <img id="slot18" class="rune" src="img/runa.png" draggable="false"/>
-                        <img id="slot19" class="rune" src="img/runa.png" draggable="false"/>
-                        <img id="slot20" class="rune" src="img/runa.png" draggable="false"/>
-                        <img id="slot21" class="rune" src="img/runa.png" draggable="false"/>
-                        <img id="slot22" class="rune" src="img/runa.png" draggable="false"/>
-                        <img id="slot23" class="rune" src="img/runa.png" draggable="false"/>
-                        <img id="slot24" class="rune" src="img/runa.png" draggable="false"/>
-                        <img id="slot25" class="rune" src="img/runa.png" draggable="false"/>
-                        <img id="slot26" class="rune" src="img/runa.png" draggable="false"/>
-                        <img id="slot27" class="rune" src="img/runa.png" draggable="false"/>
-
-                        <img id="slot28" class="rune" src="img/quitaesencias.png" draggable="false"/>
-                        <img id="slot29" class="rune" src="img/quitaesencias.png" draggable="false"/>
-                        <img id="slot30" class="rune" src="img/quitaesencias.png" draggable="false"/>
                     </div>
-                        
+                    <div style="display: none;" id="tabRunes" class="blue col s12">
+
+                        <div id="tabs-4" class="tabs-div">
+                            <h5>Runas</h5>
+                            <hr>
+                            <img src="img/rune-bg.png" width="780px" draggable="false" style="border-radius:5px"/>
+
+                            <img id="slot1" class="rune" src="img/runa.png" draggable="false"/>
+                            <img id="slot2" class="rune" src="img/runa.png" draggable="false"/>
+                            <img id="slot3" class="rune" src="img/runa.png" draggable="false"/>
+                            <img id="slot4" class="rune" src="img/runa.png" draggable="false"/>
+                            <img id="slot5" class="rune" src="img/runa.png" draggable="false"/>
+                            <img id="slot6" class="rune" src="img/runa.png" draggable="false"/>
+                            <img id="slot7" class="rune" src="img/runa.png" draggable="false"/>
+                            <img id="slot8" class="rune" src="img/runa.png" draggable="false"/>
+                            <img id="slot9" class="rune" src="img/runa.png" draggable="false"/>
+
+                            <img id="slot10" class="rune" src="img/runa.png" draggable="false"/>
+                            <img id="slot11" class="rune" src="img/runa.png" draggable="false"/>
+                            <img id="slot12" class="rune" src="img/runa.png" draggable="false"/>
+                            <img id="slot13" class="rune" src="img/runa.png" draggable="false"/>
+                            <img id="slot14" class="rune" src="img/runa.png" draggable="false"/>
+                            <img id="slot15" class="rune" src="img/runa.png" draggable="false"/>
+                            <img id="slot16" class="rune" src="img/runa.png" draggable="false"/>
+                            <img id="slot17" class="rune" src="img/runa.png" draggable="false"/>
+                            <img id="slot18" class="rune" src="img/runa.png" draggable="false"/>
+                            <img id="slot19" class="rune" src="img/runa.png" draggable="false"/>
+                            <img id="slot20" class="rune" src="img/runa.png" draggable="false"/>
+                            <img id="slot21" class="rune" src="img/runa.png" draggable="false"/>
+                            <img id="slot22" class="rune" src="img/runa.png" draggable="false"/>
+                            <img id="slot23" class="rune" src="img/runa.png" draggable="false"/>
+                            <img id="slot24" class="rune" src="img/runa.png" draggable="false"/>
+                            <img id="slot25" class="rune" src="img/runa.png" draggable="false"/>
+                            <img id="slot26" class="rune" src="img/runa.png" draggable="false"/>
+                            <img id="slot27" class="rune" src="img/runa.png" draggable="false"/>
+
+                            <img id="slot28" class="rune" src="img/quitaesencias.png" draggable="false"/>
+                            <img id="slot29" class="rune" src="img/quitaesencias.png" draggable="false"/>
+                            <img id="slot30" class="rune" src="img/quitaesencias.png" draggable="false"/>
+                        </div>
+
                     </div>
                     <div style="display: none;" id="tabMasteries" class="blue col s12">Masteries</div>
                 </div>
