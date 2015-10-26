@@ -54,7 +54,9 @@
                             <span id="summonerName" class="summonerName card-title activator white-text">Sad Jocker King
                                 <i class="small material-icons right" style="position:absolute;">keyboard_arrow_up</i>
                                 <span id="kda" class="hide-on-med-and-down right activator white-text"><span id="summonerWinrate" class="pink-text ">55%</span> Ranked Wins</span>
-                                <span id="killdeathassist" class="hide-on-med-and-down right card-title activator white-text">KDA: <span id="summonerKdaRatio" class="blue-text">3.66</span> - <span id="summonerKills" class="green-text">12.5</span><span id="summonerDeaths" class="red-text">/19.2</span><span id="summonerAssists" class="yellow-text">/9.2</span></span>
+                                <span id="killdeathassist" class="hide-on-med-and-down right card-title activator white-text">KDA: <span id="summonerKdaRatio" class="blue-text">3.66</span> - <span id="summonerKills" class="green-text">12.5</span><span id="summonerDeaths" class="red-text">/19.2</span>
+                                    <span id="summonerAssists" class="yellow-text">/9.2</span>
+                                </span>
                             </span><br>
                             <img id="summonerLeagueImg" class="summonerLeagueImg" src="img/silver_1.png"/><span id="summonerDescription" class="summonerDescription activator white-text"><span id="summonerLeague">Silver</span> <span id="summonerDivision">I</span> - LAS</span>
                         </div>
@@ -65,15 +67,15 @@
                                 <span class="hMostPlayedChamp"><span id="mostPlayedChampName">Riven</span> - Campeón más jugado.</span>
                                 <i class="right material-icons">close</i>
                             </span>
-                            <span class="white-text">Cantidad de Partidas: </span><span id="mostPlayedChampMatchesCount" class="blue-text">100</span><br>
-                            <span class="white-text">Cantidad de Victorias: </span><span id="mostPlayedChampMatchesWinCount" class="green-text">72</span><br>
-                            <span class="white-text">Cantidad de Derrotas: </span><span id="mostPlayedChampMatchesLooseCount" class="red-text">28</span><br>
-                            <span class="white-text">Índice de KDA: </span><span id="mostPlayedChampKdaRatio" class="blue-text">3.12</span><br>
-                            <span class="white-text">Cantidad de Asesinatos Promedio: </span><span id="mostPlayedChampKills" class="green-text">12.4</span><br>
-                            <span class="white-text">Cantidad de Muertes Promedio: </span><span id="mostPlayedChampDeaths" class="red-text">3.3</span><br>
-                            <span class="white-text">Cantidad de Asistencias Promedio: </span><span id="mostPlayedChampAssist" class="blue-text">12.3</span><br>
-                            <span class="white-text">Cantidad de Súbidtos Promedio: </span><span id="mostPlayedChampCs" class="purple-text">203</span><br>
-                            <span class="white-text">Cantidad de Oro Promedio: </span><span id="mostPlayedChampGold" class="yellow-text">18k</span><br>
+                            <span class="white-text">Partidas: </span><span id="mostPlayedChampMatchesCount" class="blue-text">100</span><br>
+                            <span class="white-text">Victorias: </span><span id="mostPlayedChampMatchesWinCount" class="green-text">72</span><br>
+                            <span class="white-text">Derrotas: </span><span id="mostPlayedChampMatchesLooseCount" class="red-text">28</span><br>
+                            <span class="white-text">KDA: </span><span id="mostPlayedChampKdaRatio" class="blue-text">3.12</span><br>
+                            <span class="white-text">Asesinatos Promedio: </span><span id="mostPlayedChampKills" class="green-text">12.4</span><br>
+                            <span class="white-text">Muertes Promedio: </span><span id="mostPlayedChampDeaths" class="red-text">3.3</span><br>
+                            <span class="white-text">Asistencias Promedio: </span><span id="mostPlayedChampAssist" class="blue-text">12.3</span><br>
+                            <span class="white-text">Súbidtos Promedio: </span><span id="mostPlayedChampCs" class="purple-text">203</span><br>
+                            <span class="white-text">Oro Promedio: </span><span id="mostPlayedChampGold" class="yellow-text">18k</span><br>
                         </div>
 
                     </div>
@@ -84,7 +86,7 @@
             <div class="container">
                 <div class="card darkblue row">
                     <ul class="z-depth-1 darkblue tabs card" style="width: 100%;">
-                        <li style="width: 20%;" class="tab col"><a class="active hex-text" href="#tabProfile">Perfil</a></li>
+                        <li style="width: 20%;" class="tab col"><img id="icoProfile" src="img/profile.svg"/><a class="active hex-text" href="#tabProfile">Perfil</a></li>
                         <li style="width: 20%;" class="tab col"><a class="" href="#tabLeague">Liga</a></li>
                         <li style="width: 20%;" class="tab col"><a class="" href="#tabHistory">Historial</a></li>
                         <li style="width: 20%;" class="tab col"><a class="" href="#tabRunes">Runas</a></li>
@@ -295,40 +297,40 @@
                         <div id="tabs-4" class="tabs-div">
                             <h5>Runas</h5>
                             <hr>
-                            <img src="img/rune-bg.png" width="780px" draggable="false" style="border-radius:5px"/>
+                            <img src="img/rune-slot-ids.png" width="945px" draggable="false" style="border-radius:5px;margin-bottom:-250px"/>
 
-                            <img id="slot1" class="rune" src="img/runa.png" draggable="false"/>
-                            <img id="slot2" class="rune" src="img/runa.png" draggable="false"/>
-                            <img id="slot3" class="rune" src="img/runa.png" draggable="false"/>
-                            <img id="slot4" class="rune" src="img/runa.png" draggable="false"/>
-                            <img id="slot5" class="rune" src="img/runa.png" draggable="false"/>
-                            <img id="slot6" class="rune" src="img/runa.png" draggable="false"/>
-                            <img id="slot7" class="rune" src="img/runa.png" draggable="false"/>
-                            <img id="slot8" class="rune" src="img/runa.png" draggable="false"/>
-                            <img id="slot9" class="rune" src="img/runa.png" draggable="false"/>
+                            <img id="slot1" class="rune dropshadowed" src="img/runa.png" width="55px" draggable="false"/>
+                            <img id="slot2" class="rune dropshadowed" src="img/runa.png" width="55px" draggable="false"/>
+                            <img id="slot3" class="rune dropshadowed" src="img/runa.png" width="55px" draggable="false"/>
+                            <img id="slot4" class="rune dropshadowed" src="img/runa.png" width="55px" draggable="false"/>
+                            <img id="slot5" class="rune dropshadowed" src="img/runa.png" width="55px" draggable="false"/>
+                            <img id="slot6" class="rune dropshadowed" src="img/runa.png" width="55px" draggable="false"/>
+                            <img id="slot7" class="rune dropshadowed" src="img/runa.png" width="55px" draggable="false"/>
+                            <img id="slot8" class="rune dropshadowed" src="img/runa.png" width="55px" draggable="false"/>
+                            <img id="slot9" class="rune dropshadowed" src="img/runa.png" width="55px" draggable="false"/>
+                            
+                            <img id="slot10" class="rune dropshadowed" src="img/runa.png" width="55px" draggable="false"/>
+                            <img id="slot11" class="rune dropshadowed" src="img/runa.png" width="55px" draggable="false"/>
+                            <img id="slot12" class="rune dropshadowed" src="img/runa.png" width="55px" draggable="false"/>
+                            <img id="slot13" class="rune dropshadowed" src="img/runa.png" width="55px" draggable="false"/>
+                            <img id="slot14" class="rune dropshadowed" src="img/runa.png" width="55px" draggable="false"/>
+                            <img id="slot15" class="rune dropshadowed" src="img/runa.png" width="55px" draggable="false"/>
+                            <img id="slot16" class="rune dropshadowed" src="img/runa.png" width="55px" draggable="false"/>
+                            <img id="slot17" class="rune dropshadowed" src="img/runa.png" width="55px" draggable="false"/>
+                            <img id="slot18" class="rune dropshadowed" src="img/runa.png" width="55px" draggable="false"/>
+                            <img id="slot19" class="rune dropshadowed" src="img/runa.png" width="55px" draggable="false"/>
+                            <img id="slot20" class="rune dropshadowed" src="img/runa.png" width="55px" draggable="false"/>
+                            <img id="slot21" class="rune dropshadowed" src="img/runa.png" width="55px" draggable="false"/>
+                            <img id="slot22" class="rune dropshadowed" src="img/runa.png" width="55px" draggable="false"/>
+                            <img id="slot23" class="rune dropshadowed" src="img/runa.png" width="55px" draggable="false"/>
+                            <img id="slot24" class="rune dropshadowed" src="img/runa.png" width="55px" draggable="false"/>
+                            <img id="slot25" class="rune dropshadowed" src="img/runa.png" width="55px" draggable="false"/>
+                            <img id="slot26" class="rune dropshadowed" src="img/runa.png" width="55px" draggable="false"/>
+                            <img id="slot27" class="rune dropshadowed" src="img/runa.png" width="55px" draggable="false"/>
 
-                            <img id="slot10" class="rune" src="img/runa.png" draggable="false"/>
-                            <img id="slot11" class="rune" src="img/runa.png" draggable="false"/>
-                            <img id="slot12" class="rune" src="img/runa.png" draggable="false"/>
-                            <img id="slot13" class="rune" src="img/runa.png" draggable="false"/>
-                            <img id="slot14" class="rune" src="img/runa.png" draggable="false"/>
-                            <img id="slot15" class="rune" src="img/runa.png" draggable="false"/>
-                            <img id="slot16" class="rune" src="img/runa.png" draggable="false"/>
-                            <img id="slot17" class="rune" src="img/runa.png" draggable="false"/>
-                            <img id="slot18" class="rune" src="img/runa.png" draggable="false"/>
-                            <img id="slot19" class="rune" src="img/runa.png" draggable="false"/>
-                            <img id="slot20" class="rune" src="img/runa.png" draggable="false"/>
-                            <img id="slot21" class="rune" src="img/runa.png" draggable="false"/>
-                            <img id="slot22" class="rune" src="img/runa.png" draggable="false"/>
-                            <img id="slot23" class="rune" src="img/runa.png" draggable="false"/>
-                            <img id="slot24" class="rune" src="img/runa.png" draggable="false"/>
-                            <img id="slot25" class="rune" src="img/runa.png" draggable="false"/>
-                            <img id="slot26" class="rune" src="img/runa.png" draggable="false"/>
-                            <img id="slot27" class="rune" src="img/runa.png" draggable="false"/>
-
-                            <img id="slot28" class="rune" src="img/quitaesencias.png" draggable="false"/>
-                            <img id="slot29" class="rune" src="img/quitaesencias.png" draggable="false"/>
-                            <img id="slot30" class="rune" src="img/quitaesencias.png" draggable="false"/>
+                            <img id="slot28" class="rune dropshadowed" src="img/quitaesencias.png" width="55px" draggable="false"/>
+                            <img id="slot29" class="rune dropshadowed" src="img/quitaesencias.png" width="55px" draggable="false"/>
+                            <img id="slot30" class="rune dropshadowed" src="img/quitaesencias.png" width="55px" draggable="false"/>
                         </div>
 
                     </div>
@@ -373,7 +375,7 @@
         </div>
         <div class="footer-copyright">
             <div class="container">
-                Made by <a class="brown-text text-lighten-3" href="http://materializecss.com/">Materialize</a>
+                Made by WoloTeam<a class="brown-text text-lighten-3" href="http://materializecss.com/">Materialize</a>
             </div>
         </div>
     </footer>
