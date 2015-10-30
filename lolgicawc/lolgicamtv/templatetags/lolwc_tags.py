@@ -72,3 +72,9 @@ def getChampionsb(pos, array):
 {}
 <br>
 {} </span><br><img id="player_blue_1_img" src="#">""".format(pj1, pj2, pj3, pj4, pj5)
+
+@register.simple_tag
+def vector(variable, pos):
+    pos = int(pos)
+    return "{}".format(variable[pos])
+
