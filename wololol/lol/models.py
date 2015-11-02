@@ -22,7 +22,7 @@ class MostPlayedChampInfo(models.Model):
     mostPlayedChampAssist = models.TextField(u'prom asssists')
     mostPlayedChampCs = models.TextField(u'prom creeps')
     mostPlayedChampGold = models.TextField(u'prom gold')
-    
+
 class profile(models.Model):
     leagueSoloQName = models.TextField(u'nombre de la liga en solo Q de un jugador especifico')
     leagueSoloQTier = models.TextField(u'tipo de liga en solo Q de un jugador especifico')
@@ -36,18 +36,18 @@ class profile(models.Model):
     league3v3Tier = models.TextField(u'tipo de liga en 3v3 de un jugador especifico')
     league3v3Division = models.TextField(u'division de la liga en 3v3 de un jugador especifico')
     league3v3Lp = models.TextField(u'puntos en la liga 3v3 de un jugador especifico')
-    
+
 class league(models.Model):
     summonerLeagueTabName = models.TextField(u'nombre de la liga')
     summonerLeagueTabRank = models.TextField(u'rango de la liga')
     summonerLeagueTabDivision = models.TextField(u'division de la liga')
     summonerLeagueTabPList = models.TextField(u'lista de jugadores en promo') #relacionar con la CLASE del mismo nombre
     summonerLeagueTabList = models.TextField(u'lista de jugadores') #relacionar con la CLASE del mismo nombre
-    
+
 class history(models.Model):
     isWin = models.TextField(u'booleano de ganada o perdida')
     champId = models.TextField(u'id del campeon usado')
-    champLvl = models.TextField(u'nivel en el que terminó')
+    champLvl = models.TextField(u'nivel en el que termino')
     spell1 = models.TextField(u'summoner spell 1')
     spell2 = models.TextField(u'summoner spell 2')
     gameType = models.TextField(u'tipo de juego')
@@ -62,7 +62,7 @@ class history(models.Model):
     assists = models.TextField(u'assists')
     goldGained = models.TextField(u'oro ganado')
     creepScore = models.TextField(u'minions asesinados')
-    createDate = models.TextField(u'fecha de creación de la partida')
+    createDate = models.TextField(u'fecha de creacion de la partida')
     item1 = models.TextField(u'item 1')
     item2 = models.TextField(u'item 2')
     item3 = models.TextField(u'item 3')
@@ -70,9 +70,9 @@ class history(models.Model):
     item5 = models.TextField(u'item 5')
     item6 = models.TextField(u'item 6')
     item7 = models.TextField(u'baratija')
-    
+
 class runes(models.Model):
-    activePage = models.TextField(u'página activa')
-    pages = models.TextField(u'paginas') #TODO: ver cómo carajo voy a poner las paginas
-    
+    activePage = models.TextField(u'pagina activa')
+    pages = models.TextField(u'paginas') #TODO: ver como carajo voy a poner las paginas
+
 #TODO: agregar las clases restantes

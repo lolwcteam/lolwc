@@ -25,12 +25,12 @@ Tan simple como
 Está es una lista de las propiedades posibles y sus descripciones (Todas son de tipo str)
 
 #**Generales**  
-- server = None#servidor  
-- user = None#usuario  
-- password = None#contraseña  
-- connected = None#True si esta conectado  
- -connection = None#El objeto xmpp de coneccion  
- -roster = None#La lista de contactos  
+- server#servidor  
+- user#usuario  
+- password#contraseña  
+- connected#True si esta conectado  
+ -connection#El objeto xmpp de coneccion  
+ -roster#La lista de contactos  
 
 #**(No tocar)Contactos**  
 - friends = []  
@@ -39,33 +39,33 @@ Está es una lista de las propiedades posibles y sus descripciones (Todas son de
 - buzon = []#Lista de mensajes sin leer  
 
 #**(No tocar salvo statusChat)Del roster**  
-- jid = None #Jabber ID del conectado  
+- jid #Jabber ID del conectado  
 - statusChat = "dnd" #chat, dnd (do not disturb) y away  
 - name = "BanerSjK"#Nombre de invocador  
 
 #**De roster.getStatus()**  
-- profileIcon = None#Número de icono de invocado  
-- level = None #Level  
-- wins = None #?Victorias en general (de normal, ranked, todo?)  
-- leaves = None #Cantidad de abandonos  
-- odinWins = None #?Cantidad de victorias en Odin? 3v3?  
-- odinLeaves = None #?Cantidad de abandonos en Odin  
+- profileIcon#Número de icono de invocado  
+- level #Level  
+- wins #?Victorias en general (de normal, ranked, todo?)  
+- leaves #Cantidad de abandonos  
+- odinWins #?Cantidad de victorias en Odin? 3v3?  
+- odinLeaves #?Cantidad de abandonos en Odin  
 - queueType= None #?INDEFINIDO siempre da None  
-- rankedLosses = None #?INDEFINIDO siempre da 0  
-- rankedRating = None #?INDEFINIDO siempre da 0  
-- tier = None #?Alguna liga quizás la del elo más alto (DIAMOND, BRONZE, etc)  
-- rankedSoloRestricted = None #?INDEFINIDO generalmente false  
-- championMasteryScore = None #Mastery Champ Score  
-- statusMsg = None #Mensaje de estado  
-- rankedLeagueName = None #Nombre de la liga, Leona Urfriders, etc  
-- rankedLeagueDivision = None #Division de la anterior I, IV, V  
-- rankedLeagueTier = None #Liga solo queue, BRONZE, GOLD  
-- rankedLeagueQueue = None #? suele decir RANKED_SOLO_5x5  
-- rankedWins = None #Victorias en ranked  
-- skinname = None #si inGame, el champ jugado  
-- gameQueueType = None #?Generalmente dice NORMAL  
-- gameStatus = None #inGame, outOfGame, champSelect, hostingNormalGame  
-- timeStamp = None #?si inGame, timestamp de cuando empezo, si no INDEFINIDO  
+- rankedLosses #?INDEFINIDO siempre da 0  
+- rankedRating #?INDEFINIDO siempre da 0  
+- tier #?Alguna liga quizás la del elo más alto (DIAMOND, BRONZE, etc)  
+- rankedSoloRestricted #?INDEFINIDO generalmente false  
+- championMasteryScore #Mastery Champ Score  
+- statusMsg #Mensaje de estado  
+- rankedLeagueName #Nombre de la liga, Leona Urfriders, etc  
+- rankedLeagueDivision #Division de la anterior I, IV, V  
+- rankedLeagueTier #Liga solo queue, BRONZE, GOLD  
+- rankedLeagueQueue #? suele decir RANKED_SOLO_5x5  
+- rankedWins #Victorias en ranked  
+- skinname #si inGame, el champ jugado  
+- gameQueueType #?Generalmente dice NORMAL  
+- gameStatus #inGame, outOfGame, champSelect, hostingNormalGame  
+- timeStamp #?si inGame, timestamp de cuando empezo, si no INDEFINIDO  
 
 Saber si hay mensajes nuevos
 --
