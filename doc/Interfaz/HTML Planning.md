@@ -203,14 +203,16 @@ lista de
 
 ###runes
 - numero pagina activa: activePage
-- lista de runas: runes
-    - nombre de pagina de runas:
-	- lista con info de la runa:
-		- id de runa
-		- posicion de runa
-		- (#)imagen de runa
-    	- (#)tipo de runa
-		- (#)total de stats que suma
+- lista de paginas de runas: pages
+	- lista de runas: runes
+    	- nombre de pagina de runas: pageName
+		- lista de las runas de la pagina
+			- lista con info de la runa: rune
+				- id de runa
+				- posicion de runa
+				- (#)imagen de runa
+		    	- (#)tipo de runa
+				- (#)total de stats que suma
 
 ###masteries
 - numero de pagina activa
