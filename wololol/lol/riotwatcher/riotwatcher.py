@@ -288,7 +288,7 @@ class RiotWatcher:
 
     def get_all_free_champions(self, region=None, free_to_play=True):
         return self._champion_request('', region, freeToPlay=free_to_play)
-    
+
     def get_champion(self, champion_id, region=None):
         return self._champion_request('{id}'.format(id=champion_id), region)
 
@@ -517,7 +517,7 @@ class RiotWatcher:
             beginIndex=begin_index,
             endIndex=end_index
         )
-    
+
     # match list-v2.2
     def _match_list_request(self, end_url, region, **kwargs):
         return self.base_request(
@@ -563,7 +563,7 @@ class RiotWatcher:
     def get_ranked_stats(self, summoner_id, region=None, season=None):
         return self._stats_request(
             'by-summoner/{summoner_id}/ranked'.format(summoner_id=summoner_id),
-            
+
             region,
             season='SEASON{}'.format(season) if season is not None else None
         )
@@ -642,3 +642,17 @@ class RiotWatcher:
 
     def get_teams(self, team_ids, region=None):
         return self._team_request('{team_ids}'.format(team_ids=','.join(str(t) for t in team_ids)), region)
+
+
+#-------------Wololol-------------#
+
+    def getApiSummoner(summoner = None, idSum = None, region = None):
+        #Pedir toda la informacion a la api
+        #Formatearla al diccionario y devolverla
+        return "diccionarioReLoco"
+
+    def getCacheSummoner(summoner = None, idSum = None, region = None):
+        #Comprobar si el summoner esta en el cache
+        #Si esta devolverlo
+        #Si no devolver None
+        return "diccionarioReLocoCacheado"

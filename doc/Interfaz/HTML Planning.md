@@ -116,12 +116,12 @@ lista de 5
 - tier de liga i/d: leagueSoloQTier
 - division liga i/d: leagueSoloQDivision
 - lp i/d: leagueSoloQLp
-- (#)Icono liga 5v5: 
+- (#)Icono liga 5v5:
 - nombre liga 5v5: leagueTeamName
 - tier de liga 5v5: leagueTeamTier
 - division 5v5: leagueTeamDivision
 - lp 5v5: leagueTeamLp
-- (#)Icono liga 3v3: 
+- (#)Icono liga 3v3:
 - nombre liga 3v3: league3v3Name
 - tier de liga 3v3: league3v3Tier
 - division 3v3: league3v3Division
@@ -156,7 +156,7 @@ lista de 5
 ###history: "history"
 lista de
 - victoria o derrota: isWin
-- id del campeón: champId 
+- id del campeón: champId
 - (#)imagen del champ: champImg
 - (#)link del champ:
 - level del champ: champLvl
@@ -203,14 +203,14 @@ lista de
 
 ###runes
 - numero pagina activa: activePage
-- lista de
-    - nombre de pagina de runas: 
-    - lista de
-	    - id de runa
-	    - posicion de runa
-	    - (#)imagen de runa
+- lista de runas: runes
+    - nombre de pagina de runas:
+	- lista con info de la runa:
+		- id de runa
+		- posicion de runa
+		- (#)imagen de runa
     	- (#)tipo de runa
-	    - (#)total de stats que suma
+		- (#)total de stats que suma
 
 ###masteries
 - numero de pagina activa
