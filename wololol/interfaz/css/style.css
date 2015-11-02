@@ -508,3 +508,15 @@ hr {
     height: 2px;
     background-image: linear-gradient(to right, rgba(0, 0, 0, 0),rgb(0, 102, 204), rgba(0, 0, 0, 0));
 }
+
+
+
+#hImgChamp {
+    border-radius:24px;
+    text-align:center;
+    padding-top:74px;
+    width:96px;
+    height:96px;
+    background: transparent none repeat scroll center center / 100px auto;
+    background-image: url('img/hRiven.png');
+}
