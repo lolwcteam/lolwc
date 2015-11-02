@@ -56,7 +56,7 @@ se muestran elementos que debe haber necesariamente en cada página, si es neces
 - nombre: mostPlayedChampName
 - cantidad de jugada: mostPlayedChampMatchesCount
 - cantidad de victorias: mostPlayedChampMatchesWinCount
-- cantidad de derrotas: mostPlayedChampMatchesLooseCount
+- cantidad de derrotas: mostPlayedChampMatchesLoseCount
 - kda: mostPlayedChampKdaRatio
 - prom kills: mostPlayedChampKills
 - prom deaths: mostPlayedChampDeaths
