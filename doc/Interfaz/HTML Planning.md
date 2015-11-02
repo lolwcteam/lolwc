@@ -56,7 +56,7 @@ se muestran elementos que debe haber necesariamente en cada página, si es neces
 - nombre: mostPlayedChampName
 - cantidad de jugada: mostPlayedChampMatchesCount
 - cantidad de victorias: mostPlayedChampMatchesWinCount
-- cantidad de derrotas: mostPlayedChampMatchesLooseCount
+- cantidad de derrotas: mostPlayedChampMatchesLoseCount
 - kda: mostPlayedChampKdaRatio
 - prom kills: mostPlayedChampKills
 - prom deaths: mostPlayedChampDeaths
@@ -66,19 +66,20 @@ se muestran elementos que debe haber necesariamente en cada página, si es neces
 
 *free week champs*: "freeWeekChamps"
 lista de
-- imagen del champ: freeChamp_1
-- nombre del champ: freeChamp_name
-- link del champ en static (lolwc.com/static/champs/riven)
-- precio ip
-- precio rp
+- (#)imagen del champ: freeChamp1
+- Ip del champ: freeChamp
+- (#)link del champ en static (lolwc.com/static/champs/riven)
+- (#)precio ip
+- (#)precio rp
 
-*skin sales*: "skinSales"
+
+*skin sales*: "skinSales"(#)
 lista de
 - imagen del skin
 - rp del skin
 - link al champ en static
 
-*champ sales*: "champSales"
+*champ sales*: "champSales"(#)
 lista de
 - imagen del champ
 - rp del champ
@@ -88,27 +89,27 @@ lista de
 lista de 5
 - tipo de juego
 - tiempo transcurrido
-- comando para ver el game (https://developer.riotgames.com/docs/spectating-games)
+- (#)comando para ver el game (https://developer.riotgames.com/docs/spectating-games)
 - nombre 1 azul
-- imagenChamp 1 azul
+- (#)imagenChamp 1 azul
 - nombre 2 azul
-- imagenChamp 2 azul
+- (#)imagenChamp 2 azul
 - nombre 3 azul
-- imagenChamp 3 azul
+- (#)imagenChamp 3 azul
 - nombre 4 azul
-- imagenChamp 4 azul
+- (#)imagenChamp 4 azul
 - nombre 5 azul
-- imagenChamp 5 azul
+- (#)imagenChamp 5 azul
 - nombre 1 rojo
-- imagenChamp 1 rojo
+- (#)imagenChamp 1 rojo
 - nombre 2 rojo
-- imagenChamp 2 rojo
+- (#)imagenChamp 2 rojo
 - nombre 3 rojo
-- imagenChamp 3 rojo
+- (#)imagenChamp 3 rojo
 - nombre 4 rojo
-- imagenChamp 4 rojo
+- (#)imagenChamp 4 rojo
 - nombre 5 rojo
-- imagenChamp 5 rojo
+- (#)imagenChamp 5 rojo
 
 ###profile
 - (#)Icono liga individu/dobles
@@ -178,7 +179,7 @@ lista de
 - asssists: assists
 - oro: goldGained
 - creeps: creepScore
-- timestamp de inicio de partida: createDate
+- (#)timestamp de inicio de partida: createDate
 - (#)imagen item1:
 - (#)link item1:
 - item 1: item1

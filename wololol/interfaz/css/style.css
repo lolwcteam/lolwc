@@ -341,158 +341,182 @@ table.striped > tbody > tr:nth-child(odd) {
 
 .rune{
     position: relative;
-    width: 55px;
+    width: 69px;
+    margin-bottom: -14px;
 }
 
+
 #slot1 {
-    top:-73px;
-    left:24px;
+    top:155px;
+    left:36px;
 }
 
 #slot2 {
-    top:-73px;
-    left:38px;
+    top:155px;
+    left:55px;
 }
 
 #slot3 {
-    top:-71px;
-    left:67px;
+    top:157px;
+    left:87px;
 }
 
 #slot4 {
-    top:-140px;
-    left:-170px;
+    top:70px;
+    left:-202px;
 }
 
 #slot5 {
-    top:-145px;
-    left:-155px;
+    top:65px;
+    left:-185px;
 }
 
 #slot6 {
-    top:-128px;
-    left:-150px;
+    top:86px;
+    left:-180px;
 }
 
 #slot7 {
-    top:-202px;
-    left:-320px;
-}
-
-#slot8 {
-    top:-198px;
-    left:-285px;
-}
-
-#slot9 {
-    top:-248px;
+    top:0px;
     left:-390px;
 }
 
+#slot8 {
+    top:5px;
+    left:-345px;
+}
+
+#slot9 {
+    top:-56px;
+    left:-470px;
+}
+
 #slot10 {
-    top:-300px;
-    left:-493px;
+    top:-120px;
+    left:-600px;
 }
 
 #slot11 {
-    top:-305px;
-    left:-468px;
-}
-
-#slot12 {
-    top:-360px;
-    left:-576px;
-}
-
-#slot13 {
-    top:-387px;
+    top:-130px;
     left:-570px;
 }
 
+#slot12 {
+    top:-190px;
+    left:-700px;
+}
+
+#slot13 {
+    top:-225px;
+    left:-695px;
+}
+
 #slot14 {
-    top:-510px;
-    left:179px;
+    top:-362px;
+    left:222px;
 }
 
 #slot15 {
-    top:-542px;
-    left:189px;
+    top:-402px;
+    left:233px;
 }
 
 #slot16 {
-    top:-564px;
-    left:198px;
+    top:-427px;
+    left:240px;
 }
 
 #slot17 {
-    top:-585px;
-    left:215px;
+    top:-455px;
+    left:265px;
 }
 
 #slot18 {
-    top:-525px;
-    left:186px;
+    top:-380px;
+    left:225px;
 }
 
 #slot19 {
-    top:-582px;
-    left:175px;
+    top:-452px;
+    left:214px;
 }
 
 #slot20 {
-    top:-524px;
-    left:157px;
+    top:-380px;
+    left:190px;
 }
 
 #slot21 {
-    top:-583px;
-    left:136px;
+    top:-450px;
+    left:166px;
 }
 
 #slot22 {
-    top:-480px;
-    left:95px;
+    top:-325px;
+    left:115px;
 }
 
 #slot23 {
-    top:-535px;
-    left:70px;
+    top:-390px;
+    left:86px;
 }
 
 #slot24 {
-    top:-583px;
-    left:56px;
+    top:-450px;
+    left:68px;
 }
 
 #slot25 {
-    top:-542px;
-    left:56px;
+    top:-400px;
+    left:62px;
 }
 
 #slot26 {
-    top:-492px;
-    right:52px;
+    top:-340px;
+    right:70px;
 }
 
 #slot27 {
-    top:-538px;
-    left:484px;
+    top:-380px;
+    left:840px;
 }
 
 #slot28 {
-    top:-610px;
-    right:220px;
-    width: 100px;
+    top:-490px;
+    right:15px;
+    width: 120px;
 }
 
 #slot29 {
-    top:-390px;
-    right:140px;
-    width: 100px;
+    top:-210px;
+    right:-85px;
+    width: 120px;
 }
 
 #slot30 {
-    top:-455px;
-    left:20px;
-    width: 100px;
+    top:-280px;
+    left:300px;
+    width: 120px;
+}
+.dropshadowed {
+    -webkit-filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.9));
+}
+
+hr {
+    border: 0;
+    width: 80%;
+    height: 2px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0),rgb(0, 102, 204), rgba(0, 0, 0, 0));
+}
+
+
+
+#hImgChamp {
+    border-radius:24px;
+    text-align:center;
+    padding-top:74px;
+    width:96px;
+    height:96px;
+    background: transparent none repeat scroll center center / 100px auto;
+    background-image: url('img/hRiven.png');
 }

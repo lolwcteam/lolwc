@@ -4,11 +4,11 @@ register = template.Library()
 
 
 #Deprecated
-@register.simple_tag
-def getTime(pos, minutos, segundos): # Only one argument.
-    """Converts a string into all lowercase"""
-    pos = int (pos)
-    return '<span id="time">tiempo: {} min {} sec</span><br>'.format(minutos[pos], segundos[pos])
+#@register.simple_tag
+#def getTime(pos, minutos, segundos): # Only one argument.
+#    """Converts a string into all lowercase"""
+#    pos = int (pos)
+#    return '<span id="time">tiempo: {} min {} sec</span><br>'.format(minutos[pos], segundos[pos])
 
 @register.simple_tag
 def getChampions(pos, array):
@@ -72,3 +72,9 @@ def getChampionsb(pos, array):
 {}
 <br>
 {} </span><br><img id="player_blue_1_img" src="#">""".format(pj1, pj2, pj3, pj4, pj5)
+
+@register.simple_tag
+def vector(variable, pos):
+    pos = int(pos)
+    return "{}".format(variable[pos])
+
