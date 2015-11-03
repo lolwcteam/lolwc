@@ -224,3 +224,47 @@ lista de
 	- id de maestria
 	- cantidad de puntos
 	- imagen de maestria
+
+##CHAT
+
+###estado del usuario
+- id del invocador: id
+- Estado de coneccion (chat, dnd (do not disturb) y away): statusChat
+- Nombre de invocador: name
+- numero de icono de perfil: profileIcon
+- level: level
+- champion Mastery Score: championMasteryScore
+- (editable)mensaje de estado: statusMsg
+- Nombre de la liga, Leona Urfriders, etc: rankedLeagueName
+- Division de liga: rankedLeagueDivision
+- Liga solo queue, BRONZE, GOLD: rankedLeagueTier
+
+###conectados
+lista de:
+	- 
+###mensajes sin leer
+
+#**(No tocar)Contactos**  
+- friends = []  
+
+#**(No tocar)Buzon**  
+- buzon = []#Lista de mensajes sin leer  
+
+#**(No tocar salvo statusChat)Del roster**  
+- jid #Jabber ID del conectado  
+- statusChat = "dnd" #chat, dnd (do not disturb) y away  
+- name = "BanerSjK"#Nombre de invocador  
+
+#**De roster.getStatus()**  
+- profileIcon #Número de icono de invocado  
+- level #Level  
+- wins #?Victorias en general (de normal, ranked, todo?)  
+- championMasteryScore #Mastery Champ Score  
+- statusMsg #Mensaje de estado  
+- rankedLeagueName #Nombre de la liga, Leona Urfriders, etc  
+- rankedLeagueDivision #Division de la anterior I, IV, V  
+- rankedLeagueTier #Liga solo queue, BRONZE, GOLD  
+
+- skinname #si inGame, el champ jugado s
+- gameQueueType #?Generalmente dice NORMAL  
+- gameStatus #inGame, outOfGame, champSelect, hostingNormalGame  

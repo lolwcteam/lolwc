@@ -3,10 +3,10 @@ Modulo Python LoL Chat
 by Mateo de Mayo
 
 La forma de utilizar el chat es la siguiente
-- Instalar las dependencias necesarias con pip
+- Instalar las dependencias necesarias con pip  
 
-    sudo pip install xmltodict
-    sudo pip install git+https://github.com/ArchipelProject/xmpppy
+        - $ sudo pip install xmltodict  
+        $ sudo pip install git+https://github.com/ArchipelProject/xmpppy  
 
 - Colocar los archivos Cliente.py y Friend.py en la carpeta a utilizar
 
@@ -67,6 +67,15 @@ Está es una lista de las propiedades posibles y sus descripciones (Todas son de
 - gameStatus #inGame, outOfGame, champSelect, hostingNormalGame  
 - timeStamp #?si inGame, timestamp de cuando empezo, si no INDEFINIDO  
 
+Obtener información de contactos
+--
+
+    cliente.friends
+
+Es la lista que tiene a todos los objetos de tipo amigo, dentro de cada uno encontramos las mismas propiedades que en el roster.getStatus() del cliente, para llamar a alguna por ejemplo:
+
+    cliente.friends[2].statusMsg
+
 Saber si hay mensajes nuevos
 --
 
@@ -79,7 +88,7 @@ Para eso hay que chequear constantemente la variable buzon, que es una lista org
 
 buzon[0]: Mensaje más antiguo no leído  
 buzon[0][0]: Emisor del mensaje más antiguo no leído  
-buzon[0][1]: Mensaje del mensaje más antiguo no leído
+buzon[0][1]: Texto del mensaje más antiguo no leído
 
 Lo que hay que hacer una vez que se comprueban los mensajes y se hace lo que se quiere con ellos es limpiar el buzon con
 **cliente.cleanBuzon()**
