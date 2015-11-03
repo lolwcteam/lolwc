@@ -645,16 +645,18 @@ class RiotWatcher:
 
 
 #-------------Wololol-------------#
-    res = {
+res = {
     "summonerInfo":{
         "summonerImg":"612",
         "summonerName":"Sad Jocker King",
         "summonerLeague":"Silver",
         "summonerDivision":"I",
+        "summonerServer":"LAS",
         "summonerKills":"12.5",
         "summonerDeaths":"9.5",
         "summonerAssists":"3.1",
-        "summonerWinrate":"0.55",
+        "summonerKdaRatio":"3.66",
+        "summonerWinrate":"55%",
     },
     "mostPlayedChampInfo":{
         "mostPlayedChampId":"92",
@@ -688,7 +690,7 @@ class RiotWatcher:
         "summonerLeagueTabDivision":"I",
         "summonerLeagueTabPList":[
             {
-            "summonerLeagueTabPListRank":"2",
+            "summonerLeagueTabPListRank":"1",
             "summonerLeagueTabPListChange":"-3",
             "summonerLeagueTabPListName":"Sad Jocker King",
             "summonerLeagueTabPListImg":"612",
@@ -712,7 +714,7 @@ class RiotWatcher:
             "summonerLeagueTabPListLoseCount":"1",
             },
             {
-            "summonerLeagueTabPListRank":"2",
+            "summonerLeagueTabPListRank":"3",
             "summonerLeagueTabPListChange":"-3",
             "summonerLeagueTabPListName":"Sad Jocker King",
             "summonerLeagueTabPListImg":"612",
@@ -726,75 +728,126 @@ class RiotWatcher:
         ],
         "summonerLeagueTabList":[
             {
-            "summonerLeagueTabListRank":"",
-            "summonerLeagueTabListChange":"",
-            "summonerLeagueTabListName":"",
-            "summonerLeagueTabListImg":"",
-            "summonerLeagueTabListIsRecent":"",
-            "summonerLeagueTabListIsOnFire":"",
-            "summonerLeagueTabListWins":"",
-            "summonerLeagueTabPListLP":"",
+            "summonerLeagueTabListRank":"4",
+            "summonerLeagueTabListChange":"-2",
+            "summonerLeagueTabListName":"Juancito",
+            "summonerLeagueTabListImg":"612",
+            "summonerLeagueTabListIsRecent":"1",
+            "summonerLeagueTabListIsOnFire":"0",
+            "summonerLeagueTabListWins":"78",
+            "summonerLeagueTabPListLP":"99",
             },
             {
-            "summonerLeagueTabListRank":"",
-            "summonerLeagueTabListChange":"",
-            "summonerLeagueTabListName":"",
-            "summonerLeagueTabListImg":"",
-            "summonerLeagueTabListIsRecent":"",
-            "summonerLeagueTabListIsOnFire":"",
-            "summonerLeagueTabListWins":"",
-            "summonerLeagueTabPListLP":"",
+            "summonerLeagueTabListRank":"5",
+            "summonerLeagueTabListChange":"-3",
+            "summonerLeagueTabListName":"Juancito2",
+            "summonerLeagueTabListImg":"612",
+            "summonerLeagueTabListIsRecent":"0",
+            "summonerLeagueTabListIsOnFire":"1",
+            "summonerLeagueTabListWins":"23",
+            "summonerLeagueTabPListLP":"98",
             },
             {
-            "summonerLeagueTabListRank":"",
-            "summonerLeagueTabListChange":"",
-            "summonerLeagueTabListName":"",
-            "summonerLeagueTabListImg":"",
-            "summonerLeagueTabListIsRecent":"",
-            "summonerLeagueTabListIsOnFire":"",
-            "summonerLeagueTabListWins":"",
-            "summonerLeagueTabPListLP":"",
+            "summonerLeagueTabListRank":"6",
+            "summonerLeagueTabListChange":"5",
+            "summonerLeagueTabListName":"Juancito3",
+            "summonerLeagueTabListImg":"612",
+            "summonerLeagueTabListIsRecent":"1",
+            "summonerLeagueTabListIsOnFire":"0",
+            "summonerLeagueTabListWins":"15",
+            "summonerLeagueTabPListLP":"94",
             },
             {
-            "summonerLeagueTabListRank":"",
-            "summonerLeagueTabListChange":"",
-            "summonerLeagueTabListName":"",
-            "summonerLeagueTabListImg":"",
-            "summonerLeagueTabListIsRecent":"",
-            "summonerLeagueTabListIsOnFire":"",
-            "summonerLeagueTabListWins":"",
-            "summonerLeagueTabPListLP":"",
+            "summonerLeagueTabListRank":"7",
+            "summonerLeagueTabListChange":"8",
+            "summonerLeagueTabListName":"Juancito4",
+            "summonerLeagueTabListImg":"612",
+            "summonerLeagueTabListIsRecent":"0",
+            "summonerLeagueTabListIsOnFire":"1",
+            "summonerLeagueTabListWins":"981",
+            "summonerLeagueTabPListLP":"25",
             },
         ]
     },
     "history":[
         {
-            "isWin":"",
-            "champId":"",
-            "champLvl":"",
-            "spell1":"",
-            "spell2":"",
+            "isWin":"0",
+            "champId":"92",
+            "champLvl":"15",
+            "spell1":"4",
+            "spell2":"11",
             "gameType":"ARAM",
             "gameMode":"MATCHED",
             "gameSubType":"NORMAL",
-            "map":"",
-            "timeLenght":"",
-            "timePlayed":"",
-            "piEarned":"",
-            "kills":"",
-            "deaths":"",
-            "assists":"",
-            "goldGained":"",
-            "creepScore":"",
-            "createDate":"",
-            "item1":"",
-            "item2":"",
-            "item3":"",
-            "item4":"",
-            "item5":"",
-            "item6":"",
-            "item7":"",
-        }
+            "map":"11",
+            "timePlayed":"1213",
+            "piEarned":"123",
+            "kills":"31",
+            "deaths":"12",
+            "assists":"13",
+            "goldGained":"13542",
+            "creepScore":"212",
+            "createDate":"1446427773150",
+            "item1":"3022",
+            "item2":"3153",
+            "item3":"3022",
+            "item4":"3933",
+            "item5":"3933",
+            "item6":"3022",
+            "item7":"3933",
+        },
+        {
+            "isWin":"1",
+            "champId":"78",
+            "champLvl":"18",
+            "spell1":"11",
+            "spell2":"4",
+            "gameType":"ARAM",
+            "gameMode":"MATCHED",
+            "gameSubType":"NORMAL",
+            "map":"11",
+            "timePlayed":"1713",
+            "piEarned":"255",
+            "kills":"12",
+            "deaths":"21",
+            "assists":"21",
+            "goldGained":"17842",
+            "creepScore":"323",
+            "createDate":"1446427773150",
+            "item1":"3153",
+            "item2":"3022",
+            "item3":"3022",
+            "item4":"3933",
+            "item5":"3933",
+            "item6":"3022",
+            "item7":"3153",
+        },
+        {
+            "isWin":"0",
+            "champId":"24",
+            "champLvl":"7",
+            "spell1":"4",
+            "spell2":"11",
+            "gameType":"ARAM",
+            "gameMode":"MATCHED",
+            "gameSubType":"NORMAL",
+            "map":"11",
+            "timePlayed":"3210",
+            "piEarned":"64",
+            "kills":"21",
+            "deaths":"3",
+            "assists":"23",
+            "goldGained":"12522",
+            "creepScore":"122",
+            "createDate":"1446427773150",
+            "item1":"3153",
+            "item2":"3022",
+            "item3":"3022",
+            "item4":"3933",
+            "item5":"3022",
+            "item6":"3153",
+            "item7":"3022",
+        },
     ],
     "runes":{
         "activePage":"3",
@@ -1054,25 +1107,25 @@ class RiotWatcher:
         ]
     }
 }
-    def getApiSummoner(summoner = None, idSum = None, region = None):
-        #Pedir toda la informacion a la api
-        #Formatearla al diccionario y devolverla
-        global res
-        return res
+def getApiSummoner(summoner = None, idSum = None, region = None):
+    #Pedir toda la informacion a la api
+    #Formatearla al diccionario y devolverla
+    global res
+    return res
 
-    def getCacheSummoner(summoner = None, idSum = None, region = None):
-        #Comprobar si el summoner esta en el cache
-        #Si esta devolverlo
-        #Si no devolver None
-        global res
-        return res
+def getCacheSummoner(summoner = None, idSum = None, region = None):
+    #Comprobar si el summoner esta en el cache
+    #Si esta devolverlo
+    #Si no devolver None
+    global res
+    return res
 
-    def get_summoner_profileIconId(self, name=None, _id=None, region=None):
-        if (name is None) != (_id is None):
-            if name is not None:
-                name = self.sanitized_name(name)
-                return self.get_summoners(names=[name, ], region=region)[profileIconId]
-            else:
-                name = self.get_summoners(ids=[_id, ], region=region)[str(_id)]
-                return self.get_summoners(names=[name, ], region=region)[profileIconId]
-        return None
+def get_summoner_profileIconId(self, name=None, _id=None, region=None):
+    if (name is None) != (_id is None):
+        if name is not None:
+            name = self.sanitized_name(name)
+            return self.get_summoners(names=[name, ], region=region)[profileIconId]
+        else:
+            name = self.get_summoners(ids=[_id, ], region=region)[str(_id)]
+            return self.get_summoners(names=[name, ], region=region)[profileIconId]
+    return None

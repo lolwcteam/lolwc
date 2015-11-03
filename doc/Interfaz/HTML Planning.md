@@ -38,17 +38,17 @@ se muestran elementos que debe haber necesariamente en cada página, si es neces
 
 ##PERFIL
 *summoner info*: "summonerInfo"
-- (#)imagen baner del champion mas usado: mostPlayedChampBanerImg
+- (#)imagen baner del champion mas usado (id del champ): mostPlayedChampBanerImg
 - imagen del summoner: summonerImg
 - nombre del summoner: summonerName
 - (#)imagen de la liga actual del sumoner: summonerLeagueImg
 - liga actual del sumoner (ej:Silver): summonerLeague
 - division actual del summoner(ej:IV): summonerDivision
-- (#)server del summoner: summonerServer
+- server del summoner: summonerServer
 - prom kills en ranked: summonerKills
 - prom deaths en ranked: summonerDeaths
 - prom assists en ranked: summonerAssists
-- (#)kda: summonerKdaRatio
+- kda: summonerKdaRatio
 - porcentaje de victorias en ranked: summonerWinrate
 
 *most played champ info*: "mostPlayedChampInfo"
@@ -178,8 +178,8 @@ lista de
 - deaths: deaths
 - asssists: assists
 - oro: goldGained
-- creeps: creepScore
-- (#)timestamp de inicio de partida: createDate
+- creeps(suma de neutralMinionsKilled + minionsKilled de la api): creepScore
+- timestamp de inicio de partida: createDate
 - (#)imagen item1:
 - (#)link item1:
 - item 1: item1

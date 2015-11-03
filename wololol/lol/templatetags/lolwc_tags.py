@@ -2,6 +2,9 @@ from django import template
 
 register = template.Library()
 
+@register.filter
+def getItem(dictionary, key):
+    return dictionary
 
 #Deprecated
 @register.simple_tag
@@ -30,13 +33,13 @@ def getChampions(pos, array):
         else:
             personajes=array[pos]
             pj5=personajes[4]
-        
-    return """<span id="player_blue_1_name"> 
+
+    return """<span id="player_blue_1_name">
 {}
 <br>
-{} 
+{}
 <br>
-{} 
+{}
 <br>
 {}
 <br>
@@ -62,12 +65,12 @@ def getChampionsb(pos, array):
         else:
             personajes=array[pos]
             pj5=personajes[4]
-    return """<span id="player_blue_1_name"> 
+    return """<span id="player_blue_1_name">
 {}
 <br>
-{} 
+{}
 <br>
-{} 
+{}
 <br>
 {}
 <br>

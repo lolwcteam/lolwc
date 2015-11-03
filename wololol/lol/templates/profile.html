@@ -1,22 +1,24 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
+{% load lolwc_tags %}
 {% block contenido %}
 <div class="section">
     <div class="container">
+
         <div class="col s12 m12 l12">
             <div class="blue card tooltipped" data-position="bottom" data-delay="50" data-tooltip="Información del Campeón">
                 <div class="card-image waves-effect waves-block waves-light">
-                    <img id="mostPlayedChampBanerImg" class="hide-on-small-only activator" src="{% static 'img/rivenbaner.jpg' %}"/>
+                    <img id="mostPlayedChampBanerImg" class="hide-on-small-only activator" src="{% static 'img/' %}b{{ info.mostPlayedChampInfo.mostPlayedChampId }}.jpg"/>
                 </div>
                 <div class="card-content activator">
                     <!--                        TODOhttp://ddragon.leagueoflegends.com/cdn/5.20.1/img/profileicon/588.png-->
-                    <img id="summonerImg" src="{% static 'img/612.png' %}" class="summonerImg"/>
-                    <span id="summonerName" class="summonerName card-title activator white-text">Sad Jocker King
+                    <img id="summonerImg" src="{% static 'img/' %}{{ info.summonerInfo.summonerImg }}.png" class="summonerImg"/>
+                    <span id="summonerName" class="summonerName card-title activator white-text">{{ info.summonerInfo.summonerName }}
                         <i class="small material-icons right" style="position:absolute;">keyboard_arrow_up</i>
-                        <span id="kda" class="hide-on-med-and-down right activator white-text"><span id="summonerWinrate" class="pink-text ">55%</span> Ranked Wins</span>
-                        <span id="killdeathassist" class="hide-on-med-and-down right card-title activator white-text">KDA: <span id="summonerKdaRatio" class="blue-text">3.66</span> - <span id="summonerKills" class="green-text">12.5</span><span id="summonerDeaths" class="red-text">/19.2</span><span id="summonerAssists" class="yellow-text">/9.2</span></span>
+                        <span id="kda" class="hide-on-med-and-down right activator white-text"><span id="summonerWinrate" class="pink-text ">{{ info.summonerInfo.summonerWinrate }}</span> Ranked Wins</span>
+                        <span id="killdeathassist" class="hide-on-med-and-down right card-title activator white-text">KDA: <span id="summonerKdaRatio" class="blue-text">{{ info.summonerInfo.summonerKdaRatio }}</span> - <span id="summonerKills" class="green-text">{{ info.summonerInfo.summonerKills }}</span><span id="summonerDeaths" class="red-text">/{{ info.summonerInfo.summonerDeaths }}</span><span id="summonerAssists" class="yellow-text">/{{ info.summonerInfo.summonerAssists }}</span></span>
                     </span><br>
-                    <img id="summonerLeagueImg" class="summonerLeagueImg" src="{% static 'img/silver_1.png' %}"/><span id="summonerDescription" class="summonerDescription activator white-text"><span id="summonerLeague">Silver</span> <span id="summonerDivision">I</span> - LAS</span>
+                    <img id="summonerLeagueImg" class="summonerLeagueImg" src="{% static 'img/' %}{{ info.summonerInfo.summonerLeague }}_{{ info.summonerInfo.summonerDivision }}.png"/><span id="summonerDescription" class="summonerDescription activator white-text"><span id="summonerLeague">{{ info.summonerInfo.summonerLeague }}</span> <span id="summonerDivision">{{ info.summonerInfo.summonerDivision }}</span> - {{ info.summonerInfo.summonerServer }}</span>
                 </div>
 
                 <div style="display: none; transform: translateY(0px);" class="blue card-reveal">
@@ -25,15 +27,15 @@
                         <span class="hMostPlayedChamp"><span id="mostPlayedChampName">Riven</span> - Campeón más jugado.</span>
                         <i class="right material-icons">close</i>
                     </span>
-                    <span class="white-text">Cantidad de Partidas: </span><span id="mostPlayedChampMatchesCount" class="blue-text">100</span><br>
-                    <span class="white-text">Cantidad de Victorias: </span><span id="mostPlayedChampMatchesWinCount" class="green-text">72</span><br>
-                    <span class="white-text">Cantidad de Derrotas: </span><span id="mostPlayedChampMatchesLooseCount" class="red-text">28</span><br>
-                    <span class="white-text">Índice de KDA: </span><span id="mostPlayedChampKdaRatio" class="blue-text">3.12</span><br>
-                    <span class="white-text">Cantidad de Asesinatos Promedio: </span><span id="mostPlayedChampKills" class="green-text">12.4</span><br>
-                    <span class="white-text">Cantidad de Muertes Promedio: </span><span id="mostPlayedChampDeaths" class="red-text">3.3</span><br>
-                    <span class="white-text">Cantidad de Asistencias Promedio: </span><span id="mostPlayedChampAssist" class="blue-text">12.3</span><br>
-                    <span class="white-text">Cantidad de Súbidtos Promedio: </span><span id="mostPlayedChampCs" class="purple-text">203</span><br>
-                    <span class="white-text">Cantidad de Oro Promedio: </span><span id="mostPlayedChampGold" class="yellow-text">18k</span><br>
+                    <span class="white-text">Cantidad de Partidas: </span><span id="mostPlayedChampMatchesCount" class="blue-text">aaa</span><br>
+                    <span class="white-text">Cantidad de Victorias: </span><span id="mostPlayedChampMatchesWinCount" class="green-text">aaa</span><br>
+                    <span class="white-text">Cantidad de Derrotas: </span><span id="mostPlayedChampMatchesLooseCount" class="red-text">aaa</span><br>
+                    <span class="white-text">Índice de KDA: </span><span id="mostPlayedChampKdaRatio" class="blue-text">aaa</span><br>
+                    <span class="white-text">Cantidad de Asesinatos Promedio: </span><span id="mostPlayedChampKills" class="green-text">aaa</span><br>
+                    <span class="white-text">Cantidad de Muertes Promedio: </span><span id="mostPlayedChampDeaths" class="red-text">aaa</span><br>
+                    <span class="white-text">Cantidad de Asistencias Promedio: </span><span id="mostPlayedChampAssist" class="blue-text">aaa</span><br>
+                    <span class="white-text">Cantidad de Súbidtos Promedio: </span><span id="mostPlayedChampCs" class="purple-text">aaa</span><br>
+                    <span class="white-text">Cantidad de Oro Promedio: </span><span id="mostPlayedChampGold" class="yellow-text">aaa</span><br>
                 </div>
 
             </div>
@@ -300,4 +302,32 @@
 {% block tabs %}
 {% endblock %}
 {% block scripts %}
+<!-- <script>
+
+$(document).ready(function(){
+    var data={
+        csrfmiddlewaretoken: '{{ csrf_token }}',
+        id:'{{post.id}}',
+        nombre:$('#name').val(),
+        mensaje:$('#message').val(),
+    }
+    $.ajax({
+        type: "POST",
+        url: "{% url 'profileApp:profileByName' region='las' summoner='sadjockerking' %}",
+        data: data,
+        dataType: "json",
+        success: function(result){
+            console.log(result)
+            // $("#comentarios").prepend("<h5>"+result.nombre+"</h5><small>"+result.fecha+"</small><p>"+result.mensaje+"</p><hr>");
+        },
+        error: function(err){
+            console.log("Error");
+            console.log(err.responseText);
+        },
+    });
+
+
+});
+
+</script> -->
 {% endblock %}
