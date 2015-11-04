@@ -52,7 +52,7 @@ se muestran elementos que debe haber necesariamente en cada página, si es neces
 - porcentaje de victorias en ranked: summonerWinrate
 
 *most played champ info*: "mostPlayedChampInfo"
-- imagen (icono): mostPlayedChampImg
+- imagen (id del champ): mostPlayedChampId
 - nombre: mostPlayedChampName
 - cantidad de jugada: mostPlayedChampMatchesCount
 - cantidad de victorias: mostPlayedChampMatchesWinCount
@@ -141,9 +141,8 @@ lista de 5
 	- isReciente: summonerLeagueTabPListIsRecent
 	- isEnRacha: summonerLeagueTabPListIsOnFire
 	- wins: summonerLeagueTabPListWins
-	- cantidad de partidas que tiene que jugar para pasar de liga:summonerLeagueTabPListMatchCount
-	- cantidad ganadas: summonerLeagueTabPListWinCount
-	- cantidad perdidas: summonerLeagueTabPListLoseCount
+	- lista de partidas para promo: summonerLeagueTabPPromo
+		- Tiene una lista de largo de la cantidad de partidas que tiene que jugar, con el string "1" si la gano, "0", si la perdio, o "N" si no la jugo
 - lista de el resto: summonerLeagueTabList
 	- rank de sumoner en la liga: summonerLeagueTabListRank
 	- change: summonerLeagueTabListChange
@@ -241,7 +240,7 @@ lista de
 
 ###conectados
 lista de:
-	- 
+	-
 ###mensajes sin leer
 
 #**(No tocar)Contactos**  
