@@ -81,46 +81,40 @@
             </div>
             <div style="display: none;" id="tabLeague" class="blue col s12">
                 <div class="row center">
-                    <div class="row center"><img id="summonerLeagueTabImg" src="{% static 'img/' %}{{ info.league.summonerLeagueTabRank }}_{{ info.league.summonerLeagueTabDivision }}.png"/></div>
+                    <div class="row center">
+                        <img id="summonerLeagueTabImg" src="{% static 'img/' %}{{ info.league.summonerLeagueTabRank }}_{{ info.league.summonerLeagueTabDivision }}.png"/>
+                    </div>
                     <div class="mid row center"><span id="summonerLeagueTabName" class="white-text large-text">
-                        <span id="summonerLeagueTabRank">{{ info.league.summonerLeagueTabRank }}</span>
-                        <a id="summonerLeagueTabDivision" class='darkblue dropdown-button btn' href='#' data-activates='dropdown1'>{{ info.league.summonerLeagueTabDivision }}</a>
-                        <ul id='dropdown1' class='darkblue dropdown-content'>
-                            <li><a class="white-text center" href="#!">I</a></li>
-                            <li><a class="white-text center" href="#!">II</a></li>
-                            <li><a class="white-text center" href="#!">III</a></li>
-                            <li><a class="white-text center" href="#!">IV</a></li>
-                            <li><a class="white-text center" href="#!">V</a></li>
-                        </ul>
-
+                        <span id="summonerLeagueTabRank">{{ info.league.summonerLeagueTabRank }} {{ info.league.summonerLeagueTabDivision }}</span>
                     </span><br>
                     <span id="summonerLeagueTabName" class="white-text large-text">{{ info.league.summonerLeagueTabName }}</span>
-                </div></div>
-                <table id="summonerLeagueTabPList" class="card blue white-text responsive-table striped centered">
-                    <thead>
-                        <tr>
-                            <th data-field="summonerLeagueTabPListChange">Cambio</th>
-                            <th data-field="summonerLeagueTabPListRank">Rank</th>
-                            <th data-field="summonerLeagueTabPListSummoner">Summoner</th>
-                            <th data-field="summonerLeagueTabPListExtra">Tips</th>
-                            <th data-field="summonerLeagueTabPListWins">Victorias</th>
-                            <th data-field="summonerLeagueTabPPromoInfo">Promoción</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for i in info.league.summonerLeagueTabPList %}
-                        <tr>
-                            <td><i class="material-icons">arrow_drop_up</i>12</td>
-                            <td>{{ i.summonerLeagueTabPListRank }}</td>
-                            <td><img class="listImg mid" src="{% static 'img/' %}{{ i.summonerLeagueTabPListImg }}.png"/><a class="white-text waves-effect" href="#">{{ i.summonerLeagueTabPListName }}</a></td>
-                            <td>
-                                <i class="material-icons {% if i.summonerTabPListIsRecent == "0" %}dark-text{% endif %} tooltipped" data-position="bottom" data-delay="50" data-tooltip="Nuevo en la Liga">star</i>
-                                <i class="material-icons {% if i.summonerTabPListIsOnFire == "0" %}dark-text{% endif %} tooltipped" data-position="bottom" data-delay="50" data-tooltip="Racha de Victorias">call_made</i></td>
+                </div>
+            </div>
+            <table id="summonerLeagueTabPList" class="card blue white-text responsive-table striped centered">
+                <thead>
+                    <tr>
+                        <th data-field="summonerLeagueTabPListChange">Cambio</th>
+                        <th data-field="summonerLeagueTabPListRank">Rank</th>
+                        <th data-field="summonerLeagueTabPListSummoner">Summoner</th>
+                        <th data-field="summonerLeagueTabPListExtra">Tips</th>
+                        <th data-field="summonerLeagueTabPListWins">Victorias</th>
+                        <th data-field="summonerLeagueTabPPromoInfo">Promoción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in info.league.summonerLeagueTabPList %}
+                    <tr>
+                        <td class="left"><i class="left mid material-icons">{% if i.summonerLeagueTabPListChange|toInt >= 0 %}arrow_drop_up{% endif %}{% if i.summonerLeagueTabPListChange|toInt < 0 %}arrow_drop_down{% endif %}</i>{{ i.summonerLeagueTabPListChange }}</td>
+                        <td>{{ i.summonerLeagueTabPListRank }}</td>
+                        <td><img class="left listImg mid" src="{% static 'img/' %}{{ i.summonerLeagueTabPListImg }}.png"/><a class="left white-text waves-effect" href="#">{{ i.summonerLeagueTabPListName }}</a></td>
+                        <td>
+                            <i class="material-icons {% if i.summonerLeagueTabPListIsRecent == "0" %}dark-text{% endif %} tooltipped" data-position="bottom" data-delay="50" data-tooltip="Nuevo en la Liga">star</i>
+                            <i class="material-icons {% if i.summonerLeagueTabPListIsOnFire == "0" %}dark-text{% endif %} tooltipped" data-position="bottom" data-delay="50" data-tooltip="Racha de Victorias">call_made</i></td>
                             <td>{{ i.summonerLeagueTabPListWins }}</td>
                             <td>
                                 {% for j in i.summonerLeagueTabPPromo%}
-                                {% if j == "0" %}<i class="material-icons">done</i>{% endif %}
-                                {% if j == "1" %}<i class="material-icons">close</i>{% endif %}
+                                {% if j == "1" %}<i class="material-icons">done</i>{% endif %}
+                                {% if j == "0" %}<i class="material-icons">close</i>{% endif %}
                                 {% if j == "N" %}<i class="dark-text material-icons">radio_button_unchecked</i>{% endif %}
                                 {% endfor %}
                             </td>
@@ -128,6 +122,7 @@
                         {% endfor %}
                     </tbody>
                 </table>
+
                 <table id="summonerLeagueTabList" class="card blue white-text responsive-table striped centered">
                     <thead>
                         <tr>
@@ -140,80 +135,38 @@
                         </tr>
                     </thead>
                     <tbody>
+                        {% for i in info.league.summonerLeagueTabList %}
                         <tr>
-                            <td><i class="material-icons">arrow_drop_up</i>12</td>
-                            <td>3</td>
-                            <td><img class="listImg mid" src="{% static 'img/612.png' %}"/><a class="white-text waves-effect" href="profile/las/sadjockerking">Sad Jocker King</a></td>
-                            <td><i class="material-icons tooltipped" data-position="bottom" data-delay="50" data-tooltip="Nuevo en la Liga">star</i><i class="material-icons dark-text tooltipped" data-position="bottom" data-delay="50" data-tooltip="Racha de Victorias">call_made</i></td>
-                            <td>149</td>
-                            <td>88 LP</td>
+                            <td class="left"><i class="left mid material-icons">{% if i.summonerLeagueTabListChange|toInt >= 0 %}arrow_drop_up{% endif %}{% if i.summonerLeagueTabListChange|toInt < 0 %}arrow_drop_down{% endif %}</i>{{ i.summonerLeagueTabListChange }}</td>
+                            <td>{{ i.summonerLeagueTabListRank }}</td>
+                            <td><img class="left listImg mid" src="{% static 'img/' %}{{ i.summonerLeagueTabListImg }}.png"/><a class="left white-text waves-effect" href="#">{{ i.summonerLeagueTabListName }}</a></td>
+                            <td>
+                                <i class="material-icons {% if i.summonerLeagueTabListIsRecent == "0" %}dark-text{% endif %} tooltipped" data-position="bottom" data-delay="50" data-tooltip="Nuevo en la Liga">star</i>
+                                <i class="material-icons {% if i.summonerLeagueTabListIsOnFire == "0" %}dark-text{% endif %} tooltipped" data-position="bottom" data-delay="50" data-tooltip="Racha de Victorias">call_made</i>
+                            </td>
+                            <td>{{ i.summonerLeagueTabListWins }}</td>
+                            <td>{{ i.summonerLeagueTabListLP }} LP</td>
                         </tr>
-                        <tr>
-                            <td><i class="material-icons">arrow_drop_up</i>12</td>
-                            <td>4</td>
-                            <td><img class="listImg mid" src="{% static 'img/612.png' %}"/><a class="white-text waves-effect" href="profile/las/sadjockerking">Sad Jocker King</a></td>
-                            <td><i class="material-icons tooltipped" data-position="bottom" data-delay="50" data-tooltip="Nuevo en la Liga">star</i><i class="material-icons dark-text tooltipped" data-position="bottom" data-delay="50" data-tooltip="Racha de Victorias">call_made</i></td>
-                            <td>149</td>
-                            <td>88 LP</td>
-                        </tr>
-                        <tr>
-                            <td><i class="material-icons">arrow_drop_up</i>12</td>
-                            <td>5</td>
-                            <td><img class="listImg mid" src="{% static 'img/612.png' %}"/><a class="white-text waves-effect" href="profile/las/sadjockerking">Sad Jocker King</a></td>
-                            <td><i class="material-icons tooltipped" data-position="bottom" data-delay="50" data-tooltip="Nuevo en la Liga">star</i><i class="material-icons dark-text tooltipped" data-position="bottom" data-delay="50" data-tooltip="Racha de Victorias">call_made</i></td>
-                            <td>149</td>
-                            <td>88 LP</td>
-                        </tr>
-                        <tr>
-                            <td><i class="material-icons">arrow_drop_up</i>12</td>
-                            <td>6</td>
-                            <td><img class="listImg mid" src="{% static 'img/612.png' %}"/><a class="white-text waves-effect" href="profile/las/sadjockerking">Sad Jocker King</a></td>
-                            <td><i class="material-icons tooltipped" data-position="bottom" data-delay="50" data-tooltip="Nuevo en la Liga">star</i><i class="material-icons dark-text tooltipped" data-position="bottom" data-delay="50" data-tooltip="Racha de Victorias">call_made</i></td>
-                            <td>149</td>
-                            <td>88 LP</td>
-                        </tr>
-                        <tr>
-                            <td><i class="material-icons">arrow_drop_up</i>12</td>
-                            <td>7</td>
-                            <td><img class="listImg mid" src="{% static 'img/612.png' %}"/><a class="white-text waves-effect" href="profile/las/sadjockerking">Sad Jocker King</a></td>
-                            <td><i class="material-icons tooltipped" data-position="bottom" data-delay="50" data-tooltip="Nuevo en la Liga">star</i><i class="material-icons dark-text tooltipped" data-position="bottom" data-delay="50" data-tooltip="Racha de Victorias">call_made</i></td>
-                            <td>149</td>
-                            <td>88 LP</td>
-                        </tr>
-                        <tr>
-                            <td><i class="material-icons">arrow_drop_up</i>12</td>
-                            <td>8</td>
-                            <td><img class="listImg mid" src="{% static 'img/612.png' %}"/><a class="white-text waves-effect" href="profile/las/sadjockerking">Sad Jocker King</a></td>
-                            <td><i class="material-icons tooltipped" data-position="bottom" data-delay="50" data-tooltip="Nuevo en la Liga">star</i><i class="material-icons dark-text tooltipped" data-position="bottom" data-delay="50" data-tooltip="Racha de Victorias">call_made</i></td>
-                            <td>149</td>
-                            <td>88 LP</td>
-                        </tr>
-                        <tr>
-                            <td><i class="material-icons">arrow_drop_up</i>12</td>
-                            <td>9</td>
-                            <td><img class="listImg mid" src="{% static 'img/612.png' %}"/><a class="white-text waves-effect" href="profile/las/sadjockerking">Sad Jocker King</a></td>
-                            <td><i class="material-icons tooltipped" data-position="bottom" data-delay="50" data-tooltip="Nuevo en la Liga">star</i><i class="material-icons dark-text tooltipped" data-position="bottom" data-delay="50" data-tooltip="Racha de Victorias">call_made</i></td>
-                            <td>149</td>
-                            <td>88 LP</td>
-                        </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
                 <br>
             </div>
             <div style="display: none;" id="tabHistory" class="blue col s12">
+                {% for i in info.history %}
                 <div class="darkblue card white-text col s12 historyCard">
-                    <div id="isWin" class="green hLabel"></div>
+                    <div id="isWin" class="{% if i.isWin == "1" %}green{% endif %}{% if i.isWin == "0" %}red{% endif %} hLabel"></div>
                     <div class="hImg">
-                        <div id="hImg" style="text-align:center;padding-top:74px;width:96px;height:96px;background: transparent none repeat scroll center center / 100px auto;background-image: url('{% static 'img/hRiven.png' %}');">
-                            <div style="width:100%;background-color:rgba(0,0,0,0.5);"><a id="hChamp" class="white-text" href="#">Riven</a></div>
+                        <div id="hImg" style="text-align:center;padding-top:74px;width:96px;height:96px;background: transparent none repeat scroll center center / 100px auto;background-image: url('{% static 'img/' %}h{{i.champId}}.png');">
+                            <div style="width:100%;background-color:rgba(0,0,0,0.5);"><a id="hChamp" class="white-text" href="#">{{i.champName|title}}</a></div>
                         </div>
                     </div>
                     <div class="hSum">
-                        <img id="hSum1" style="width:45px;height:45px;" src="{% static 'img/SummonerFlash.png' %}"/><br>
-                        <img id="hSum2" style="width:45px;height:45px;" src="{% static 'img/SummonerTeleport.png' %}"/>
+                        <img id="hSum1" style="width:45px;height:45px;" src="{% static 'img/' %}s{{i.spell1}}.png"/><br>
+                        <img id="hSum2" style="width:45px;height:45px;" src="{% static 'img/' %}s{{i.spell2}}.png"/>
                     </div>
                     <div class="hMatch">
-                        <h4 id="hWinText" class="truncate"><span class="green-text">Victoria</span></h4>
+                        <h4 id="hWinText" class="truncate">{% if i.isWin == "1" %}<span class="green-text">Victoria</span>{% endif %}{% if i.isWin == "0" %}<span class="red-text">Derrota</span>{% endif %}</h4>
                         <h6 id="hMap" class="truncate"><strong>La Grieta del Invocador</strong></h6>
                         <p id="hType" class="truncate"><span>Normal (Selección Oculta)</span></p>
                     </div>
@@ -244,6 +197,7 @@
 
 
                 </div>
+                {% endfor %}
             </div>
             <div style="display: none;" id="tabRunes" class="blue col s12">
 
@@ -294,32 +248,4 @@
 {% block tabs %}
 {% endblock %}
 {% block scripts %}
-<!-- <script>
-
-$(document).ready(function(){
-    var data={
-        csrfmiddlewaretoken: '{{ csrf_token }}',
-        id:'{{post.id}}',
-        nombre:$('#name').val(),
-        mensaje:$('#message').val(),
-    }
-    $.ajax({
-        type: "POST",
-        url: "{% url 'profileApp:profileByName' region='las' summoner='sadjockerking' %}",
-        data: data,
-        dataType: "json",
-        success: function(result){
-            console.log(result)
-            // $("#comentarios").prepend("<h5>"+result.nombre+"</h5><small>"+result.fecha+"</small><p>"+result.mensaje+"</p><hr>");
-        },
-        error: function(err){
-            console.log("Error");
-            console.log(err.responseText);
-        },
-    });
-
-
-});
-
-</script> -->
 {% endblock %}

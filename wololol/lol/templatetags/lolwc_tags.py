@@ -2,6 +2,11 @@ from django import template
 
 register = template.Library()
 
+
+@register.filter()
+def toInt(value):
+    return int(value)
+
 @register.filter
 def getItem(dictionary, key):
     return dictionary

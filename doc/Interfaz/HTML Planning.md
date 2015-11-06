@@ -151,12 +151,13 @@ lista de 5
 	- isRecienteenliga: summonerLeagueTabListIsRecent
 	- isEnRacha: summonerLeagueTabListIsOnFire
 	- wins: summonerLeagueTabListWins
-	- puntos(LP): summonerLeagueTabPListLP
+	- puntos(LP): summonerLeagueTabListLP
 
 ###history: "history"
 lista de
 - victoria o derrota: isWin
 - id del campeón: champId
+- nombre del campeon: champName
 - (#)imagen del champ: champImg
 - (#)link del champ:
 - level del champ: champLvl
@@ -166,12 +167,11 @@ lista de
 - (#)link spell1
 - (#)img spell2: spell2
 - (#)link spell2
-
 - tipo de juego: gameType (CUSTOM - MATCHED)
 - modo de juego: gameMode (CLASSIC - ARAM)
 - subtipo de juego: gameSubType (NORMAL - BOT)
-- mapa: map
-- duracion de partida: timePlayed
+- mapa(en base de datos id, devuelve nombre): map
+- duracion de partida(en base timestamp devuelve lista de minutos y segundos): timePlayed=[4,2]
 - pi ganados: piEarned
 - kills: kills
 - deaths: deaths
