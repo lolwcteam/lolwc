@@ -656,7 +656,7 @@ res = {
         "summonerDeaths":"9.5",
         "summonerAssists":"3.1",
         "summonerKdaRatio":"3.66",
-        "summonerWinrate":"55%",
+        "summonerWinrate":"55",
     },
     "mostPlayedChampInfo":{
         "mostPlayedChampId":"92",

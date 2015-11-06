@@ -36,12 +36,12 @@ def getSummonerInfo(summoner = None, idSum = None, region = None):
 #inicio PETICIONES
     me = riotWatcher.get_summoner(name=summoner)
     summonerName = me['name']
-    summonerImg = riotWatcher.get_summoner_profileIconId(summonerName)
+    summonerImg = get_summoner_profileIconId(summonerName)
     #pidiendo Liga
     try:
         summonerLeagueInfo = riotWatcher.get_league_entry([str(me['id'])])
         summonerLeague = summonerLeagueInfo[str(me['id'])][0]['tier']
-        summonerDivision = summonerLeagueInfo[str(me['id'])][0]['entries'][0]['summonerDivision']
+        summonerDivision = summonerLeagueInfo[str(me['id'])][0]['entries'][0]['division']
     except(LoLException):
         summonerLeague = "unRanked"
         summonerDivision = "unRanked"
@@ -71,10 +71,21 @@ def getSummonerInfo(summoner = None, idSum = None, region = None):
         summonerDeaths = '0'
         summonerAssists = '0'
         summonerWinrate = '0'
-    baseDatos = SummonerInfo(summonerImg = str('summonerImg'),summonerName = str('summonerName'),summonerLeague = str('summonerLeague'),summonerDivision = str('summonerDivision'),summonerKills = str('summonerKills'),summonerDeaths = str('summonerDeaths'),summonerAssists = str('summonerAssists'),summonerWinrate = str('summonerWinrate'))
+    baseDatos = SummonerInfo(summonerImg = str(summonerImg),summonrName = str(summonerName),summonerLeague = str(summonerLeague),summonerDivision = str(summonerDivision),summonerKills = str(summonerKills),summonerDeaths = str(summonerDeaths),summonerAssists = str(summonerAssists),summonerWinrate = str(summonerWinrate))
     baseDatos.save()
     
 #final PETICIONES
 #inicio RETURNS
     return
 #final RETURNS
+
+
+def get_summoner_profileIconId(self, name=None, _id=None, region=None):
+    if (name is None) != (_id is None):
+        if name is not None:
+            name = self.sanitized_name(name)
+            return self.get_summoners(names=[name, ], region=region)[profileIconId]
+        else:
+            name = self.get_summoners(ids=[_id, ], region=region)[str(_id)]
+            return self.get_summoners(names=[name, ], region=region)[profileIconId]
+    return None

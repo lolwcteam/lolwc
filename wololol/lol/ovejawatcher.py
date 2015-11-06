@@ -13,7 +13,7 @@ from riotwatcher import OCEANIA
 from riotwatcher import RUSSIA
 from riotwatcher import TURKEY
 
-riotWatcher = RiotWatcher("9e3c8aec-25d1-4241-ab69-b8b65393e5e0", default_region=LATIN_AMERICA_SOUTH)
+riotWatcher = RiotWatcher("c8587cc1-abdf-4911-8d19-d3802e2800d0", default_region=LATIN_AMERICA_SOUTH)
 i = 0
 
 def getSummonerInfo(summoner = None, idSum = None, region = None):
@@ -36,12 +36,12 @@ def getSummonerInfo(summoner = None, idSum = None, region = None):
 #inicio PETICIONES
     me = riotWatcher.get_summoner(name=summoner)
     summonerName = me['name']
-    summonerImg = riotWatcher.get_summoner_profileIconId(summonerName)
+    summonerImg = get_summoner_profileIconId(name = summonerName)
     #pidiendo Liga
     try:
         summonerLeagueInfo = riotWatcher.get_league_entry([str(me['id'])])
         summonerLeague = summonerLeagueInfo[str(me['id'])][0]['tier']
-        summonerDivision = summonerLeagueInfo[str(me['id'])][0]['entries'][0]['summonerDivision']
+        summonerDivision = summonerLeagueInfo[str(me['id'])][0]['entries'][0]['division']
     except(LoLException):
         summonerLeague = "unRanked"
         summonerDivision = "unRanked"
@@ -56,10 +56,10 @@ def getSummonerInfo(summoner = None, idSum = None, region = None):
             kills += rankedst['champions'][x]['stats']['totalChampionKills']
             deaths += rankedst['champions'][x]['stats']['totalDeathsPerSession']
         matchs = wins + losses
-        summonerKills = kills/matchs
-        summonerDeaths = deaths/matchs
-        summonerAssists = assists/matchs
-        summonerWinrate = wins/matchs
+        summonerKills = round(float(kills)/float(matchs), 2)
+        summonerDeaths = round(float(deaths)/float(matchs), 2)
+        summonerAssists = round(float(assists)/float(matchs), 2)
+        summonerWinrate = int(round(float(wins)/float(matchs), 0)*100)
     except(IndexError, LoLException):
         kills = '0'
         assists = '0'
@@ -71,10 +71,20 @@ def getSummonerInfo(summoner = None, idSum = None, region = None):
         summonerDeaths = '0'
         summonerAssists = '0'
         summonerWinrate = '0'
-    baseDatos = SummonerInfo(summonerImg = str('summonerImg'),summonerName = str('summonerName'),summonerLeague = str('summonerLeague'),summonerDivision = str('summonerDivision'),summonerKills = str('summonerKills'),summonerDeaths = str('summonerDeaths'),summonerAssists = str('summonerAssists'),summonerWinrate = str('summonerWinrate'))
+    baseDatos = SummonerInfo(summonerImg = str(summonerImg),summonerName = str(summonerName),summonerLeague = str(summonerLeague),summonerDivision = str(summonerDivision),summonerKills = str(summonerKills),summonerDeaths = str(summonerDeaths),summonerAssists = str(summonerAssists),summonerWinrate = str(summonerWinrate) )
     baseDatos.save()
     
 #final PETICIONES
 #inicio RETURNS
-    return
+    return 
 #final RETURNS
+
+
+def get_summoner_profileIconId(name=None, _id=None, region='las'):
+    if (name is None) != (_id is None):
+        if name is not None:
+            return get_summoners(names=[name, ], region=region)[profileIconId]
+        else:
+            name = get_summoners(ids=[_id, ], region=region)[str(_id)]
+            return get_summoners(names=[name, ], region=region)[profileIconId]
+    return None
