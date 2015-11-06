@@ -94,7 +94,7 @@ dt{font-weight:bold;line-height:17px;}
 dd{margin-left:9px;}
 .dl-horizontal dt{float:left;clear:left;width:120px;text-align:right;}
 .dl-horizontal dd{margin-left:130px;}
-hr{margin:18px 0;border:0;border-top:1px solid #eeeeee;border-bottom:1px solid #ffffff;}
+hr{margin:5px 0;border:0;border-top:1px solid #eeeeee;border-bottom:1px solid #ffffff;}
 strong{font-weight:bold;}
 em{font-style:italic;}
 .muted{color:#999999;}

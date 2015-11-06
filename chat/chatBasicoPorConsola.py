@@ -272,27 +272,27 @@ while conn.isConnected():
         for i in range(len(conectadosJid)):
             print("\tJid: "+unicode(conectadosJid[i]))
             print("\tSummoner: "+unicode(conectadosName[i]))
-            #print("\tEstado de Chat: "+unicode(conectadosChatEstado[i]))
-            #print("\tEstado: "+unicode(conectadosEstado[i]))
-            #print("\tJugando: "+unicode(conectadosChamp[i]))
-            #print("\tTipo de Cola: "+unicode(conectadosTipoDeCola[i]))
-            #print("\tChamp Score: "+unicode(conectadosChampScore[i]))
-            #print("\tRanked League Queue: "+unicode(conectadosRankedLeagueQueue[i]))
-            #print("\tVictorias en Ranked: "+unicode(conectadosRankedWins[i]))
-            #print("\tGame Queue Type: "+unicode(conectadosGameQueueType[i]))
-            #if conectadosTiempo[i]:
-                #minutos = unicode((time.time() - float(conectadosTiempo[i][0:10]+"."+conectadosTiempo[i][10:13]))/60)+" minutos"
-            #else:
-                #minutos = "---"
+            print("\tEstado de Chat: "+unicode(conectadosChatEstado[i]))
+            print("\tEstado: "+unicode(conectadosEstado[i]))
+            print("\tJugando: "+unicode(conectadosChamp[i]))
+            print("\tTipo de Cola: "+unicode(conectadosTipoDeCola[i]))
+            print("\tChamp Score: "+unicode(conectadosChampScore[i]))
+            print("\tRanked League Queue: "+unicode(conectadosRankedLeagueQueue[i]))
+            print("\tVictorias en Ranked: "+unicode(conectadosRankedWins[i]))
+            print("\tGame Queue Type: "+unicode(conectadosGameQueueType[i]))
+            if conectadosTiempo[i]:
+                minutos = unicode((time.time() - float(conectadosTiempo[i][0:10]+"."+conectadosTiempo[i][10:13]))/60)+" minutos"
+            else:
+                minutos = "---"
 
-            #print("\tDurante: "+ minutos + " > " + unicode(conectadosTiempo[i]))
-            #print("\tIcono: "+unicode(conectadosIcono[i]))
-            #print("\tMensaje: "+unicode(conectadosMensaje[i]))
-            #print("\tLevel: "+unicode(conectadosLevel[i]))
-            #print("\tLiga: "+unicode(conectadosLiga[i]))
-            #print("\tDivision: "+unicode(conectadosDivision[i]))
-            #print("\tNombre de Liga: "+unicode(conectadosLigaNombre[i]))
-            #print("\tVictorias: "+unicode(conectadosVictorias[i]))
+            print("\tDurante: "+ minutos + " > " + unicode(conectadosTiempo[i]))
+            print("\tIcono: "+unicode(conectadosIcono[i]))
+            print("\tMensaje: "+unicode(conectadosMensaje[i]))
+            print("\tLevel: "+unicode(conectadosLevel[i]))
+            print("\tLiga: "+unicode(conectadosLiga[i]))
+            print("\tDivision: "+unicode(conectadosDivision[i]))
+            print("\tNombre de Liga: "+unicode(conectadosLigaNombre[i]))
+            print("\tVictorias: "+unicode(conectadosVictorias[i]))
             print("")
         print("------------------------")
         print("Ingrese contacto y mensaje para enviar con un guion entre medio\n>")

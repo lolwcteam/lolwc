@@ -503,6 +503,8 @@ table.striped > tbody > tr:nth-child(odd) {
 }
 
 hr {
+    margin-top: 0px;
+    margin-bottom: 5px;
     border: 0;
     width: 80%;
     height: 2px;
@@ -519,4 +521,33 @@ hr {
     height:96px;
     background: transparent none repeat scroll center center / 100px auto;
     background-image: url('img/hRiven.png');
+}
+
+
+
+.chatImg {
+    width: 40px;
+    border-radius: 20px;
+    padding-top: 5px;
+}
+
+.nameChat {
+    margin-top: -5px;
+    color:cyan;
+}
+
+.messageChat {
+    color:white;
+}
+
+.messageChat {
+    color:white;
+}
+
+#chatBox {
+    color:white;
+}
+
+#nameChat {
+    margin-top: -10px;
 }
