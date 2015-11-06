@@ -228,7 +228,7 @@ lista de
 
 ###estado del usuario
 - id del invocador: id
-- Estado de coneccion (chat, dnd (do not disturb) y away): statusChat
+- Estado de conexion (chat, dnd (do not disturb) y away): statusChat
 - Nombre de invocador: name
 - numero de icono de perfil: profileIcon
 - level: level
@@ -240,8 +240,20 @@ lista de
 
 ###conectados
 lista de:
-	-
-###mensajes sin leer
+    - id del invocador: id
+    - Estado de conexion (chat, dnd (do not disturb) y away): statusChat
+    - Nombre de invocador: name
+    - numero de icono de perfil: profileIcon
+    - level: level
+    - champion Mastery Score: championMasteryScore
+    - mensaje de estado: statusMsg
+    - Nombre de la liga, Leona Urfriders, etc: rankedLeagueName
+    - Division de liga: rankedLeagueDivision
+    - Liga solo queue, BRONZE, GOLD: rankedLeagueTier
+    - skinname #si inGame, el champ jugado  
+    - gameQueueType #?Generalmente dice NORMAL  
+    - gameStatus #inGame, outOfGame, champSelect, hostingNormalGame  
+    - timeStamp #?si inGame, timestamp de cuando empezo, si no INDEFINIDO  ###mensajes sin leer
 
 #**(No tocar)Contactos**  
 - friends = []  

@@ -43,28 +43,36 @@
 
         <div class="section">
             <div class="container">
-                <div class="card darkblue row">
-                    <div style="display: block;" id="tabProfile" class="blue col s12">
+                <div class="darkblue row">
+                    <div style="display: block;" id="chat" class="darkblue col s12">
 
-                        <div class="card lightblue text-white col s4">
-                            <div class="card blue text-white col s12">
-                                <img class="chatImg" src="img/612.png" width="40px"/>
-                                <span id="nameChat" class="nameChat">Adriex</span>
-                            </div>
-                            <div class="card blue text-white col s12">
-                                <img class="chatImg" src="img/612.png" width="40px"/>
-                                <span id="nameChat" class="nameChat">Adriex</span>
-                            </div>
-                            <div class="card blue text-white col s12">
-                                <img class="chatImg" src="img/612.png" width="40px"/>
-                                <span id="nameChat" class="nameChat">Adriex</span>
-                            </div>
-                            <div class="card blue text-white col s12">
-                                <img class="chatImg" src="img/612.png" width="40px"/>
-                                <span id="nameChat" class="nameChat">Adriex</span>
-                            </div>
+                        <div style="overflow-y: scroll;" id="contactos" class="darkblue text-white col s4">
+                            <ul class="collapsible" data-collapsible="accordion" style="border:0px;">
+                                
+                                <li class="borderBlue">
+                                    <div class="collapsible-header blue borderBlue">
+                                        <img class="mid chatImg" src="img/612.png" width="40px"/>
+                                        <span class="white-text nameChat">Adriex</span>
+                                        <span>   </span><span>Gold</span><span> </span>
+                                        <span>1</span>
+                                    </div>
+                                    <div class="collapsible-body borderBlue white-text" style="padding:10px">
+                                        <img src="img/92.png" class="right" width="40px" style="border-radius:40px"/>
+                                        <span>Estado: </span>
+                                        <span>Online</span>
+                                        <span>Offline</span>
+                                        <span>Occupied</span><br>
+                                        <span>Nivel: </span><span>30</span><br>
+                                        <span>Score: </span><span>280</span><br>
+                                        <span>Liga: </span><span>Adriex's Army</span><br>
+                                        <span>gameQueueType: </span><span>NORMAL</span><br>
+                                        <span>Status: </span><span>InPlay</span><br>
+                                        <span>Time Played: </span><span>20 horas</span><br>
+                                        <span>Msg: </span><span>"LA ZERRDDA!"</span><br>
+                                    </div>
+                                </li>
                         </div>                      
-                        <div class="card blue text-white col s8">
+                        <div id="conversacion" style="overflow-y:scroll;" class="card blue text-white col s8">
                             <div class="section">
                                 <span class="nameChat">Adriex</span><br>
                                 <span class="messageChat">Hola!</span>
@@ -81,9 +89,11 @@
                             </div>
                             <hr>
                         </div>
-                        <div class="input-field col s8 offset-s4">
-                            <input id="chatBox" class="col s10"type="text">
-                            <a class="btn-floating btn-large waves-effect waves-light lightblue right"><i class="material-icons">call_made</i></a>
+                        <div id="inputChat" class="blue input-field">
+                            <input id="chatBox" class="col s7" type="text">
+                            <a class="btn-floating lightblue btn-flat waves-effect waves-light right">
+                                <i class="material-icons">send</i>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -138,4 +148,10 @@
 
         <div class="hiddendiv common"></div><div style="left: 0px;" class="drag-target"></div>
     </body>
+    <script>
+        $("#chat").height($( window ).height()-100);
+        $("#contactos").height($( window ).height()-100);
+        $("#conversacion").height($( window ).height()-155);
+
+    </script>
 </html>

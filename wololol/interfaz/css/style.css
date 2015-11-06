@@ -523,12 +523,10 @@ hr {
     background-image: url('img/hRiven.png');
 }
 
-
-
 .chatImg {
     width: 40px;
     border-radius: 20px;
-    padding-top: 5px;
+    padding: 5px;
 }
 
 .nameChat {
@@ -550,4 +548,39 @@ hr {
 
 #nameChat {
     margin-top: -10px;
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+    
+}
+::-webkit-scrollbar-thumb {
+    background-color: #053A65;
+    border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background-color: #2196f3;
+}
+scrollbar {
+/*  clear useragent default style*/
+   -moz-appearance: none !important;
+}
+/* buttons at two ends */
+scrollbarbutton {
+   -moz-appearance: none !important;
+}
+/* the sliding part*/
+thumb{
+   -moz-appearance: none !important;
+}
+scrollcorner {
+   -moz-appearance: none !important;
+   resize:both;
+}
+/* vertical or horizontal */
+scrollbar[orient="vertical"] {
+    color:silver;
+}
+.borderBlue {
+    border-color:#04242f;
 }
