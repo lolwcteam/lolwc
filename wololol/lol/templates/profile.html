@@ -167,31 +167,32 @@
                     </div>
                     <div class="hMatch">
                         <h4 id="hWinText" class="truncate">{% if i.isWin == "1" %}<span class="green-text">Victoria</span>{% endif %}{% if i.isWin == "0" %}<span class="red-text">Derrota</span>{% endif %}</h4>
-                        <h6 id="hMap" class="truncate"><strong>La Grieta del Invocador</strong></h6>
-                        <p id="hType" class="truncate"><span>Normal (Selección Oculta)</span></p>
+                        <h6 id="hMap" class="truncate"><strong>{{ i.map }}</strong></h6>
+                        <p id="hType" class="truncate"><span>{{ i.gameSubType }}</span></p>
                     </div>
                     <div class="hStats">
                         <div class="truncate" style="width:100%;height:49px;">
-                            <img id="item1" style="heigh:49px;width:49px" src="{% static 'img/item1.png' %}"/>
-                            <img id="item2" style="heigh:49px;width:49px" src="{% static 'img/item2.png' %}"/>
-                            <img id="item3" style="heigh:49px;width:49px" src="{% static 'img/item3.png' %}"/>
-                            <img id="item4" style="heigh:49px;width:49px" src="{% static 'img/item4.png' %}"/>
-                            <img id="item5" style="heigh:49px;width:49px" src="{% static 'img/item5.png' %}"/>
-                            <img id="item6" style="heigh:49px;width:49px" src="{% static 'img/item3.png' %}"/>
-                            <img id="item7" style="heigh:49px;width:49px" src="{% static 'img/item2.png' %}"/>
+                            <img id="item1" style="heigh:49px;width:49px" src="{% static 'img/' %}{{ i.item1 }}.png"/>
+                            <img id="item2" style="heigh:49px;width:49px" src="{% static 'img/' %}{{ i.item2 }}.png"/>
+                            <img id="item3" style="heigh:49px;width:49px" src="{% static 'img/' %}{{ i.item3 }}.png"/>
+                            <img id="item4" style="heigh:49px;width:49px" src="{% static 'img/' %}{{ i.item4 }}.png"/>
+                            <img id="item5" style="heigh:49px;width:49px" src="{% static 'img/' %}{{ i.item5 }}.png"/>
+                            <img id="item6" style="heigh:49px;width:49px" src="{% static 'img/' %}{{ i.item6 }}.png"/>
+                            <img id="item7" style="heigh:49px;width:49px" src="{% static 'img/' %}{{ i.item7 }}.png"/>
                         </div>
                         <div class="truncate" style="width:100%;height:49px;">
                             <br>
-                            <strong class="col l4 s4 m4 row center large-text"><i class="mid material-icons">assessment</i><span id="hKills">3</span>/<span id="hDeaths">5</span>/<span id="hAssists">12</span></strong>
-                            <strong class="col l4 s4 m4 row center large-text"><i class="mid material-icons">attach_money</i><span id="hGold">17</span>k</strong>
-                            <strong class="col l4 s4 m4 row center large-text"><i class="mid material-icons">turned_in_not</i><span id="hCreeps">235</span></strong>
+                            <strong class="col l4 s4 m4 row center large-text"><i class="mid material-icons">assessment</i><span id="hKills">{{ i.kills }}</span>/<span id="hDeaths">{{ i.deaths }}</span>/<span id="hAssists">{{ i.assists }}</span></strong>
+                            <strong class="col l4 s4 m4 row center large-text"><i class="mid material-icons">attach_money</i><span id="hGold">{{ i.goldGained }}</span>k</strong>
+                            <strong class="col l4 s4 m4 row center large-text"><i class="mid material-icons">turned_in_not</i><span id="hCreeps">{{ i.creepScore }}</span></strong>
                         </div>
 
                     </div>
                     <div class="hInfo">
-                        <strong class="center mid-text"><i class="mid material-icons">timer</i>24:15</strong><br><br>
-                        <strong class="center mid-text"><i class="mid material-icons">access_time</i>19/08/2015</strong><br><br>
-                        <strong class="center mid-text"><i class="mid material-icons">trending_up</i>128 PI</strong>
+                        <strong class="center mid-text"><i class="mid material-icons">timer</i>24:15</strong><br>
+                        <strong class="center mid-text"><i class="mid material-icons">access_time</i>{{ i.createDate }} </strong><br>
+                        <strong class="left mid-text">>>>{{ i.createTime }}</strong><br>
+                        <strong class="left mid-text"><i class="mid material-icons">trending_up</i>{{ i.ipEarned }}</strong>
 
                     </div>
 

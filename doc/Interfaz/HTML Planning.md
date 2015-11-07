@@ -172,13 +172,14 @@ lista de
 - subtipo de juego: gameSubType (NORMAL - BOT)
 - mapa(en base de datos id, devuelve nombre): map
 - duracion de partida(en base timestamp devuelve lista de minutos y segundos): timePlayed=[4,2]
-- pi ganados: piEarned
+- pi ganados: ipEarned
 - kills: kills
 - deaths: deaths
 - asssists: assists
 - oro: goldGained
 - creeps(suma de neutralMinionsKilled + minionsKilled de la api): creepScore
-- timestamp de inicio de partida: createDate
+- timestamp de inicio de partida(timestamp en BD, devuelve texto formateado): createDate
+- hora de inicio de partida(no va en la base de datos, devuelve texto formateado): createTime
 - (#)imagen item1:
 - (#)link item1:
 - item 1: item1
