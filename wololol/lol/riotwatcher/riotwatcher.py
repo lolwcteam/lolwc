@@ -1107,6 +1107,7 @@ def getApiSummoner(summoner = None, idSum = None, region = None):
     #Pedir toda la informacion a la api
     #Formatearla al diccionario y devolverla
     global res
+    print str(res)
     return res
 
 def getCacheSummoner(summoner = None, idSum = None, region = None):
@@ -1114,14 +1115,5 @@ def getCacheSummoner(summoner = None, idSum = None, region = None):
     #Si esta devolverlo
     #Si no devolver None
     global res
+    print str(res)
     return res
-
-def get_summoner_profileIconId(self, name=None, _id=None, region=None):
-    if (name is None) != (_id is None):
-        if name is not None:
-            name = self.sanitized_name(name)
-            return self.get_summoners(names=[name, ], region=region)[profileIconId]
-        else:
-            name = self.get_summoners(ids=[_id, ], region=region)[str(_id)]
-            return self.get_summoners(names=[name, ], region=region)[profileIconId]
-    return None

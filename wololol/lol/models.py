@@ -1,6 +1,8 @@
 from django.db import models
 
 class SummonerInfo(models.Model):
+    summonerId = models.TextField(u'id del summoner', primary_key=True)
+    summonerRegion = models.TextField(u'region del summoner')
     summonerImg = models.TextField(u'imagen del summoner')
     summonerName = models.TextField(u'nombre del summoner')
     summonerLeague = models.TextField(u'liga actual del sumoner(ej:Silver)')
@@ -11,6 +13,7 @@ class SummonerInfo(models.Model):
     summonerWinrate = models.TextField(u'porcentaje de victorias en ranked')
 
 class MostPlayedChampInfo(models.Model):
+    summonerId = models.TextField(u'id del summoner', primary_key=True)
     mostPlayedChampImg = models.TextField(u'icono del pj mas usado')
     mostPlayedChampName = models.TextField(u'nombre')
     mostPlayedChampMatchesCount = models.TextField(u'cantidad de jugada')
@@ -24,6 +27,7 @@ class MostPlayedChampInfo(models.Model):
     mostPlayedChampGold = models.TextField(u'prom gold')
 
 class profile(models.Model):
+    summonerId = models.TextField(u'id del summoner', primary_key=True)
     leagueSoloQName = models.TextField(u'nombre de la liga en solo Q de un jugador especifico')
     leagueSoloQTier = models.TextField(u'tipo de liga en solo Q de un jugador especifico')
     leagueSoloQDivision = models.TextField(u'division de la liga en solo Q de un jugador especifico')
@@ -38,6 +42,7 @@ class profile(models.Model):
     league3v3Lp = models.TextField(u'puntos en la liga 3v3 de un jugador especifico')
 
 class league(models.Model):
+    leagueid = models.TextField(u'id de la liga', primary_key=True)
     summonerLeagueTabName = models.TextField(u'nombre de la liga')
     summonerLeagueTabRank = models.TextField(u'rango de la liga')
     summonerLeagueTabDivision = models.TextField(u'division de la liga')
@@ -45,6 +50,7 @@ class league(models.Model):
     summonerLeagueTabList = models.TextField(u'lista de jugadores') #relacionar con la CLASE del mismo nombre
 
 class history(models.Model):
+    summonerId = models.TextField(u'id del summoner', primary_key=True)
     isWin = models.TextField(u'booleano de ganada o perdida')
     champId = models.TextField(u'id del campeon usado')
     champLvl = models.TextField(u'nivel en el que termino')

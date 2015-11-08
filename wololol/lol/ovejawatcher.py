@@ -1,4 +1,6 @@
 import json
+import requests
+from django.core.exceptions import ObjectDoesNotExist
 from lol.models import SummonerInfo 
 from riotwatcher import RiotWatcher
 from riotwatcher import LoLException
@@ -14,9 +16,10 @@ from riotwatcher import RUSSIA
 from riotwatcher import TURKEY
 
 riotWatcher = RiotWatcher("c8587cc1-abdf-4911-8d19-d3802e2800d0", default_region=LATIN_AMERICA_SOUTH)
+key = 'c8587cc1-abdf-4911-8d19-d3802e2800d0'
 i = 0
 
-def getSummonerInfo(summoner = None, idSum = None, region = None):
+def getApiSummoner(summoner = None, idSum = None, region = None):
 #inicio IDENTACION
     summonerImg = '' #Imagen del Summoner
     summonerName = '' #Nombre del Summoner
@@ -34,9 +37,14 @@ def getSummonerInfo(summoner = None, idSum = None, region = None):
     matchs = 0
 #final IDENTACION
 #inicio PETICIONES
-    me = riotWatcher.get_summoner(name=summoner)
+    if summoner==None:
+        me = riotWatcher.get_summoner(_id=idSum)
+    else:
+        me = riotWatcher.get_summoner(name=summoner)
     summonerName = me['name']
-    summonerImg = get_summoner_profileIconId(name = summonerName)
+    summonerId = me['id']
+    summonerImg = me['profileIconId']
+    summonerRegion = region
     #pidiendo Liga
     try:
         summonerLeagueInfo = riotWatcher.get_league_entry([str(me['id'])])
@@ -59,7 +67,7 @@ def getSummonerInfo(summoner = None, idSum = None, region = None):
         summonerKills = round(float(kills)/float(matchs), 2)
         summonerDeaths = round(float(deaths)/float(matchs), 2)
         summonerAssists = round(float(assists)/float(matchs), 2)
-        summonerWinrate = int(round(float(wins)/float(matchs), 0)*100)
+        summonerWinrate = int(round((float(wins)/float(matchs))*100, 0))
     except(IndexError, LoLException):
         kills = '0'
         assists = '0'
@@ -71,20 +79,29 @@ def getSummonerInfo(summoner = None, idSum = None, region = None):
         summonerDeaths = '0'
         summonerAssists = '0'
         summonerWinrate = '0'
-    baseDatos = SummonerInfo(summonerImg = str(summonerImg),summonerName = str(summonerName),summonerLeague = str(summonerLeague),summonerDivision = str(summonerDivision),summonerKills = str(summonerKills),summonerDeaths = str(summonerDeaths),summonerAssists = str(summonerAssists),summonerWinrate = str(summonerWinrate) )
-    baseDatos.save()
-    
+    SummonerInfo.objects.create(summonerId = str(summonerId),summonerImg = str(summonerImg),summonerName = str(summonerName),summonerLeague = str(summonerLeague),summonerDivision = str(summonerDivision),summonerKills = str(summonerKills),summonerDeaths = str(summonerDeaths),summonerAssists = str(summonerAssists),summonerWinrate = str(summonerWinrate), summonerRegion = str(summonerRegion))
 #final PETICIONES
 #inicio RETURNS
-    return 
+    jsonfinal = getCacheSummoner(idSum = summonerId, region = summonerRegion)
+    return jsonfinal
 #final RETURNS
 
+def getCacheSummoner(summoner = None, idSum = None, region = None):
+    if idSum != None:
+        a = SummonerInfo.objects.get(summonerId = idSum, summonerRegion = region)
+    elif summoner != None:
+        a = SummonerInfo.objects.get(summonerName = summoner, summonerRegion = region)
+    infoenjson= str('{"summonerInfo":' + '{''"summonerId":' + '"' + str(a.summonerId) + '"' + ',"summonerImg":' + '"' + str(a.summonerImg) + '"' + ',"summonerName":' + '"' + str(a.summonerName) + '"' + ',"summonerLeague":' + '"' + str(a.summonerLeague) + '"' + ',"summonerDivision":' + '"' + str(a.summonerDivision) + '"' + ',"summonerKills":' + '"' + str(a.summonerKills) + '"' + ',"summonerDeaths":' + '"' + str(a.summonerDeaths) + '"' + ',"summonerAssists":' + '"' + str(a.summonerAssists) + '"' + ',"summonerWinrate":' + '"' + str(a.summonerWinrate) + '"' + '}' + '}')
+    jsonfinal = json.loads(infoenjson)
+    return jsonfinal
 
-def get_summoner_profileIconId(name=None, _id=None, region='las'):
-    if (name is None) != (_id is None):
-        if name is not None:
-            return get_summoners(names=[name, ], region=region)[profileIconId]
-        else:
-            name = get_summoners(ids=[_id, ], region=region)[str(_id)]
-            return get_summoners(names=[name, ], region=region)[profileIconId]
-    return None
+def getSummoner(summoner = None, idSum = None, region = None):
+    try :
+        if idSum != None:
+            SummonerInfo.objects.get(summonerId = idSum, summonerRegion = region)
+        elif summoner != None:
+            SummonerInfo.objects.get(summonerName = summoner, summonerRegion = region)
+        jsonfinal = getCacheSummoner(summoner = summoner, idSum = idSum, region = region)
+    except(ObjectDoesNotExist):
+        jsonfinal = getApiSummoner(summoner = summoner, idSum = idSum, region = region)
+    return jsonfinal
