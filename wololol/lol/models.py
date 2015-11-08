@@ -14,11 +14,11 @@ class SummonerInfo(models.Model):
 
 class MostPlayedChampInfo(models.Model):
     summonerId = models.TextField(u'id del summoner', primary_key=True)
-    mostPlayedChampImg = models.TextField(u'icono del pj mas usado')
+    mostPlayedChampId = models.TextField(u'icono del pj mas usado')
     mostPlayedChampName = models.TextField(u'nombre')
     mostPlayedChampMatchesCount = models.TextField(u'cantidad de jugada')
     mostPlayedChampMatchesWinCount = models.TextField(u'cantidad de victorias')
-    mostPlayedChampMatchesLooseCount = models.TextField(u'cantidad de derrotas')
+    mostPlayedChampMatchesLoseCount = models.TextField(u'cantidad de derrotas')
     mostPlayedChampKdaRatio = models.TextField(u'kda')
     mostPlayedChampKills = models.TextField(u'prom kills')
     mostPlayedChampDeaths = models.TextField(u'prom deaths')
