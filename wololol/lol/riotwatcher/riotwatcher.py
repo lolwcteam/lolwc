@@ -669,7 +669,7 @@ res = {
         "mostPlayedChampDeaths":"5.1",
         "mostPlayedChampAssist":"6.6",
         "mostPlayedChampCs":"200.3",
-        "mostPlayedChampGold":"17523.1",
+        "mostPlayedChampGold":"17",
     },
     "profile":{
         "leagueSoloQName":"Paladines de Poppy",

@@ -3,6 +3,7 @@ from django.db import models
 class SummonerInfo(models.Model):
     summonerId = models.TextField(u'id del summoner', primary_key=True)
     summonerRegion = models.TextField(u'region del summoner')
+    summonerServer = models.TextField(u'server del summoner')
     summonerImg = models.TextField(u'imagen del summoner')
     summonerName = models.TextField(u'nombre del summoner')
     summonerLeague = models.TextField(u'liga actual del sumoner(ej:Silver)')
@@ -11,6 +12,7 @@ class SummonerInfo(models.Model):
     summonerDeaths = models.TextField(u'prom deaths en ranked')
     summonerAssists = models.TextField(u'prom assists en ranked')
     summonerWinrate = models.TextField(u'porcentaje de victorias en ranked')
+    summonerKdaRatio = models.TextField(u'kda ratio general')
 
 class MostPlayedChampInfo(models.Model):
     summonerId = models.TextField(u'id del summoner', primary_key=True)
@@ -19,7 +21,7 @@ class MostPlayedChampInfo(models.Model):
     mostPlayedChampMatchesCount = models.TextField(u'cantidad de jugada')
     mostPlayedChampMatchesWinCount = models.TextField(u'cantidad de victorias')
     mostPlayedChampMatchesLoseCount = models.TextField(u'cantidad de derrotas')
-    mostPlayedChampKdaRatio = models.TextField(u'kda')
+    mostPlayedChampKdaRatio = models.TextField(u'kda ratio con este Pj')
     mostPlayedChampKills = models.TextField(u'prom kills')
     mostPlayedChampDeaths = models.TextField(u'prom deaths')
     mostPlayedChampAssist = models.TextField(u'prom asssists')
