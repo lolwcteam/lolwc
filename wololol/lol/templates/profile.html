@@ -47,11 +47,11 @@
     <div class="container">
         <div class="card darkblue row">
             <ul class="z-depth-1 darkblue tabs card" style="width: 100%;">
-                <li style="width: 20%;" class="tab col"><a class="active hex-text" href="#tabProfile">Perfil</a></li>
-                <li style="width: 20%;" class="tab col"><a class="" href="#tabLeague">Liga</a></li>
-                <li style="width: 20%;" class="tab col"><a class="" href="#tabHistory">Historial</a></li>
-                <li style="width: 20%;" class="tab col"><a class="" href="#tabRunes">Runas</a></li>
-                <li style="width: 20%;" class="tab col"><a class="" href="#tabMasteries">Maestrías</a></li>
+                <li style="width: 20%;" class="tab col"><a class="active hex-text" href="#tabProfile"><img class="mid" src="{% static 'img/profile.svg' %}" width="30px" draggable="false"/></a></li>
+                <li style="width: 20%;" class="tab col"><a class="" href="#tabLeague"><img class="mid" src="{% static 'img/league.svg' %}" width="30px" draggable="false"/></a></li>
+                <li style="width: 20%;" class="tab col"><a class="" href="#tabHistory"><img class="mid" src="{% static 'img/history.svg' %}" width="30px" draggable="false"/></a></li>
+                <li style="width: 20%;" class="tab col"><a class="" href="#tabRunes"><img class="mid" src="{% static 'img/rune.svg' %}" width="30px" draggable="false"/></a></li>
+                <li style="width: 20%;" class="tab col"><a class="" href="#tabMasteries"><img class="mid" src="{% static 'img/mastery.svg' %}" width="30px" draggable="false"/></a></li>
                 <div style="right: 687px; left: 342px;" class="indicator"></div>
             </ul>
             <div style="display: block;" id="tabProfile" class="blue col s12">
@@ -157,8 +157,8 @@
                 <div class="darkblue card white-text col s12 historyCard">
                     <div id="isWin" class="{% if i.isWin == "1" %}green{% endif %}{% if i.isWin == "0" %}red{% endif %} hLabel"></div>
                     <div class="hImg">
-                        <div id="hImg" style="text-align:center;padding-top:74px;width:96px;height:96px;background: transparent none repeat scroll center center / 100px auto;background-image: url('{% static 'img/' %}h{{i.champId}}.png');">
-                            <div style="width:100%;background-color:rgba(0,0,0,0.5);"><a id="hChamp" class="white-text" href="#">{{i.champName|title}}</a></div>
+                        <div id="hImg" style="border-radius:24px;text-align:center;padding-top:74px;width:96px;height:96px;background: transparent none repeat scroll center center / 100px auto;background-image: url('{% static 'img/' %}h{{i.champId}}.png');">
+                            <div style="border-radius:0 0 80px 80px;width:100%;background-color:rgba(0,0,0,0.5);"><a id="hChamp" class="white-text" href="#">{{i.champName|title}}</a></div>
                         </div>
                     </div>
                     <div class="hSum">
@@ -172,13 +172,13 @@
                     </div>
                     <div class="hStats">
                         <div class="truncate" style="width:100%;height:49px;">
-                            <img id="item1" style="heigh:49px;width:49px" src="{% static 'img/' %}{{ i.item1 }}.png"/>
-                            <img id="item2" style="heigh:49px;width:49px" src="{% static 'img/' %}{{ i.item2 }}.png"/>
-                            <img id="item3" style="heigh:49px;width:49px" src="{% static 'img/' %}{{ i.item3 }}.png"/>
-                            <img id="item4" style="heigh:49px;width:49px" src="{% static 'img/' %}{{ i.item4 }}.png"/>
-                            <img id="item5" style="heigh:49px;width:49px" src="{% static 'img/' %}{{ i.item5 }}.png"/>
-                            <img id="item6" style="heigh:49px;width:49px" src="{% static 'img/' %}{{ i.item6 }}.png"/>
-                            <img id="item7" style="heigh:49px;width:49px" src="{% static 'img/' %}{{ i.item7 }}.png"/>
+                            <img id="item1" class="hItem" src="{% static 'img/' %}{{ i.item1 }}.png"/>
+                            <img id="item2" class="hItem" src="{% static 'img/' %}{{ i.item2 }}.png"/>
+                            <img id="item3" class="hItem" src="{% static 'img/' %}{{ i.item3 }}.png"/>
+                            <img id="item4" class="hItem" src="{% static 'img/' %}{{ i.item4 }}.png"/>
+                            <img id="item5" class="hItem" src="{% static 'img/' %}{{ i.item5 }}.png"/>
+                            <img id="item6" class="hItem" src="{% static 'img/' %}{{ i.item6 }}.png"/>
+                            <img id="item7" class="hItem" src="{% static 'img/' %}{{ i.item7 }}.png"/>
                         </div>
                         <div class="truncate" style="width:100%;height:49px;">
                             <br>
