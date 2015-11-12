@@ -142,7 +142,6 @@ lista de 5
 - division de liga: summonerLeagueTabDivision (IV)
 - lista de en P: summonerLeagueTabPList
 	- rank de sumoner en la liga: summonerLeagueTabPListRank
-	- change (fijarse en lolking): summonerLeagueTabPListChange
 	- nombre de summoner: summonerLeagueTabPListName
 	- icono de summoner: summonerLeagueTabPListImg
 	- isReciente: summonerLeagueTabPListIsRecent
@@ -152,7 +151,6 @@ lista de 5
 		- Tiene una lista de largo de la cantidad de partidas que tiene que jugar, con el string "1" si la gano, "0", si la perdio, o "N" si no la jugo
 - lista de el resto: summonerLeagueTabList
 	- rank de sumoner en la liga: summonerLeagueTabListRank
-	- change: summonerLeagueTabListChange
 	- nombre de sumoner: summonerLeagueTabListName
 	- icono de sumoner: summonerLeagueTabListImg
 	- isRecienteenliga: summonerLeagueTabListIsRecent

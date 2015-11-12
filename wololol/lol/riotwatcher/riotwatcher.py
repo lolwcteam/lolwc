@@ -706,7 +706,6 @@ res = {
         "summonerLeagueTabPList":[
             {
             "summonerLeagueTabPListRank":"1",
-            "summonerLeagueTabPListChange":"4",
             "summonerLeagueTabPListName":"Sad Jocker King",
             "summonerLeagueTabPListImg":"612",
             "summonerLeagueTabPListIsRecent":"1",
@@ -716,7 +715,6 @@ res = {
             },
             {
             "summonerLeagueTabPListRank":"2",
-            "summonerLeagueTabPListChange":"-3",
             "summonerLeagueTabPListName":"Manolito",
             "summonerLeagueTabPListImg":"612",
             "summonerLeagueTabPListIsRecent":"0",
@@ -726,7 +724,6 @@ res = {
             },
             {
             "summonerLeagueTabPListRank":"3",
-            "summonerLeagueTabPListChange":"13",
             "summonerLeagueTabPListName":"Groll",
             "summonerLeagueTabPListImg":"h92",
             "summonerLeagueTabPListIsRecent":"0",
@@ -739,7 +736,6 @@ res = {
         "summonerLeagueTabList":[
             {
             "summonerLeagueTabListRank":"4",
-            "summonerLeagueTabListChange":"-2",
             "summonerLeagueTabListName":"Juancito",
             "summonerLeagueTabListImg":"612",
             "summonerLeagueTabListIsRecent":"1",
@@ -749,7 +745,6 @@ res = {
             },
             {
             "summonerLeagueTabListRank":"5",
-            "summonerLeagueTabListChange":"-3",
             "summonerLeagueTabListName":"Juancito2",
             "summonerLeagueTabListImg":"612",
             "summonerLeagueTabListIsRecent":"0",
@@ -759,7 +754,6 @@ res = {
             },
             {
             "summonerLeagueTabListRank":"6",
-            "summonerLeagueTabListChange":"5",
             "summonerLeagueTabListName":"Juancito3",
             "summonerLeagueTabListImg":"612",
             "summonerLeagueTabListIsRecent":"1",
@@ -769,7 +763,6 @@ res = {
             },
             {
             "summonerLeagueTabListRank":"7",
-            "summonerLeagueTabListChange":"8",
             "summonerLeagueTabListName":"Juancito4",
             "summonerLeagueTabListImg":"612",
             "summonerLeagueTabListIsRecent":"0",

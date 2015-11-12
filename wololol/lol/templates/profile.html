@@ -93,7 +93,6 @@
             <table id="summonerLeagueTabPList" class="card blue white-text responsive-table striped centered">
                 <thead>
                     <tr>
-                        <th data-field="summonerLeagueTabPListChange">Cambio</th>
                         <th data-field="summonerLeagueTabPListRank">Rank</th>
                         <th data-field="summonerLeagueTabPListSummoner">Summoner</th>
                         <th data-field="summonerLeagueTabPListExtra">Tips</th>
@@ -104,7 +103,6 @@
                 <tbody>
                     {% for i in info.league.summonerLeagueTabPList %}
                     <tr>
-                        <td class="left"><i class="left mid material-icons">{% if i.summonerLeagueTabPListChange|toInt >= 0 %}arrow_drop_up{% endif %}{% if i.summonerLeagueTabPListChange|toInt < 0 %}arrow_drop_down{% endif %}</i>{{ i.summonerLeagueTabPListChange }}</td>
                         <td>{{ i.summonerLeagueTabPListRank }}</td>
                         <td><img class="left listImg mid" src="{% static 'img/' %}{{ i.summonerLeagueTabPListImg }}.png"/><a class="left white-text waves-effect" href="#">{{ i.summonerLeagueTabPListName }}</a></td>
                         <td>
@@ -126,7 +124,6 @@
                 <table id="summonerLeagueTabList" class="card blue white-text responsive-table striped centered">
                     <thead>
                         <tr>
-                            <th data-field="summonerLeagueTabListChange">Cambio</th>
                             <th data-field="summonerLeagueTabListRank">Rank</th>
                             <th data-field="summonerLeagueTabListSummoner">Summoner</th>
                             <th data-field="summonerLeagueTabListExtra">Tips</th>
@@ -137,7 +134,6 @@
                     <tbody>
                         {% for i in info.league.summonerLeagueTabList %}
                         <tr>
-                            <td class="left"><i class="left mid material-icons">{% if i.summonerLeagueTabListChange|toInt >= 0 %}arrow_drop_up{% endif %}{% if i.summonerLeagueTabListChange|toInt < 0 %}arrow_drop_down{% endif %}</i>{{ i.summonerLeagueTabListChange }}</td>
                             <td>{{ i.summonerLeagueTabListRank }}</td>
                             <td><img class="left listImg mid" src="{% static 'img/' %}{{ i.summonerLeagueTabListImg }}.png"/><a class="left white-text waves-effect" href="#">{{ i.summonerLeagueTabListName }}</a></td>
                             <td>
