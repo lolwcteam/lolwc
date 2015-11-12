@@ -346,6 +346,13 @@ class RiotWatcher:
                     'by-team/{team_ids}'.format(team_ids=','.join([str(t) for t in team_ids])),
                     region
                 )
+            
+    def get_leaguee(self, summoner_ids=None, region=None):
+        """summoner_ids and team_ids arguments must be iterable, only one should be specified, not both"""
+        return self._league_request(
+            'by-summoner/{summoner_ids}'.format(summoner_ids=','.join([str(s) for s in summoner_ids])),
+            region
+        )
 
     def get_league_entry(self, summoner_ids=None, team_ids=None, region=None):
         """summoner_ids and team_ids arguments must be iterable, only one should be specified, not both"""
