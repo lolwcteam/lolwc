@@ -25,7 +25,7 @@
                 <li class="active waves-effect waves-cyan"><a href="#" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Información de perfil de un usuario"><i class="white-text material-icons">person_pin</i></a></li>
                 <li class="waves-effect waves-cyan"><a href="#" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Sección de chat, debe loguearse"><i class="white-text material-icons">chat</i></a></li>
                 <li class="waves-effect waves-cyan"><a href="contacto.html" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Información estática del juego"><i class="white-text material-icons">dashboard</i></a></li>
-                <li class="waves-effect waves-cyan"><a href="#modal1" class="modal-trigger white-text">
+                <li class="waves-effect waves-cyan"><a href="#serverStatus" class="modal-trigger white-text">
                     {% if info.serverStatus.status == "online" %}
                     <i class="green-text left material-icons">check_circle</i> Online
                     {% elif info.serverStatus.status == "alert" %}
@@ -38,11 +38,10 @@
                     <i class="whute-text left material-icons">remove_circle</i> Desconocido
                     {% endif %}
                 </a></li>
-                <li class="waves-effect waves-cyan"><a href="#" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Ingresar al sistema"><i class="white-text material-icons">arrow_forward</i></a></li>
+                <li class="waves-effect waves-cyan"><a href="#login" class="modal-trigger tooltipped" data-position="bottom" data-delay="50" data-tooltip="Ingresar al sistema"><i class="white-text material-icons">arrow_forward</i></a></li>
             </ul>
 
-              <!-- Modal Structure -->
-              <div id="modal1" class="modal blue">
+              <div id="serverStatus" class="modal blue">
                 <div class="modal-content">
                   {% if info.serverStatus.status == "online" %}
                   <h4><i style="display:initial !important;" class="green-text mid material-icons">check_circle</i> Online</h4>
@@ -81,8 +80,32 @@
                   <a href="#" class="white-text modal-action modal-close waves-effect waves-cyan btn-flat">Aceptar</a>
                 </div>
               </div>
-
+              <div id="login" class="modal blue">
+                <div class="modal-content">
+                  <h4><i style="display:initial !important;" class="white-text mid material-icons">arrow_forward</i> Ingrese</h4>
+                  <p>Ingrese región, usuario y contraseña de League of Legends</p>
+                  <hr><br>
+                  <p>Actualmente no es posible ingresar al sistema.</p>
+                  <br>
+                </div>
+                <div class="blue modal-footer">
+                    <a href="#" class="white-text modal-action modal-close waves-effect waves-cyan btn-flat">Cancelar</a>
+                </div>
+              </div>
             <ul style="left: -27px;" id="nav-mobile" class="blue side-nav">
+                <li><a href="#modal1" class="waves-effect modal-trigger white-text">
+                    {% if info.serverStatus.status == "online" %}
+                    <i class="green-text material-icons">check_circle</i>
+                    {% elif info.serverStatus.status == "alert" %}
+                    <i class="yellow-text material-icons">error</i>
+                    {% elif info.serverStatus.status == "deploying" %}
+                    <i class="blue-text material-icons">arrow_drop_down_circle</i>
+                    {% elif info.serverStatus.status == "offline" %}
+                    <i class="red-text material-icons">remove_circle</i>
+                    {% else %}
+                    <i class="whute-text material-icons">remove_circle</i>
+                    {% endif %}
+                </a></li>
                 <li class="active"><a href="#" class="waves-effect waves-cyan tooltipped" data-position="right" data-delay="50" data-tooltip="Información de perfil de un usuario"><i class="white-text material-icons">person_pin</i></a></li>
                 <li class=""><a href="#" class="waves-effect waves-cyan tooltipped" data-position="right" data-delay="50" data-tooltip="Sección de chat, debe loguearse"><i class="white-text material-icons">chat</i></a></li>
                 <li class=""><a href="#" class="waves-effect waves-cyan tooltipped" data-position="right" data-delay="50" data-tooltip="Información estática del juego"><i class="white-text material-icons">dashboard</i></a></li>

@@ -46,6 +46,7 @@
 <div class="section">
     <div class="container">
         <div class="card darkblue row">
+
             <ul class="z-depth-1 darkblue tabs card" style="width: 100%;">
                 <li style="width: 20%;" class="tab col"><a class="active hex-text" href="#tabProfile"><img class="mid" src="{% static 'img/profile.svg' %}" width="30px" draggable="false"/></a></li>
                 <li style="width: 20%;" class="tab col"><a class="" href="#tabLeague"><img class="mid" src="{% static 'img/league.svg' %}" width="30px" draggable="false"/></a></li>
@@ -55,7 +56,6 @@
                 <div style="right: 687px; left: 342px;" class="indicator"></div>
             </ul>
             <div style="display: block;" id="tabProfile" class="blue col s12">
-
                 <div class="text-white col m4 l4 s12">
                     <h4 class="row center white-text">Team 3v3</h4>
                     <div class="row center"><img src="{% static 'img/' %}{{ info.profile.league3v3Tier }}_{{ info.profile.league3v3Division }}.png"/></div>
@@ -272,8 +272,6 @@
     </div>
 
 </div>
-{% endblock %}
-{% block tabs %}
 {% endblock %}
 {% block scripts %}
 {% endblock %}

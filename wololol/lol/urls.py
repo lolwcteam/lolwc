@@ -1,6 +1,8 @@
 
 from django.conf.urls import patterns, include, url
 urlpatterns = patterns('',
+                       url(r'^home/$', 'lol.views.home', name='searchHome'),
+
                        url(r'^$', 'lol.views.profile', name='home'),
                        url(r'^profile/$', 'lol.views.profile', name='profile'),
 
