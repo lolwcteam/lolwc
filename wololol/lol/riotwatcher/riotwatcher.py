@@ -649,6 +649,17 @@ class RiotWatcher:
 
 #-------------Wololol-------------#
 res = {
+    "serverStatus":{
+        "status":"online",
+        "messages":[
+            {"severity":"info",
+            "message":"Hemos inhabilitado el Bailarín Espectral debido a un error en el juego. Estamos trabajando en una solución. Disculpen el inconveniente."},
+            {"severity":"alert",
+            "message":"Inhabilitamos a Shyvana temporalmente debido a un problema dentro del juego. Estamos buscando una solución."},
+            {"severity":"error",
+            "message":"Estamos trabajando en Wololol la mejor página jamás creada. Disculpen las molestias."}
+        ]
+    },
     "summonerInfo":{
         "summonerImg":"612",
         "summonerName":"Sad Jocker King",

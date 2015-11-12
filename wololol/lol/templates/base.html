@@ -22,21 +22,71 @@
                     <label for="search"><i class="material-icons">search</i></label>
                     <i class="material-icons">close</i>
                 </div>
-                <li class="active waves-effect waves-cyan"><a href="index.html" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Información de perfil de un usuario"><i class="white-text material-icons">person_pin</i></a></li>
-                <li class="waves-effect waves-cyan"><a href="curriculum.html" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Sección de chat, debe loguearse"><i class="white-text material-icons">chat</i></a></li>
+                <li class="active waves-effect waves-cyan"><a href="#" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Información de perfil de un usuario"><i class="white-text material-icons">person_pin</i></a></li>
+                <li class="waves-effect waves-cyan"><a href="#" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Sección de chat, debe loguearse"><i class="white-text material-icons">chat</i></a></li>
                 <li class="waves-effect waves-cyan"><a href="contacto.html" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Información estática del juego"><i class="white-text material-icons">dashboard</i></a></li>
-                <li class="waves-effect waves-cyan"><a href="contacto.html" class="white-text tooltipped" data-position="bottom" data-delay="50" data-tooltip="El 14/10/15, a partir de las 02:30 de Buenos Aires / 02:30 de Santiago, se desactivarán las colas clasificatorias en preparación para la actualización 5.20. A las 04:00 de Buenos Aires / 04:00 de Santiago, se apagarán los servidores y todas las partidas en curso terminarán en empate y no se guardarán datos de las mismas. Estimamos que los campos de batalla no estarán disponibles por 3 horas."><i class="left white-text material-icons">check_box</i>Online</a></li>
-
-                <li class="waves-effect waves-cyan"><a href="contacto.html" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Ingresar al sistema"><i class="white-text material-icons">arrow_forward</i></a></li>
-
+                <li class="waves-effect waves-cyan"><a href="#modal1" class="modal-trigger white-text">
+                    {% if info.serverStatus.status == "online" %}
+                    <i class="green-text left material-icons">check_circle</i> Online
+                    {% elif info.serverStatus.status == "alert" %}
+                    <i class="yellow-text left material-icons">error</i> Alerta
+                    {% elif info.serverStatus.status == "deploying" %}
+                    <i class="blue-text left material-icons">arrow_drop_down_circle</i> Mantenimiento
+                    {% elif info.serverStatus.status == "offline" %}
+                    <i class="red-text left material-icons">remove_circle</i> Offline
+                    {% else %}
+                    <i class="whute-text left material-icons">remove_circle</i> Desconocido
+                    {% endif %}
+                </a></li>
+                <li class="waves-effect waves-cyan"><a href="#" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Ingresar al sistema"><i class="white-text material-icons">arrow_forward</i></a></li>
             </ul>
 
+              <!-- Modal Structure -->
+              <div id="modal1" class="modal blue">
+                <div class="modal-content">
+                  {% if info.serverStatus.status == "online" %}
+                  <h4><i style="display:initial !important;" class="green-text mid material-icons">check_circle</i> Online</h4>
+                  {% elif info.serverStatus.status == "alert" %}
+                  <h4><i style="display:initial !important;" class="yellow-text mid material-icons">error</i> Alerta</h4>
+                  {% elif info.serverStatus.status == "deploying" %}
+                  <h4><i style="display:initial !important;" class="blue-text mid material-icons">arrow_drop_down_circle</i> Mantenimiento</h4>
+                  {% elif info.serverStatus.status == "offline" %}
+                  <h4><i style="display:initial !important;" class="red-text mid material-icons">remove_circle</i> Offline</h4>
+                  {% else %}
+                  <h4><i style="display:initial !important;" class="white-text mid material-icons">remove_circle</i> No hay información del servidor</h4>
+                  {% endif %}
+                  <hr>
+                  <table>
+                      <tbody>
+                          {% for i in info.serverStatus.messages %}
+                          <tr>
+                            {% if i.severity == "info" %}
+                            <td><i class="mid blue-text material-icons">info</i></td>
+                            {% elif i.severity == "alert" %}
+                            <td><i class="mid yellow-text material-icons">warning</i></td>
+                            {% elif i.severity == "error" %}
+                            <td><i class="mid red-text material-icons">error</i></td>
+                            {% endif %}
+                            <td><p>{{i.message}}</p></td>
+                            {% empty %}
+                            <td><i class="mid white-text material-icons">done</i></td>
+                            <td><p>No hay ninguna noticia en el servidor.</p></td>
+
+                          </tr>
+                          {% endfor %}
+                      </tbody>
+                  </table>
+                </div>
+                <div class="blue modal-footer">
+                  <a href="#" class="white-text modal-action modal-close waves-effect waves-cyan btn-flat">Aceptar</a>
+                </div>
+              </div>
 
             <ul style="left: -27px;" id="nav-mobile" class="blue side-nav">
-                <li class="active"><a href="index.html" class="waves-effect waves-cyan tooltipped" data-position="right" data-delay="50" data-tooltip="Información de perfil de un usuario"><i class="white-text material-icons">person_pin</i></a></li>
-                <li class=""><a href="curriculum.html" class="waves-effect waves-cyan tooltipped" data-position="right" data-delay="50" data-tooltip="Sección de chat, debe loguearse"><i class="white-text material-icons">chat</i></a></li>
-                <li class=""><a href="contacto.html" class="waves-effect waves-cyan tooltipped" data-position="right" data-delay="50" data-tooltip="Información estática del juego"><i class="white-text material-icons">dashboard</i></a></li>
-                <li class=""><a href="contacto.html" class="waves-effect waves-cyan tooltipped" data-position="right" data-delay="50" data-tooltip="Ingresar al sistema"><i class="white-text material-icons">arrow_forward</i></a></li>
+                <li class="active"><a href="#" class="waves-effect waves-cyan tooltipped" data-position="right" data-delay="50" data-tooltip="Información de perfil de un usuario"><i class="white-text material-icons">person_pin</i></a></li>
+                <li class=""><a href="#" class="waves-effect waves-cyan tooltipped" data-position="right" data-delay="50" data-tooltip="Sección de chat, debe loguearse"><i class="white-text material-icons">chat</i></a></li>
+                <li class=""><a href="#" class="waves-effect waves-cyan tooltipped" data-position="right" data-delay="50" data-tooltip="Información estática del juego"><i class="white-text material-icons">dashboard</i></a></li>
+                <li class=""><a href="#" class="waves-effect waves-cyan tooltipped" data-position="right" data-delay="50" data-tooltip="Ingresar al sistema"><i class="white-text material-icons">arrow_forward</i></a></li>
             </ul>
             <a  class="waves-effect waves-cyan circle button-collapse" style="margin:0 0 0 -10%;" href="#" data-activates="nav-mobile"><i class="material-icons">menu</i></a>
         </div>
@@ -64,7 +114,7 @@
            </div>
            <div class="footer-copyright">
                <div class="container">
-                   <img src="{% static 'img/riot.png' %}" class="mid" width="32px"/> <a class="grey-text text-lighten-3" href="http://materializecss.com/">Wololol no tiene relación alguna con Riot Games ni sus marcas.</a>
+                   <img src="{% static 'img/riot.png' %}" class="mid" width="32px"/> <a class="grey-text text-lighten-3" href="http://riotgmes.com/">Wololol no tiene relación alguna con Riot Games ni sus marcas.</a>
                </div>
            </div>
        </footer>

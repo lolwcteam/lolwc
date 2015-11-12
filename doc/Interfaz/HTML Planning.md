@@ -36,6 +36,13 @@ se muestran elementos que debe haber necesariamente en cada página, si es neces
 - informaciono de que no estamos relacionados a riot
 - botones facebook-twitter-google+
 
+###Server Status: serverStatus
+obtenidos unicamente de las, y solo del service "game"
+- status (online, alert, offline, deploying)
+- lista de mensajes de alerta del game: "messages"
+	- "severity":info/alert/error
+	- "content":el texto del mensaje
+
 ##PERFIL
 *summoner info*: "summonerInfo"
 - (#)imagen baner del champion mas usado (id del champ): mostPlayedChampBanerImg
@@ -236,6 +243,7 @@ lista de
 	- id de maestria
 	- cantidad de puntos
 	- imagen de maestria -->
+
 
 ##CHAT
 
