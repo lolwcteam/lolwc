@@ -204,9 +204,9 @@ lista de
 
 ###runes: "runes"
 - nombre de pagina activa: activePage
-- diccionario de paginas de runas: pages
-	"nombre de la pagina": esto de abajo
-	- diccionario de una pagina: page:
+- lista de paginas de runas: pages (habria usado diccionario pero tengo que usar lista para que se respete el orden de las paginas)
+	- "nombre de la pagina"
+	- diccionario de la pagina: page:
 		- "id de runa" : ["Nombre de runa en español","cantidad de esa runa", "total de stats ganados"]
 			Como funciona: si tenes muchos tipos de runas en tu pagina el diccionario se va a agrandar, si no, se mantiene mas pequeño, el "total de stats ganados" es el que te da ese tipo de runa sumando todas las que tenes de ese tipo.
 <!--
@@ -222,14 +222,20 @@ lista de
 				- (#)total de stats que suma -->
 
 ###masteries
-- numero de pagina activa
-- distribucion de runa (21/9/0)
-lista de
+- nombre de pagina activa: activePage
+- lista de paginas maestrias: masteries (es lista para respetar el orden de paginas)
+	- "nombre de pagina"
+ 	- lista de distribucion
+		- Cantidad en Ferocidad
+		- Cantidad en Astucia
+		- Cantidad en Valor
+
+<!-- lista de
 - nombre de pagina de maestrias
 - lista de
 	- id de maestria
 	- cantidad de puntos
-	- imagen de maestria
+	- imagen de maestria -->
 
 ##CHAT
 

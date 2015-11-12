@@ -850,34 +850,48 @@ res = {
     ],
     "runes":{
         "activePage":"AP Tanque",
-        "pages":{
-            "Ashe":{
+        "pages":[
+            ["Ashe",{
                         "5245":["Gran Quintaescencia de Daño de Ataque","3","7.55"],
                         "5244":["Gran Marca de Daño de Ataque","9","8.55"],
                         "5243":["Gran Sello de Armadura","9","9"],
                         "5242":["Gran Glifo de Velocidad de Ataque","9","5.73"]
-                    },
-            "Riven":{
+                    }],
+            ["Riven",{
                         "5242":["Gran Quintaescencia de Daño de Ataque","3","7.55"],
                         "5243":["Gran Marca de Daño de Ataque","9","8.55"],
                         "5244":["Gran Sello de Armadura","9","9"],
-                    },
-            "Lucian":{
+                    }],
+            ["Lucian",{
                         "5245":["Gran Quintaescencia de Daño de Ataque","3","7.55"],
                         "5244":["Gran Glifo de Velocidad de Ataque","9","5.73"]
-                    },
-            "AP Tanque":{
+                    }],
+            ["AP Tanque",{
                         "5243":["Gran Quintaescencia de Daño de Ataque","3","7.55"],
                         "5242":["Gran Marca de Daño de Ataque","9","8.55"],
                         "5245":["Gran Sello de Armadura","9","9"],
                         "5244":["Gran Glifo de Velocidad de Ataque","9","5.73"]
-                    },
-            "AD Teemo con Tiamat":{
+                    }],
+            ["AD Teemo con Tiamat",{
                         "5243":["Gran Quintaescencia de Daño de Ataque","3","7.55"],
                         "5242":["Gran Sello de Armadura","9","9"],
                         "5245":["Gran Glifo de Velocidad de Ataque","9","5.73"]
-                    }
-        }
+                    }]
+        ]
+    },
+    "masteries":{
+        "activePage":"Tanque Jungla",
+        "masteries":[
+            ["Ashe",["18","0","12"]],
+            ["Riven",["18","0","12"]],
+            ["Sejuani",["0","18","12"]],
+            ["Tanque Jungla",["12","18","0"]],
+            ["Daño ADC",["3","4","23"]],
+            ["Azir",["18","12","0"]],
+            ["Lucian",["18","0","12"]],
+            ["Teemo con Tiamat",["10","10","10"]],
+            ["La maestria de pruebas de tu vieja",["13","7","10"]],
+        ]
     }
 }
 def getApiSummoner(summoner = None, idSum = None, region = None):

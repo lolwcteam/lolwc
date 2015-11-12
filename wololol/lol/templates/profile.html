@@ -203,19 +203,19 @@
             <div style="display: none;" id="tabRunes" class="blue col s12">
                 <br>
                 <div class = "row col s12 m6 l6">
-                    {% for i in info.runes.pages %}
+                    {% for i,val in info.runes.pages %}
                     {% if not forloop.counter|divisibleby:2 %}
                     <div class="hoverable card-panel {% if info.runes.activePage == i %}darkblue{% else %}lightblue{% endif %} white-text">
                         <h5 class="card-title left"><strong>{{forloop.counter}}</strong></h5>
                         <h5 class="card-title center"><strong>{% if info.runes.activePage == i %}[{{i}}]{% else %}{{i}}{% endif %}</strong></h5>
                         <table>
                             <tbody>
-                                {% for j in info.runes.pages|getItem:i %}
+                                {% for j in val %}
                                 <tr>
                                     <td><img width="48px" src="{% static 'img/' %}{{j}}.png"/></td>
-                                    <td><span>x{{info.runes.pages|getItem:i|getItem:j|getIndex:1}}</span></td>
-                                    <td><span>{{info.runes.pages|getItem:i|getItem:j|getIndex:0}}</span></td>
-                                    <td><strong>+{{info.runes.pages|getItem:i|getItem:j|getIndex:2}}</strong></td>
+                                    <td><span>x{{val|getItem:j|getIndex:1}}</span></td>
+                                    <td><span>{{val|getItem:j|getIndex:0}}</span></td>
+                                    <td><strong>+{{val|getItem:j|getIndex:2}}</strong></td>
                                 </tr>
                                 {% endfor %}
                             </tbody>
@@ -225,19 +225,19 @@
                     {% endfor %}
                 </div>
                 <div class = "row col s12 m6 l6">
-                    {% for i in info.runes.pages %}
+                    {% for i,val in info.runes.pages %}
                     {% if forloop.counter|divisibleby:2 %}
                     <div class="hoverable card-panel {% if info.runes.activePage == i %}darkblue{% else %}lightblue{% endif %} white-text">
                         <h5 class="card-title left"><strong>{{forloop.counter}}</strong></h5>
                         <h5 class="card-title center"><strong>{% if info.runes.activePage == i %}[{{i}}]{% else %}{{i}}{% endif %}</strong></h5>
                         <table>
                             <tbody>
-                                {% for j in info.runes.pages|getItem:i %}
+                                {% for j in val %}
                                 <tr>
                                     <td><img width="48px" src="{% static 'img/' %}{{j}}.png"/></td>
-                                    <td><span>x{{info.runes.pages|getItem:i|getItem:j|getIndex:1}}</span></td>
-                                    <td><span>{{info.runes.pages|getItem:i|getItem:j|getIndex:0}}</span></td>
-                                    <td><strong>+{{info.runes.pages|getItem:i|getItem:j|getIndex:2}}</strong></td>
+                                    <td><span>x{{val|getItem:j|getIndex:1}}</span></td>
+                                    <td><span>{{val|getItem:j|getIndex:0}}</span></td>
+                                    <td><strong>+{{val|getItem:j|getIndex:2}}</strong></td>
                                 </tr>
                                 {% endfor %}
                             </tbody>
@@ -248,7 +248,30 @@
                 </div>
 
             </div>
-            <div style="display: none;" id="tabMasteries" class="blue col s12">Masteries</div>
+            <div style="display: none;" id="tabMasteries" class="blue col s12">
+                <table class="striped white-text">
+                    <thead>
+                        <tr>
+                            <th data-field="nombre"><i class="mid material-icons">class</i> Paginas</th>
+                            <th data-field="ferocidad">Ferocidad</th>
+                            <th data-field="astucia">Astucia</th>
+                            <th data-field="valor">Valor</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for i, val in info.masteries.masteries %}
+                        <tr>
+                            <td>{% if i == info.masteries.activePage %}<i class="mid material-icons tooltipped" data-position="bottom" data-tooltip="Página Activa">keyboard_arrow_right</i>[{{i}}]{% else %}{{i}}{% endif %}</td>
+                            <td>{{val|getIndex:0}}</td>
+                            <td>{{val|getIndex:1}}</td>
+                            <td>{{val|getIndex:2}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <br>
+            </div>
         </div>
     </div>
 
