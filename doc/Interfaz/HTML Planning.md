@@ -202,8 +202,8 @@ lista de
 - (#)link baratija
 - baratija: item7
 
-###runes
-- numero pagina activa: activePage
+###runes: "runes"
+- nombre de pagina activa: activePage
 - diccionario de paginas de runas: pages
 	"nombre de la pagina": esto de abajo
 	- diccionario de una pagina: page:

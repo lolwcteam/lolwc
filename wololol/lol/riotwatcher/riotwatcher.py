@@ -849,7 +849,7 @@ res = {
         },
     ],
     "runes":{
-        "activePage":"3",
+        "activePage":"AP Tanque",
         "pages":{
             "Ashe":{
                         "5245":["Gran Quintaescencia de Daño de Ataque","3","7.55"],
@@ -858,10 +858,24 @@ res = {
                         "5242":["Gran Glifo de Velocidad de Ataque","9","5.73"]
                     },
             "Riven":{
+                        "5242":["Gran Quintaescencia de Daño de Ataque","3","7.55"],
+                        "5243":["Gran Marca de Daño de Ataque","9","8.55"],
+                        "5244":["Gran Sello de Armadura","9","9"],
+                    },
+            "Lucian":{
                         "5245":["Gran Quintaescencia de Daño de Ataque","3","7.55"],
-                        "5244":["Gran Marca de Daño de Ataque","9","8.55"],
-                        "5243":["Gran Sello de Armadura","9","9"],
-                        "5242":["Gran Glifo de Velocidad de Ataque","9","5.73"]
+                        "5244":["Gran Glifo de Velocidad de Ataque","9","5.73"]
+                    },
+            "AP Tanque":{
+                        "5243":["Gran Quintaescencia de Daño de Ataque","3","7.55"],
+                        "5242":["Gran Marca de Daño de Ataque","9","8.55"],
+                        "5245":["Gran Sello de Armadura","9","9"],
+                        "5244":["Gran Glifo de Velocidad de Ataque","9","5.73"]
+                    },
+            "AD Teemo con Tiamat":{
+                        "5243":["Gran Quintaescencia de Daño de Ataque","3","7.55"],
+                        "5242":["Gran Sello de Armadura","9","9"],
+                        "5245":["Gran Glifo de Velocidad de Ataque","9","5.73"]
                     }
         }
     }

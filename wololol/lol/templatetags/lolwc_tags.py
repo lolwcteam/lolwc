@@ -9,7 +9,11 @@ def toInt(value):
 
 @register.filter
 def getItem(dictionary, key):
-    return dictionary
+    return dictionary.get(key,'')
+
+@register.filter
+def getIndex(lista, index):
+    return lista[int(index)]
 
 #Deprecated
 @register.simple_tag
