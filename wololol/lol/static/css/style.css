@@ -264,6 +264,13 @@ nav ul li:hover, nav ul li.active{
     nav a.button-collapse {
         display: none; } }
 
+@media only screen and (min-width : 64px) {
+    nav, nav .nav-wrapper i, nav a.button-collapse, nav a.button-collapse i {
+        height: 64px;
+        line-height: 64px; }
+        .navbar-fixed {
+            height: 64px; } }
+
 table.striped > tbody > tr:nth-child(odd) {
     background-color: rgba(81, 165, 224 , 0.25); }
 
