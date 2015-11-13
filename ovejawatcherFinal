@@ -7,7 +7,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render_to_response
 from django.shortcuts import render
 from django.template import RequestContext
-from lol.models import SummonerInfo, MostPlayedChampInfo, SummonerProfile
+from lol.models import SummonerInfo, MostPlayedChampInfo
 from riotwatcher import RiotWatcher
 from riotwatcher import LoLException
 from riotwatcher import BRAZIL
@@ -21,9 +21,9 @@ from riotwatcher import OCEANIA
 from riotwatcher import RUSSIA
 from riotwatcher import TURKEY
 
-riotWatcher = RiotWatcher("7088def7-f1b0-4182-a9f2-07336754983a", default_region=LATIN_AMERICA_SOUTH) #Seteando mi clave para hacer APIcalls
-
-champsId = { #Diccionario con Id de los campeones
+riotWatcher = RiotWatcher("9e3c8aec-25d1-4241-ab69-b8b65393e5e0", default_region=LATIN_AMERICA_SOUTH) #Seteando mi clave para hacer APIcalls
+#Diccionario con Id de los campeones
+champsId = {
     "266":"Aatrox",
     "412":"Thresh",
     "23":"Tryndamere",
@@ -161,18 +161,14 @@ def getSummoner(summoner=None, idSum=None, region=None): #Funcion que revisa si 
         else:
             b = SummonerInfo.objects.get(summonerName = summoner, summonerRegion = region)
             idSum = b.summonerId
-            summonerInfo = getCacheSummoner(idSum = idSum, region = region)
+            summonerInfo = getCacheSummoner(idSum = idSum, region = region) 
+        getCacheMostPlayedChampInfo(idSum = idSum, region = region)
+        summonerJson = '{'summonerInfo + ',' + favoriteChamp'}'
     except(ObjectDoesNotExist):
         summonerInfo = getApiSummoner(idSum = idSum, summoner=summoner, region = region)
-    jsonFinal = json.loads(summonerInfo)
-    return jsonFinal
+    return summonerInfo
 
-def getApiSummoner(summoner=None, idSum=None, region=None): #Busca un jugador en la API
-    wins = 0
-    losses = 0
-    assists = 0
-    kills = 0
-    deaths = 0
+def getApiSummoner(summoner=None, idSum=None, region=None):
     if idSum!=None:
         me = riotWatcher.get_summoner(_id=idSum)
     else:
@@ -183,11 +179,9 @@ def getApiSummoner(summoner=None, idSum=None, region=None): #Busca un jugador en
     summonerRegion = str(region)
     try:
         rankedst = riotWatcher.get_ranked_stats(summonerId)
-        summonerSoloQLeagueInfo = riotWatcher.get_league_entry([summonerId])
-        summonerSoloQLeague = summonerSoloQLeagueInfo[summonerId][0]['tier']
-        summonerDivision = summonerSoloQLeagueInfo[summonerId][0]['entries'][0]['division']
-        summonerSoloQLp = summonerSoloQLeagueInfo[summonerId][0]['entries'][0]['leaguePoints']
-        summonerSoloQLeagueName = summonerSoloQLeagueInfo[summonerId][0]['name']
+        summonerLeagueInfo = riotWatcher.get_league_entry(summonerId)
+        summonerLeague = summonerLeagueInfo[summonerId][0]['tier']
+        summonerDivision = summonerLeagueInfo[summonerId][0]['entries'][0]['division']
         for x in range(len(rankedst['champions'])):
             wins += rankedst['champions'][x]['stats']['totalSessionsWon']
             losses += rankedst['champions'][x]['stats']['totalSessionsLost']
@@ -229,9 +223,7 @@ def getApiSummoner(summoner=None, idSum=None, region=None): #Busca un jugador en
         mostPlayedChampKdaRatio = round(killsAssists/float(mostPlayedChampDeaths), 2)
         
     except(IndexError, LoLException):
-        summonerSoloQLp = 0
-        summonerSoloQLeague = "unRanked"
-        summonerSoloQLeagueName = "Sin Clasificar"
+        summonerLeague = "unRanked"
         summonerDivision = "No disponible"
         summonerKills = "0.0"
         summonerDeaths = "0.0"
@@ -250,20 +242,6 @@ def getApiSummoner(summoner=None, idSum=None, region=None): #Busca un jugador en
         mostPlayedChampCs = "0.0"
         mostPlayedChampGold = "0.0"
     
-    SummonerProfile.objects.create(summonerId = summonerId,
-                                   leagueSoloQName = str(summonerSoloQLeagueName),
-                                   leagueSoloQTier = str(summonerSoloQLeague),
-                                   leagueSoloQDivision = str(summonerDivision),
-                                   leagueSoloQLp = str(summonerSoloQLp),
-                                   leagueTeamName = str("PEPE"),
-                                   leagueTeamTier = str("PEPE"),
-                                   leagueTeamDivision = str("PEPE"),
-                                   leagueTeamLp = str("PEPE"),
-                                   league3v3Name = str("PEPE"),
-                                   league3v3Tier = str("PEPE"),
-                                   league3v3Division = str("PEPE"),
-                                   league3v3Lp = str("PEPE"))
-    
     MostPlayedChampInfo.objects.create(summonerId=summonerId,
                                    mostPlayedChampId=str(mostPlayedChamp),
                                    mostPlayedChampName=str(mostPlayedChampName),
@@ -281,7 +259,7 @@ def getApiSummoner(summoner=None, idSum=None, region=None): #Busca un jugador en
                                 summonerServer = str(summonerRegion).upper(),
                                 summonerImg = str(summonerImg),
                                 summonerName = str(summonerName),
-                                summonerLeague = str(summonerSoloQLeague),
+                                summonerLeague = str(summonerLeague),
                                 summonerDivision = str(summonerDivision),
                                 summonerKills = str(summonerKills),
                                 summonerDeaths = str(summonerDeaths),
@@ -289,27 +267,30 @@ def getApiSummoner(summoner=None, idSum=None, region=None): #Busca un jugador en
                                 summonerWinrate = str(summonerWinrate),
                                 summonerRegion = str(summonerRegion),
                                 summonerKdaRatio = str(summonerKdaRatio))
-    
-    summoner = str(getCacheSummoner(idSum=summonerId, region=summonerRegion))
-    return summoner
+    summoner = getCacheSummoner(idSum=summonerId, region=summonerRegion)
+    favoriteChamp = getCacheMostPlayedChampInfo(idSum=summonerId, region=region)
+    summonerJson = '{'summoner + ',' + favoriteChamp'}'
+    return summonerJson
 
-def getCacheSummoner(idSum=None, region=None): #Busca en la base de datos un jugador
+def getCacheSummoner(idSum=None, region=None):
+    a = SummonerInfo.objects.get(summonerId = idSum, summonerRegion=region)
+    savedInfo = str('"summonerInfo":{"summonerId":"' + str(a.summonerId)
+                    + '","summonerImg":"' + str(a.summonerImg)
+                    + '","summonerName":"' + str(a.summonerName)
+                    + '","summonerLeague":"' + str(a.summonerLeague).lower().capitalize()
+                    + '","summonerDivision":"' + str(a.summonerDivision)
+                    + '","summonerKills":"' + str(a.summonerKills)
+                    + '","summonerDeaths":"' + str(a.summonerDeaths)
+                    + '","summonerAssists":"' + str(a.summonerAssists)
+                    + '","summonerServer":"' + str(a.summonerServer)
+                    + '","summonerRegion":"' + str(a.summonerRegion)
+                    + '","summonerKdaRatio":"' + str(a.summonerKdaRatio)
+                    + '","summonerWinrate":"' + str(a.summonerWinrate) + '"}')
+    return savedInfo
+
+def getCacheMostPlayedChampInfo(idSum=None, region=None):
     a = MostPlayedChampInfo.objects.get(summonerId = idSum)
-    b = SummonerInfo.objects.get(summonerId = idSum, summonerRegion=region)
-    c = SummonerProfile.objects.get(summonerId = idSum)
-    summoner = str('"summonerInfo":{"summonerId":"' + str(b.summonerId)
-                    + '","summonerImg":"' + str(b.summonerImg)
-                    + '","summonerName":"' + str(b.summonerName)
-                    + '","summonerLeague":"' + str(b.summonerLeague).lower().capitalize()
-                    + '","summonerDivision":"' + str(b.summonerDivision)
-                    + '","summonerKills":"' + str(b.summonerKills)
-                    + '","summonerDeaths":"' + str(b.summonerDeaths)
-                    + '","summonerAssists":"' + str(b.summonerAssists)
-                    + '","summonerServer":"' + str(b.summonerServer)
-                    + '","summonerRegion":"' + str(b.summonerRegion)
-                    + '","summonerKdaRatio":"' + str(b.summonerKdaRatio)
-                    + '","summonerWinrate":"' + str(b.summonerWinrate) + '"}')
-    favoriteChamp = str('"mostPlayedChampInfo":{"mostPlayedChampId":"' + str(a.mostPlayedChampId)
+    savedInfo = str('"mostPlayedChampInfo":{"mostPlayedChampId":"' + str(a.mostPlayedChampId)
                     #+ '","mostPlayedChampMatchesLoseCountPorcentaje":"' + str(a.mostPlayedChampMatchesLoseCountPorcentaje)
                     #+ '","champWinPorcentaje":"' + str(a.champWinPorcentaje)
                     + '","mostPlayedChampMatchesCount":"' + str(a.mostPlayedChampMatchesCount)
@@ -322,17 +303,4 @@ def getCacheSummoner(idSum=None, region=None): #Busca en la base de datos un jug
                     + '","mostPlayedChampDeaths":"' + str(a.mostPlayedChampDeaths)
                     + '","mostPlayedChampGold":"' + str(a.mostPlayedChampGold)
                     + '","mostPlayedChampCs":"' + str(a.mostPlayedChampCs) + '"}')
-    profile = str('"profile":{"leagueSoloQName":"' + str(c.leagueSoloQName)
-                  + '","leagueSoloQTier":"' + str(c.leagueSoloQTier)
-                  + '","leagueSoloQDivision":"' + str(c.leagueSoloQDivision)
-                  + '","leagueSoloQLp":"' + str(c.leagueSoloQLp)
-                  + '","leagueTeamName":"' + str(c.leagueTeamName)
-                  + '","leagueTeamTier":"' + str(c.leagueTeamTier)
-                  + '","leagueTeamDivision":"' + str(c.leagueTeamDivision)
-                  + '","leagueTeamLp":"' + str(c.leagueTeamLp)
-                  + '","league3v3Name":"' + str(c.league3v3Name)
-                  + '","league3v3Tier":"' + str(c.league3v3Tier)
-                  + '","league3v3Division":"' + str(c.league3v3Division)
-                  + '","league3v3Lp":"' + str(c.league3v3Lp) + '"}')
-    savedJson =  '{' + summoner + ',' + favoriteChamp + ',' + profile + '}'
-    return savedJson
+    return savedInfo

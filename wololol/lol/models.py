@@ -28,7 +28,7 @@ class MostPlayedChampInfo(models.Model):
     mostPlayedChampCs = models.TextField(u'prom creeps')
     mostPlayedChampGold = models.TextField(u'prom gold')
 
-class profile(models.Model):
+class SummonerProfile(models.Model):
     summonerId = models.TextField(u'id del summoner', primary_key=True)
     leagueSoloQName = models.TextField(u'nombre de la liga en solo Q de un jugador especifico')
     leagueSoloQTier = models.TextField(u'tipo de liga en solo Q de un jugador especifico')
