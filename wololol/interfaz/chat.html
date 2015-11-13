@@ -32,8 +32,8 @@
 
 
                 <ul style="left: -27px;" id="nav-mobile" class="blue side-nav">
-                    <li class="active"><a href="index.html" class="waves-effect waves-cyan tooltipped" data-position="right" data-delay="50" data-tooltip="Información de perfil de un usuario"><i class="white-text material-icons">person_pin</i></a></li>
-                    <li class=""><a href="curriculum.html" class="waves-effect waves-cyan tooltipped" data-position="right" data-delay="50" data-tooltip="Sección de chat, debe loguearse"><i class="white-text material-icons">chat</i></a></li>
+                    <li class=""><a href="index.html" class="waves-effect waves-cyan tooltipped" data-position="right" data-delay="50" data-tooltip="Información de perfil de un usuario"><i class="white-text material-icons">person_pin</i></a></li>
+                    <li class="active"><a href="curriculum.html" class="waves-effect waves-cyan tooltipped" data-position="right" data-delay="50" data-tooltip="Sección de chat, debe loguearse"><i class="white-text material-icons">chat</i></a></li>
                     <li class=""><a href="contacto.html" class="waves-effect waves-cyan tooltipped" data-position="right" data-delay="50" data-tooltip="Información estática del juego"><i class="white-text material-icons">dashboard</i></a></li>
                     <li class=""><a href="contacto.html" class="waves-effect waves-cyan tooltipped" data-position="right" data-delay="50" data-tooltip="Ingresar al sistema"><i class="white-text material-icons">arrow_forward</i></a></li>
                 </ul>
@@ -46,112 +46,149 @@
                 <div class="darkblue row">
                     <div style="display: block;" id="chat" class="darkblue col s12">
 
-                        <div style="overflow-y: scroll;" id="contactos" class="darkblue text-white col s4">
+                        <div style="overflow-y: scroll;" id="contactos" class="hide-on-med-and-down darkblue text-white col s4">
                             <ul class="collapsible" data-collapsible="accordion" style="border:0px;">
-                                
+
+                                <li class="borderBlue">
+                                    <div class="collapsible-header lightblue borderBlue">
+                                        <img class="mid chatImg" src="img/612.png" width="40px"/>
+                                        <span class="white-text nameChat">Sad Jocker King</span>
+                                        <i id="estado" class="material-icons right green-text">lens</i><br>
+                                    </div>
+
+                                    <div class="collapsible-body borderBlue white-text" style="padding:10px">
+                                        <span class="blue-text">Nivel: </span><span>30</span><br>
+                                        <span class="blue-text">Liga Solo: </span>
+                                        <span>Gold</span>
+                                        <span>1</span><br>
+                                        <span class="blue-text">Liga: </span><span>Sad King's Army</span><br>
+                                        <span class="blue-text">Score: </span><span>280</span><br>
+                                        <div class="input-field">
+                                            <input type="text">  
+                                        </div>
+                                    </div>
+                                </li>
+
+
                                 <li class="borderBlue">
                                     <div class="collapsible-header blue borderBlue">
                                         <img class="mid chatImg" src="img/612.png" width="40px"/>
                                         <span class="white-text nameChat">Adriex</span>
-                                        <span>   </span><span>Gold</span><span> </span>
-                                        <span>1</span>
+                                        <i class="material-icons right red-text">lens</i><br>
                                     </div>
                                     <div class="collapsible-body borderBlue white-text" style="padding:10px">
                                         <img src="img/92.png" class="right" width="40px" style="border-radius:40px"/>
-                                        <span>Estado: </span>
-                                        <span>Online</span>
-                                        <span>Offline</span>
-                                        <span>Occupied</span><br>
-                                        <span>Nivel: </span><span>30</span><br>
-                                        <span>Score: </span><span>280</span><br>
-                                        <span>Liga: </span><span>Adriex's Army</span><br>
-                                        <span>gameQueueType: </span><span>NORMAL</span><br>
-                                        <span>Status: </span><span>InPlay</span><br>
-                                        <span>Time Played: </span><span>20 horas</span><br>
-                                        <span>Msg: </span><span>"LA ZERRDDA!"</span><br>
+
+                                        <span class="blue-text">Nivel: </span><span>30</span><br>
+                                        <span class="blue-text">Liga: </span>
+                                        <span>Gold</span>
+                                        <span> </span>
+                                        <span>1</span><br>
+                                        <span class="blue-text">Liga: </span><span>Adriex's Army</span><br>
+                                        <span class="blue-text">Score: </span><span>280</span><br>
+                                        <span class="blue-text">gameQueueType: </span><span>NORMAL</span><br>
+                                        <span class="blue-text">Status: </span><span>InPlay</span><br>
+                                        <span class="blue-text">Time Played: </span><span>20 horas</span><br>
+                                        <span class="yellow-text">"LA ZERRDDA!"</span><br>
                                     </div>
                                 </li>
-                        </div>                      
-                        <div id="conversacion" style="overflow-y:scroll;" class="card blue text-white col s8">
-                            <div class="section">
-                                <span class="nameChat">Adriex</span><br>
-                                <span class="messageChat">Hola!</span>
+                                </div>                      
+                            <div id="conversacion" style="overflow-y:scroll;" class="card blue text-white col s8">
+                                <div class="section">
+                                    <span class="nameChat">Adriex</span><br>
+                                    <span class="messageChat">Hola!</span>
+                                </div>
+                                <hr>
+                                <div class="section">
+                                    <span class="nameChat">Adriex</span><br>
+                                    <span class="messageChat">Jugamos una partida?</span>
+                                </div>
+                                <hr>
+                                <div class="section">
+                                    <span class="nameChat">Sad Jocker King</span><br>
+                                    <span class="messageChat">No puedo, estoy usando un cliente web :P</span>
+                                </div>
+                                <hr>
                             </div>
-                            <hr>
-                            <div class="section">
-                                <span class="nameChat">Adriex</span><br>
-                                <span class="messageChat">Jugamos una partida?</span>
+                            <div id="inputChat" class="blue input-field">
+                                <input id="chatBox" class="col s7" type="text">
+                                <button type="submit" class="btn-floating lightblue btn-flat waves-effect waves-light right">
+                                    <i class="material-icons">send</i>
+                                </button>
                             </div>
-                            <hr>
-                            <div class="section">
-                                <span class="nameChat">Sad Jocker King</span><br>
-                                <span class="messageChat">No puedo, estoy usando un cliente web :P</span>
-                            </div>
-                            <hr>
-                        </div>
-                        <div id="inputChat" class="blue input-field">
-                            <input id="chatBox" class="col s7" type="text">
-                            <a class="btn-floating lightblue btn-flat waves-effect waves-light right">
-                                <i class="material-icons">send</i>
-                            </a>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <footer class="page-footer blue">
-            <div class="container">
-                <div class="row">
-                    <div class="col l6 s12">
-                        <h5 class="white-text">Company Bio</h5>
-                        <p class="grey-text text-lighten-4">We are a team of college 
-                            students working on this project like it's our full time job. Any amount
-                            would help support and continue development on this shit project and is 
-                            greatly appreciated.</p>
-
-
-                    </div>
-                    <div class="col l3 s12">
-                        <h5 class="white-text">Settings</h5>
-                        <ul>
-                            <li><a class="white-text" href="#%21">Link 1</a></li>
-                            <li><a class="white-text" href="#%21">Link 2</a></li>
-                            <li><a class="white-text" href="#%21">Link 3</a></li>
-                            <li><a class="white-text" href="#%21">Link 4</a></li>
-                        </ul>
-                    </div>
-                    <div class="col l3 s12">
-                        <h5 class="white-text">Connect</h5>
-                        <ul>
-                            <li><a class="white-text" href="#%21">Link 1</a></li>
-                            <li><a class="white-text" href="#%21">Link 2</a></li>
-                            <li><a class="white-text" href="#%21">Link 3</a></li>
-                            <li><a class="white-text" href="#%21">Link 4</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-copyright">
+            <footer class="page-footer blue">
                 <div class="container">
-                    Made by WoloTeam<a class="brown-text text-lighten-3" href="http://materializecss.com/">Materialize</a>
+                    <div class="row">
+                        <div class="col l6 s12">
+                            <h5 class="white-text">Company Bio</h5>
+                            <p class="grey-text text-lighten-4">We are a team of college 
+                                students working on this project like it's our full time job. Any amount
+                                would help support and continue development on this shit project and is 
+                                greatly appreciated.</p>
+
+
+                        </div>
+                        <div class="col l3 s12">
+                            <h5 class="white-text">Settings</h5>
+                            <ul>
+                                <li><a class="white-text" href="#%21">Link 1</a></li>
+                                <li><a class="white-text" href="#%21">Link 2</a></li>
+                                <li><a class="white-text" href="#%21">Link 3</a></li>
+                                <li><a class="white-text" href="#%21">Link 4</a></li>
+                            </ul>
+                        </div>
+                        <div class="col l3 s12">
+                            <h5 class="white-text">Connect</h5>
+                            <ul>
+                                <li><a class="white-text" href="#%21">Link 1</a></li>
+                                <li><a class="white-text" href="#%21">Link 2</a></li>
+                                <li><a class="white-text" href="#%21">Link 3</a></li>
+                                <li><a class="white-text" href="#%21">Link 4</a></li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </footer>
+                <div class="footer-copyright">
+                    <div class="container">
+                        Made by WoloTeam<a class="brown-text text-lighten-3" href="http://materializecss.com/">Materialize</a>
+                    </div>
+                </div>
+            </footer>
 
 
-        <!--  Scripts-->        
-        <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
-        <script type="text/javascript" src="js/materialize.min.js"></script>
-        <script src="js/init.js"></script>
+            <!--  Scripts-->        
+            <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+            <script type="text/javascript" src="js/materialize.min.js"></script>
+            <script src="js/init.js"></script>
 
 
-        <div class="hiddendiv common"></div><div style="left: 0px;" class="drag-target"></div>
+            <div class="hiddendiv common"></div><div style="left: 0px;" class="drag-target"></div>
+
+        </div>
     </body>
-    <script>
-        $("#chat").height($( window ).height()-100);
-        $("#contactos").height($( window ).height()-100);
-        $("#conversacion").height($( window ).height()-155);
 
-    </script>
 </html>
+<script>
+    $("#chat").height($( window ).height()-100);
+    $("#contactos").height($( window ).height()-100);
+    $("#conversacion").height($( window ).height()-155);
+
+</script>
+<script>
+    $("#estado").click(function(){
+        var src = $('#estado').attr('class');
+        console.log(src);
+        if (src=="material-icons right green-text"){
+            $('#estado').removeClass( "green-text" );
+            $('#estado').addClass( "red-text" );
+        }else{
+            $('#estado').removeClass( "red-text" );
+            $('#estado').addClass( "green-text" );
+        }
+    })
+</script>
