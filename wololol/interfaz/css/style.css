@@ -583,6 +583,11 @@ scrollbar[orient="vertical"] {
 }
 .borderBlue {
     border-color:#04242f;
+    border-bottom:0px;
 }
 
 
+
+.pad {
+    padding-left: 20px
+}
