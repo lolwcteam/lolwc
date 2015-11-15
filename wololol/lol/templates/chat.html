@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load lolwc_tags %}
+{% block contenido %}
+<div class="section">
+    <div class="container">
+{% comment %}
+        <div class="lightblue card">
+            <span>id: </span><span id="id">{{info.user.id}}</span><br>
+            <span>statusChat: </span><span id="statusChat">{{info.user.statusChat}}</span><br>
+            <span>name: </span><span id="name">{{info.user.name}}</span><br>
+            <span>profileIcon: </span><span id="profileIcon">{{info.user.profileIcon}}</span><br>
+            <span>level: </span><span id="level">{{info.user.level}}</span><br>
+            <span>championMasteryScore: </span><span id="championMasteryScore">{{info.user.championMasteryScore}}</span><br>
+            <span>statusMsg: </span><span id="statusMsg">{{info.user.statusMsg}}</span><br>
+            <span>rankedLeagueName: </span><span id="rankedLeagueName">{{info.user.rankedLeagueName}}</span><br>
+            <span>rankedLeagueDivision: </span><span id="rankedLeagueDivision">{{info.user.rankedLeagueDivision}}</span><br>
+            <span>rankedLeagueTier: </span><span id="rankedLeagueTier">{{info.user.rankedLeagueTier}}</span><br>
+        </div>
+
+        {% for i in info.friends %}
+        <div class="col s3 m3 l3 blue card">
+            <span>id: </span><span id="id">{{i.id}}</span><br>
+            <span>statusChat: </span><span id="statusChat">{{i.statusChat}}</span><br>
+            <span>name: </span><span id="name">{{i.name}}</span><br>
+            <span>profileIcon: </span><span id="profileIcon">{{i.profileIcon}}</span><br>
+            <span>level: </span><span id="level">{{i.level}}</span><br>
+            <span>championMasteryScore: </span><span id="championMasteryScore">{{i.championMasteryScore}}</span><br>
+            <span>statusMsg: </span><span id="statusMsg">{{i.statusMsg}}</span><br>
+            <span>rankedLeagueName: </span><span id="rankedLeagueName">{{i.rankedLeagueName}}</span><br>
+            <span>rankedLeagueDivision: </span><span id="rankedLeagueDivision">{{i.rankedLeagueDivision}}</span><br>
+            <span>rankedLeagueTier: </span><span id="rankedLeagueTier">{{i.rankedLeagueTier}}</span><br>
+            <span>skinname: </span><span id="skinname">{{i.skinname}}</span><br>
+            <span>gameQueueType: </span><span id="gameQueueType">{{i.gameQueueType}}</span><br>
+            <span>gameStatus: </span><span id="gameStatus">{{i.gameStatus}}</span><br>
+            <span>timeStamp: </span><span id="timeStamp">{{i.timeStamp}}</span><br>
+        </div>
+        {% endfor %}
+
+        <input id="to">A quien</input>
+        <textarea id="message">Mensaje</textarea>
+        <a class="blue btn waves-effect">Enviar</a>
+{% endcomment %}
+    </div>
+</div>
+{% endblock %}
+{% block scripts %}
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/converse.min.css' %}">
+    <script src="{% static 'js/converse.min.js' %}"></script>
+    <script>
+    require(['converse'], function (converse) {
+        converse.initialize({
+            bosh_service_url: 'https://bind.conversejs.org', // Please use this connection manager only for testing purposes
+            i18n: locales.en, // Refer to ./locale/locales.js to see which locales are supported
+            show_controlbox_by_default: true,
+            roster_groups: true
+        });
+    });
+    </script>
+    {% endblock %}
+{% comment %}
+<script type="text/javascript" src="{% static "jquery.gracefulWebSocket.js" %}"></script>
+<script>
+$(document).ready( function() {
+    window.chat = {};
+    //Instantiate a websocket client connected to our server
+    chat.ws = $.gracefulWebSocket("ws://127.0.0.1:1025/ws");
+
+    //Basic message send
+    chat.send = function (message) {
+        chat.ws.send(message);
+    }
+
+    //Basic message receive
+    chat.ws.onmessage = function (event) {
+        var messageFromServer = event.data;
+        var list_element = document.createElement('li');
+        list_element.innerHTML = messageFromServer;
+        $("#message_list ul").prepend(list_element);
+    };
+
+    var inputBox = document.getElementById("inputbox");
+
+    inputbox.addEventListener("keydown", function(e) {
+        if (!e) { var e = window.event; }
+
+        //keyCode 13 is the enter/return button keyCode
+        if (e.keyCode == 13) {
+            // enter/return probably starts a new line by default
+            e.preventDefault();
+            chat.send(inputbox.value);
+            inputbox.value="";
+        }
+    }, false); });
+    </script>
+{% endcomment %}

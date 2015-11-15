@@ -13,6 +13,7 @@ def getItem(dictionary, key):
 
 @register.filter
 def getIndex(lista, index):
+    print(lista, index)
     return lista[int(index)]
 
 #Deprecated
