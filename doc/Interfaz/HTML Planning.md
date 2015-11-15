@@ -272,7 +272,7 @@ lista de:
     - skinname #si inGame, el champ jugado  
     - gameQueueType #?Generalmente dice NORMAL  
     - gameStatus #inGame, outOfGame, champSelect, hostingNormalGame  
-    - timeStamp #?si inGame, timestamp de cuando empezo, si no INDEFINIDO  ###mensajes sin leer
+    - timeStamp #?si inGame, timestamp de cuando empezo, si no INDEFINIDO
 
 #**(No tocar)Contactos**  
 - friends = []  

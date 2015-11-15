@@ -21,7 +21,7 @@ class Cliente(object):
     #Buzon
     buzon = []#Lista de mensajes sin leer
     #Del roster
-    jid = None #Jabber ID del conectado
+    jid = "sumNULO@pvp.net" #Jabber ID del conectado
     statusChat = "dnd" #chat, dnd (do not disturb) y away
     name = "BanerSjK"#Nombre de invocador
     #De roster.getStatus()
@@ -105,6 +105,47 @@ class Cliente(object):
             message.setAttr('from', userJid)
             self.conn.send(message)
             return True
+
+    def getIdFromJid(self, jid):
+        ide = self.jid.split("sum")[1].split("@pvp.net")[0]
+        return ide
+
+    def getAll(self):
+        friends = [None]*len(self.friends)
+        for i in range(len(self.friends)):
+            friends[i] = {
+                "id":unicode(self.getIdFromJid(self.friends[i].jid)),
+                "statusChat":unicode(self.friends[i].statusChat),
+                "name":unicode(self.friends[i].name),
+                "profileIcon":unicode(self.friends[i].profileIcon),
+                "level":unicode(self.friends[i].level),
+                "championMasteryScore":unicode(self.friends[i].championMasteryScore),
+                "statusMsg":unicode(self.friends[i].statusMsg),
+                "rankedLeagueName":unicode(self.friends[i].rankedLeagueName),
+                "rankedLeagueDivision":unicode(self.friends[i].rankedLeagueDivision),
+                "rankedLeagueTier":unicode(self.friends[i].rankedLeagueTier),
+                "skinname":unicode(self.friends[i].skinname),
+                "gameQueueType":unicode(self.friends[i].gameQueueType),
+                "gameStatus":unicode(self.friends[i].gameStatus),
+                "timeStamp":unicode(self.friends[i].timeStamp),
+            }
+
+        info = {
+            "user":{
+                "id":unicode(self.getIdFromJid(self.jid)),
+                "statusChat":unicode(self.statusChat),
+                "name":unicode(self.name),
+                "profileIcon":unicode(self.profileIcon),
+                "level":unicode(self.level),
+                "championMasteryScore":unicode(self.championMasteryScore),
+                "statusMsg":unicode(self.statusMsg),
+                "rankedLeagueName":unicode(self.rankedLeagueName),
+                "rankedLeagueDivision":unicode(self.rankedLeagueDivision),
+                "rankedLeagueTier":unicode(self.rankedLeagueTier),
+            },
+            "friends":friends
+        }
+        return info
 
     def printAll(self):
         print("------------------------")

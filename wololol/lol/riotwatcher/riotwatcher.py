@@ -902,7 +902,6 @@ def getApiSummoner(summoner = None, idSum = None, region = None):
     #Pedir toda la informacion a la api
     #Formatearla al diccionario y devolverla
     global res
-    print str(res)
     return res
 
 def getCacheSummoner(summoner = None, idSum = None, region = None):
@@ -910,5 +909,4 @@ def getCacheSummoner(summoner = None, idSum = None, region = None):
     #Si esta devolverlo
     #Si no devolver None
     global res
-    print str(res)
     return res
