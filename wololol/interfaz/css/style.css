@@ -589,5 +589,10 @@ scrollbar[orient="vertical"] {
 
 
 .pad {
-    padding-left: 20px
+    padding-left: 20px;
+}
+
+.conversacion {
+    height: 510px;
+    overflow-y:scroll;
 }

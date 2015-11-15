@@ -77,7 +77,7 @@
 
                                 <!-- Contactos -->
                                 <!-- Tarjeta -->
-                                <li class="collection-item blue borderBlue " style="border-bottom:0px;" value="1" onclick="tab(this)">
+                                <li class="contact collection-item blue borderBlue" style="border-bottom:0px;" value="1" onclick="tab(this)">
                                     <img class="mid chatImg" src="img/612.png" width="40px"/>
                                     <span class="white-text nameChat">Adriex</span>
                                     <i class="material-icons right red-text">lens</i>
@@ -105,14 +105,14 @@
                                     </div>
                                 </div>
 
-                                <li class="collection-item blue borderBlue " style="border-bottom:0px;" value="2" onclick="tab(this)">
+                                <li class="contact collection-item blue borderBlue" style="border-bottom:0px;" value="2" onclick="tab(this)">
                                     <img class="mid chatImg" src="img/612.png" width="40px"/>
                                     <span class="white-text nameChat">Ovej4</span>
                                     <i class="material-icons right red-text">lens</i>
                                     <a class="waves-effect waves-light modal-trigger right mid" href="#modal2"><i class="material-icons">info</i></a>
                                 </li>
-                                
-                                <li class="collection-item blue borderBlue " style="border-bottom:0px;" value="2" onclick="tab(this)">
+
+                                <li class="contact collection-item blue borderBlue" style="border-bottom:0px;" value="3" onclick="tab(this)">
                                     <img class="mid chatImg" src="img/612.png" width="40px"/>
                                     <span class="white-text nameChat">Rodrigitus</span>
                                     <i class="material-icons right red-text">lens</i>
@@ -121,22 +121,8 @@
                             </ul>
                         </div>
                         <div id="chatBox" class="col s8">
-                            <div id="conversacion" style="overflow-y:scroll;" class="card blue text-white pad">
-                                <div class="section">
-                                    <span class="nameChat">Adriex</span><br>
-                                    <span class="messageChat">Hola!</span>
-                                </div>
-                                <hr>
-                                <div class="section">
-                                    <span class="nameChat">Adriex</span><br>
-                                    <span class="messageChat">Jugamos una partida?</span>
-                                </div>
-                                <hr>
-                                <div class="section">
-                                    <span class="nameChat">Sad Jocker King</span><br>
-                                    <span class="messageChat">No puedo, estoy usando un cliente web :P</span>
-                                </div>
-                                <hr>
+                            <div id="dlog-default" class="conversacion card blue text-white pad">
+                                <h5 class="valign">Selecciona algún contacto para chatear!</h5>
                             </div>
                             <div id="inputChat" class="card lightblue input-field pad">
                                 <input id="chatText" class="col s11" type="text" value="">
@@ -205,10 +191,8 @@
     $("#contactos").height($( window ).height()-100);
     $("#conversacion").height($( window ).height()-155);
 
-</script>
-<script>
     var name = "Sad Jocker King";
-    
+
     $("#estado").click(function(){
         var src = $('#estado').attr('class');
         console.log(src);
@@ -221,22 +205,28 @@
         }
     });
 
-    $(document).ready(function() {
-
-    });
-    
-    $("#send").click(function (){
-        var msg = $(".chatText").val();
-        $("#conversacion").append('<div class="section"><span class="nameChat">'+name+'</span><br><span class="messageChat">'+msg+'</span></div><hr>');
-    });
-
     function tab(tab){
         numTab=tab.value;
         $(".tabs-div").hide();
-        $("li").removeClass("lightblue");
-        $("#perfil").addClass("lightblue");
+        $(".contact").removeClass("lightblue");
         $(tab).addClass("lightblue");
         $("#tabs-"+numTab).show();
     }
 
+    function incomeMsg(from){
+        $("#conversacion").append('<div class="section"><span class="nameChat">'+from+'</span><br><span class="messageChat">'+msg+'</span></div><hr>');
+    }
+
+    $("#send").click(function (){
+        var msg = document.getElementById("chatText").value;
+        if ($(".contact").hasClass("lightblue")){
+            if (msg==""){
+                alert("Debes escribir algo")
+            }else{
+                $("#conversacion").append('<div class="section"><span class="nameChat">'+name+'</span><br><span class="messageChat">'+msg+'</span></div><hr>');
+            }
+        }else{
+            alert("Selecciona un contacto")
+        }
+    });
 </script>
