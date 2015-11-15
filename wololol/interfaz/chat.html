@@ -77,7 +77,7 @@
 
                                 <!-- Contactos -->
                                 <!-- Tarjeta -->
-                                <li class="contact collection-item blue borderBlue" style="border-bottom:0px;" value="1" onclick="tab(this)">
+                                <li class="contact collection-item blue borderBlue" style="border-bottom:0px;" value="1">
                                     <img class="mid chatImg" src="img/612.png" width="40px"/>
                                     <span class="white-text nameChat">Adriex</span>
                                     <i class="material-icons right red-text">lens</i>
@@ -105,14 +105,14 @@
                                     </div>
                                 </div>
 
-                                <li class="contact collection-item blue borderBlue" style="border-bottom:0px;" value="2" onclick="tab(this)">
+                                <li class="contact collection-item blue borderBlue" style="border-bottom:0px;" value="2">
                                     <img class="mid chatImg" src="img/612.png" width="40px"/>
                                     <span class="white-text nameChat">Ovej4</span>
                                     <i class="material-icons right red-text">lens</i>
                                     <a class="waves-effect waves-light modal-trigger right mid" href="#modal2"><i class="material-icons">info</i></a>
                                 </li>
 
-                                <li class="contact collection-item blue borderBlue" style="border-bottom:0px;" value="3" onclick="tab(this)">
+                                <li class="contact collection-item blue borderBlue" style="border-bottom:0px;" value="3">
                                     <img class="mid chatImg" src="img/612.png" width="40px"/>
                                     <span class="white-text nameChat">Rodrigitus</span>
                                     <i class="material-icons right red-text">lens</i>
@@ -188,45 +188,53 @@
 
 </html>
 <script>
-    $("#contactos").height($( window ).height()-100);
-    $("#conversacion").height($( window ).height()-155);
+    $(document).ready(function(){
+        $("#contactos").height($( window ).height()-100);
+        $("#conversacion").height($( window ).height()-155);
 
-    var name = "Sad Jocker King";
+        var name = "Sad Jocker King";
 
-    $("#estado").click(function(){
-        var src = $('#estado').attr('class');
-        console.log(src);
-        if (src=="material-icons right green-text"){
-            $('#estado').removeClass( "green-text" );
-            $('#estado').addClass( "red-text" );
-        }else{
-            $('#estado').removeClass( "red-text" );
-            $('#estado').addClass( "green-text" );
-        }
-    });
-
-    function tab(tab){
-        numTab=tab.value;
-        $(".tabs-div").hide();
-        $(".contact").removeClass("lightblue");
-        $(tab).addClass("lightblue");
-        $("#tabs-"+numTab).show();
-    }
-
-    function incomeMsg(from){
-        $("#conversacion").append('<div class="section"><span class="nameChat">'+from+'</span><br><span class="messageChat">'+msg+'</span></div><hr>');
-    }
-
-    $("#send").click(function (){
-        var msg = document.getElementById("chatText").value;
-        if ($(".contact").hasClass("lightblue")){
-            if (msg==""){
-                alert("Debes escribir algo")
+        $("#estado").click(function(){
+            var src = $('#estado').attr('class');
+            console.log(src);
+            if (src=="material-icons right green-text"){
+                $('#estado').removeClass( "green-text" );
+                $('#estado').addClass( "red-text" );
             }else{
-                $("#conversacion").append('<div class="section"><span class="nameChat">'+name+'</span><br><span class="messageChat">'+msg+'</span></div><hr>');
+                $('#estado').removeClass( "red-text" );
+                $('#estado').addClass( "green-text" );
             }
-        }else{
-            alert("Selecciona un contacto")
+        });
+
+        $(".contact").click(function(){
+            tabID=$(this).find("span").text();
+            $(".conversacion").hide();
+            $(".contact").removeClass("lightblue");
+            $(this).addClass("lightblue");
+            if ( $( "#dlog-"+tabID ).length ) {
+                $("#dlog-"+tabID).show();
+            }else{
+                $("#chatBox").prepend('<div id="dlog-default" class="conversacion card blue text-white pad"></div>');
+            }
+        });
+
+        function incomeMsg(from,msgFrom){
+            $("#dlog-"+from).append('<div class="section"><span class="nameChat">'+from+'</span><br><span class="messageChat">'+msgFrom+'</span></div><hr>');
         }
+
+        $("#send").click(function (){
+            var msg = document.getElementById("chatText").value;
+            if ($(".contact").hasClass("lightblue")){
+                if (msg==""){
+                    alert("Debes escribir algo")
+                }else{
+                    //msgID=$(this).find("span").text();
+                    //TODO cambiar conversacion por conversacion activa
+                    $("#conversacion").append('<div class="section"><span class="nameChat">'+name+'</span><br><span class="messageChat">'+msg+'</span></div><hr>');
+                }
+            }else{
+                alert("Selecciona un contacto")
+            }
+        });
     });
 </script>
