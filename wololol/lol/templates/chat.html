@@ -4,7 +4,7 @@
 {% block contenido %}
 <div class="section">
     <div class="container">
-{% comment %}
+
         <div class="lightblue card">
             <span>id: </span><span id="id">{{info.user.id}}</span><br>
             <span>statusChat: </span><span id="statusChat">{{info.user.statusChat}}</span><br>
@@ -40,24 +40,12 @@
         <input id="to">A quien</input>
         <textarea id="message">Mensaje</textarea>
         <a class="blue btn waves-effect">Enviar</a>
-{% endcomment %}
+
     </div>
 </div>
 {% endblock %}
 {% block scripts %}
-    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/converse.min.css' %}">
-    <script src="{% static 'js/converse.min.js' %}"></script>
-    <script>
-    require(['converse'], function (converse) {
-        converse.initialize({
-            bosh_service_url: 'https://bind.conversejs.org', // Please use this connection manager only for testing purposes
-            i18n: locales.en, // Refer to ./locale/locales.js to see which locales are supported
-            show_controlbox_by_default: true,
-            roster_groups: true
-        });
-    });
-    </script>
-    {% endblock %}
+
 {% comment %}
 <script type="text/javascript" src="{% static "jquery.gracefulWebSocket.js" %}"></script>
 <script>
@@ -94,3 +82,20 @@ $(document).ready( function() {
     }, false); });
     </script>
 {% endcomment %}
+
+{% comment %}
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/converse.min.css' %}">
+    <script src="{% static 'js/converse.min.js' %}"></script>
+    <script>
+    require(['converse'], function (converse) {
+        converse.initialize({
+            bosh_service_url: 'https://bind.conversejs.org', // Please use this connection manager only for testing purposes
+            i18n: locales.en, // Refer to ./locale/locales.js to see which locales are supported
+            show_controlbox_by_default: true,
+            roster_groups: true
+        });
+    });
+    </script>
+    {% endcomment %}
+
+{% endblock %}

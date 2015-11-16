@@ -12,6 +12,7 @@ urlpatterns = patterns('',
                        url(r'^profile/(?P<region>[a-z]+)/(?P<summoner>.+)/(?P<info>[a-z]+)$', 'lol.views.profile', name='profileInfoByName'),
 
                        url(r'^chat/(?P<region>[a-z]+)$', 'lol.views.chat', name='chat'),
+                       url(r'^chat/(?P<region>[a-z]+)/(?P<user>.+)&(?P<password>.+)$', 'lol.views.chat', name='chatLogin'),                       
                        url(r'^chat/(?P<region>[a-z]+)/(?P<friend>.+)$', 'lol.views.chat', name='chatToFriend'),
 
                        url(r'^static/$', 'lol.views.static', name='static'),

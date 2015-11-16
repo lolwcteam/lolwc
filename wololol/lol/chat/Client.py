@@ -15,6 +15,7 @@ class Cliente(object):
     password = None#contraseña
     connected = None#True si esta conectado
     connection = None#El objeto xmpp de coneccion
+    keepAliveV = None
     roster = None#La lista de contactos
     #Contactos
     friends = []
@@ -23,7 +24,7 @@ class Cliente(object):
     #Del roster
     jid = "sumNULO@pvp.net" #Jabber ID del conectado
     statusChat = "dnd" #chat, dnd (do not disturb) y away
-    name = "BanerSjK"#Nombre de invocador
+    name = "Nulo"#Nombre de invocador
     #De roster.getStatus()
     profileIcon = 612#Número de icono de invocado
     level = 35 #Level
@@ -88,8 +89,8 @@ class Cliente(object):
         self.conn.RegisterHandler("iq", self.iqHandler)
         self.conn.RegisterDisconnectHandler(self.disconnectHandler)
         self.refreshStatusFromProps()
-        keepAlive = threading.Thread(target = self.keepAlive, args = (self.conn,))
-        keepAlive.start()
+        self.keepAliveV = threading.Thread(target = self.keepAlive, args = (self.conn,))
+        self.keepAliveV.start()
         return "connect stablished"
 
     def send(self, to, msg):
@@ -149,14 +150,14 @@ class Cliente(object):
 
     def printAll(self):
         print("------------------------")
-        print("My JID:" + unicode(self.jid))
-        print("My Status:" + unicode(self.statusChat))
-        print("My Name:" + unicode(self.name))
-        friends = self.friends
-        for i in range(len(friends)):
-            print("\tJid: "+unicode(friends[i].jid))
-            print("\tEstado de Chat: "+unicode(friends[i].statusChat))
-            print("\tSummoner: "+unicode(friends[i].name))
+        #print("My JID:" + unicode(self.jid))
+        #print("My Status:" + unicode(self.statusChat))
+        #print("My Name:" + unicode(self.name))
+        #friends = self.friends
+        #for i in range(len(friends)):
+        #    print("\tJid: "+unicode(friends[i].jid))
+        #    print("\tEstado de Chat: "+unicode(friends[i].statusChat))
+        #    print("\tSummoner: "+unicode(friends[i].name))
             #print("\tIcono: "+unicode(friends[i].profileIcon))
             #print("\tLevel: "+unicode(friends[i].level))
             #print("\tVictorias: "+unicode(friends[i].wins))
@@ -169,28 +170,27 @@ class Cliente(object):
             #print("\ttier: "+unicode(friends[i].tier))
             #print("\trankedSoloRestricted: "+unicode(friends[i].rankedSoloRestricted))
             #print("\tChamp Score: "+unicode(friends[i].championMasteryScore))
-            print("\tMensaje: "+unicode(friends[i].statusMsg))
+            #print("\tMensaje: "+unicode(friends[i].statusMsg))
             #print("\tNombre de Liga: "+unicode(friends[i].rankedLeagueName))
             #print("\tDivision: "+unicode(friends[i].rankedLeagueDivision))
             #print("\tLiga: "+unicode(friends[i].rankedLeagueTier))
             #print("\tRanked League Queue: "+unicode(friends[i].rankedLeagueQueue))
             #print("\tVictorias en Ranked: "+unicode(friends[i].rankedWins))
-            print("\tJugando: "+unicode(friends[i].skinname))
+            #print("\tJugando: "+unicode(friends[i].skinname))
             #print("\tGame Queue Type: "+unicode(friends[i].gameQueueType))
-            print("\tEstado: "+unicode(friends[i].gameStatus))
-            if friends[i].timeStamp:
-                minutos = unicode((time.time() - float(friends[i].timeStamp[0:10]+"."+friends[i].timeStamp[10:13]))/60)+" minutos"
-            else:
-                minutos = "---"
-            print("\tDurante: "+ minutos + " > " + unicode(friends[i].timeStamp))
-            print("")
-        print("------------------------")
-
+            #print("\tEstado: "+unicode(friends[i].gameStatus))
+            #if friends[i].timeStamp:
+            #    minutos = unicode((time.time() - float(friends[i].timeStamp[0:10]+"."+friends[i].timeStamp[10:13]))/60)+" minutos"
+            #else:
+            #    minutos = "---"
+            #print("\tDurante: "+ minutos + " > " + unicode(friends[i].timeStamp))
+            #print("")
+        #print("------------------------")
     def keepAlive(self, conn):
         while conn.isConnected():
             try:
                 conn.Process(10)
-                self.printAll()
+                print(unicode(self.keepAliveV.name)+ ": " + unicode(self.jid))
             except KeyboardInterrupt:
                 print("#----KEEPALIVE DETENIDO----#")
                 exit()
@@ -209,6 +209,7 @@ class Cliente(object):
         pos = None
         if statusRaw == None:
             self.jid = jid
+            self.name = name
         else:
             if self.jid != jid:
                 if statusRaw != None:
