@@ -596,3 +596,7 @@ scrollbar[orient="vertical"] {
     height: 510px;
     overflow-y:scroll;
 }
+
+#perfil {
+    background-color: #17699c;
+}

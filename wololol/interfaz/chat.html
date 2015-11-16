@@ -47,10 +47,10 @@
                     <div style="display: block;" id="chat" class="darkblue col s12">
 
                         <div style="overflow-y: scroll;" id="contactos" class="hide-on-med-and-down darkblue text-white col s4">
-                            <ul class="collection" data-collapsible="accordion" style="border:0px;">
+                            <ul id="contactList" class="collection" data-collapsible="accordion" style="border:0px;">
                                 <!-- Perfil -->
                                 <!-- Tarjeta -->
-                                <li id="perfil" class="collection-item lightblue borderBlue" style="border-bottom:0px;">
+                                <li id="perfil" class="collection-item borderBlue" style="border-bottom:0px;">
                                     <img class="mid chatImg" src="img/612.png" width="40px"/>
                                     <span class="white-text nameChat">Sad Jocker King</span>
                                     <i id="estado" class="material-icons right green-text">lens</i>
@@ -124,12 +124,12 @@
                             <div id="dlog-default" class="conversacion card blue text-white pad">
                                 <h5 class="valign">Selecciona algún contacto para chatear!</h5>
                             </div>
-                            <div id="inputChat" class="card lightblue input-field pad">
+                            <form id="inputChat" class="card lightblue input-field pad">
                                 <input id="chatText" class="col s11" type="text" value="">
                                 <button id="send" type="submit" class="btn-floating blue btn-flat waves-effect right mid">
                                     <i class="material-icons">send</i>
                                 </button>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -189,6 +189,13 @@
 </html>
 <script>
     $(document).ready(function(){
+        agregContact();
+        if ( $("#contactos").css('display') == 'none' ){
+            //TODO contactos en celular
+            $("#chatBox").removeClass("s8");
+            $("#chatBox").addClass("s12");
+        }
+
         $("#contactos").height($( window ).height()-100);
         $("#conversacion").height($( window ).height()-155);
 
@@ -208,29 +215,81 @@
 
         $(".contact").click(function(){
             tabID=$(this).find("span").text();
-            $(".conversacion").hide();
             $(".contact").removeClass("lightblue");
+            $(".contact").removeClass("contActive");
             $(this).addClass("lightblue");
+            $(this).addClass("contActive");
+            $(".conversacion").hide();
             if ( $( "#dlog-"+tabID ).length ) {
                 $("#dlog-"+tabID).show();
             }else{
-                $("#chatBox").prepend('<div id="dlog-default" class="conversacion card blue text-white pad"></div>');
+                $("#chatBox").prepend('<div id="dlog-'+tabID+'" class="conversacion card blue text-white pad"></div>');
             }
+            clsInputChat();
         });
 
         function incomeMsg(from,msgFrom){
-            $("#dlog-"+from).append('<div class="section"><span class="nameChat">'+from+'</span><br><span class="messageChat">'+msgFrom+'</span></div><hr>');
+            $("#dlog-"+from).append('<div class="section"><span class="nameChat">'+from+'</span><br><p class="messageChat">'+msgFrom+'</p></div><hr>');
+        }
+
+        
+        function clsInputChat(){
+            $("#chatText").val("");
+        }
+
+        
+        function agregContact(name,profileImage,level,league,promo,score,GQT,status,time,cita){
+            profileImage="img/612.png";
+            name="Fulano"
+            $("#contactList").append($('<li/>', {
+                html : $('<img class="mid chatImg" src="'+profileImage+'" width: "40px"/><span class="white-text nameChat">'+name+'</span><i id="estado" class="material-icons right green-text">lens</i><a class="waves-effect waves-light modal-trigger right" href="#m'+name+'"><i class="material-icons">info</i></a>'),
+                'class' : 'contact collection-item blue borderBlue',
+                'style': 'border-bottom:0px;'
+            }));
+
+            $("#contactList").append($('<div/>', {
+                html : $('<div class="modal-content">WOlolol</div>'),
+                'id' : 'm'+name,
+                'class' : 'modal blue borderBlue white-text',
+            }));
+            
+            $('#m'+name+' .modal-content').css("background-color","red");
+
+
+            /**
+            <div id="modal2" class="modal blue borderBlue white-text">
+                                    <div class="modal-content">
+                                        <img src="img/92.png" class="right" width="40px" style="border-radius:40px"/>
+
+                                        <span class="blue-text">Nivel: </span><span>30</span><br>
+                                        <span class="blue-text">Liga: </span>
+                                        <span>Gold</span>
+                                        <span> </span>
+                                        <span>1</span><br>
+                                        <span class="blue-text">Liga: </span><span>Adriex's Army</span><br>
+                                        <span class="blue-text">Score: </span><span>280</span><br>
+                                        <span class="blue-text">gameQueueType: </span><span>NORMAL</span><br>
+                                        <span class="blue-text">Status: </span><span>InPlay</span><br>
+                                        <span class="blue-text">Time Played: </span><span>20 horas</span><br>
+                                        <span class="yellow-text">"LA ZERRDDA!"</span><br>
+    </div>
+                                    <div class="modal-footer blue">
+                                        <a href="#!" class="white-text modal-action modal-close waves-effect waves-green btn-flat">OK</a>
+    </div>
+    </div>
+
+            **/
         }
 
         $("#send").click(function (){
-            var msg = document.getElementById("chatText").value;
+            var msg = $("#chatText").val();
+            clsInputChat();
             if ($(".contact").hasClass("lightblue")){
                 if (msg==""){
                     alert("Debes escribir algo")
                 }else{
-                    //msgID=$(this).find("span").text();
-                    //TODO cambiar conversacion por conversacion activa
-                    $("#conversacion").append('<div class="section"><span class="nameChat">'+name+'</span><br><span class="messageChat">'+msg+'</span></div><hr>');
+                    msgTo=$(".contActive").find("span").text();
+                    $("#dlog-"+msgTo).append('<div class="section"><span class="nameChat">'+name+'</span><br><p class="messageChat">'+msg+'</p></div><hr>');
                 }
             }else{
                 alert("Selecciona un contacto")
