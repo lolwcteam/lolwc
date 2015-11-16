@@ -147,7 +147,7 @@
     $(document).ready(function(){
 
         var name = "Sad Jocker King";
-        agregContact("Ωω.ΆΈ. ΉΊ","img/612.png","42","Silver VI","AguanteTurquia","653","INhome","allahu","13 horas","");
+        agregContact("Ωω.ΆΈ. ΉΊ","img/612.png","42","Silver VI","AguanteTurquia","653","En Juego","allahu","13 horas","zerda");
         agregContact("Adriex","img/612.png");
 
         if ( $("#contactos").css('display') == 'none' ){
@@ -156,7 +156,7 @@
             $("#chatBox").addClass("s12");
         }
         
-        function agregContact(name,profileImage,level,league,promo,score,GQT,status,time,cita){
+        function agregContact(name,profileImage,level,league,promo,score,GQT,status,time,statusMsg){
             nameID=nameToID(name);
             $("#contactList").append($('<li/>', {
                 html : $('<img class="mid chatImg" src="'+profileImage+'" width: "40px"/><span class="white-text nameChat">'+name+'</span><i id="estado" class="material-icons right green-text">lens</i><a id="'+nameID+'"class="waves-effect circle waves-light modal-trigger right" data-target="#m'+nameID+'"><i class="material-icons">info</i></a>'),
@@ -164,10 +164,13 @@
                 'style': 'border-bottom:0px;'
             }));
             
-            var level = '<span class="blue-text">Level: </span><span>'+level+'</span><br>'
-            var league = '<span>'+league+'</span><br>'
+            var level = '<span class="blue-text">Nivel: </span><span>'+level+'</span><br>'
+            var league = '<span class="blue-text">Liga: </span><span>'+league+'</span><br>'
+            var promo = '<span>'+promo+'</span><br>'
+            var score = '<i class="material-icons mid tiny">grade</i><span>'+score+'</span><br>'
+            var GQT = '<span class="yellow-text">'+GQT+'</span><br>'
 
-            $("#contactList").append('<div id="m'+nameID+'" class="modal blue borderBlue white-text"><div class="modal-content"><h4>'+name+'</h4>'+level+'<span class="blue-text">Liga: </span>'+league+'</div><div class="blue modal-footer"><a href="#!" class=" modal-action modal-close white-text waves-effect waves-green btn-flat">OK</a></div></div>');
+            $("#contactList").append('<div id="m'+nameID+'" class="modal blue borderBlue white-text"><div class="modal-content"><h4>'+name+'</h4>'+level+league+promo+score+GQT+'</div><hr><div class="blue modal-footer"><a href="#!" class=" modal-action modal-close white-text waves-effect waves-green btn-flat">OK</a></div></div>');
 
 
 
