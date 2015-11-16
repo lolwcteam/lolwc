@@ -242,16 +242,12 @@
             profileImage="img/612.png";
             name="Fulano"
             $("#contactList").append($('<li/>', {
-                html : $('<img class="mid chatImg" src="'+profileImage+'" width: "40px"/><span class="white-text nameChat">'+name+'</span><i id="estado" class="material-icons right green-text">lens</i><a class="waves-effect waves-light modal-trigger right" href="#m'+name+'"><i class="material-icons">info</i></a>'),
+                html : $('<img class="mid chatImg" src="'+profileImage+'" width: "40px"/><span class="white-text nameChat">'+name+'</span><i id="estado" class="material-icons right green-text">lens</i><a class="waves-effect waves-light modal-trigger right" data-target="#m'+name+'"><i class="material-icons">info</i></a>'),
                 'class' : 'contact collection-item blue borderBlue',
                 'style': 'border-bottom:0px;'
             }));
 
-            $("#contactList").append($('<div/>', {
-                html : $('<div class="modal-content">WOlolol</div>'),
-                'id' : 'm'+name,
-                'class' : 'modal blue borderBlue white-text',
-            }));
+            $("#contactList").append('<div id="m'+name+'" class="modal blue borderBlue white-text"><div class="modal-content">wowowow</div><div class="modal-footer blue"><a href="#!" class="white-text modal-action modal-close waves-effect waves-green btn-flat">OK</a></div></div>');
             
             $('#m'+name+' .modal-content').css("background-color","red");
 
