@@ -593,10 +593,26 @@ scrollbar[orient="vertical"] {
 }
 
 .conversacion {
-    height: 510px;
     overflow-y:scroll;
 }
 
 #perfil {
     background-color: #17699c;
+}
+
+
+
+.likemodal {
+    display: none;
+  position: fixed;
+  left: 0;
+  right: 0;
+  background-color: #fafafa;
+  padding: 0;
+  max-height: 70%;
+  width: 55%;
+  margin: auto;
+  overflow-y: auto;
+  border-radius: 2px;
+box-shadow: 0 16px 28px 0 rgba(0, 0, 0, 0.22), 0 25px 55px 0 rgba(0, 0, 0, 0.21);
 }
