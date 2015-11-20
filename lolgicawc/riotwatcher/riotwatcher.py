@@ -1,7 +1,9 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from collections import deque
 import time
 import requests
-
 # Constants
 BRAZIL = 'br'
 EUROPE_NORDIC_EAST = 'eune'
@@ -243,6 +245,7 @@ class RiotWatcher:
             ),
             params=args
         )
+        print(type(r))
         if not static:
             for lim in self.limits:
                 lim.add_request()
@@ -378,7 +381,7 @@ class RiotWatcher:
 
     # lol-static-data-v1.2
     def _static_request(self, end_url, region, **kwargs):
-        return self.base_request(
+        res = self.base_request(
             'v{version}/{end_url}'.format(
                 version=api_versions['lol-static-data'],
                 end_url=end_url
@@ -387,6 +390,7 @@ class RiotWatcher:
             static=True,
             **kwargs
         )
+        return res
 
     def static_get_champion_list(self, region=None, locale=None, version=None, data_by_id=None, champ_data=None):
         return self._static_request(
