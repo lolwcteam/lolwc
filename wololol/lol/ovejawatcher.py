@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #Importando
+#ID Sad Jocker King= 426174
 import json
 import requests
 from django.core.exceptions import ObjectDoesNotExist
@@ -22,6 +23,36 @@ from riotwatcher import RUSSIA
 from riotwatcher import TURKEY
 
 riotWatcher = RiotWatcher("7088def7-f1b0-4182-a9f2-07336754983a", default_region=LATIN_AMERICA_SOUTH) #Seteando mi clave para hacer APIcalls
+
+ligueValue = {
+    'Bronze V':26,
+    'Bronze IV':25,
+    'Bronze III':24,
+    'Bronze II':23,
+    'Bronze I':22,
+    'Silver V':21,
+    'Silver IV':20,
+    'Silver III':19,
+    'Silver II':18,
+    'Silver I':17,
+    'Gold V':16,
+    'Gold IV':15,
+    'Gold III':14,
+    'Gold II':13,
+    'Gold I':12,
+    'Platinum V':11,
+    'Platinum IV':10,
+    'Platinum III':9,
+    'Platinum II':8,
+    'Platinum I':7,
+    'Diamond V':6,
+    'Diamond IV':5,
+    'Diamond III':4,
+    'Diamond II':3,
+    'Diamond I':2,
+    'Master':1,
+    'Challenger':0
+}
 
 champsId = { #Diccionario con Id de los campeones
     "266":"Aatrox",
@@ -167,6 +198,177 @@ def getSummoner(summoner=None, idSum=None, region=None): #Funcion que revisa si 
     jsonFinal = json.loads(summonerInfo)
     return jsonFinal
 
+#def getApiSummoner(summoner=None, idSum=None, region=None): #Busca un jugador en la API
+#    try:
+#        if idSum!=None:
+#            me = riotWatcher.get_summoner(_id=idSum)
+#        else:
+#            me = riotWatcher.get_summoner(name=summoner)
+#        wins = 0
+#        losses = 0
+#        assists = 0
+#        kills = 0
+#        deaths = 0
+#        i = 0
+#        summonerName = str(me['name'])
+#        summonerId = str(me['id'])
+#        summonerImg = str(me['profileIconId'])
+#        summonerRegion = str(region)
+#        summonerLeagueInfoBase = riotWatcher.get_league_entry([summonerId])
+#        summonerLeagueInfo = {}
+#        a = 0
+#        for i in range(len(summonerLeagueInfoBase[summonerId])):
+#            tipo = summonerLeagueInfoBase[summonerId][i]['queue']
+#            if(tipo == 'RANKED_SOLO_5x5'):
+#                summonerLeagueInfo[summonerId][a] = summonerLeagueInfoBase[summonerId][i]
+#                a+=1
+#                #Crear RANKED_SOLO_5x5
+#            elif(tipo == 'RANKED_TEAM_5x5'):
+#                if(summonerLeagueInfo[summonerId][0]['queue'] != 'RANKED_SOLO_5x5'):
+#                    summonerLeagueInfo[summonerId][0]['queue'] = 'RANKED_SOLO_5x5'
+#                    a+=1
+#                summonerLeagueInfo[summonerId][a] = summonerLeagueInfoBase[summonerId][i]
+#                a+=1
+#                #Si RANKED_SOLO_5x5 NO existe:
+#                    #Crear RANKED_SOLO_5x5
+#                #Crear RANKED_TEAM_5x5
+#            elif(tipo == 'RANKED_TEAM_3X3'):
+#                if(summonerLeagueInfo[summonerId][0]['queue'] != 'RANKED_SOLO_5x5'):
+#                    summonerLeagueInfo[summonerId][0]['queue'] = 'RANKED_SOLO_5x5'
+#                    a+=1
+#                if(summonerLeagueInfo[summonerId][2]['queue'] != 'RANKED_TEAM_5x5'):
+#                    summonerLeagueInfo[summonerId][0]['queue'] = 'RANKED_SOLO_5x5'
+#                    a+=1
+#                #Si RANKED_SOLO_5x5 NO existe:
+#                    #Crear RANKED_SOLO_5x5
+#                #Si RANKED_TEAM_5x5 NO existe:
+#                    #Crear RANKED_TEAM_5x5
+#                #Crear RANKED_TEAM_5x5
+#        try:
+#            rankedst = riotWatcher.get_ranked_stats(summonerId)
+#            summonerSoloQLeague = summonerLeagueInfo[summonerId][0]['tier']
+#            summonerDivision = summonerLeagueInfo[summonerId][0]['entries'][0]['division']
+#            summonerSoloQLp = summonerLeagueInfo[summonerId][0]['entries'][0]['leaguePoints']
+#            summonerSoloQLeagueName = summonerLeagueInfo[summonerId][0]['name']
+#            for x in range(len(rankedst['champions'])):
+#                wins += rankedst['champions'][x]['stats']['totalSessionsWon']
+#                losses += rankedst['champions'][x]['stats']['totalSessionsLost']
+#                assists += rankedst['champions'][x]['stats']['totalAssists']
+#                kills += rankedst['champions'][x]['stats']['totalChampionKills']
+#                deaths += rankedst['champions'][x]['stats']['totalDeathsPerSession']
+#            matchs = wins + losses
+#            summonerKills = round(float(kills)/float(matchs), 2)
+#            summonerDeaths = round(float(deaths)/float(matchs), 2)
+#            summonerAssists = round(float(assists)/float(matchs), 2)
+#            summonerWinrate = int(round((float(wins)/float(matchs))*100, 0))
+#            killsAssists = float(assists)+float(kills)
+#            summonerKdaRatio = round(killsAssists/float(deaths), 2)
+#            x = int(len(rankedst['champions']))
+#            mostPlayedChampMatchesCount =  0
+#            for q in range(x):
+#                if (rankedst['champions'][q]['id'] != 0):
+#                    partidaChampx = rankedst['champions'][q]['stats']['totalSessionsPlayed']
+#                if (mostPlayedChampMatchesCount <= partidaChampx):
+#                    mostPlayedChampMatchesCount = partidaChampx
+#                    maxChampPos = q
+#                    mostPlayedChamp = rankedst['champions'][q]['id']
+#                    mostPlayedChampName = champsId[str(mostPlayedChamp)]
+#            mostPlayedChampMatchesCount = float(mostPlayedChampMatchesCount)
+#            mostPlayedChampKills = round(rankedst['champions'][maxChampPos]['stats']['totalChampionKills']/mostPlayedChampMatchesCount, 2)
+#            mostPlayedChampDeaths = round(rankedst['champions'][maxChampPos]['stats']['totalDeathsPerSession']/mostPlayedChampMatchesCount, 2)
+#            mostPlayedChampAssist = round(rankedst['champions'][maxChampPos]['stats']['totalAssists']/mostPlayedChampMatchesCount, 2)
+#            mostPlayedChampGold = float(rankedssummonerLeagueInfo[summonerId]t['champions'][maxChampPos]['stats']['totalGoldEarned']/mostPlayedChampMatchesCount)
+#            mostPlayedChampGold = round(mostPlayedChampGold/1000, 2)
+#            mostPlayedChampCs = round(rankedst['champions'][maxChampPos]['stats']['totalMinionKills']/mostPlayedChampMatchesCount, 2)
+#            champWinPorcentaje =  rankedst['champions'][maxChampPos]['stats']['totalSessionsWon']/mostPlayedChampMatchesCount * 100
+#            champWinPorcentaje = round(champWinPorcentaje, 2)
+#            mostPlayedChampMatchesWinCount = rankedst['champions'][maxChampPos]['stats']['totalSessionsWon']
+#            mostPlayedChampMatchesLoseCountPorcentaje = rankedst['champions'][maxChampPos]['stats']['totalSessionsLost'] / mostPlayedChampMatchesCount * 100
+#            mostPlayedChampMatchesLoseCountPorcentaje = round(mostPlayedChampMatchesLoseCountPorcentaje, 2)
+#            mostPlayedChampMatchesLoseCount = rankedst['champions'][maxChampPos]['stats']['totalSessionsLost']
+#            mostPlayedChampMatchesCount = int(mostPlayedChampMatchesCount)
+#            killsAssists = float(mostPlayedChampKills) + float(mostPlayedChampAssist)
+#            mostPlayedChampKdaRatio = round(killsAssists/float(mostPlayedChampDeaths), 2)
+#        except(Traceback):
+#            summonerSoloQLp = 0
+#            summonerSoloQLeague = "unknow"
+#            summonerSoloQLeagueName = "Sin Clasificar"
+#            summonerDivision = "No disponible"
+#            summonerKills = "0.0"
+#            summonerDeaths = "0.0"
+#            summonerAssists = "0.0"
+#            summonerWinrate = "0.0"
+#            summonerKdaRatio = "0.0"
+#            mostPlayedChamp = "-"
+#            mostPlayedChampName = "Ninguno"
+#            mostPlayedChampMatchesCount = "0"
+#            mostPlayedChampMatchesWinCount = "0"
+#            mostPlayedChampMatchesLoseCount = "0"
+#            mostPlayedChampKdaRatio = "0.0"
+#            mostPlayedChampKills = "0.0"
+#            mostPlayedChampDeaths = "0.0"
+#            mostPlayedChampAssist = "0.0"
+#            mostPlayedChampCs = "0.0"
+#            mostPlayedChampGold = "0.0"
+#        try:
+#            bestLeague=30
+#            x=0
+#            for(x in range(len[])):
+#                
+#            summonerSoloQLeague = summonerLeagueInfo[summonerId][0]['tier']
+#            summonerDivision = summonerLeagueInfo[summonerId][0]['entries'][0]['division']
+#            summonerSoloQLp = summonerLeagueInfo[summonerId][0]['entries'][0]['leaguePoints']
+#            summonerSoloQLeagueName = summonerLeagueInfo[summonerId][0]['name']
+#
+#        except(Traceback):
+#        try:
+#
+#        except(Traceback):
+#        SummonerProfile.objects.create(summonerId = summonerId,
+#                                       leagueSoloQName = str(summonerSoloQLeagueName),
+#                                       leagueSoloQTier = str(summonerSoloQLeague),
+#                                       leagueSoloQDivision = str(summonerDivision),
+#                                       leagueSoloQLp = str(summonerSoloQLp),
+#                                       leagueTeamName = str("PEPE"),
+#                                       leagueTeamTier = str("PEPE"),
+#                                       leagueTeamDivision = str("PEPE"),
+#                                       leagueTeamLp = str("PEPE"),
+#                                       league3v3Name = str("PEPE"),
+#                                       league3v3Tier = str("PEPE"),
+#                                       league3v3Division = str("PEPE"),
+#                                       league3v3Lp = str("PEPE"))
+#
+#        MostPlayedChampInfo.objects.create(summonerId=summonerId,
+#                                       mostPlayedChampId=str(mostPlayedChamp),
+#                                       mostPlayedChampName=str(mostPlayedChampName),
+#                                       mostPlayedChampMatchesCount=str(mostPlayedChampMatchesCount),
+#                                       mostPlayedChampMatchesWinCount=str(mostPlayedChampMatchesWinCount),
+#                                       mostPlayedChampMatchesLoseCount=str(mostPlayedChampMatchesLoseCount),
+#                                       mostPlayedChampKdaRatio=str(mostPlayedChampKdaRatio),
+#                                       mostPlayedChampKills=str(mostPlayedChampKills),
+#                                       mostPlayedChampDeaths=str(mostPlayedChampDeaths),
+#                                       mostPlayedChampAssist=str(mostPlayedChampAssist),
+#                                       mostPlayedChampCs=str(mostPlayedChampCs),
+#                                       mostPlayedChampGold=str(mostPlayedChampGold))
+#
+#        SummonerInfo.objects.create(summonerId = summonerId,
+#                                    summonerServer = str(summonerRegion).upper(),
+#                                    summonerImg = str(summonerImg),
+#                                    summonerName = str(summonerName),
+#                                    summonerLeague = str(summonerSoloQLeague),
+#                                    summonerDivision = str(summonerDivision),
+#                                    summonerKills = str(summonerKills),
+#                                    summonerDeaths = str(summonerDeaths),
+#                                    summonerAssists = str(summonerAssists),
+#                                    summonerWinrate = str(summonerWinrate),
+#                                    summonerRegion = str(summonerRegion),
+#                                    summonerKdaRatio = str(summonerKdaRatio))
+#
+#        summoner = str(getCacheSummoner(idSum=summonerId, region=summonerRegion))
+#    except(LoLException):
+#        summoner = str(getCacheSummoner(idSum='None', region='None'))
+#    return summoner
+
 def getApiSummoner(summoner=None, idSum=None, region=None): #Busca un jugador en la API
     wins = 0
     losses = 0
@@ -183,11 +385,11 @@ def getApiSummoner(summoner=None, idSum=None, region=None): #Busca un jugador en
     summonerRegion = str(region)
     try:
         rankedst = riotWatcher.get_ranked_stats(summonerId)
-        summonerSoloQLeagueInfo = riotWatcher.get_league_entry([summonerId])
-        summonerSoloQLeague = summonerSoloQLeagueInfo[summonerId][0]['tier']
-        summonerDivision = summonerSoloQLeagueInfo[summonerId][0]['entries'][0]['division']
-        summonerSoloQLp = summonerSoloQLeagueInfo[summonerId][0]['entries'][0]['leaguePoints']
-        summonerSoloQLeagueName = summonerSoloQLeagueInfo[summonerId][0]['name']
+        summonerLeagueInfo = riotWatcher.get_league_entry([summonerId])
+        summonerSoloQLeague = summonerLeagueInfo[summonerId][0]['tier']
+        summonerDivision = summonerLeagueInfo[summonerId][0]['entries'][0]['division']
+        summonerSoloQLp = summonerLeagueInfo[summonerId][0]['entries'][0]['leaguePoints']
+        summonerSoloQLeagueName = summonerLeagueInfo[summonerId][0]['name']
         for x in range(len(rankedst['champions'])):
             wins += rankedst['champions'][x]['stats']['totalSessionsWon']
             losses += rankedst['champions'][x]['stats']['totalSessionsLost']
