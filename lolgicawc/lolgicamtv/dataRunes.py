@@ -1,8 +1,6 @@
 
 #-*- coding: utf-8 -*-
-dataRunes = 
-
-{"type":"rune",
+dataRunes = {"type":"rune",
  "version":"5.22.3",
  "basic":{
      "name":"",
