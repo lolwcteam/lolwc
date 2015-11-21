@@ -245,7 +245,6 @@ class RiotWatcher:
             ),
             params=args
         )
-        print(type(r))
         if not static:
             for lim in self.limits:
                 lim.add_request()
@@ -336,7 +335,7 @@ class RiotWatcher:
             **kwargs
         )
 
-    def get_league(self, summoner_ids=None, team_ids=None, region=None):
+    def get_leaguee(self, summoner_ids=None, team_ids=None, region=None):
         """summoner_ids and team_ids arguments must be iterable, only one should be specified, not both"""
         if (summoner_ids is None) != (team_ids is None):
             if summoner_ids is not None:
@@ -350,7 +349,7 @@ class RiotWatcher:
                     region
                 )
             
-    def get_leaguee(self, summoner_ids=None, region=None):
+    def get_league(self, summoner_ids=None, region=None):#funcion modificada, la normal se ubica sobre esta(team_ids fue removida) 
         """summoner_ids and team_ids arguments must be iterable, only one should be specified, not both"""
         return self._league_request(
             'by-summoner/{summoner_ids}'.format(summoner_ids=','.join([str(s) for s in summoner_ids])),
