@@ -16,11 +16,12 @@ class Cliente(object):
     connected = None#True si esta conectado
     connection = None#El objeto xmpp de coneccion
     keepAliveV = None
+    nosalir = True#False si quiero que se cierre
     roster = None#La lista de contactos
     #Contactos
-    friends = []
+    friends = None
     #Buzon
-    buzon = []#Lista de mensajes sin leer
+    buzon = None#Lista de mensajes sin leer
     #Del roster
     jid = None #Jabber ID del conectado
     statusChat = None #chat, dnd (do not disturb) y away
@@ -75,8 +76,8 @@ class Cliente(object):
         self.server = serverList[server]
 
     def connect(self):
-        #self.conn = xmpp.Client("pvp.net",debug=[])
-        self.conn = xmpp.Client("pvp.net")
+        self.conn = xmpp.Client("pvp.net",debug=[])
+        #self.conn = xmpp.Client("pvp.net")
         if not self.conn.connect(server=("chat."+self.server+".lol.riotgames.com", 5223)):
             return "connect failed"
         if not self.conn.auth(self.user, "AIR_" + self.password, "xiff"):
@@ -190,7 +191,7 @@ class Cliente(object):
         #print("------------------------")
 
     def keepAlive(self, conn):
-        while conn.isConnected():
+        while conn.isConnected() and self.nosalir:
             try:
                 conn.Process(10)
                 self.printAll()
@@ -199,21 +200,25 @@ class Cliente(object):
                 exit()
                 break
 
+    def close(self):
+        print("#----CLOSE----#")
+        self.conn.sendPresence(jid=self.jid, typ="unavaible", requestRoster=0)
+        self.nosalir = False
+
     def presenceHandler(self, conn, presence):
         print("#----Presence----#")
-        print(unicode(presence))
+        #print(unicode(presence))
         jid = presence.getFrom().getStripped()
         name = self.roster.getName(jid)
+        if self.friends == None:
+            self.friends = []
         friends = self.friends
         statusRaw = self.roster.getStatus(jid)
         chatStatus = self.roster.getShow(jid)
         priority = self.roster.getPriority(jid)
         pos = None
-        print(statusRaw)
-        print(self.jid)
-        print(priority)
+        #TODO si el usuario tiene una solicitud pendiente el jid se cambia por el de la solicitud (esta es una presence vacia con type="subscribe") agregar a este if la condicion si se encuentra
         if statusRaw == None and self.jid == None and priority != "1":
-            print("lo seteo aca")
             self.jid = jid
             self.name = self.roster.getName(jid)
             self.statusChat = "chat"
@@ -334,21 +339,20 @@ class Cliente(object):
 
     def messageHandler(self, conn, msg):
         print("#----Message----#")
-        print(unicode(msg))
-        print(unicode(self.jid))
         if unicode(msg.getTo()) == unicode(self.jid):
             user = self.roster.getName(str(msg.getFrom()))
             text = msg.getBody()
             if text != None:
+                if self.buzon == None:
+                    self.buzon = []
                 self.buzon.append((user, text))
-            print("["+unicode(user)+"]"+" > "+unicode(text))
 
     def cleanBuzon(self):
         self.buzon = []
 
     def iqHandler(self, conn, event):#TODO
         print("#----Iq----#")
-        print(unicode(event))
+        #print(unicode(event))
 
     def disconnectHandler(self, conn, event):#TODO
         print("#----Desconectado----#")
