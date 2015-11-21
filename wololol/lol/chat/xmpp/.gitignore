@@ -1,0 +1,6 @@
+.*.swp
+*-stamp
+/doc
+*.pyc
+/html
+/build

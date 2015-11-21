@@ -3,11 +3,14 @@ Modulo Python LoL Chat
 by Mateo de Mayo
 
 La forma de utilizar el chat es la siguiente
-- Instalar las dependencias necesarias con pip  
+- (DEPRECATED)Instalar las dependencias necesarias con pip  
 
-        - $ sudo pip install xmltodict  
+        - $ sudo pip install xmltodict 
         $ sudo pip install git+https://github.com/ArchipelProject/xmpppy  
-
+- Colocar la librería xmpp modificada en la carpeta a usar
+aspectos modificados:
+	auth.py, clase Bind, metodo Bind, luego del segundo "if isResultNode(resp):" se agregó esta linea
+		self._owner.Summoner = resp.getTag("session").getTagData("summoner_name")#Agregada
 - Colocar los archivos Cliente.py y Friend.py en la carpeta a utilizar
 
 

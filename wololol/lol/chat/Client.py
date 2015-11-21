@@ -16,7 +16,6 @@ class Cliente(object):
     connected = None#True si esta conectado
     connection = None#El objeto xmpp de coneccion
     keepAliveV = None
-    nosalir = True#False si quiero que se cierre
     roster = None#La lista de contactos
     #Contactos
     friends = None
@@ -57,9 +56,12 @@ class Cliente(object):
         connect = self.connect()
         if connect != "connect stablished":
             self.connected = False
-            exit()
+            self.close(connect)
         else:
             self.connected = True
+
+    def __str__(self):
+        return self.name
 
     def setServer(self, server):
         serverList = {"br":"br1",
@@ -76,8 +78,8 @@ class Cliente(object):
         self.server = serverList[server]
 
     def connect(self):
-        self.conn = xmpp.Client("pvp.net",debug=[])
-        #self.conn = xmpp.Client("pvp.net")
+        #self.conn = xmpp.Client("pvp.net",debug=[])
+        self.conn = xmpp.Client("pvp.net")
         if not self.conn.connect(server=("chat."+self.server+".lol.riotgames.com", 5223)):
             return "connect failed"
         if not self.conn.auth(self.user, "AIR_" + self.password, "xiff"):
@@ -89,7 +91,9 @@ class Cliente(object):
         self.conn.RegisterHandler("presence", self.presenceHandler)
         self.conn.RegisterDisconnectHandler(self.disconnectHandler)
         self.refreshStatusFromProps()
-        self.conn
+        self.jid = self.conn.User
+        self.statusChat = "chat"
+        self.name = self.conn.Summoner
         self.keepAliveV = threading.Thread(target = self.keepAlive, args = (self.conn,))
         self.keepAliveV.start()
         return "connect stablished"
@@ -104,13 +108,13 @@ class Cliente(object):
             userJid = self.jid
             message = xmpp.Message(to, msg)
             message.setAttr('type', 'chat')
-            message.setAttr('from', userJid)
+            message.setAttr('from', str(userJid)+"@pvp.net")
             self.conn.send(message)
             return True
 
     def getIdFromJid(self, jid):
-        ide = self.jid.split("sum")[1].split("@pvp.net")[0]
-        return ide
+        ide = self.jid.split("sum")[-1].split("@pvp.net")[0]
+        return unicode(ide)
 
     def getAll(self):
         friends = [None]*len(self.friends)
@@ -191,155 +195,151 @@ class Cliente(object):
         #print("------------------------")
 
     def keepAlive(self, conn):
-        while conn.isConnected() and self.nosalir:
+        while conn.isConnected():
             try:
                 conn.Process(10)
-                self.printAll()
+                #self.printAll()
             except KeyboardInterrupt:
                 print("#----KEEPALIVE DETENIDO----#")
                 exit()
                 break
 
-    def close(self):
-        print("#----CLOSE----#")
-        self.conn.sendPresence(jid=self.jid, typ="unavaible", requestRoster=0)
-        self.nosalir = False
+    def close(self, why="Sin Motivo Aparente"):
+        print("#----CLOSE> "+why+"----#")
+        self.conn.sendPresence(jid=str(self.jid)+"pvp.net", typ="unavaible", requestRoster=0)
+        self.conn.connected = False
 
     def presenceHandler(self, conn, presence):
-        print("#----Presence----#")
+        #print("#----Presence----#")
         #print(unicode(presence))
-        jid = presence.getFrom().getStripped()
-        name = self.roster.getName(jid)
+        jid = presence.getFrom().getStripped().split("@")[0]
+        fulljid = presence.getFrom().getStripped()
+        name = self.roster.getName(fulljid)
         if self.friends == None:
             self.friends = []
         friends = self.friends
-        statusRaw = self.roster.getStatus(jid)
-        chatStatus = self.roster.getShow(jid)
-        priority = self.roster.getPriority(jid)
+        statusRaw = self.roster.getStatus(fulljid)
+        chatStatus = self.roster.getShow(fulljid)
+        priority = self.roster.getPriority(fulljid)
         pos = None
         #TODO si el usuario tiene una solicitud pendiente el jid se cambia por el de la solicitud (esta es una presence vacia con type="subscribe") agregar a este if la condicion si se encuentra
-        if statusRaw == None and self.jid == None and priority != "1":
-            self.jid = jid
-            self.name = self.roster.getName(jid)
-            self.statusChat = "chat"
-        else:
-            if self.jid != jid:
-                if statusRaw != None:
-                    status = xmltodict.parse(unicode(statusRaw),encoding='utf-8')
-                    newFriend = False
+        if self.getIdFromJid(self.jid) != self.getIdFromJid(jid):
+            if statusRaw != None:
+                status = xmltodict.parse(unicode(statusRaw),encoding='utf-8')
+                newFriend = False
+            else:
+                status = {"body":{}}
+            if len(friends) != 0:
+                for i in range(len(friends)):
+                    if jid == friends[i].jid:
+                        newFriend = False
+                        pos = i
+                        break
+                    else:
+                        newFriend = True
+            else:
+                newFriend = True
+            if newFriend:
+                self.addFriend(presence)
+            else:
+                friends[pos].jid = jid
+                friends[pos].statusChat = chatStatus
+                if chatStatus == None or chatStatus == "None":
+                    self.removeFriend(jid)
+                    return
+                friends[pos].name = name
+                if "profileIcon" in status["body"]:
+                    friends[pos].profileIcon = status["body"]["profileIcon"]
                 else:
-                    status = {"body":{}}
-                if len(friends) != 0:
-                    for i in range(len(friends)):
-                        if jid == friends[i].jid:
-                            newFriend = False
-                            pos = i
-                            break
-                        else:
-                            newFriend = True
+                    friends[pos].profileIcon = None
+                if "level" in status["body"]:
+                    friends[pos].level =  status["body"]["level"]
                 else:
-                    newFriend = True
-                if newFriend:
-                    self.addFriend(presence)
+                    friends[pos].level = None
+                if "wins" in status["body"]:
+                    friends[pos].wins = status["body"]["wins"]
                 else:
-                    friends[pos].jid = jid
-                    friends[pos].statusChat = chatStatus
-                    if chatStatus == None or chatStatus == "None":
-                        self.removeFriend(jid)
-                        return
-                    friends[pos].name = name
-                    if "profileIcon" in status["body"]:
-                        friends[pos].profileIcon = status["body"]["profileIcon"]
-                    else:
-                        friends[pos].profileIcon = None
-                    if "level" in status["body"]:
-                        friends[pos].level =  status["body"]["level"]
-                    else:
-                        friends[pos].level = None
-                    if "wins" in status["body"]:
-                        friends[pos].wins = status["body"]["wins"]
-                    else:
-                        friends[pos].wins = None
-                    if "leaves" in status["body"]:
-                        friends[pos].leaves = status["body"]["leaves"]
-                    else:
-                        friends[pos].leaves = None
-                    if "odinWins" in status["body"]:
-                        friends[pos].odinWins =  status["body"]["odinWins"]
-                    else:
-                        friends[pos].odinWins = None
-                    if "odinLeaves" in status["body"]:
-                        friends[pos].odinLeaves = status["body"]["odinLeaves"]
-                    else:
-                        friends[pos].odinLeaves = None
-                    if "queueType" in status["body"]:
-                        friends[pos].queueType = status["body"]["queueType"]
-                    else:
-                        friends[pos].queueType = None
-                    if "rankedLosses" in status["body"]:
-                        friends[pos].rankedLosses = status["body"]["rankedLosses"]
-                    else:
-                        friends[pos].rankedLosses = None
-                    if "rankedRating" in status["body"]:
-                        friends[pos].rankedRating = status["body"]["rankedRating"]
-                    else:
-                        friends[pos].rankedRating = None
-                    if "tier" in status["body"]:
-                        friends[pos].tier = status["body"]["tier"]
-                    else:
-                        friends[pos].tier = None
-                    if "rankedSoloRestricted" in status["body"]:
-                        friends[pos].rankedSoloRestricted = status["body"]["rankedSoloRestricted"]
-                    else:
-                        friends[pos].rankedSoloRestricted = None
-                    if "championMasteryScore" in status["body"]:
-                        friends[pos].championMasteryScore = status["body"]["championMasteryScore"]
-                    else:
-                        friends[pos].championMasteryScore = None
-                    if "statusMsg" in status["body"]:
-                        friends[pos].statusMsg = status["body"]["statusMsg"]
-                    else:
-                        friends[pos].statusMsg = None
-                    if "rankedLeagueName" in status["body"]:
-                        friends[pos].rankedLeagueName = status["body"]["rankedLeagueName"]
-                    else:
-                        friends[pos].rankedLeagueName = None
-                    if "rankedLeagueDivision" in status["body"]:
-                        friends[pos].rankedLeagueDivision = status["body"]["rankedLeagueDivision"]
-                    else:
-                        friends[pos].rankedLeagueDivision = None
-                    if "rankedLeagueTier" in status["body"]:
-                        friends[pos].rankedLeagueTier = status["body"]["rankedLeagueTier"]
-                    else:
-                        friends[pos].rankedLeagueTier = None
-                    if "rankedLeagueQueue" in status["body"]:
-                        friends[pos].rankedLeagueQueue = status["body"]["rankedLeagueQueue"]
-                    else:
-                        friends[pos].rankedLeagueQueue = None
-                    if "rankedWins" in status["body"]:
-                        friends[pos].rankedWins = status["body"]["rankedWins"]
-                    else:
-                        friends[pos].rankedWins = None
-                    if "skinname" in status["body"]:
-                        friends[pos].skinname = status["body"]["skinname"]
-                    else:
-                        friends[pos].skinname = None
-                    if "gameQueueType" in status["body"]:
-                        friends[pos].gameQueueType = status["body"]["gameQueueType"]
-                    else:
-                        friends[pos].gameQueueType = None
-                    if "gameStatus" in status["body"]:
-                        friends[pos].gameStatus = status["body"]["gameStatus"]
-                    else:
-                        friends[pos].gameStatus = None
-                    if "timeStamp" in status["body"]:
-                        friends[pos].timeStamp = status["body"]["timeStamp"]
-                    else:
-                        friends[pos].timeStamp = None
+                    friends[pos].wins = None
+                if "leaves" in status["body"]:
+                    friends[pos].leaves = status["body"]["leaves"]
+                else:
+                    friends[pos].leaves = None
+                if "odinWins" in status["body"]:
+                    friends[pos].odinWins =  status["body"]["odinWins"]
+                else:
+                    friends[pos].odinWins = None
+                if "odinLeaves" in status["body"]:
+                    friends[pos].odinLeaves = status["body"]["odinLeaves"]
+                else:
+                    friends[pos].odinLeaves = None
+                if "queueType" in status["body"]:
+                    friends[pos].queueType = status["body"]["queueType"]
+                else:
+                    friends[pos].queueType = None
+                if "rankedLosses" in status["body"]:
+                    friends[pos].rankedLosses = status["body"]["rankedLosses"]
+                else:
+                    friends[pos].rankedLosses = None
+                if "rankedRating" in status["body"]:
+                    friends[pos].rankedRating = status["body"]["rankedRating"]
+                else:
+                    friends[pos].rankedRating = None
+                if "tier" in status["body"]:
+                    friends[pos].tier = status["body"]["tier"]
+                else:
+                    friends[pos].tier = None
+                if "rankedSoloRestricted" in status["body"]:
+                    friends[pos].rankedSoloRestricted = status["body"]["rankedSoloRestricted"]
+                else:
+                    friends[pos].rankedSoloRestricted = None
+                if "championMasteryScore" in status["body"]:
+                    friends[pos].championMasteryScore = status["body"]["championMasteryScore"]
+                else:
+                    friends[pos].championMasteryScore = None
+                if "statusMsg" in status["body"]:
+                    friends[pos].statusMsg = status["body"]["statusMsg"]
+                else:
+                    friends[pos].statusMsg = None
+                if "rankedLeagueName" in status["body"]:
+                    friends[pos].rankedLeagueName = status["body"]["rankedLeagueName"]
+                else:
+                    friends[pos].rankedLeagueName = None
+                if "rankedLeagueDivision" in status["body"]:
+                    friends[pos].rankedLeagueDivision = status["body"]["rankedLeagueDivision"]
+                else:
+                    friends[pos].rankedLeagueDivision = None
+                if "rankedLeagueTier" in status["body"]:
+                    friends[pos].rankedLeagueTier = status["body"]["rankedLeagueTier"]
+                else:
+                    friends[pos].rankedLeagueTier = None
+                if "rankedLeagueQueue" in status["body"]:
+                    friends[pos].rankedLeagueQueue = status["body"]["rankedLeagueQueue"]
+                else:
+                    friends[pos].rankedLeagueQueue = None
+                if "rankedWins" in status["body"]:
+                    friends[pos].rankedWins = status["body"]["rankedWins"]
+                else:
+                    friends[pos].rankedWins = None
+                if "skinname" in status["body"]:
+                    friends[pos].skinname = status["body"]["skinname"]
+                else:
+                    friends[pos].skinname = None
+                if "gameQueueType" in status["body"]:
+                    friends[pos].gameQueueType = status["body"]["gameQueueType"]
+                else:
+                    friends[pos].gameQueueType = None
+                if "gameStatus" in status["body"]:
+                    friends[pos].gameStatus = status["body"]["gameStatus"]
+                else:
+                    friends[pos].gameStatus = None
+                if "timeStamp" in status["body"]:
+                    friends[pos].timeStamp = status["body"]["timeStamp"]
+                else:
+                    friends[pos].timeStamp = None
 
     def messageHandler(self, conn, msg):
         print("#----Message----#")
-        if unicode(msg.getTo()) == unicode(self.jid):
+        if self.getIdFromJid(msg.getTo()) == self.getIdFromJid(self.jid):
             user = self.roster.getName(str(msg.getFrom()))
             text = msg.getBody()
             if text != None:
@@ -351,7 +351,8 @@ class Cliente(object):
         self.buzon = []
 
     def iqHandler(self, conn, event):#TODO
-        print("#----Iq----#")
+        return
+        #print("#----Iq----#")
         #print(unicode(event))
 
     def disconnectHandler(self, conn, event):#TODO
