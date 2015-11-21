@@ -39,11 +39,11 @@ conectadosDivision = []
 conectadosLigaNombre = []
 conectadosVictorias = []
 if not conn.connect(server=("chat."+server+".lol.riotgames.com", 5223)):
-    print "connect failed."
+    print("connect failed.")
     exit()
 
 if not conn.auth(user, "AIR_" + password, "xiff"):
-    print "auth failed."
+    print ("auth failed.")
     exit()
 
 roster = None
@@ -54,7 +54,7 @@ def message_handler(conn, msg):
         print(unicode(msg))
         user = roster.getName(unicode(msg.getFrom()))
         text = msg.getBody()
-        print "[%s] %s" % (user, text)
+        print ("["+user+"] "+"text")
         reply = msg.buildReply("[ECHO] %s" % (text))
         reply.setType("chat")
         conn.send(reply)

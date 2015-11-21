@@ -22,12 +22,12 @@ class Cliente(object):
     #Buzon
     buzon = []#Lista de mensajes sin leer
     #Del roster
-    jid = "sumNULO@pvp.net" #Jabber ID del conectado
-    statusChat = "dnd" #chat, dnd (do not disturb) y away
-    name = "Nulo"#Nombre de invocador
+    jid = None #Jabber ID del conectado
+    statusChat = None #chat, dnd (do not disturb) y away
+    name = None#Nombre de invocador
     #De roster.getStatus()
-    profileIcon = 612#Número de icono de invocado
-    level = 35 #Level
+    profileIcon = None#Número de icono de invocado
+    level = None #Level
     wins = None #?Victorias en general (de normal, ranked, todo?)
     leaves = None #Cantidad de abandonos
     odinWins = None #?Cantidad de victorias en Odin? 3v3?
@@ -56,10 +56,8 @@ class Cliente(object):
         connect = self.connect()
         if connect != "connect stablished":
             self.connected = False
-            print(connect)
             exit()
         else:
-            print(connect)
             self.connected = True
 
     def setServer(self, server):
@@ -77,18 +75,20 @@ class Cliente(object):
         self.server = serverList[server]
 
     def connect(self):
+        #self.conn = xmpp.Client("pvp.net",debug=[])
         self.conn = xmpp.Client("pvp.net")
         if not self.conn.connect(server=("chat."+self.server+".lol.riotgames.com", 5223)):
             return "connect failed"
         if not self.conn.auth(self.user, "AIR_" + self.password, "xiff"):
             return "auth failed."
+        self.conn.RegisterHandler("iq", self.iqHandler)
         self.conn.sendInitPresence(requestRoster=1)
         self.roster = self.conn.getRoster()
         self.conn.RegisterHandler("message", self.messageHandler)
         self.conn.RegisterHandler("presence", self.presenceHandler)
-        self.conn.RegisterHandler("iq", self.iqHandler)
         self.conn.RegisterDisconnectHandler(self.disconnectHandler)
         self.refreshStatusFromProps()
+        self.conn
         self.keepAliveV = threading.Thread(target = self.keepAlive, args = (self.conn,))
         self.keepAliveV.start()
         return "connect stablished"
@@ -149,10 +149,12 @@ class Cliente(object):
         return info
 
     def printAll(self):
-        print("------------------------")
+        #print("------------------------")
         #print("My JID:" + unicode(self.jid))
         #print("My Status:" + unicode(self.statusChat))
         #print("My Name:" + unicode(self.name))
+        #print("Buzon:"+ unicode(self.buzon))
+        print("thread>"+unicode(self.keepAliveV.name)+"\tjid>"+unicode(self.jid)+"\testado>"+unicode(self.statusChat)+"\tname>"+unicode(self.name)+"\tbuzon>"+unicode(self.buzon))
         #friends = self.friends
         #for i in range(len(friends)):
         #    print("\tJid: "+unicode(friends[i].jid))
@@ -186,11 +188,12 @@ class Cliente(object):
             #print("\tDurante: "+ minutos + " > " + unicode(friends[i].timeStamp))
             #print("")
         #print("------------------------")
+
     def keepAlive(self, conn):
         while conn.isConnected():
             try:
                 conn.Process(10)
-                print(unicode(self.keepAliveV.name)+ ": " + unicode(self.jid))
+                self.printAll()
             except KeyboardInterrupt:
                 print("#----KEEPALIVE DETENIDO----#")
                 exit()
@@ -202,14 +205,18 @@ class Cliente(object):
         jid = presence.getFrom().getStripped()
         name = self.roster.getName(jid)
         friends = self.friends
-        print("JID: "+unicode(jid))
-        print("NAME:"+unicode(name))
         statusRaw = self.roster.getStatus(jid)
         chatStatus = self.roster.getShow(jid)
+        priority = self.roster.getPriority(jid)
         pos = None
-        if statusRaw == None:
+        print(statusRaw)
+        print(self.jid)
+        print(priority)
+        if statusRaw == None and self.jid == None and priority != "1":
+            print("lo seteo aca")
             self.jid = jid
-            self.name = name
+            self.name = self.roster.getName(jid)
+            self.statusChat = "chat"
         else:
             if self.jid != jid:
                 if statusRaw != None:
@@ -327,13 +334,18 @@ class Cliente(object):
 
     def messageHandler(self, conn, msg):
         print("#----Message----#")
-        user = self.roster.getName(str(msg.getFrom()))
-        text = msg.getBody()
-        self.buzon.append((user, text))
-        print("["+user+"]"+" > "+text)
+        print(unicode(msg))
+        print(unicode(self.jid))
+        if unicode(msg.getTo()) == unicode(self.jid):
+            user = self.roster.getName(str(msg.getFrom()))
+            text = msg.getBody()
+            if text != None:
+                self.buzon.append((user, text))
+            print("["+unicode(user)+"]"+" > "+unicode(text))
 
     def cleanBuzon(self):
         self.buzon = []
+
     def iqHandler(self, conn, event):#TODO
         print("#----Iq----#")
         print(unicode(event))
@@ -424,9 +436,11 @@ class Cliente(object):
             self.friends.append(newFriend)
 
     def removeFriend(self, friendJid):
+
         for i in range(len(self.friends)):
             if self.friends[i].jid == friendJid:
                 self.friends.pop(i)
+                break
 
     def getStatusRawDict(self):
         statusUser = OrderedDict([(u'body', OrderedDict([
