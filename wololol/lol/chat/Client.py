@@ -198,9 +198,10 @@ class Cliente(object):
         while conn.isConnected():
             try:
                 conn.Process(10)
+                #self.getAll() pedir el context y devolver el self.getall
                 #self.printAll()
             except KeyboardInterrupt:
-                print("#----KEEPALIVE DETENIDO----#")
+                #print("#----KEEPALIVE DETENIDO----#")
                 exit()
                 break
 

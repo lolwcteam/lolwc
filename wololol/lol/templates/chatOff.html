@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load lolwc_tags %}
+
+{% block contenido %}
+<main>
+  <div class="section">
+    <div class="container">
+      <div class="col s12 m12 l12">
+        <div class="white-text card blue row center">
+          <form class="col s10 offset-s1 m8 offset-m2 l6 offset-l3">
+            <h1 class="light">Ingresar</h1>
+            <strong>Ingrese con su nombre y usuario de League of Legends a wololol para comenzar a chatear</strong>
+            <br>
+            <br>
+            <br>
+
+            <div class="section lightblue" style="padding:15px">
+              <div class="input-field">
+                <select>
+                  <option value="" disabled selected>Elige un Servidor</option>
+                  <option value0"BR">BR</option>
+                  <option value0"EUNE">EUNE</option>
+                  <option value0"EUW">EUW</option>
+                  <option value0"KR">KR</option>
+                  <option value0"LAN">LAN</option>
+                  <option value0"LAS">LAS</option>
+                  <option value0"NA">NA</option>
+                  <option value0"OCE">OCE</option>
+                  <option value0"TR">TR</option>
+                  <option value0"RU">RU</option>
+                  <option value0"PBE">PBE</option>
+
+                </select>
+              </div>
+            </div>
+
+            <div class="section lightblue" style="padding:15px">
+              <div class="input-field">
+                <i class="material-icons prefix">account_circle</i>
+                <input id="icon_prefix" type="text" class="validate">
+                <label for="icon_prefix">Nombre de Usuario</label>
+              </div>
+            </div>
+
+            <div class="section lightblue" style="padding:15px">
+              <div class="input-field">
+                <i class="material-icons prefix">lock</i>
+                <input id="icon_prefix" type="password" class="validate">
+                <label for="icon_prefix">Contraseña</label>
+              </div>
+            </div>
+
+            <div class="section lightblue" style="padding:15px">
+              <a type="submit" class="white-text waves-effect waves-light btn-flat"><i class="right white-text material-icons">arrow_forward</i>Ingresar</a>
+            </div>
+            <br>
+            <p class="center">El chat funciona de forma similar al del cliente oficial</p>
+            <p class="center">Nos contactamos con los servidores de Riot e intercambiamos información</p>
+            <p class="center">Tu nombre de usuario y tu contraseña están seguros con nosotros</p>
+            <p class="center">Nunca los usaremos para fines siniestros</p><br>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

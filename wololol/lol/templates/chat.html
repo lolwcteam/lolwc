@@ -1,101 +1,177 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 {% load lolwc_tags %}
+
 {% block contenido %}
 <div class="section">
-    <div class="container">
+  <div class="container">
+    <div class="darkblue row">
+      <div style="display: block;" id="chat" class="darkblue col s12">
 
-        <div class="lightblue card">
-            <span>id: </span><span id="id">{{info.user.id}}</span><br>
-            <span>statusChat: </span><span id="statusChat">{{info.user.statusChat}}</span><br>
-            <span>name: </span><span id="name">{{info.user.name}}</span><br>
-            <span>profileIcon: </span><span id="profileIcon">{{info.user.profileIcon}}</span><br>
-            <span>level: </span><span id="level">{{info.user.level}}</span><br>
-            <span>championMasteryScore: </span><span id="championMasteryScore">{{info.user.championMasteryScore}}</span><br>
-            <span>statusMsg: </span><span id="statusMsg">{{info.user.statusMsg}}</span><br>
-            <span>rankedLeagueName: </span><span id="rankedLeagueName">{{info.user.rankedLeagueName}}</span><br>
-            <span>rankedLeagueDivision: </span><span id="rankedLeagueDivision">{{info.user.rankedLeagueDivision}}</span><br>
-            <span>rankedLeagueTier: </span><span id="rankedLeagueTier">{{info.user.rankedLeagueTier}}</span><br>
+        <div style="overflow-y: scroll;" id="contactos" class="hide-on-med-and-down darkblue text-white col s4">
+          <ul id="contactList" class="collection" data-collapsible="accordion" style="border:0px;">
+            <!-- Perfil -->
+            <!-- Tarjeta -->
+            <li id="perfil" class="collection-item darkblue" style="border-bottom:0px;">
+              <img class="mid chatImg" src="{% static 'img/sum/612.png' %}" width="40px"/>
+              <span class="white-text nameChat">Sad Jocker King</span>
+              <i id="estado" class="material-icons right green-text" style="cursor:pointer;">lens</i>
+              <a class="modal-trigger right" href="#modal1"><i class="waves-effect waves-light material-icons">info</i></a>
+            </li>
+            <!-- Ficha de Información -->
+            <div id="modal1" class="modal blue borderBlue white-text">
+              <div class="modal-content">
+                <span>Nivel: </span><span>30</span><br>
+                <span>Liga Solo: </span>
+                <span>Gold</span>
+                <span>1</span><br>
+                <span>Liga: </span><span>Sad King's Army</span><br>
+                <span>Score: </span><span>280</span><br>
+                <div class="input-field">
+                  <input id="Descripcion" type="text">
+                  <label for="Descripcion">Estado</label>
+                </div>
+              </div>
+              <div class="modal-footer blue">
+                <a href="#!" class="white-text modal-action modal-close waves-effect waves-green btn-flat">OK</a>
+              </div>
+            </div>
+          </ul>
         </div>
-
-        {% for i in info.friends %}
-        <div class="col s3 m3 l3 blue card">
-            <span>id: </span><span id="id">{{i.id}}</span><br>
-            <span>statusChat: </span><span id="statusChat">{{i.statusChat}}</span><br>
-            <span>name: </span><span id="name">{{i.name}}</span><br>
-            <span>profileIcon: </span><span id="profileIcon">{{i.profileIcon}}</span><br>
-            <span>level: </span><span id="level">{{i.level}}</span><br>
-            <span>championMasteryScore: </span><span id="championMasteryScore">{{i.championMasteryScore}}</span><br>
-            <span>statusMsg: </span><span id="statusMsg">{{i.statusMsg}}</span><br>
-            <span>rankedLeagueName: </span><span id="rankedLeagueName">{{i.rankedLeagueName}}</span><br>
-            <span>rankedLeagueDivision: </span><span id="rankedLeagueDivision">{{i.rankedLeagueDivision}}</span><br>
-            <span>rankedLeagueTier: </span><span id="rankedLeagueTier">{{i.rankedLeagueTier}}</span><br>
-            <span>skinname: </span><span id="skinname">{{i.skinname}}</span><br>
-            <span>gameQueueType: </span><span id="gameQueueType">{{i.gameQueueType}}</span><br>
-            <span>gameStatus: </span><span id="gameStatus">{{i.gameStatus}}</span><br>
-            <span>timeStamp: </span><span id="timeStamp">{{i.timeStamp}}</span><br>
+        <div id="chatBox" class="col s8">
+          <div id="dlog-default" class="conversacion valign-wrapper card blue text-white pad">
+            <h5 class="col s12 m12 l12 center-align valign">Selecciona algún contacto para comenzar.</h5>
+          </div>
+          <div id="inputChat" class="valign-wrapper card lightblue input-field pad">
+            <input id="chatText" class="blue col s10" placeholder="Escribe un mensaje aquí." style="margin-top:12px;"type="text" value="">
+            <button id="send" type="submit" class="sendButton valign col s2 white-text btn-flat waves-effect waves-light">
+              <i class="material-icons">send</i>
+            </button>
+          </div>
         </div>
-        {% endfor %}
-
-        <input id="to">A quien</input>
-        <textarea id="message">Mensaje</textarea>
-        <a class="blue btn waves-effect">Enviar</a>
-
+      </div>
     </div>
-</div>
-{% endblock %}
-{% block scripts %}
+  </div>
+  {% endblock %}
 
-{% comment %}
-<script type="text/javascript" src="{% static "jquery.gracefulWebSocket.js" %}"></script>
-<script>
-$(document).ready( function() {
-    window.chat = {};
-    //Instantiate a websocket client connected to our server
-    chat.ws = $.gracefulWebSocket("ws://127.0.0.1:1025/ws");
+  {% block scripts %}
+  <script>
+  $(document).ready(function(){
+    var userName = "Sad Jocker King";
+    agregContact("Ωω.ΆΈ. ΉΊ","{% static 'img/sum/612.png' %}","42","Silver VI","AguanteTurquia","653","Normal","En Juego","13 horas","ThU HeNbIdIah AzE Mih EghO");
+    agregContact("Adriex","{% static 'img/sum/612.png' %}");
+    agregContact("Ovej4","{% static 'img/sum/612.png' %}");
+    $("#contactos").height($(window).height()-100);
+    $(".conversacion").height($(window).height()-180);
+    if ( $("#contactos").css('display') == 'none' ){
+      $("#chat").prepend('<button id="hiddenBtn" type="submit" class="btn-floating blue btn-flat waves-effect right mid"><i class="material-icons">send</i></button>');
+      $("#chat").append('<div id="modalContacts" class="likemodal blue borderBlue white-text" style="position:fixed"><div id="contactsHere"></div><div class="blue s12"><hr><a id="closeContacts" class="right white-text waves-effect waves-green btn-flat">OK</a></div></div>');
+      $('#modalContacts').hide();
+      //$("#contactList").appendTo("contactsHere");
+      $("#contactList").detach().appendTo('#contactsHere')
+      $("#modalContacts").height($(window).height()-100);
+      $("#modalContacts").width($(window).width()-100);
 
-    //Basic message send
-    chat.send = function (message) {
-        chat.ws.send(message);
+      $("#hiddenBtn").click(function(){
+        $('#modalContacts').fadeIn("slow");
+        $('.modal').openmodal();
+      });
+      $("#closeContacts").click(function(){
+        $('#modalContacts').fadeOut("slow");
+      });
+      $("#chatBox").removeClass("s8");
+      $("#chatBox").addClass("s12");
     }
 
-    //Basic message receive
-    chat.ws.onmessage = function (event) {
-        var messageFromServer = event.data;
-        var list_element = document.createElement('li');
-        list_element.innerHTML = messageFromServer;
-        $("#message_list ul").prepend(list_element);
-    };
 
-    var inputBox = document.getElementById("inputbox");
+    function agregContact(name,profileImage,level,league,promo,score,GQT,status,time,statusMsg){
+      nameID=nameToID(name);
+      $("#contactList").append($('<li/>', {
+        html : $('<img class=" mid chatImg" src="'+profileImage+'" width="40px"/><span class="white-text nameChat">'+name+'</span><i id="estado" class="material-icons right green-text">lens</i><a id="'+nameID+'"class="waves-effect circle waves-light modal-trigger right" data-target="#m'+nameID+'"><i class="material-icons">info</i></a>'),
+        'class' : 'contact collection-item blue',
+        'style': 'cursor:pointer;border-bottom:0px;'
+      }));
+      var profileLarge = '<img src="'+profileImage+'" width="80px" style="border-radius:50px"/><br>';
+      var level = '<span class="blue-text">Nivel: </span><span>'+level+'</span><br>';
+      var league = '<span>'+league+'</span><br>';
+      var promo = '<span>'+promo+'</span><br>';
+      var score = '<i class="material-icons mid tiny">grade</i><span>'+score+'</span><br>';
+      var GQT = '<span>'+GQT+'</span><br>';
+      var status = '<span class="yellow-text">'+status+'</span><br>';
+      var time = '<span>'+time+'</span><br>';
+      var statusMsg = '<span class="yellow-text" style="font-style:italic;font-size:20px">"'+statusMsg+'"</span><br>';
 
-    inputbox.addEventListener("keydown", function(e) {
-        if (!e) { var e = window.event; }
-
-        //keyCode 13 is the enter/return button keyCode
-        if (e.keyCode == 13) {
-            // enter/return probably starts a new line by default
-            e.preventDefault();
-            chat.send(inputbox.value);
-            inputbox.value="";
-        }
-    }, false); });
-    </script>
-{% endcomment %}
-
-{% comment %}
-    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/converse.min.css' %}">
-    <script src="{% static 'js/converse.min.js' %}"></script>
-    <script>
-    require(['converse'], function (converse) {
-        converse.initialize({
-            bosh_service_url: 'https://bind.conversejs.org', // Please use this connection manager only for testing purposes
-            i18n: locales.en, // Refer to ./locale/locales.js to see which locales are supported
-            show_controlbox_by_default: true,
-            roster_groups: true
-        });
+      $("#contactList").append('<div id="m'+nameID+'" class="modal blue borderBlue white-text"><div class="modal-content"><h4 class="col s12">'+name+'</h4><div class="card lightblue col s12 m12 l3 center" style="padding:10px">'+profileLarge+league+promo+'</div><div class="col l9 s12 m12">'+level+score+GQT+status+time+statusMsg+'</div></div><div class="blue modal-footer"><hr><a class=" modal-action modal-close white-text waves-effect waves-green btn-flat">OK</a></div></div>');
+    }
+    $("#estado").click(function(){
+      var src = $('#estado').attr('class');
+      console.log(src);
+      if (src=="material-icons right green-text"){
+        $('#estado').removeClass( "green-text" );
+        $('#estado').addClass( "red-text" );
+      }else{
+        $('#estado').removeClass( "red-text" );
+        $('#estado').addClass( "green-text" );
+      }
     });
-    </script>
-    {% endcomment %}
 
-{% endblock %}
+
+    $(".contact").click(function(){
+      name = $(this).find("span").text();
+      tabID=nameToID(name);
+      $(".contact").removeClass("lightblue");
+      $(".contact").removeClass("contActive");
+      $(this).addClass("lightblue");
+      $(this).addClass("contActive");
+      $(".conversacion").hide();
+      if ( $( "#dlog-"+tabID ).length ) {
+        $("#dlog-"+tabID).show();
+        $('#modalContacts').fadeOut("slow");
+      }else{
+        $("#chatBox").prepend('<div id="dlog-'+tabID+'" class="conversacion card blue text-white pad"><p class="center card-title">'+name+'</p</div>');
+      }
+      clsInputChat();
+      $(".conversacion").height($(window).height()-180);
+    });
+
+    function incomeMsg(from,msgFrom){
+      from=nameToID(from);
+      $("#dlog-"+from).append('<div class="section"><span class="nameChat">'+from+'</span><br><p class="messageChat">'+msgFrom+'</p></div><hr>');
+    }
+
+    function clsInputChat(){
+      $("#chatText").val("");
+    }
+
+    $('.modal-trigger').click(function(){
+      if($(this).attr('href') == undefined){
+        name=$(this).attr('id');
+        $('#m'+name).openModal();
+      }
+    });
+
+    function nameToID(name){
+      var nameOutSpa = name.replace(/ /g,"-");
+      var nameID = nameOutSpa.replace(/\./g,"-");
+      return nameID;
+    }
+
+
+    $("#send").click(function (){
+      var msg = $("#chatText").val();
+      clsInputChat();
+      if ($(".contact").hasClass("contActive")){
+        if (msg==""){
+          alert("Debes escribir algo")
+        }else{
+          msgTo=$(".contActive").find("span").text();
+          msgTo=nameToID(msgTo);
+          $("#dlog-"+msgTo).append('<div class="section"><span class="nameChat">'+userName+'</span><br><p class="messageChat">'+msg+'</p></div><hr>');
+        }
+      }else{
+        alert("Selecciona un contacto")
+      }
+    });
+  });
+  </script>
+  {% endblock %}
