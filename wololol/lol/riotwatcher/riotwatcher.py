@@ -725,7 +725,7 @@ res = {
             {
             "summonerLeagueTabPListRank":"3",
             "summonerLeagueTabPListName":"Groll",
-            "summonerLeagueTabPListImg":"h92",
+            "summonerLeagueTabPListImg":"961",
             "summonerLeagueTabPListIsRecent":"0",
             "summonerLeagueTabPListIsOnFire":"0",
             "summonerLeagueTabPListWins":"73",
@@ -856,30 +856,30 @@ res = {
         "activePage":"AP Tanque",
         "pages":[
             ["Ashe",{
-                        "5245":["Gran Quintaescencia de Daño de Ataque","3","7.55"],
-                        "5244":["Gran Marca de Daño de Ataque","9","8.55"],
-                        "5243":["Gran Sello de Armadura","9","9"],
-                        "5242":["Gran Glifo de Velocidad de Ataque","9","5.73"]
+                        "5245":["bl_1_3.png","Gran Quintaescencia de Daño de Ataque","3","7.55"],
+                        "5244":["r_1_3.png","Gran Marca de Daño de Ataque","9","8.55"],
+                        "5243":["y_1_3.png","Gran Sello de Armadura","9","9"],
+                        "5242":["b_3_3.png","Gran Glifo de Velocidad de Ataque","9","5.73"]
                     }],
             ["Riven",{
-                        "5242":["Gran Quintaescencia de Daño de Ataque","3","7.55"],
-                        "5243":["Gran Marca de Daño de Ataque","9","8.55"],
-                        "5244":["Gran Sello de Armadura","9","9"],
+                        "5242":["bl_1_3.png","Gran Quintaescencia de Daño de Ataque","3","7.55"],
+                        "5243":["r_1_3.png","Gran Marca de Daño de Ataque","9","8.55"],
+                        "5244":["y_1_3.png","Gran Sello de Armadura","9","9"],
                     }],
             ["Lucian",{
-                        "5245":["Gran Quintaescencia de Daño de Ataque","3","7.55"],
-                        "5244":["Gran Glifo de Velocidad de Ataque","9","5.73"]
+                        "5245":["bl_1_3.png","Gran Quintaescencia de Daño de Ataque","3","7.55"],
+                        "5244":["b_3_3.png","Gran Glifo de Velocidad de Ataque","9","5.73"]
                     }],
             ["AP Tanque",{
-                        "5243":["Gran Quintaescencia de Daño de Ataque","3","7.55"],
-                        "5242":["Gran Marca de Daño de Ataque","9","8.55"],
-                        "5245":["Gran Sello de Armadura","9","9"],
-                        "5244":["Gran Glifo de Velocidad de Ataque","9","5.73"]
+                        "5243":["bl_1_3.png","Gran Quintaescencia de Daño de Ataque","3","7.55"],
+                        "5242":["r_1_3.png","Gran Marca de Daño de Ataque","9","8.55"],
+                        "5245":["y_1_3.png","Gran Sello de Armadura","9","9"],
+                        "5244":["b_3_3.png","Gran Glifo de Velocidad de Ataque","9","5.73"]
                     }],
             ["AD Teemo con Tiamat",{
-                        "5243":["Gran Quintaescencia de Daño de Ataque","3","7.55"],
-                        "5242":["Gran Sello de Armadura","9","9"],
-                        "5245":["Gran Glifo de Velocidad de Ataque","9","5.73"]
+                        "5243":["bl_1_3.png","Gran Quintaescencia de Daño de Ataque","3","7.55"],
+                        "5242":["y_1_3.png","Gran Sello de Armadura","9","9"],
+                        "5245":["b_3_3.png","Gran Glifo de Velocidad de Ataque","9","5.73"]
                     }]
         ]
     },

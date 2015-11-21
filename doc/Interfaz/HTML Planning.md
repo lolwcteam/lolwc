@@ -212,7 +212,7 @@ lista de
 - lista de paginas de runas: pages (habria usado diccionario pero tengo que usar lista para que se respete el orden de las paginas)
 	- "nombre de la pagina"
 	- diccionario de la pagina: page:
-		- "id de runa" : ["Nombre de runa en español","cantidad de esa runa", "total de stats ganados"]
+		- "id de runa" : ["imagen de runa full","Nombre de runa en español","cantidad de esa runa", "total de stats ganados"]
 			Como funciona: si tenes muchos tipos de runas en tu pagina el diccionario se va a agrandar, si no, se mantiene mas pequeño, el "total de stats ganados" es el que te da ese tipo de runa sumando todas las que tenes de ese tipo.
 <!--
 - lista de paginas de runas: pages

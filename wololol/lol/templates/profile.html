@@ -8,22 +8,22 @@
         <div class="col s12 m12 l12">
             <div class="blue card tooltipped" data-position="bottom" data-delay="50" data-tooltip="Información del Campeón">
                 <div class="card-image waves-effect waves-block waves-light">
-                    <img id="mostPlayedChampBanerImg" class="hide-on-small-only activator" src="{% static 'img/' %}b{{ info.mostPlayedChampInfo.mostPlayedChampId }}.jpg"/>
+                    <img id="mostPlayedChampBanerImg" class="hide-on-small-only activator" src="{% static 'img/baner/' %}{{ info.mostPlayedChampInfo.mostPlayedChampId }}.jpg"/>
                 </div>
                 <div class="card-content activator">
                     <!--                        TODOhttp://ddragon.leagueoflegends.com/cdn/5.20.1/img/profileicon/588.png-->
-                    <img id="summonerImg" src="{% static 'img/' %}{{ info.summonerInfo.summonerImg }}.png" class="summonerImg"/>
+                    <img id="summonerImg" src="{% static 'img/sum/' %}{{ info.summonerInfo.summonerImg }}.png" class="summonerImg"/>
                     <span id="summonerName" class="summonerName card-title activator white-text">{{ info.summonerInfo.summonerName }}
                         <i class="small material-icons right" style="position:absolute;">keyboard_arrow_up</i>
                         <span id="kda" class="hide-on-med-and-down right activator white-text"><span id="summonerWinrate" class="pink-text ">{{ info.summonerInfo.summonerWinrate }}%</span> Ranked Wins</span>
                         <span id="killdeathassist" class="hide-on-med-and-down right card-title activator white-text">KDA: <span id="summonerKdaRatio" class="blue-text">{{ info.summonerInfo.summonerKdaRatio }}</span> - <span id="summonerKills" class="green-text">{{ info.summonerInfo.summonerKills }}</span><span id="summonerDeaths" class="red-text">/{{ info.summonerInfo.summonerDeaths }}</span><span id="summonerAssists" class="yellow-text">/{{ info.summonerInfo.summonerAssists }}</span></span>
                     </span><br>
-                    <img id="summonerLeagueImg" class="summonerLeagueImg" src="{% static 'img/' %}{{ info.summonerInfo.summonerLeague }}_{{ info.summonerInfo.summonerDivision }}.png"/><span id="summonerDescription" class="summonerDescription activator white-text"><span id="summonerLeague">{{ info.summonerInfo.summonerLeague }}</span> <span id="summonerDivision">{{ info.summonerInfo.summonerDivision }}</span> - {{ info.summonerInfo.summonerServer }}</span>
+                    <img id="summonerLeagueImg" class="summonerLeagueImg" src="{% static 'img/tier/' %}{{ info.summonerInfo.summonerLeague }}_{{ info.summonerInfo.summonerDivision }}.png"/><span id="summonerDescription" class="summonerDescription activator white-text"><span id="summonerLeague">{{ info.summonerInfo.summonerLeague }}</span> <span id="summonerDivision">{{ info.summonerInfo.summonerDivision }}</span> - {{ info.summonerInfo.summonerServer }}</span>
                 </div>
 
                 <div style="display: none; transform: translateY(0px);" class="blue card-reveal">
                     <span class="white-text card-title text-darken-4">
-                        <img id="mostPlayedChampImg" src="{% static 'img/' %}{{ info.mostPlayedChampInfo.mostPlayedChampId }}.png" class="summonerImg"/>
+                        <img id="mostPlayedChampImg" src="{% static 'img/champ/' %}{{ info.mostPlayedChampInfo.mostPlayedChampId }}.png" class="summonerImg"/>
                         <span class="hMostPlayedChamp"><span id="mostPlayedChampName">{{ info.mostPlayedChampInfo.mostPlayedChampName }}</span> - Campeón más jugado.</span>
                         <i class="right material-icons">close</i>
                     </span>
@@ -58,21 +58,21 @@
             <div style="display: block;" id="tabProfile" class="blue col s12">
                 <div class="text-white col m4 l4 s12">
                     <h4 class="row center white-text">Team 3v3</h4>
-                    <div class="row center"><img src="{% static 'img/' %}{{ info.profile.league3v3Tier }}_{{ info.profile.league3v3Division }}.png"/></div>
+                    <div class="row center"><img src="{% static 'img/tier/' %}{{ info.profile.league3v3Tier }}_{{ info.profile.league3v3Division }}.png"/></div>
                     <h5 class="white-text row center">{{ info.profile.league3v3Tier }} {{ info.profile.league3v3Division }}</h5>
                     <h6 class="white-text row center">{{ info.profile.league3v3Lp }} LP</h6>
                     <h5 class="white-text row center">{{ info.profile.league3v3Name }}</h5>
                 </div>
                 <div class="card lightblue text-white col m4 l4 s12">
                     <h4 class="row center white-text">Solo/Duo Queue</h4>
-                    <div class="row center"><img src="{% static 'img/' %}{{ info.profile.leagueSoloQTier }}_{{ info.profile.leagueSoloQDivision }}.png"/></div>
+                    <div class="row center"><img src="{% static 'img/tier/' %}{{ info.profile.leagueSoloQTier }}_{{ info.profile.leagueSoloQDivision }}.png"/></div>
                     <h5 class="white-text row center">{{ info.profile.leagueSoloQTier }} {{ info.profile.leagueSoloQDivision }}</h5>
                     <h6 class="white-text row center">{{ info.profile.leagueSoloQLp }} LP</h6>
                     <h5 class="white-text row center">{{ info.profile.leagueSoloQName }}</h5>
                 </div>
                 <div class="text-white col m4 l4 s12">
                     <h4 class="row center white-text">Team 5v5</h4>
-                    <div class="row center"><img src="{% static 'img/' %}{{ info.profile.leagueTeamTier }}_{{ info.profile.leagueTeamDivision }}.png"/></div>
+                    <div class="row center"><img src="{% static 'img/tier/' %}{{ info.profile.leagueTeamTier }}_{{ info.profile.leagueTeamDivision }}.png"/></div>
                     <h5 class="white-text row center">{{ info.profile.leagueTeamTier }} {{ info.profile.leagueTeamDivision }}</h5>
                     <h6 class="white-text row center">{{ info.profile.leagueTeamLp }} LP</h6>
                     <h5 class="white-text row center">{{ info.profile.leagueTeamName }}</h5>
@@ -82,7 +82,7 @@
             <div style="display: none;" id="tabLeague" class="blue col s12">
                 <div class="row center">
                     <div class="row center">
-                        <img id="summonerLeagueTabImg" src="{% static 'img/' %}{{ info.league.summonerLeagueTabRank }}_{{ info.league.summonerLeagueTabDivision }}.png"/>
+                        <img id="summonerLeagueTabImg" src="{% static 'img/tier/' %}{{ info.league.summonerLeagueTabRank }}_{{ info.league.summonerLeagueTabDivision }}.png"/>
                     </div>
                     <div class="mid row center"><span id="summonerLeagueTabName" class="white-text large-text">
                         <span id="summonerLeagueTabRank">{{ info.league.summonerLeagueTabRank }} {{ info.league.summonerLeagueTabDivision }}</span>
@@ -104,7 +104,7 @@
                     {% for i in info.league.summonerLeagueTabPList %}
                     <tr>
                         <td>{{ i.summonerLeagueTabPListRank }}</td>
-                        <td><img class="left listImg mid" src="{% static 'img/' %}{{ i.summonerLeagueTabPListImg }}.png"/><a class="left white-text waves-effect" href="#">{{ i.summonerLeagueTabPListName }}</a></td>
+                        <td><img class="left listImg mid" src="{% static 'img/sum/' %}{{ i.summonerLeagueTabPListImg }}.png"/><a class="left white-text waves-effect" href="#">{{ i.summonerLeagueTabPListName }}</a></td>
                         <td>
                             <i class="material-icons {% if i.summonerLeagueTabPListIsRecent == "0" %}dark-text{% endif %} tooltipped" data-position="bottom" data-delay="50" data-tooltip="Nuevo en la Liga">star</i>
                             <i class="material-icons {% if i.summonerLeagueTabPListIsOnFire == "0" %}dark-text{% endif %} tooltipped" data-position="bottom" data-delay="50" data-tooltip="Racha de Victorias">call_made</i></td>
@@ -135,7 +135,7 @@
                         {% for i in info.league.summonerLeagueTabList %}
                         <tr>
                             <td>{{ i.summonerLeagueTabListRank }}</td>
-                            <td><img class="left listImg mid" src="{% static 'img/' %}{{ i.summonerLeagueTabListImg }}.png"/><a class="left white-text waves-effect" href="#">{{ i.summonerLeagueTabListName }}</a></td>
+                            <td><img class="left listImg mid" src="{% static 'img/sum/' %}{{ i.summonerLeagueTabListImg }}.png"/><a class="left white-text waves-effect" href="#">{{ i.summonerLeagueTabListName }}</a></td>
                             <td>
                                 <i class="material-icons {% if i.summonerLeagueTabListIsRecent == "0" %}dark-text{% endif %} tooltipped" data-position="bottom" data-delay="50" data-tooltip="Nuevo en la Liga">star</i>
                                 <i class="material-icons {% if i.summonerLeagueTabListIsOnFire == "0" %}dark-text{% endif %} tooltipped" data-position="bottom" data-delay="50" data-tooltip="Racha de Victorias">call_made</i>
@@ -153,13 +153,13 @@
                 <div class="darkblue card white-text col s12 historyCard">
                     <div id="isWin" class="{% if i.isWin == "1" %}green{% endif %}{% if i.isWin == "0" %}red{% endif %} hLabel"></div>
                     <div class="hImg">
-                        <div id="hImg" style="border-radius:24px;text-align:center;padding-top:74px;width:96px;height:96px;background: transparent none repeat scroll center center / 100px auto;background-image: url('{% static 'img/' %}h{{i.champId}}.png');">
+                        <div id="hImg" style="border-radius:24px;text-align:center;padding-top:74px;width:96px;height:96px;background: transparent none repeat scroll center center / 100px auto;background-image: url('{% static 'img/hchamp/' %}{{i.champId}}.png');">
                             <div style="border-radius:0 0 80px 80px;width:100%;background-color:rgba(0,0,0,0.5);"><a id="hChamp" class="white-text" href="#">{{i.champName|title}}</a></div>
                         </div>
                     </div>
                     <div class="hSum">
-                        <img id="hSum1" style="width:45px;height:45px;" src="{% static 'img/' %}s{{i.spell1}}.png"/><br>
-                        <img id="hSum2" style="width:45px;height:45px;" src="{% static 'img/' %}s{{i.spell2}}.png"/>
+                        <img id="hSum1" style="width:45px;height:45px;" src="{% static 'img/spell/' %}{{i.spell1}}.png"/><br>
+                        <img id="hSum2" style="width:45px;height:45px;" src="{% static 'img/spell/' %}{{i.spell2}}.png"/>
                     </div>
                     <div class="hMatch">
                         <h4 id="hWinText" class="truncate">{% if i.isWin == "1" %}<span class="green-text">Victoria</span>{% endif %}{% if i.isWin == "0" %}<span class="red-text">Derrota</span>{% endif %}</h4>
@@ -168,13 +168,13 @@
                     </div>
                     <div class="hStats">
                         <div class="truncate" style="width:100%;height:49px;">
-                            <img id="item1" class="hItem" src="{% static 'img/' %}{{ i.item1 }}.png"/>
-                            <img id="item2" class="hItem" src="{% static 'img/' %}{{ i.item2 }}.png"/>
-                            <img id="item3" class="hItem" src="{% static 'img/' %}{{ i.item3 }}.png"/>
-                            <img id="item4" class="hItem" src="{% static 'img/' %}{{ i.item4 }}.png"/>
-                            <img id="item5" class="hItem" src="{% static 'img/' %}{{ i.item5 }}.png"/>
-                            <img id="item6" class="hItem" src="{% static 'img/' %}{{ i.item6 }}.png"/>
-                            <img id="item7" class="hItem" src="{% static 'img/' %}{{ i.item7 }}.png"/>
+                            <img id="item1" class="hItem" src="{% static 'img/item/' %}{{ i.item1 }}.png"/>
+                            <img id="item2" class="hItem" src="{% static 'img/item/' %}{{ i.item2 }}.png"/>
+                            <img id="item3" class="hItem" src="{% static 'img/item/' %}{{ i.item3 }}.png"/>
+                            <img id="item4" class="hItem" src="{% static 'img/item/' %}{{ i.item4 }}.png"/>
+                            <img id="item5" class="hItem" src="{% static 'img/item/' %}{{ i.item5 }}.png"/>
+                            <img id="item6" class="hItem" src="{% static 'img/item/' %}{{ i.item6 }}.png"/>
+                            <img id="item7" class="hItem" src="{% static 'img/item/' %}{{ i.item7 }}.png"/>
                         </div>
                         <div class="truncate" style="width:100%;height:49px;">
                             <br>
@@ -208,10 +208,10 @@
                             <tbody>
                                 {% for j in val %}
                                 <tr>
-                                    <td><img width="48px" src="{% static 'img/' %}{{j}}.png"/></td>
-                                    <td><span>x{{val|getItem:j|getIndex:1}}</span></td>
-                                    <td><span>{{val|getItem:j|getIndex:0}}</span></td>
-                                    <td><strong>+{{val|getItem:j|getIndex:2}}</strong></td>
+                                    <td><img width="48px" src="{% static 'img/rune/' %}{{val|getItem:j|getIndex:0}}"/></td>
+                                    <td><span>x{{val|getItem:j|getIndex:2}}</span></td>
+                                    <td><span>{{val|getItem:j|getIndex:1}}</span></td>
+                                    <td><strong>+{{val|getItem:j|getIndex:3}}</strong></td>
                                 </tr>
                                 {% endfor %}
                             </tbody>
@@ -230,7 +230,7 @@
                             <tbody>
                                 {% for j in val %}
                                 <tr>
-                                    <td><img width="48px" src="{% static 'img/' %}{{j}}.png"/></td>
+                                    <td><img width="48px" src="{% static 'img/rune/' %}{{val|getItem:j|getIndex:0}}"/></td>
                                     <td><span>x{{val|getItem:j|getIndex:1}}</span></td>
                                     <td><span>{{val|getItem:j|getIndex:0}}</span></td>
                                     <td><strong>+{{val|getItem:j|getIndex:2}}</strong></td>
