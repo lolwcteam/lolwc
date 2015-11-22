@@ -3,175 +3,290 @@
 {% load lolwc_tags %}
 
 {% block contenido %}
-<div class="section">
-  <div class="container">
-    <div class="darkblue row">
-      <div style="display: block;" id="chat" class="darkblue col s12">
+<main>
+  <div id='messageSection' class='row center'>{{info.message|safe}}</div>
+  <div id="loginSection" class="section">
+    <div class="container">
+      <div class="col s12 m12 l12">
+        <div class="white-text card blue row center">
+          <form id="formulario" action="" class="col s10 offset-s1 m8 offset-m2 l6 offset-l3">
+            <h1 class="light">Ingresar</h1>
+            <strong>Ingrese con su nombre y usuario de League of Legends a wololol para comenzar a chatear</strong>
+            <br>
+            <br>
+            <br>
 
-        <div style="overflow-y: scroll;" id="contactos" class="hide-on-med-and-down darkblue text-white col s4">
-          <ul id="contactList" class="collection" data-collapsible="accordion" style="border:0px;">
-            <!-- Perfil -->
-            <!-- Tarjeta -->
-            <li id="perfil" class="collection-item darkblue" style="border-bottom:0px;">
-              <img class="mid chatImg" src="{% static 'img/sum/612.png' %}" width="40px"/>
-              <span class="white-text nameChat">Sad Jocker King</span>
-              <i id="estado" class="material-icons right green-text" style="cursor:pointer;">lens</i>
-              <a class="modal-trigger right" href="#modal1"><i class="waves-effect waves-light material-icons">info</i></a>
-            </li>
-            <!-- Ficha de Información -->
-            <div id="modal1" class="modal blue borderBlue white-text">
-              <div class="modal-content">
-                <span>Nivel: </span><span>30</span><br>
-                <span>Liga Solo: </span>
-                <span>Gold</span>
-                <span>1</span><br>
-                <span>Liga: </span><span>Sad King's Army</span><br>
-                <span>Score: </span><span>280</span><br>
-                <div class="input-field">
-                  <input id="Descripcion" type="text">
-                  <label for="Descripcion">Estado</label>
-                </div>
-              </div>
-              <div class="modal-footer blue">
-                <a href="#!" class="white-text modal-action modal-close waves-effect waves-green btn-flat">OK</a>
+            <div class="section lightblue" style="padding:15px">
+              <div class="input-field">
+                <select id="server">
+                  <option value="" disabled selected>Elige un Servidor</option>
+                  <option value0"BR">BR</option>
+                  <option value0"EUNE">EUNE</option>
+                  <option value0"EUW">EUW</option>
+                  <option value0"KR">KR</option>
+                  <option value0"LAN">LAN</option>
+                  <option value0"LAS">LAS</option>
+                  <option value0"NA">NA</option>
+                  <option value0"OCE">OCE</option>
+                  <option value0"TR">TR</option>
+                  <option value0"RU">RU</option>
+                  <option value0"PBE">PBE</option>
+
+                </select>
               </div>
             </div>
-          </ul>
+
+            <div class="section lightblue" style="padding:15px">
+              <div class="input-field">
+                <i class="material-icons prefix">account_circle</i>
+                <input id="user" type="text" class="validate">
+                <label for="user">Nombre de Usuario</label>
+              </div>
+            </div>
+
+            <div class="section lightblue" style="padding:15px">
+              <div class="input-field">
+                <i class="material-icons prefix">lock</i>
+                <input id="password" type="password" class="validate">
+                <label for="password">Contraseña</label>
+              </div>
+            </div>
+
+            <div class="section lightblue" style="padding:15px">
+              <a id="login" type="submit" class="white-text waves-effect waves-light btn-flat"><i class="right white-text material-icons">arrow_forward</i>Ingresar</a>
+            </div>
+            <br>
+            <p class="center">El chat funciona de forma similar al del cliente oficial</p>
+            <p class="center">Nos contactamos con los servidores de Riot e intercambiamos información</p>
+            <p class="center">Tu nombre de usuario y tu contraseña están seguros con nosotros</p>
+            <p class="center">Nunca los usaremos para fines siniestros</p><br>
+          </form>
         </div>
-        <div id="chatBox" class="col s8">
-          <div id="dlog-default" class="conversacion valign-wrapper card blue text-white pad">
-            <h5 class="col s12 m12 l12 center-align valign">Selecciona algún contacto para comenzar.</h5>
+      </div>
+    </div>
+  </div>
+  <div id="chatSection" style="display: none;" class="section">
+    <div class="container">
+      <div class="darkblue row">
+        <div style="display: block;" id="chat" class="darkblue col s12">
+          <div style="overflow-y: scroll;" id="contactos" class="hide-on-med-and-down darkblue text-white col s4">
+            <ul id="contactList" class="collection" data-collapsible="accordion" style="border:0px;">
+              <!-- Perfil -->
+              <!-- Tarjeta -->
+              <li id="perfil" class="collection-item darkblue" style="border-bottom:0px;">
+                <img class="mid chatImg" src="{% static 'img/sum/612.png' %}" width="40px"/>
+                <span class="white-text nameChat">Sad Jocker King</span>
+                <i id="estado" class="material-icons right green-text" style="cursor:pointer;">lens</i>
+                <a class="modal-trigger right" href="#modal1"><i class="waves-effect waves-light material-icons">info</i></a>
+              </li>
+              <!-- Ficha de Información -->
+              <div id="modal1" class="modal blue borderBlue white-text">
+                <div class="modal-content">
+                  <span>Nivel: </span><span>30</span><br>
+                  <span>Liga Solo: </span>
+                  <span>Gold</span>
+                  <span>1</span><br>
+                  <span>Liga: </span><span>Sad King's Army</span><br>
+                  <span>Score: </span><span>280</span><br>
+                  <div class="input-field">
+                    <input id="Descripcion" type="text">
+                    <label for="Descripcion">Estado</label>
+                  </div>
+                </div>
+                <div class="modal-footer blue">
+                  <a href="#!" class="white-text modal-action modal-close waves-effect waves-green btn-flat">OK</a>
+                </div>
+              </div>
+            </ul>
           </div>
-          <div id="inputChat" class="valign-wrapper card lightblue input-field pad">
-            <input id="chatText" class="blue col s10" placeholder="Escribe un mensaje aquí." style="margin-top:12px;"type="text" value="">
-            <button id="send" type="submit" class="sendButton valign col s2 white-text btn-flat waves-effect waves-light">
-              <i class="material-icons">send</i>
-            </button>
+          <div id="chatBox" class="col s8">
+            <div id="dlog-default" class="conversacion valign-wrapper card blue text-white pad">
+              <h5 class="col s12 m12 l12 center-align valign">Selecciona algún contacto para comenzar.</h5>
+            </div>
+            <div id="inputChat" class="valign-wrapper card lightblue input-field pad">
+              <input id="chatText" class="blue col s10" placeholder="Escribe un mensaje aquí." style="margin-top:12px;"type="text" value="">
+              <button id="send" type="submit" class="sendButton valign col s2 white-text btn-flat waves-effect waves-light">
+                <i class="material-icons">send</i>
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  {% endblock %}
+</main>
+{% endblock %}
 
-  {% block scripts %}
-  <script>
-  $(document).ready(function(){
-    var userName = "Sad Jocker King";
-    agregContact("Ωω.ΆΈ. ΉΊ","{% static 'img/sum/612.png' %}","42","Silver VI","AguanteTurquia","653","Normal","En Juego","13 horas","ThU HeNbIdIah AzE Mih EghO");
-    agregContact("Adriex","{% static 'img/sum/612.png' %}");
-    agregContact("Ovej4","{% static 'img/sum/612.png' %}");
-    $("#contactos").height($(window).height()-100);
-    $(".conversacion").height($(window).height()-180);
-    if ( $("#contactos").css('display') == 'none' ){
-      $("#chat").prepend('<button id="hiddenBtn" type="submit" class="btn-floating blue btn-flat waves-effect right mid"><i class="material-icons">send</i></button>');
-      $("#chat").append('<div id="modalContacts" class="likemodal blue borderBlue white-text" style="position:fixed"><div id="contactsHere"></div><div class="blue s12"><hr><a id="closeContacts" class="right white-text waves-effect waves-green btn-flat">OK</a></div></div>');
-      $('#modalContacts').hide();
-      //$("#contactList").appendTo("contactsHere");
-      $("#contactList").detach().appendTo('#contactsHere')
-      $("#modalContacts").height($(window).height()-100);
-      $("#modalContacts").width($(window).width()-100);
+{% block scripts %}
+<script>
+$(document).ready(function(){
+  $('#chatText').keypress(function(e){
+   if(e.keyCode==13)
+   $('#send').click();
+ });
+  var userName = "Sad Jocker King";
+  agregContact("Ωω.ΆΈ. ΉΊ","{% static 'img/sum/612.png' %}","42","Silver VI","AguanteTurquia","653","Normal","En Juego","13 horas","ThU HeNbIdIah AzE Mih EghO");
+  agregContact("Adriex","{% static 'img/sum/612.png' %}");
+  agregContact("Ovej4","{% static 'img/sum/612.png' %}");
+  $("#contactos").height($(window).height()-100);
+  $(".conversacion").height($(window).height()-180);
+  if ( $("#contactos").css('display') == 'none' ){
+    $("#chat").prepend('<button id="hiddenBtn" type="submit" class="btn-floating blue btn-flat waves-effect right mid"><i class="material-icons">send</i></button>');
+    $("#chat").append('<div id="modalContacts" class="likemodal blue borderBlue white-text" style="position:fixed"><div id="contactsHere"></div><div class="blue s12"><hr><a id="closeContacts" class="right white-text waves-effect waves-green btn-flat">OK</a></div></div>');
+    $('#modalContacts').hide();
+    //$("#contactList").appendTo("contactsHere");
+    $("#contactList").detach().appendTo('#contactsHere')
+    $("#modalContacts").height($(window).height()-100);
+    $("#modalContacts").width($(window).width()-100);
 
-      $("#hiddenBtn").click(function(){
-        $('#modalContacts').fadeIn("slow");
-        $('.modal').openmodal();
-      });
-      $("#closeContacts").click(function(){
-        $('#modalContacts').fadeOut("slow");
-      });
-      $("#chatBox").removeClass("s8");
-      $("#chatBox").addClass("s12");
-    }
-
-
-    function agregContact(name,profileImage,level,league,promo,score,GQT,status,time,statusMsg){
-      nameID=nameToID(name);
-      $("#contactList").append($('<li/>', {
-        html : $('<img class=" mid chatImg" src="'+profileImage+'" width="40px"/><span class="white-text nameChat">'+name+'</span><i id="estado" class="material-icons right green-text">lens</i><a id="'+nameID+'"class="waves-effect circle waves-light modal-trigger right" data-target="#m'+nameID+'"><i class="material-icons">info</i></a>'),
-        'class' : 'contact collection-item blue',
-        'style': 'cursor:pointer;border-bottom:0px;'
-      }));
-      var profileLarge = '<img src="'+profileImage+'" width="80px" style="border-radius:50px"/><br>';
-      var level = '<span class="blue-text">Nivel: </span><span>'+level+'</span><br>';
-      var league = '<span>'+league+'</span><br>';
-      var promo = '<span>'+promo+'</span><br>';
-      var score = '<i class="material-icons mid tiny">grade</i><span>'+score+'</span><br>';
-      var GQT = '<span>'+GQT+'</span><br>';
-      var status = '<span class="yellow-text">'+status+'</span><br>';
-      var time = '<span>'+time+'</span><br>';
-      var statusMsg = '<span class="yellow-text" style="font-style:italic;font-size:20px">"'+statusMsg+'"</span><br>';
-
-      $("#contactList").append('<div id="m'+nameID+'" class="modal blue borderBlue white-text"><div class="modal-content"><h4 class="col s12">'+name+'</h4><div class="card lightblue col s12 m12 l3 center" style="padding:10px">'+profileLarge+league+promo+'</div><div class="col l9 s12 m12">'+level+score+GQT+status+time+statusMsg+'</div></div><div class="blue modal-footer"><hr><a class=" modal-action modal-close white-text waves-effect waves-green btn-flat">OK</a></div></div>');
-    }
-    $("#estado").click(function(){
-      var src = $('#estado').attr('class');
-      console.log(src);
-      if (src=="material-icons right green-text"){
-        $('#estado').removeClass( "green-text" );
-        $('#estado').addClass( "red-text" );
-      }else{
-        $('#estado').removeClass( "red-text" );
-        $('#estado').addClass( "green-text" );
-      }
+    $("#hiddenBtn").click(function(){
+      $('#modalContacts').fadeIn("slow");
+      $('.modal').openmodal();
     });
-
-
-    $(".contact").click(function(){
-      name = $(this).find("span").text();
-      tabID=nameToID(name);
-      $(".contact").removeClass("lightblue");
-      $(".contact").removeClass("contActive");
-      $(this).addClass("lightblue");
-      $(this).addClass("contActive");
-      $(".conversacion").hide();
-      if ( $( "#dlog-"+tabID ).length ) {
-        $("#dlog-"+tabID).show();
-        $('#modalContacts').fadeOut("slow");
-      }else{
-        $("#chatBox").prepend('<div id="dlog-'+tabID+'" class="conversacion card blue text-white pad"><p class="center card-title">'+name+'</p</div>');
-      }
-      clsInputChat();
-      $(".conversacion").height($(window).height()-180);
+    $("#closeContacts").click(function(){
+      $('#modalContacts').fadeOut("slow");
     });
+    $("#chatBox").removeClass("s8");
+    $("#chatBox").addClass("s12");
+  }
 
-    function incomeMsg(from,msgFrom){
-      from=nameToID(from);
-      $("#dlog-"+from).append('<div class="section"><span class="nameChat">'+from+'</span><br><p class="messageChat">'+msgFrom+'</p></div><hr>');
+
+  function agregContact(name,profileImage,level,league,promo,score,GQT,status,time,statusMsg){
+    nameID=nameToID(name);
+    $("#contactList").append($('<li/>', {
+      html : $('<img class=" mid chatImg" src="'+profileImage+'" width="40px"/><span class="white-text nameChat">'+name+'</span><i id="estado" class="material-icons right green-text">lens</i><a id="'+nameID+'"class="waves-effect circle waves-light modal-trigger right" data-target="#m'+nameID+'"><i class="material-icons">info</i></a>'),
+      'class' : 'contact collection-item blue',
+      'style': 'cursor:pointer;border-bottom:0px;'
+    }));
+    var profileLarge = '<img src="'+profileImage+'" width="80px" style="border-radius:50px"/><br>';
+    var level = '<span class="blue-text">Nivel: </span><span>'+level+'</span><br>';
+    var league = '<span>'+league+'</span><br>';
+    var promo = '<span>'+promo+'</span><br>';
+    var score = '<i class="material-icons mid tiny">grade</i><span>'+score+'</span><br>';
+    var GQT = '<span>'+GQT+'</span><br>';
+    var status = '<span class="yellow-text">'+status+'</span><br>';
+    var time = '<span>'+time+'</span><br>';
+    var statusMsg = '<span class="yellow-text" style="font-style:italic;font-size:20px">"'+statusMsg+'"</span><br>';
+
+    $("#contactList").append('<div id="m'+nameID+'" class="modal blue borderBlue white-text"><div class="modal-content"><h4 class="col s12">'+name+'</h4><div class="card lightblue col s12 m12 l3 center" style="padding:10px">'+profileLarge+league+promo+'</div><div class="col l9 s12 m12">'+level+score+GQT+status+time+statusMsg+'</div></div><div class="blue modal-footer"><hr><a class=" modal-action modal-close white-text waves-effect waves-green btn-flat">OK</a></div></div>');
+  }
+  $("#estado").click(function(){
+    var src = $('#estado').attr('class');
+    console.log(src);
+    if (src=="material-icons right green-text"){
+      $('#estado').removeClass( "green-text" );
+      $('#estado').addClass( "red-text" );
+    }else{
+      $('#estado').removeClass( "red-text" );
+      $('#estado').addClass( "green-text" );
     }
-
-    function clsInputChat(){
-      $("#chatText").val("");
-    }
-
-    $('.modal-trigger').click(function(){
-      if($(this).attr('href') == undefined){
-        name=$(this).attr('id');
-        $('#m'+name).openModal();
-      }
-    });
-
-    function nameToID(name){
-      var nameOutSpa = name.replace(/ /g,"-");
-      var nameID = nameOutSpa.replace(/\./g,"-");
-      return nameID;
-    }
-
-
-    $("#send").click(function (){
-      var msg = $("#chatText").val();
-      clsInputChat();
-      if ($(".contact").hasClass("contActive")){
-        if (msg==""){
-          alert("Debes escribir algo")
-        }else{
-          msgTo=$(".contActive").find("span").text();
-          msgTo=nameToID(msgTo);
-          $("#dlog-"+msgTo).append('<div class="section"><span class="nameChat">'+userName+'</span><br><p class="messageChat">'+msg+'</p></div><hr>');
-        }
-      }else{
-        alert("Selecciona un contacto")
-      }
-    });
   });
+
+
+  $(".contact").click(function(){
+    name = $(this).find("span").text();
+    tabID=nameToID(name);
+    $(".contact").removeClass("lightblue");
+    $(".contact").removeClass("contActive");
+    $(this).addClass("lightblue");
+    $(this).addClass("contActive");
+    $(".conversacion").hide();
+    if ( $( "#dlog-"+tabID ).length ) {
+      $("#dlog-"+tabID).show();
+      $('#modalContacts').fadeOut("slow");
+    }else{
+      $("#chatBox").prepend('<div id="dlog-'+tabID+'" class="conversacion card blue text-white pad"><p class="center card-title">'+name+'</p</div>');
+    }
+    clsInputChat();
+    $(".conversacion").height($(window).height()-180);
+  });
+
+  function incomeMsg(from,msgFrom){
+    from=nameToID(from);
+    $("#dlog-"+from).append('<div class="section"><span class="nameChat">'+from+'</span><br><p class="messageChat">'+msgFrom+'</p></div><hr>');
+  }
+
+  function clsInputChat(){
+    $("#chatText").val("");
+  }
+
+  $('.modal-trigger').click(function(){
+    if($(this).attr('href') == undefined){
+      name=$(this).attr('id');
+      $('#m'+name).openModal();
+    }
+  });
+
+  function nameToID(name){
+    var nameOutSpa = name.replace(/ /g,"-");
+    var nameID = nameOutSpa.replace(/\./g,"-");
+    return nameID;
+  }
+
+
+  $("#send").click(function (){
+    var msg = $("#chatText").val();
+    clsInputChat();
+    if ($(".contact").hasClass("contActive")){
+      if (msg==""){
+        alert("Debes escribir algo")
+      }else{
+        msgTo=$(".contActive").find("span").text();
+        msgTo=nameToID(msgTo);
+        $("#dlog-"+msgTo).append('<div class="section"><span class="nameChat">'+userName+'</span><br><p class="messageChat">'+msg+'</p></div><hr>');
+      }
+    }else{
+      alert("Selecciona un contacto")
+    }
+  });
+});
+</script>
+
+<script>
+$(document).ready(function(){
+$('#password').keypress(function(e){
+ if(e.keyCode==13)
+ $('#login').click();
+});}
+
+$("#login").click(function(){
+  var server = $('#server').val()
+  var user = $('#user').val();
+  var password = $('#password').val();
+  if (server != null && user != "" && password != ""){
+    var data={
+      csrfmiddlewaretoken: '{{ csrf_token }}',
+      server:server.toLowerCase(),
+      user:user,
+      password:password,
+    }
+    $.ajax({
+      type: "POST",
+      url: "{% url 'profileApp:chat' %}",
+      data: data,
+      dataType: "json",
+      success: function(result){
+        $("#messageSection").html(result.message)
+        if(result.typ == "loginCorrect"){
+          $("#loginSection").attr("style","display:none;")
+          $("#chatSection").attr("style","")
+        }
+        console.log("Success")
+        console.log(result)
+      },
+      error: function(err){
+        console.log(err)
+        alert("Hubo un problema intentalo de nuevo.")
+      },
+    });  }
+    else{
+      if(server == null){alert("No indicó a que servidor entrar")}
+      else if(user == ""){alert("No ingresó su nombre de usuario")}
+      else if(password == ""){alert("No ingresó su contraseña")}
+      else{alert("¿Completó todos los campos?")}
+    }
+
+  });
+
   </script>
-  {% endblock %}
+{% endblock %}

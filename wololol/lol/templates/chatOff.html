@@ -8,7 +8,8 @@
     <div class="container">
       <div class="col s12 m12 l12">
         <div class="white-text card blue row center">
-          <form class="col s10 offset-s1 m8 offset-m2 l6 offset-l3">
+          <form id="formulario" action="" class="col s10 offset-s1 m8 offset-m2 l6 offset-l3">
+            {{info.message|safe}}
             <h1 class="light">Ingresar</h1>
             <strong>Ingrese con su nombre y usuario de League of Legends a wololol para comenzar a chatear</strong>
             <br>
@@ -17,7 +18,7 @@
 
             <div class="section lightblue" style="padding:15px">
               <div class="input-field">
-                <select>
+                <select id="server">
                   <option value="" disabled selected>Elige un Servidor</option>
                   <option value0"BR">BR</option>
                   <option value0"EUNE">EUNE</option>
@@ -38,21 +39,21 @@
             <div class="section lightblue" style="padding:15px">
               <div class="input-field">
                 <i class="material-icons prefix">account_circle</i>
-                <input id="icon_prefix" type="text" class="validate">
-                <label for="icon_prefix">Nombre de Usuario</label>
+                <input id="user" type="text" class="validate">
+                <label for="user">Nombre de Usuario</label>
               </div>
             </div>
 
             <div class="section lightblue" style="padding:15px">
               <div class="input-field">
                 <i class="material-icons prefix">lock</i>
-                <input id="icon_prefix" type="password" class="validate">
-                <label for="icon_prefix">Contraseña</label>
+                <input id="password" type="password" class="validate">
+                <label for="password">Contraseña</label>
               </div>
             </div>
 
             <div class="section lightblue" style="padding:15px">
-              <a type="submit" class="white-text waves-effect waves-light btn-flat"><i class="right white-text material-icons">arrow_forward</i>Ingresar</a>
+              <a id="login" class="white-text waves-effect waves-light btn-flat"><i class="right white-text material-icons">arrow_forward</i>Ingresar</a>
             </div>
             <br>
             <p class="center">El chat funciona de forma similar al del cliente oficial</p>
@@ -68,4 +69,41 @@
 {% endblock %}
 
 {% block scripts %}
-{% endblock %}
+<script>
+
+$("#login").click(function(){
+  var server = $('#server').val()
+  var user = $('#user').val();
+  var password = $('#password').val();
+  if (server != null && user != "" && password != ""){
+    var data={
+      csrfmiddlewaretoken: '{{ csrf_token }}',
+      server:server.toLowerCase(),
+      user:user,
+      password:password,
+    }
+    $.ajax({
+      type: "POST",
+      url: "{% url 'profileApp:chat' %}",
+      data: data,
+      dataType: "json",
+      success: function(result){
+        $("#formulario").prepend(result.message)
+        console.log("Success")
+        console.log(result)
+      },
+      error: function(err){
+        console.alert("Hubo un problema intentalo de nuevo.")
+      },
+    });  }
+    else{
+      if(server == null){alert("No indicó a que servidor entrar")}
+      else if(user == ""){alert("No ingresó su nombre de usuario")}
+      else if(password == ""){alert("No ingresó su contraseña")}
+      else{alert("¿Completó todos los campos?")}
+    }
+
+  });
+
+  </script>
+  {% endblock %}

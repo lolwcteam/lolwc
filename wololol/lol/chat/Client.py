@@ -78,8 +78,8 @@ class Cliente(object):
         self.server = serverList[server]
 
     def connect(self):
-        #self.conn = xmpp.Client("pvp.net",debug=[])
-        self.conn = xmpp.Client("pvp.net")
+        self.conn = xmpp.Client("pvp.net",debug=[])
+        #self.conn = xmpp.Client("pvp.net")
         if not self.conn.connect(server=("chat."+self.server+".lol.riotgames.com", 5223)):
             return "connect failed"
         if not self.conn.auth(self.user, "AIR_" + self.password, "xiff"):
@@ -199,7 +199,7 @@ class Cliente(object):
             try:
                 conn.Process(10)
                 #self.getAll() pedir el context y devolver el self.getall
-                #self.printAll()
+                self.printAll()
             except KeyboardInterrupt:
                 #print("#----KEEPALIVE DETENIDO----#")
                 exit()
