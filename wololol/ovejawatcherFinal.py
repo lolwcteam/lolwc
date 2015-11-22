@@ -7,7 +7,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render_to_response
 from django.shortcuts import render
 from django.template import RequestContext
-from lol.models import SummonerInfo, MostPlayedChampInfo
+from lol.models import SummonerInfo, MostPlayedChampInfo, SummonerProfile
 from riotwatcher import RiotWatcher
 from riotwatcher import LoLException
 from riotwatcher import BRAZIL
@@ -153,6 +153,36 @@ champsId = {
     "81":"Ezreal"}
 
 
+leagueValue = {
+    'unknow':100,
+    'Bronze V':26,
+    'Bronze IV':25,
+    'Bronze III':24,
+    'Bronze II':23,
+    'Bronze I':22,
+    'Silver V':21,
+    'Silver IV':20,
+    'Silver III':19,
+    'Silver II':18,
+    'Silver I':17,
+    'Gold V':16,
+    'Gold IV':15,
+    'Gold III':14,
+    'Gold II':13,
+    'Gold I':12,
+    'Platinum V':11,
+    'Platinum IV':10,
+    'Platinum III':9,
+    'Platinum II':8,
+    'Platinum I':7,
+    'Diamond V':6,
+    'Diamond IV':5,
+    'Diamond III':4,
+    'Diamond II':3,
+    'Diamond I':2,
+    'Master':1,
+    'Challenger':0
+}
 def getSummoner(summoner=None, idSum=None, region=None): #Funcion que revisa si el jugador está en la base de datos, o hay que crearlo
     try :
         if idSum != None:
@@ -161,108 +191,182 @@ def getSummoner(summoner=None, idSum=None, region=None): #Funcion que revisa si 
         else:
             b = SummonerInfo.objects.get(summonerName = summoner, summonerRegion = region)
             idSum = b.summonerId
-            summonerInfo = getCacheSummoner(idSum = idSum, region = region) 
-        favoriteChamp = getCacheMostPlayedChampInfo(idSum = idSum, region = region)
-        summonerInfo = '{' + summonerInfo + ',' + favoriteChamp + '}'
+            summonerInfo = getCacheSummoner(idSum = idSum, region = region)
     except(ObjectDoesNotExist):
+        print('TRABAJANDO CON LA API')
         summonerInfo = getApiSummoner(idSum = idSum, summoner=summoner, region = region)
-    print(summonerInfo)
-    jsonFinal = json.loads(summonerInfo)
+    print(str(summonerInfo))
+    jsonFinal = json.loads(str(summonerInfo))
     return jsonFinal
 
 def getApiSummoner(summoner=None, idSum=None, region=None):
     if idSum!=None:
         me = riotWatcher.get_summoner(_id=idSum)
     else:
-        me = riotWatcher.get_summoner(name=summoner)
+        me = riotWatcher.get_summoner(name=summoner, region=region)
     summonerName = str(me['name'])
     summonerId = str(me['id'])
     summonerImg = str(me['profileIconId'])
     summonerRegion = str(region)
+    league3v3Name = 'Unranked'
+    league3v3Tier = 'unknow'
+    league3v3Division = ''
+    league3v3Lp = 0
+    leagueTeamName = 'Unranked'
+    leagueTeamTier = 'unknow'
+    leagueTeamDivision = ''
+    leagueTeamLp = 0
+    x = 0
+    summonerLeague = "unRanked"
+    summonerDivision = "No disponible"
+    summonerKills = "0.0"
+    summonerDeaths = "0.0"
+    summonerAssists = "0.0"
+    summonerWinrate = "0.0"
+    summonerKdaRatio = "0.0"
+    mostPlayedChamp = "-"
+    mostPlayedChampName = "Ninguno"
+    mostPlayedChampMatchesCount = "0"
+    mostPlayedChampMatchesWinCount = "0"
+    mostPlayedChampMatchesLoseCount = "0"
+    mostPlayedChampKdaRatio = "0.0"
+    mostPlayedChampKills = "0.0"
+    mostPlayedChampDeaths = "0.0"
+    mostPlayedChampAssist = "0.0"
+    mostPlayedChampCs = "0.0"
+    mostPlayedChampGold = "0.0"
     try:
-        wins = 0
-        losses = 0
-        assists = 0
-        kills = 0
-        deaths = 0
         summonerLeagueInfo = riotWatcher.get_league_entry([summonerId])
-        print("LEAGUE INFO-----------------------------------------------------: " + str(summonerLeagueInfo))
         rankedst = riotWatcher.get_ranked_stats(summonerId)
-        print("RANKED STATS----------------------------------------------------: " + str(rankedst))
-        summonerLeague = summonerLeagueInfo[summonerId][0]['tier']
-        summonerDivision = summonerLeagueInfo[summonerId][0]['entries'][0]['division']
-        for x in range(len(rankedst['champions'])):
-            wins += rankedst['champions'][x]['stats']['totalSessionsWon']
-            losses += rankedst['champions'][x]['stats']['totalSessionsLost']
-            assists += rankedst['champions'][x]['stats']['totalAssists']
-            kills += rankedst['champions'][x]['stats']['totalChampionKills']
-            deaths += rankedst['champions'][x]['stats']['totalDeathsPerSession']
-        matchs = wins + losses
-        summonerKills = round(float(kills)/float(matchs), 2)
-        summonerDeaths = round(float(deaths)/float(matchs), 2)
-        summonerAssists = round(float(assists)/float(matchs), 2)
-        summonerWinrate = int(round((float(wins)/float(matchs))*100, 0))
-        killsAssists = float(assists)+float(kills)
-        summonerKdaRatio = round(killsAssists/float(deaths), 2)
-        x = int(len(rankedst['champions']))
-        mostPlayedChampMatchesCount =  0
-        for q in range(x):
-            if (rankedst['champions'][q]['id'] != 0):
-                partidaChampx = rankedst['champions'][q]['stats']['totalSessionsPlayed']
-            if (mostPlayedChampMatchesCount <= partidaChampx):
-                mostPlayedChampMatchesCount = partidaChampx
-                maxChampPos = q
-                mostPlayedChamp = rankedst['champions'][q]['id']
-                mostPlayedChampName = champsId[str(mostPlayedChamp)]
-        mostPlayedChampMatchesCount = float(mostPlayedChampMatchesCount)
-        mostPlayedChampKills = round(rankedst['champions'][maxChampPos]['stats']['totalChampionKills']/mostPlayedChampMatchesCount, 2)
-        mostPlayedChampDeaths = round(rankedst['champions'][maxChampPos]['stats']['totalDeathsPerSession']/mostPlayedChampMatchesCount, 2)
-        mostPlayedChampAssist = round(rankedst['champions'][maxChampPos]['stats']['totalAssists']/mostPlayedChampMatchesCount, 2)
-        mostPlayedChampGold = float(rankedst['champions'][maxChampPos]['stats']['totalGoldEarned']/mostPlayedChampMatchesCount)
-        mostPlayedChampGold = round(mostPlayedChampGold/1000, 2)
-        mostPlayedChampCs = round(rankedst['champions'][maxChampPos]['stats']['totalMinionKills']/mostPlayedChampMatchesCount, 2)
-        champWinPorcentaje =  rankedst['champions'][maxChampPos]['stats']['totalSessionsWon']/mostPlayedChampMatchesCount * 100
-        champWinPorcentaje = round(champWinPorcentaje, 2)
-        mostPlayedChampMatchesWinCount = rankedst['champions'][maxChampPos]['stats']['totalSessionsWon']
-        mostPlayedChampMatchesLoseCountPorcentaje = rankedst['champions'][maxChampPos]['stats']['totalSessionsLost'] / mostPlayedChampMatchesCount * 100
-        mostPlayedChampMatchesLoseCountPorcentaje = round(mostPlayedChampMatchesLoseCountPorcentaje, 2)
-        mostPlayedChampMatchesLoseCount = rankedst['champions'][maxChampPos]['stats']['totalSessionsLost']
-        mostPlayedChampMatchesCount = int(mostPlayedChampMatchesCount)
-        killsAssists = float(mostPlayedChampKills) + float(mostPlayedChampAssist)
-        mostPlayedChampKdaRatio = round(killsAssists/float(mostPlayedChampDeaths), 2)
+        for x in range(len(summonerLeagueInfo[summonerId])):
+        #################3vs3#################
+            if(summonerLeagueInfo[summonerId][x]['queue'] == 'RANKED_TEAM_3x3'):
+                thisLeagueTier = str(summonerLeagueInfo[summonerId][x]['tier']).lower().capitalize()
+                thisLeagueDivision = str(summonerLeagueInfo[summonerId][x]['entries'][0]['division'])
+                thisLeague = thisLeagueTier + ' ' + thisLeagueDivision
+                thisLeagueValue = leagueValue[thisLeague]
+                if(league3v3Tier!='unknow'):
+                    topLeague = str(league3v3Tier) + ' ' + str(league3v3Division)
+                else:
+                    topLeague = 'unknow'
+                topLeagueValue = LeagueValue[topLeagueValue]
+                if(thisLeagueValue<topLeagueValue):
+                    league3v3Name = str(summonerLeagueInfo[summonerId][x]['name'])
+                    league3v3Tier = thisLeagueTier
+                    league3v3Division = thisLeagueDivision
+                    league3v3Lp = summonerLeagueInfo[summonerId][x]['entries'][0]['leaguePoints']
+        #################Team5vs5#################
+            elif(summonerLeagueInfo[summonerId][x]['queue'] == 'RANKED_TEAM_5x5'):
+                thisLeagueTier = str(summonerLeagueInfo[summonerId][x]['tier']).lower().capitalize()
+                thisLeagueDivision = str(summonerLeagueInfo[summonerId][x]['entries'][0]['division'])
+                thisLeague = thisLeagueTier + ' ' + thisLeagueDivision
+                thisLeagueValue = leagueValue[thisLeague]
+                if(leagueTeamTier!='unknow'):
+                    topLeague = str(leagueTeamTier) + ' ' + str(leagueTeamDivision)
+                else:
+                    topLeague = 'unknow'
+                topLeagueValue = leagueValue[topLeague]
+                if(thisLeagueValue<topLeagueValue):
+                    leagueTeamName = str(summonerLeagueInfo[summonerId][x]['name'])
+                    leagueTeamTier = thisLeagueTier
+                    leagueTeamDivision = thisLeagueDivision
+                    leagueTeamLp = summonerLeagueInfo[summonerId][x]['entries'][0]['leaguePoints']
+        #################SoloQ5vs5#################
+            else:
+                wins = 0
+                losses = 0
+                assists = 0
+                kills = 0
+                deaths = 0
+                summonerLeague = summonerLeagueInfo[summonerId][x]['tier']
+                summonerDivision = summonerLeagueInfo[summonerId][x]['entries'][0]['division']
+                summonerLeagueName = summonerLeagueInfo[summonerId][x]['name']
+                summonerLeaguePoints = summonerLeagueInfo[summonerId][x]['entries'][0]['leaguePoints']
+                for x in range(len(rankedst['champions'])):
+                    wins += rankedst['champions'][x]['stats']['totalSessionsWon']
+                    losses += rankedst['champions'][x]['stats']['totalSessionsLost']
+                    assists += rankedst['champions'][x]['stats']['totalAssists']
+                    kills += rankedst['champions'][x]['stats']['totalChampionKills']
+                    deaths += rankedst['champions'][x]['stats']['totalDeathsPerSession']
+                matchs = wins + losses
+                summonerKills = round(float(kills)/float(matchs), 2)
+                summonerDeaths = round(float(deaths)/float(matchs), 2)
+                summonerAssists = round(float(assists)/float(matchs), 2)
+                summonerWinrate = int(round((float(wins)/float(matchs))*100, 0))
+                killsAssists = float(assists)+float(kills)
+                summonerKdaRatio = round(killsAssists/float(deaths), 2)
+                x = int(len(rankedst['champions']))
+                mostPlayedChampMatchesCount =  0
+                for q in range(x):
+                    if (rankedst['champions'][q]['id'] != 0):
+                        partidaChampx = rankedst['champions'][q]['stats']['totalSessionsPlayed']
+                    if (mostPlayedChampMatchesCount <= partidaChampx):
+                        mostPlayedChampMatchesCount = partidaChampx
+                        maxChampPos = q
+                        mostPlayedChamp = rankedst['champions'][q]['id']
+                        mostPlayedChampName = champsId[str(mostPlayedChamp)]
+                mostPlayedChampMatchesCount = float(mostPlayedChampMatchesCount)
+                mostPlayedChampKills = round(rankedst['champions'][maxChampPos]['stats']['totalChampionKills']/mostPlayedChampMatchesCount, 2)
+                mostPlayedChampDeaths = round(rankedst['champions'][maxChampPos]['stats']['totalDeathsPerSession']/mostPlayedChampMatchesCount, 2)
+                mostPlayedChampAssist = round(rankedst['champions'][maxChampPos]['stats']['totalAssists']/mostPlayedChampMatchesCount, 2)
+                mostPlayedChampGold = float(rankedst['champions'][maxChampPos]['stats']['totalGoldEarned']/mostPlayedChampMatchesCount)
+                mostPlayedChampGold = round(mostPlayedChampGold/1000, 2)
+                mostPlayedChampCs = round(rankedst['champions'][maxChampPos]['stats']['totalMinionKills']/mostPlayedChampMatchesCount, 2)
+                champWinPorcentaje =  rankedst['champions'][maxChampPos]['stats']['totalSessionsWon']/mostPlayedChampMatchesCount * 100
+                champWinPorcentaje = round(champWinPorcentaje, 2)
+                mostPlayedChampMatchesWinCount = rankedst['champions'][maxChampPos]['stats']['totalSessionsWon']
+                mostPlayedChampMatchesLoseCountPorcentaje = rankedst['champions'][maxChampPos]['stats']['totalSessionsLost'] / mostPlayedChampMatchesCount * 100
+                mostPlayedChampMatchesLoseCountPorcentaje = round(mostPlayedChampMatchesLoseCountPorcentaje, 2)
+                mostPlayedChampMatchesLoseCount = rankedst['champions'][maxChampPos]['stats']['totalSessionsLost']
+                mostPlayedChampMatchesCount = int(mostPlayedChampMatchesCount)
+                killsAssists = float(mostPlayedChampKills) + float(mostPlayedChampAssist)
+                mostPlayedChampKdaRatio = round(killsAssists/float(mostPlayedChampDeaths), 2)
+    except(LoLException):
+        mostPlayedChamp = ''
+        mostPlayedChampName = ''
+        mostPlayedChampMatchesCount = ''
+        mostPlayedChampMatchesWinCount = ''
+        mostPlayedChampMatchesLoseCount = ''
+        mostPlayedChampKdaRatio = ''
+        mostPlayedChampKills = ''
+        mostPlayedChampDeaths = ''
+        mostPlayedChampAssist = ''
+        mostPlayedChampCs = ''
+        mostPlayedChampGold = ''
+        summonerImg = ''
+        summonerName = ''
+        summonerLeague = ''
+        summonerDivision = ''
+        summonerKills = ''
+        summonerDeaths = ''
+        summonerAssists = ''
+        summonerWinrate = ''
+        summonerRegion = ''
+        summonerKdaRatio = ''
+        summonerId = ''
+        summonerLeagueName = ''
+        summonerLeaguePoints = ''
+        leagueTeamName = ''
+        leagueTeamTier = ''
+        leagueTeamDivision = ''
+        leagueTeamLp = ''
+        league3v3Name = ''
+        league3v3Tier = ''
+        league3v3Division = ''
+        league3v3Lp = ''
         
-    except(IndexError, LoLException):
-        summonerLeague = "unRanked"
-        summonerDivision = "No disponible"
-        summonerKills = "0.0"
-        summonerDeaths = "0.0"
-        summonerAssists = "0.0"
-        summonerWinrate = "0.0"
-        summonerKdaRatio = "0.0"
-        mostPlayedChamp = "-"
-        mostPlayedChampName = "Ninguno"
-        mostPlayedChampMatchesCount = "0"
-        mostPlayedChampMatchesWinCount = "0"
-        mostPlayedChampMatchesLoseCount = "0"
-        mostPlayedChampKdaRatio = "0.0"
-        mostPlayedChampKills = "0.0"
-        mostPlayedChampDeaths = "0.0"
-        mostPlayedChampAssist = "0.0"
-        mostPlayedChampCs = "0.0"
-        mostPlayedChampGold = "0.0"
-    
     MostPlayedChampInfo.objects.create(summonerId=summonerId,
-                                   mostPlayedChampId=str(mostPlayedChamp),
-                                   mostPlayedChampName=str(mostPlayedChampName),
-                                   mostPlayedChampMatchesCount=str(mostPlayedChampMatchesCount),
-                                   mostPlayedChampMatchesWinCount=str(mostPlayedChampMatchesWinCount),
-                                   mostPlayedChampMatchesLoseCount=str(mostPlayedChampMatchesLoseCount),
-                                   mostPlayedChampKdaRatio=str(mostPlayedChampKdaRatio),
-                                   mostPlayedChampKills=str(mostPlayedChampKills),
-                                   mostPlayedChampDeaths=str(mostPlayedChampDeaths),
-                                   mostPlayedChampAssist=str(mostPlayedChampAssist),
-                                   mostPlayedChampCs=str(mostPlayedChampCs),
-                                   mostPlayedChampGold=str(mostPlayedChampGold))
+                                       mostPlayedChampId = str(mostPlayedChamp),
+                                       mostPlayedChampName = str(mostPlayedChampName),
+                                       mostPlayedChampMatchesCount = str(mostPlayedChampMatchesCount),
+                                       mostPlayedChampMatchesWinCount = str(mostPlayedChampMatchesWinCount),
+                                       mostPlayedChampMatchesLoseCount = str(mostPlayedChampMatchesLoseCount),
+                                       mostPlayedChampKdaRatio = str(mostPlayedChampKdaRatio),
+                                       mostPlayedChampKills = str(mostPlayedChampKills),
+                                       mostPlayedChampDeaths = str(mostPlayedChampDeaths),
+                                       mostPlayedChampAssist = str(mostPlayedChampAssist),
+                                       mostPlayedChampCs = str(mostPlayedChampCs),
+                                       mostPlayedChampGold = str(mostPlayedChampGold))
     
     SummonerInfo.objects.create(summonerId = summonerId,
                                 summonerServer = str(summonerRegion).upper(),
@@ -276,30 +380,41 @@ def getApiSummoner(summoner=None, idSum=None, region=None):
                                 summonerWinrate = str(summonerWinrate),
                                 summonerRegion = str(summonerRegion),
                                 summonerKdaRatio = str(summonerKdaRatio))
-    summoner = getCacheSummoner(idSum=summonerId, region=summonerRegion)
-    favoriteChamp = getCacheMostPlayedChampInfo(idSum=summonerId, region=region)
-    summonerJson = '{' + summoner + ',' + favoriteChamp + '}'
+    
+    SummonerProfile.objects.create(summonerId = str(summonerId),
+                                   leagueSoloQName = str(summonerLeagueName),
+                                   leagueSoloQTier = str(summonerLeague),
+                                   leagueSoloQDivision = str(summonerDivision),
+                                   leagueSoloQLp = str(summonerLeaguePoints),
+                                   leagueTeamName = str(leagueTeamName),
+                                   leagueTeamTier = str(leagueTeamTier),
+                                   leagueTeamDivision = str(leagueTeamDivision),
+                                   leagueTeamLp = str(leagueTeamLp),
+                                   league3v3Name = str(league3v3Name),
+                                   league3v3Tier = str(league3v3Tier),
+                                   league3v3Division = str(league3v3Division),
+                                   league3v3Lp = str(league3v3Lp))      
+    
+    summonerJson = getCacheSummoner(idSum=summonerId, region=summonerRegion)
     return summonerJson
 
-def getCacheSummoner(idSum=None, region=None):
-    a = SummonerInfo.objects.get(summonerId = idSum, summonerRegion=region)
-    savedInfo = str('"summonerInfo":{"summonerId":"' + str(a.summonerId)
-                    + '","summonerImg":"' + str(a.summonerImg)
-                    + '","summonerName":"' + str(a.summonerName)
-                    + '","summonerLeague":"' + str(a.summonerLeague).lower().capitalize()
-                    + '","summonerDivision":"' + str(a.summonerDivision)
-                    + '","summonerKills":"' + str(a.summonerKills)
-                    + '","summonerDeaths":"' + str(a.summonerDeaths)
-                    + '","summonerAssists":"' + str(a.summonerAssists)
-                    + '","summonerServer":"' + str(a.summonerServer)
-                    + '","summonerRegion":"' + str(a.summonerRegion)
-                    + '","summonerKdaRatio":"' + str(a.summonerKdaRatio)
-                    + '","summonerWinrate":"' + str(a.summonerWinrate) + '"}')
-    return savedInfo
-
-def getCacheMostPlayedChampInfo(idSum=None, region=None):
+def getCacheSummoner(idSum=None, region=None): #Busca en la base de datos un jugador
     a = MostPlayedChampInfo.objects.get(summonerId = idSum)
-    savedInfo = str('"mostPlayedChampInfo":{"mostPlayedChampId":"' + str(a.mostPlayedChampId)
+    b = SummonerInfo.objects.get(summonerId = idSum, summonerRegion=region)
+    c = SummonerProfile.objects.get(summonerId = idSum)
+    summoner = str('"summonerInfo":{"summonerId":"' + str(b.summonerId)
+                    + '","summonerImg":"' + str(b.summonerImg)
+                    + '","summonerName":"' + str(b.summonerName)
+                    + '","summonerLeague":"' + str(b.summonerLeague).lower().capitalize()
+                    + '","summonerDivision":"' + str(b.summonerDivision)
+                    + '","summonerKills":"' + str(b.summonerKills)
+                    + '","summonerDeaths":"' + str(b.summonerDeaths)
+                    + '","summonerAssists":"' + str(b.summonerAssists)
+                    + '","summonerServer":"' + str(b.summonerServer)
+                    + '","summonerRegion":"' + str(b.summonerRegion)
+                    + '","summonerKdaRatio":"' + str(b.summonerKdaRatio)
+                    + '","summonerWinrate":"' + str(b.summonerWinrate) + '"}')
+    favoriteChamp = str('"mostPlayedChampInfo":{"mostPlayedChampId":"' + str(a.mostPlayedChampId)
                     #+ '","mostPlayedChampMatchesLoseCountPorcentaje":"' + str(a.mostPlayedChampMatchesLoseCountPorcentaje)
                     #+ '","champWinPorcentaje":"' + str(a.champWinPorcentaje)
                     + '","mostPlayedChampMatchesCount":"' + str(a.mostPlayedChampMatchesCount)
@@ -312,4 +427,17 @@ def getCacheMostPlayedChampInfo(idSum=None, region=None):
                     + '","mostPlayedChampDeaths":"' + str(a.mostPlayedChampDeaths)
                     + '","mostPlayedChampGold":"' + str(a.mostPlayedChampGold)
                     + '","mostPlayedChampCs":"' + str(a.mostPlayedChampCs) + '"}')
-    return savedInfo
+    profile = str('"profile":{"leagueSoloQName":"' + str(c.leagueSoloQName)
+                  + '","leagueSoloQTier":"' + str(c.leagueSoloQTier).lower().capitalize()
+                  + '","leagueSoloQDivision":"' + str(c.leagueSoloQDivision)
+                  + '","leagueSoloQLp":"' + str(c.leagueSoloQLp)
+                  + '","leagueTeamName":"' + str(c.leagueTeamName)
+                  + '","leagueTeamTier":"' + str(c.leagueTeamTier).lower().capitalize()
+                  + '","leagueTeamDivision":"' + str(c.leagueTeamDivision)
+                  + '","leagueTeamLp":"' + str(c.leagueTeamLp)
+                  + '","league3v3Name":"' + str(c.league3v3Name)
+                  + '","league3v3Tier":"' + str(c.league3v3Tier).lower().capitalize()
+                  + '","league3v3Division":"' + str(c.league3v3Division)
+                  + '","league3v3Lp":"' + str(c.league3v3Lp) + '"}')
+    savedJson =  '{' + summoner + ',' + favoriteChamp + ',' + profile + '}'
+    return savedJson
