@@ -21,7 +21,7 @@ from riotwatcher import OCEANIA
 from riotwatcher import RUSSIA
 from riotwatcher import TURKEY
 
-riotWatcher = RiotWatcher("9e3c8aec-25d1-4241-ab69-b8b65393e5e0", default_region=LATIN_AMERICA_SOUTH) #Seteando mi clave para hacer APIcalls
+riotWatcher = RiotWatcher("7088def7-f1b0-4182-a9f2-07336754983a", default_region=LATIN_AMERICA_SOUTH) #Seteando mi clave para hacer APIcalls
 #Diccionario con Id de los campeones
 champsId = {
     "266":"Aatrox",
@@ -162,11 +162,13 @@ def getSummoner(summoner=None, idSum=None, region=None): #Funcion que revisa si 
             b = SummonerInfo.objects.get(summonerName = summoner, summonerRegion = region)
             idSum = b.summonerId
             summonerInfo = getCacheSummoner(idSum = idSum, region = region) 
-        getCacheMostPlayedChampInfo(idSum = idSum, region = region)
-        summonerJson = '{'summonerInfo + ',' + favoriteChamp'}'
+        favoriteChamp = getCacheMostPlayedChampInfo(idSum = idSum, region = region)
+        summonerInfo = '{' + summonerInfo + ',' + favoriteChamp + '}'
     except(ObjectDoesNotExist):
         summonerInfo = getApiSummoner(idSum = idSum, summoner=summoner, region = region)
-    return summonerInfo
+    print(summonerInfo)
+    jsonFinal = json.loads(summonerInfo)
+    return jsonFinal
 
 def getApiSummoner(summoner=None, idSum=None, region=None):
     if idSum!=None:
@@ -178,8 +180,15 @@ def getApiSummoner(summoner=None, idSum=None, region=None):
     summonerImg = str(me['profileIconId'])
     summonerRegion = str(region)
     try:
+        wins = 0
+        losses = 0
+        assists = 0
+        kills = 0
+        deaths = 0
+        summonerLeagueInfo = riotWatcher.get_league_entry([summonerId])
+        print("LEAGUE INFO-----------------------------------------------------: " + str(summonerLeagueInfo))
         rankedst = riotWatcher.get_ranked_stats(summonerId)
-        summonerLeagueInfo = riotWatcher.get_league_entry(summonerId)
+        print("RANKED STATS----------------------------------------------------: " + str(rankedst))
         summonerLeague = summonerLeagueInfo[summonerId][0]['tier']
         summonerDivision = summonerLeagueInfo[summonerId][0]['entries'][0]['division']
         for x in range(len(rankedst['champions'])):
@@ -269,7 +278,7 @@ def getApiSummoner(summoner=None, idSum=None, region=None):
                                 summonerKdaRatio = str(summonerKdaRatio))
     summoner = getCacheSummoner(idSum=summonerId, region=summonerRegion)
     favoriteChamp = getCacheMostPlayedChampInfo(idSum=summonerId, region=region)
-    summonerJson = '{'summoner + ',' + favoriteChamp'}'
+    summonerJson = '{' + summoner + ',' + favoriteChamp + '}'
     return summonerJson
 
 def getCacheSummoner(idSum=None, region=None):
