@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'lol',
+    'omnibus',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -64,6 +65,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'omnibus.context_processors.omnibus',
             ],
         },
     },
@@ -81,7 +83,34 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+    'formatters': {
+        'simple': {'format': '%(levelname)s %(asctime)s %(name)s %(message)s'},
+        'short': {'format': '%(levelname)s %(asctime)s %(message)s'},
+        'verbose': {'format': '%(levelname)s %(asctime)s %(name)s %(message)s\n%(request)s'},
+    },
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse'
+        }
+    },
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'short',
+        },
+    },
+    'loggers': {
+        'omnibus': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+    }
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
@@ -101,3 +130,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+
+OMNIBUS_ENDPOINT_SCHEME = 'ws'  # 'ws' is used for websocket connections
+OMNIBUS_WEBAPP_FACTORY = 'omnibus.factories.sockjs_webapp_factory'
+OMNIBUS_CONNECTION_FACTORY = 'omnibus.factories.sockjs_connection_factory'

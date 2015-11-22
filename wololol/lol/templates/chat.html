@@ -121,9 +121,9 @@
 <script>
 $(document).ready(function(){
   $('#chatText').keypress(function(e){
-   if(e.keyCode==13)
-   $('#send').click();
- });
+    if(e.keyCode==13)
+    $('#send').click();
+  });
   var userName = "Sad Jocker King";
   agregContact("Ωω.ΆΈ. ΉΊ","{% static 'img/sum/612.png' %}","42","Silver VI","AguanteTurquia","653","Normal","En Juego","13 horas","ThU HeNbIdIah AzE Mih EghO");
   agregContact("Adriex","{% static 'img/sum/612.png' %}");
@@ -135,7 +135,7 @@ $(document).ready(function(){
     $("#chat").append('<div id="modalContacts" class="likemodal blue borderBlue white-text" style="position:fixed"><div id="contactsHere"></div><div class="blue s12"><hr><a id="closeContacts" class="right white-text waves-effect waves-green btn-flat">OK</a></div></div>');
     $('#modalContacts').hide();
     //$("#contactList").appendTo("contactsHere");
-    $("#contactList").detach().appendTo('#contactsHere')
+    $("#contactList").detach().appendTo('#contactsHere');
     $("#modalContacts").height($(window).height()-100);
     $("#modalContacts").width($(window).width()-100);
 
@@ -229,14 +229,14 @@ $(document).ready(function(){
     clsInputChat();
     if ($(".contact").hasClass("contActive")){
       if (msg==""){
-        alert("Debes escribir algo")
+        alert("Debes escribir algo");
       }else{
         msgTo=$(".contActive").find("span").text();
         msgTo=nameToID(msgTo);
         $("#dlog-"+msgTo).append('<div class="section"><span class="nameChat">'+userName+'</span><br><p class="messageChat">'+msg+'</p></div><hr>');
       }
     }else{
-      alert("Selecciona un contacto")
+      alert("Selecciona un contacto");
     }
   });
 });
@@ -244,13 +244,11 @@ $(document).ready(function(){
 
 <script>
 $(document).ready(function(){
-$('#password').keypress(function(e){
- if(e.keyCode==13)
- $('#login').click();
-});}
+  $('#password').keypress(function(e){if(e.keyCode==13){$('#login').click();}});
+});
 
 $("#login").click(function(){
-  var server = $('#server').val()
+  var server = $('#server').val();
   var user = $('#user').val();
   var password = $('#password').val();
   if (server != null && user != "" && password != ""){
@@ -258,35 +256,58 @@ $("#login").click(function(){
       csrfmiddlewaretoken: '{{ csrf_token }}',
       server:server.toLowerCase(),
       user:user,
-      password:password,
-    }
+      password:password
+    };
     $.ajax({
       type: "POST",
       url: "{% url 'profileApp:chat' %}",
       data: data,
       dataType: "json",
       success: function(result){
-        $("#messageSection").html(result.message)
+        $("#messageSection").html(result.message);
         if(result.typ == "loginCorrect"){
-          $("#loginSection").attr("style","display:none;")
-          $("#chatSection").attr("style","")
+          $("#loginSection").attr("style","display:none;");
+          $("#chatSection").attr("style","");
         }
-        console.log("Success")
-        console.log(result)
+        console.log("Success");
+        console.log(result);
       },
       error: function(err){
-        console.log(err)
-        alert("Hubo un problema intentalo de nuevo.")
-      },
+        console.log(err);
+        alert("Hubo un problema intentalo de nuevo.");
+      }
     });  }
     else{
-      if(server == null){alert("No indicó a que servidor entrar")}
-      else if(user == ""){alert("No ingresó su nombre de usuario")}
-      else if(password == ""){alert("No ingresó su contraseña")}
-      else{alert("¿Completó todos los campos?")}
+      if(server == null){alert("No indicó a que servidor entrar");}
+      else if(user == ""){alert("No ingresó su nombre de usuario");}
+      else if(password == ""){alert("No ingresó su contraseña");}
+      else{alert("¿Completó todos los campos?");}
     }
 
   });
 
   </script>
-{% endblock %}
+
+  <script type="text/javascript" src="{% static 'omnibus/omnibus.js' %}"></script>
+
+  <script>
+  // Select a transport implementation:
+  var transport = WebSocket; // SockJS can be used alternatively
+
+  // Receive the path for the connection from the django template context:
+  var endpoint = '{{ OMNIBUS_ENDPOINT }}';
+  console.log(endpoint)
+  // Define connection options:
+  var options = {
+      // Get the omnibus authentication token:
+      authToken: '{{ OMNIBUS_AUTH_TOKEN }}'
+  };
+  // Create a new connection using transport, endpoint and options
+  var connection = new Omnibus(transport, endpoint, options);
+  var channel = connection.openChannel('chat');
+
+  channel.on('friendConnected', function(event) {
+      alert("friendConnected bra");
+  });
+  </script>
+  {% endblock %}

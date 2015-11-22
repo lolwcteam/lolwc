@@ -7,6 +7,7 @@ import time
 import threading
 import Friend
 from collections import OrderedDict
+from omnibus.api import publish
 
 class Cliente(object):
     #Generales
@@ -199,11 +200,21 @@ class Cliente(object):
             try:
                 conn.Process(10)
                 #self.getAll() pedir el context y devolver el self.getall
+                self.send_hello_world()
                 self.printAll()
             except KeyboardInterrupt:
                 #print("#----KEEPALIVE DETENIDO----#")
                 exit()
                 break
+
+    def send_hello_world(self):
+        print("helloworld?")
+        publish(
+            'chat',  # the name of the channel
+            'friendConnected',  # the `type` of the message/event, clients use this name to register event handlers
+            {'text': 'Hello world'},  # payload of the event, needs to be a dict which is JSON dumpable.
+            sender='server'  # sender id of the event, can be None.
+        )
 
     def close(self, why="Sin Motivo Aparente"):
         print("#----CLOSE> "+why+"----#")
