@@ -4,11 +4,11 @@
 #ID Sad Jocker King= 426174
 import json
 import requests
-from django.core.exceptions import ObjectDoesNotExist
-from django.shortcuts import render_to_response
-from django.shortcuts import render
-from django.template import RequestContext
-from lol.models import SummonerInfo, MostPlayedChampInfo, SummonerProfile
+#from django.core.exceptions import ObjectDoesNotExist
+#from django.shortcuts import render_to_response
+#from django.shortcuts import render
+#from django.template import RequestContext
+#from lol.models import SummonerInfo, MostPlayedChampInfo, SummonerProfile
 from riotwatcher import RiotWatcher
 from riotwatcher import LoLException
 from riotwatcher import BRAZIL
@@ -384,6 +384,7 @@ def getApiSummoner(summoner=None, idSum=None, region=None): #Busca un jugador en
     summonerImg = str(me['profileIconId'])
     summonerRegion = str(region)
     try:
+        #<--Summoner Info-->
         rankedst = riotWatcher.get_ranked_stats(summonerId)
         summonerLeagueInfo = riotWatcher.get_league_entry([summonerId])
         summonerSoloQLeague = summonerLeagueInfo[summonerId][0]['tier']
@@ -403,6 +404,7 @@ def getApiSummoner(summoner=None, idSum=None, region=None): #Busca un jugador en
         summonerWinrate = int(round((float(wins)/float(matchs))*100, 0))
         killsAssists = float(assists)+float(kills)
         summonerKdaRatio = round(killsAssists/float(deaths), 2)
+        #<--Champion mas utilizado-->
         x = int(len(rankedst['champions']))
         mostPlayedChampMatchesCount =  0
         for q in range(x):
@@ -429,7 +431,6 @@ def getApiSummoner(summoner=None, idSum=None, region=None): #Busca un jugador en
         mostPlayedChampMatchesCount = int(mostPlayedChampMatchesCount)
         killsAssists = float(mostPlayedChampKills) + float(mostPlayedChampAssist)
         mostPlayedChampKdaRatio = round(killsAssists/float(mostPlayedChampDeaths), 2)
-        
     except(IndexError, LoLException):
         summonerSoloQLp = 0
         summonerSoloQLeague = "unRanked"
@@ -452,6 +453,81 @@ def getApiSummoner(summoner=None, idSum=None, region=None): #Busca un jugador en
         mostPlayedChampCs = "0.0"
         mostPlayedChampGold = "0.0"
     
+    #<--Liga-->
+
+    try:
+        ligaWatcher = riotWatcher.get_league([str(me['id'])])
+        league = {}
+        summonerLeagueTabName = ligaWatcher[str(me['id'])][0]['name']
+        summonerLeagueTabRank = ligaWatcher[str(me['id'])][0]['tier']
+        league['summonerLeagueTabName'] = summonerLeagueTabName
+        league['summonerLeagueTabRank'] = summonerLeagueTabRank
+        league['summonerLeagueTabDivision'] = summonerDivision
+        league['summonerLeagueTabPList'] = []
+        league['summonerLeagueTabList'] = []
+        for li in range (len(ligaWatcher[str(me['id'])][0]['entries'])):
+            try:
+                if(summonerDivision == ligaWatcher[str(me['id'])][0]['entries'][li]['division']):
+                    summonerLeagueTabPListName = ligaWatcher[str(me['id'])][0]['entries'][li]['playerOrTeamName']
+                    summonerLeagueTabPListWins = ligaWatcher[str(me['id'])][0]['entries'][li]['wins']
+                    summonerLeagueTabPPromo = ligaWatcher[str(me['id'])][0]['entries'][li]['miniSeries']['progress']
+                    summonerLeagueTabPListIsRecent = ligaWatcher[str(me['id'])][0]['entries'][li]['isFreshBlood']
+                    summonerLeagueTabPListIsOnFire = ligaWatcher[str(me['id'])][0]['entries'][li]['isHotStreak']
+                    league['summonerLeagueTabPList'].append({'summonerLeagueTabPListName':summonerLeagueTabPListName,
+                                                            'summonerLeagueTabPListWins':summonerLeagueTabPListWins,
+                                                            'summonerLeagueTabPPromo':summonerLeagueTabPPromo,
+                                                            'summonerLeagueTabPListIsOnFire':summonerLeagueTabPListIsOnFire,
+                                                            'summonerLeagueTabPListIsRecent':summonerLeagueTabPListIsRecent
+                                                           })
+            except(KeyError):
+                if(summonerDivision == ligaWatcher[str(me['id'])][0]['entries'][li]['division']):
+                    summonerLeagueTabListName = ligaWatcher[str(me['id'])][0]['entries'][li]['playerOrTeamName']
+                    summonerLeagueTabListWins = ligaWatcher[str(me['id'])][0]['entries'][li]['wins']
+                    summonerLeagueTabListIsRecent = ligaWatcher[str(me['id'])][0]['entries'][li]['isFreshBlood']
+                    summonerLeagueTabListIsOnFire = ligaWatcher[str(me['id'])][0]['entries'][li]['isHotStreak'] 
+                    summonerLeagueTabListLP = ligaWatcher[str(me['id'])][0]['entries'][li]['leaguePoints']
+                    league['summonerLeagueTabList'].append({'summonerLeagueTabListName':summonerLeagueTabListName,
+                                                            'summonerLeagueTabListWins':summonerLeagueTabListWins,
+                                                            'summonerLeagueTabListIsRecent':summonerLeagueTabListIsRecent,
+                                                            'summonerLeagueTabListIsOnFire':summonerLeagueTabListIsOnFire,
+                                                            'summonerLeagueTabListLP':summonerLeagueTabListLP
+                                                           })
+    except(LoLException):
+        league['summonerLeagueTabName'] = 'Sin Clasificar'
+        league['summonerLeagueTabRank'] = 'unRanked'
+        league['summonerLeagueTabDivision'] = 'No disponible'
+        league['summonerLeagueTabPList'] = [{'summonerLeagueTabListName':'No disponible',
+                                            'summonerLeagueTabListWins':'No disponible',
+                                            'summonerLeagueTabListIsRecent':'No disponible',
+                                            'summonerLeagueTabListIsOnFire':'No disponible',
+                                            'summonerLeagueTabListLP':'No disponible'}]
+        league['summonerLeagueTabList'] = [{'summonerLeagueTabPListName':'No disponible',
+                                           'summonerLeagueTabPListWins':'No disponible',
+                                           'summonerLeagueTabPPromo':'No disponible',
+                                           'summonerLeagueTabPListIsOnFire':'No disponible',
+                                           'summonerLeagueTabPListIsRecent':'No disponible'}]
+    
+    for summonerInLeague in range (len(league['summonerLeagueTabList'])):
+        SummonerLeague.objects.create(summonerId = summonerId, 
+                                      summonerLeagueTabName = str(summonerLeagueTabName),
+                                      summonerLeagueTabRank = str(summonerLeagueTabRank),
+                                      summonerLeagueTabDivision = str(summonerDivision),
+                                      summonerLeagueTabListName = str(league['summonerLeagueTabList'][summonerInLeague]['summonerLeagueTabListName']),
+                                      summonerLeagueTabListWins = str(league['summonerLeagueTabList'][summonerInLeague]['summonerLeagueTabListWins']),
+                                      summonerLeagueTabListIsRecent = str(league['summonerLeagueTabList'][summonerInLeague]['summonerLeagueTabListIsRecent']),
+                                      summonerLeagueTabListIsOnFire = str(league['summonerLeagueTabList'][summonerInLeague]['summonerLeagueTabListIsOnFire']),
+                                      summonerLeagueTabListLP = str(league['summonerLeagueTabList'][summonerInLeague]['summonerLeagueTabListLP'])
+                                     )
+    for summonerInLeagueP in range(len(league['summonerLeagueTabPList'])):
+        SummonerLeague.objects.create(summonerId = summonerId,
+                                      summonerLeagueTabPListName = str(league['summonerLeagueTabPList'][summonerInLeagueP]['summonerLeagueTabPListName']),
+                                      summonerLeagueTabPListWins = str(league['summonerLeagueTabPList'][summonerInLeagueP]['summonerLeagueTabPListWins']),
+                                      summonerLeagueTabPPromo = str(league['summonerLeagueTabPList'][summonerInLeagueP]['summonerLeagueTabPPromo']),
+                                      summonerLeagueTabPListIsOnFire = str(league['summonerLeagueTabPList'][summonerInLeagueP]['summonerLeagueTabPListIsOnFire']),
+                                      summonerLeagueTabPListIsRecent = str(league['summonerLeagueTabPList'][summonerInLeagueP]['summonerLeagueTabPListIsRecent'])
+                                     )
+                                      
+                    
     SummonerProfile.objects.create(summonerId = summonerId,
                                    leagueSoloQName = str(summonerSoloQLeagueName),
                                    leagueSoloQTier = str(summonerSoloQLeague),
@@ -499,6 +575,8 @@ def getCacheSummoner(idSum=None, region=None): #Busca en la base de datos un jug
     a = MostPlayedChampInfo.objects.get(summonerId = idSum)
     b = SummonerInfo.objects.get(summonerId = idSum, summonerRegion=region)
     c = SummonerProfile.objects.get(summonerId = idSum)
+    d = SummonerLeague.objects.get(summonerId = idSum)
+    print d
     summoner = str('"summonerInfo":{"summonerId":"' + str(b.summonerId)
                     + '","summonerImg":"' + str(b.summonerImg)
                     + '","summonerName":"' + str(b.summonerName)
@@ -536,5 +614,6 @@ def getCacheSummoner(idSum=None, region=None): #Busca en la base de datos un jug
                   + '","league3v3Tier":"' + str(c.league3v3Tier)
                   + '","league3v3Division":"' + str(c.league3v3Division)
                   + '","league3v3Lp":"' + str(c.league3v3Lp) + '"}')
+
     savedJson =  '{' + summoner + ',' + favoriteChamp + ',' + profile + '}'
     return savedJson
