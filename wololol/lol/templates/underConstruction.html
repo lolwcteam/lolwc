@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load lolwc_tags %}
+
+{% block contenido %}
+<main>
+<br>
+<div class="row">
+  <div class="col s12 m8 offset-m2 l8 offset-l2">
+    <div class="blue card">
+      <div class="card-image">
+        <img src="{% static 'img/baner/92.jpg' %}">
+        <span class="card-title">Página en Construcción</span>
+      </div>
+      <div class="blue white-text card-content" style="cursor:inherit">
+        <p>Está sección está en construcción.</p>
+        <p>Déjanos un Issue en github si piensas que deberíamos darle prioridad.</p>
+      </div>
+      <div class="blue card-action waves-effect waves-light col s12 m12 l12" href="{% url 'profileApp:home' %}">
+        <a class="right white-text" href="{% url 'profileApp:home' %}">Volver al Home <i class="mid material-icons">arrow_forward</i></a>
+      </div>
+    </div>
+  </div>
+</div>
+</main>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}
