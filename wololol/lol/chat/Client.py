@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #TODO que detecte a usuarios conectados por clientes no oficiales como pidgin
+#TODO hay algunos usuarios que en ocasiones no los toma como conectados ya que mandan su presence antes del roster,
+#es necesario que la primera vez se obtenga la lista de contactos por roster y no por presences
 import xmpp
 import xmltodict
 import time
@@ -8,7 +10,7 @@ import threading
 import Friend
 from collections import OrderedDict
 from omnibus.api import publish
-
+#from colectivo import publish #activar esta linea cuando se desee trabajar sin el omnibus
 class Cliente(object):
     #Generales
     server = None#servidor
@@ -79,8 +81,8 @@ class Cliente(object):
         self.server = serverList[server]
 
     def connect(self):
-        self.conn = xmpp.Client("pvp.net",debug=[])
-        #self.conn = xmpp.Client("pvp.net")
+        #self.conn = xmpp.Client("pvp.net",debug=[])#nodebug
+        self.conn = xmpp.Client("pvp.net")#debug
         if not self.conn.connect(server=("chat."+self.server+".lol.riotgames.com", 5223)):
             return "connect failed"
         if not self.conn.auth(self.user, "AIR_" + self.password, "xiff"):
@@ -97,6 +99,7 @@ class Cliente(object):
         self.name = self.conn.Summoner
         self.keepAliveV = threading.Thread(target = self.keepAlive, args = (self.conn,))
         self.keepAliveV.start()
+        self.update(typ="connected")
         return "connect stablished"
 
     def send(self, to, msg):
@@ -114,7 +117,7 @@ class Cliente(object):
             return True
 
     def getIdFromJid(self, jid):
-        ide = self.jid.split("sum")[-1].split("@pvp.net")[0]
+        ide = str(jid).split("sum")[-1].split("@pvp.net")[0]
         return unicode(ide)
 
     def getAll(self):
@@ -160,7 +163,13 @@ class Cliente(object):
         #print("My Status:" + unicode(self.statusChat))
         #print("My Name:" + unicode(self.name))
         #print("Buzon:"+ unicode(self.buzon))
-        print("thread>"+unicode(self.keepAliveV.name)+"\tjid>"+unicode(self.jid)+"\testado>"+unicode(self.statusChat)+"\tname>"+unicode(self.name)+"\tbuzon>"+unicode(self.buzon))
+        friendsname = []
+        if self.friends != None:
+            for i in self.friends:
+                friendsname.append(i.name)
+        else:
+            friendsname = ["vacio"]
+        print("thread>"+unicode(self.keepAliveV.name)+"\tjid>"+unicode(self.jid)+"\testado>"+unicode(self.statusChat)+"\tname>"+unicode(self.name)+"\tbuzon>"+unicode(self.buzon)+"\tfriends>"+unicode(friendsname))
         #friends = self.friends
         #for i in range(len(friends)):
         #    print("\tJid: "+unicode(friends[i].jid))
@@ -199,27 +208,27 @@ class Cliente(object):
         while conn.isConnected():
             try:
                 conn.Process(10)
-                #self.getAll() pedir el context y devolver el self.getall
-                self.send_hello_world()
                 self.printAll()
             except KeyboardInterrupt:
                 #print("#----KEEPALIVE DETENIDO----#")
                 exit()
                 break
 
-    def send_hello_world(self):
-        print("helloworld?")
+    def update(self, canal="chat", typ="msg", info={"msg":"alive"}):
+        print("TYP> "+ typ + "INFO>" + unicode(info))
         publish(
-            'chat',  # the name of the channel
-            'friendConnected',  # the `type` of the message/event, clients use this name to register event handlers
-            {'text': 'Hello world'},  # payload of the event, needs to be a dict which is JSON dumpable.
-            sender='server'  # sender id of the event, can be None.
+            canal,
+            typ,
+            info,
+            sender='server'
         )
 
     def close(self, why="Sin Motivo Aparente"):
-        print("#----CLOSE> "+why+"----#")
+        #print("#----CLOSE> "+why+"----#")
         self.conn.sendPresence(jid=str(self.jid)+"pvp.net", typ="unavaible", requestRoster=0)
         self.conn.connected = False
+        self.update(typ="disconnected", info={"msg":unicode(why)})
+
 
     def presenceHandler(self, conn, presence):
         #print("#----Presence----#")
@@ -234,7 +243,6 @@ class Cliente(object):
         chatStatus = self.roster.getShow(fulljid)
         priority = self.roster.getPriority(fulljid)
         pos = None
-        #TODO si el usuario tiene una solicitud pendiente el jid se cambia por el de la solicitud (esta es una presence vacia con type="subscribe") agregar a este if la condicion si se encuentra
         if self.getIdFromJid(self.jid) != self.getIdFromJid(jid):
             if statusRaw != None:
                 status = xmltodict.parse(unicode(statusRaw),encoding='utf-8')
@@ -243,7 +251,7 @@ class Cliente(object):
                 status = {"body":{}}
             if len(friends) != 0:
                 for i in range(len(friends)):
-                    if jid == friends[i].jid:
+                    if self.getIdFromJid(jid) == self.getIdFromJid(friends[i].jid):
                         newFriend = False
                         pos = i
                         break
@@ -261,96 +269,140 @@ class Cliente(object):
                     return
                 friends[pos].name = name
                 if "profileIcon" in status["body"]:
-                    friends[pos].profileIcon = status["body"]["profileIcon"]
+                    if friends[pos].profileIcon != status["body"]["profileIcon"]:
+                        self.update(typ="update",info={"who":self.getIdFromJid(friends[pos].jid),"what":"profileIcon","how":status["body"]["profileIcon"]})
+                        friends[pos].profileIcon = status["body"]["profileIcon"]
                 else:
                     friends[pos].profileIcon = None
                 if "level" in status["body"]:
-                    friends[pos].level =  status["body"]["level"]
+                    if friends[pos].level !=  status["body"]["level"]:
+                        self.update(typ="update",info={"who":self.getIdFromJid(friends[pos].jid),"what":"level","how":status["body"]["level"]})
+                        friends[pos].level =  status["body"]["level"]
                 else:
                     friends[pos].level = None
                 if "wins" in status["body"]:
-                    friends[pos].wins = status["body"]["wins"]
+                    if friends[pos].wins != status["body"]["wins"]:
+                        self.update(typ="update",info={"who":self.getIdFromJid(friends[pos].jid),"what":"wins","how":status["body"]["wins"]})
+                        friends[pos].wins = status["body"]["wins"]
                 else:
                     friends[pos].wins = None
                 if "leaves" in status["body"]:
-                    friends[pos].leaves = status["body"]["leaves"]
+                    if friends[pos].leaves != status["body"]["leaves"]:
+                        self.update(typ="update",info={"who":self.getIdFromJid(friends[pos].jid),"what":"leaves","how":status["body"]["leaves"]})
+                        friends[pos].leaves = status["body"]["leaves"]
                 else:
                     friends[pos].leaves = None
                 if "odinWins" in status["body"]:
-                    friends[pos].odinWins =  status["body"]["odinWins"]
+                    if friends[pos].odinWins !=  status["body"]["odinWins"]:
+                        self.update(typ="update",info={"who":self.getIdFromJid(friends[pos].jid),"what":"odinWins","how":status["body"]["odinWins"]})
+                        friends[pos].odinWins =  status["body"]["odinWins"]
                 else:
                     friends[pos].odinWins = None
                 if "odinLeaves" in status["body"]:
-                    friends[pos].odinLeaves = status["body"]["odinLeaves"]
+                    if friends[pos].odinLeaves != status["body"]["odinLeaves"]:
+                        self.update(typ="update",info={"who":self.getIdFromJid(friends[pos].jid),"what":"odinLeaves","how":status["body"]["odinLeaves"]})
+                        friends[pos].odinLeaves = status["body"]["odinLeaves"]
                 else:
                     friends[pos].odinLeaves = None
                 if "queueType" in status["body"]:
-                    friends[pos].queueType = status["body"]["queueType"]
+                    if friends[pos].queueType != status["body"]["queueType"]:
+                        self.update(typ="update",info={"who":self.getIdFromJid(friends[pos].jid),"what":"queueType","how":status["body"]["queueType"]})
+                        friends[pos].queueType = status["body"]["queueType"]
                 else:
                     friends[pos].queueType = None
                 if "rankedLosses" in status["body"]:
-                    friends[pos].rankedLosses = status["body"]["rankedLosses"]
+                    if friends[pos].rankedLosses != status["body"]["rankedLosses"]:
+                        self.update(typ="update",info={"who":self.getIdFromJid(friends[pos].jid),"what":"rankedLosses","how":status["body"]["rankedLosses"]})
+                        friends[pos].rankedLosses = status["body"]["rankedLosses"]
                 else:
                     friends[pos].rankedLosses = None
                 if "rankedRating" in status["body"]:
-                    friends[pos].rankedRating = status["body"]["rankedRating"]
+                    if friends[pos].rankedRating != status["body"]["rankedRating"]:
+                        self.update(typ="update",info={"who":self.getIdFromJid(friends[pos].jid),"what":"rankedRating","how":status["body"]["rankedRating"]})
+                        friends[pos].rankedRating = status["body"]["rankedRating"]
                 else:
                     friends[pos].rankedRating = None
                 if "tier" in status["body"]:
-                    friends[pos].tier = status["body"]["tier"]
+                    if friends[pos].tier != status["body"]["tier"]:
+                        self.update(typ="update",info={"who":self.getIdFromJid(friends[pos].jid),"what":"tier","how":status["body"]["tier"]})
+                        friends[pos].tier = status["body"]["tier"]
                 else:
                     friends[pos].tier = None
                 if "rankedSoloRestricted" in status["body"]:
-                    friends[pos].rankedSoloRestricted = status["body"]["rankedSoloRestricted"]
+                    if friends[pos].rankedSoloRestricted != status["body"]["rankedSoloRestricted"]:
+                        self.update(typ="update",info={"who":self.getIdFromJid(friends[pos].jid),"what":"rankedSoloRestricted","how":status["body"]["rankedSoloRestricted"]})
+                        friends[pos].rankedSoloRestricted = status["body"]["rankedSoloRestricted"]
                 else:
                     friends[pos].rankedSoloRestricted = None
                 if "championMasteryScore" in status["body"]:
-                    friends[pos].championMasteryScore = status["body"]["championMasteryScore"]
+                    if friends[pos].championMasteryScore != status["body"]["championMasteryScore"]:
+                        self.update(typ="update",info={"who":self.getIdFromJid(friends[pos].jid),"what":"championMasteryScore","how":status["body"]["championMasteryScore"]})
+                        friends[pos].championMasteryScore = status["body"]["championMasteryScore"]
                 else:
                     friends[pos].championMasteryScore = None
                 if "statusMsg" in status["body"]:
-                    friends[pos].statusMsg = status["body"]["statusMsg"]
+                    if friends[pos].statusMsg != status["body"]["statusMsg"]:
+                        self.update(typ="update",info={"who":self.getIdFromJid(friends[pos].jid),"what":"statusMsg","how":status["body"]["statusMsg"]})
+                        friends[pos].statusMsg = status["body"]["statusMsg"]
                 else:
                     friends[pos].statusMsg = None
                 if "rankedLeagueName" in status["body"]:
-                    friends[pos].rankedLeagueName = status["body"]["rankedLeagueName"]
+                    if friends[pos].rankedLeagueName != status["body"]["rankedLeagueName"]:
+                        self.update(typ="update",info={"who":self.getIdFromJid(friends[pos].jid),"what":"rankedLeagueName","how":status["body"]["rankedLeagueName"]})
+                        friends[pos].rankedLeagueName = status["body"]["rankedLeagueName"]
                 else:
                     friends[pos].rankedLeagueName = None
                 if "rankedLeagueDivision" in status["body"]:
-                    friends[pos].rankedLeagueDivision = status["body"]["rankedLeagueDivision"]
+                    if friends[pos].rankedLeagueDivision != status["body"]["rankedLeagueDivision"]:
+                        self.update(typ="update",info={"who":self.getIdFromJid(friends[pos].jid),"what":"rankedLeagueDivision","how":status["body"]["rankedLeagueDivision"]})
+                        friends[pos].rankedLeagueDivision = status["body"]["rankedLeagueDivision"]
                 else:
                     friends[pos].rankedLeagueDivision = None
                 if "rankedLeagueTier" in status["body"]:
-                    friends[pos].rankedLeagueTier = status["body"]["rankedLeagueTier"]
+                    if friends[pos].rankedLeagueTier != status["body"]["rankedLeagueTier"]:
+                        self.update(typ="update",info={"who":self.getIdFromJid(friends[pos].jid),"what":"rankedLeagueTier","how":status["body"]["rankedLeagueTier"]})
+                        friends[pos].rankedLeagueTier = status["body"]["rankedLeagueTier"]
                 else:
                     friends[pos].rankedLeagueTier = None
                 if "rankedLeagueQueue" in status["body"]:
-                    friends[pos].rankedLeagueQueue = status["body"]["rankedLeagueQueue"]
+                    if friends[pos].rankedLeagueQueue != status["body"]["rankedLeagueQueue"]:
+                        self.update(typ="update",info={"who":self.getIdFromJid(friends[pos].jid),"what":"rankedLeagueQueue","how":status["body"]["rankedLeagueQueue"]})
+                        friends[pos].rankedLeagueQueue = status["body"]["rankedLeagueQueue"]
                 else:
                     friends[pos].rankedLeagueQueue = None
                 if "rankedWins" in status["body"]:
-                    friends[pos].rankedWins = status["body"]["rankedWins"]
+                    if friends[pos].rankedWins != status["body"]["rankedWins"]:
+                        self.update(typ="update",info={"who":self.getIdFromJid(friends[pos].jid),"what":"rankedWins","how":status["body"]["rankedWins"]})
+                        friends[pos].rankedWins = status["body"]["rankedWins"]
                 else:
                     friends[pos].rankedWins = None
                 if "skinname" in status["body"]:
-                    friends[pos].skinname = status["body"]["skinname"]
+                    if friends[pos].skinname != status["body"]["skinname"]:
+                        self.update(typ="update",info={"who":self.getIdFromJid(friends[pos].jid),"what":"skinname","how":status["body"]["skinname"]})
+                        friends[pos].skinname = status["body"]["skinname"]
                 else:
                     friends[pos].skinname = None
                 if "gameQueueType" in status["body"]:
-                    friends[pos].gameQueueType = status["body"]["gameQueueType"]
+                    if friends[pos].gameQueueType != status["body"]["gameQueueType"]:
+                        self.update(typ="update",info={"who":self.getIdFromJid(friends[pos].jid),"what":"gameQueueType","how":status["body"]["gameQueueType"]})
+                        friends[pos].gameQueueType = status["body"]["gameQueueType"]
                 else:
                     friends[pos].gameQueueType = None
                 if "gameStatus" in status["body"]:
-                    friends[pos].gameStatus = status["body"]["gameStatus"]
+                    if friends[pos].gameStatus != status["body"]["gameStatus"]:
+                        self.update(typ="update",info={"who":self.getIdFromJid(friends[pos].jid),"what":"gameStatus","how":status["body"]["gameStatus"]})
+                        friends[pos].gameStatus = status["body"]["gameStatus"]
                 else:
                     friends[pos].gameStatus = None
                 if "timeStamp" in status["body"]:
-                    friends[pos].timeStamp = status["body"]["timeStamp"]
+                    if friends[pos].timeStamp != status["body"]["timeStamp"]:
+                        self.update(typ="update",info={"who":self.getIdFromJid(friends[pos].jid),"what":"timeStamp","how":status["body"]["timeStamp"]})
+                        friends[pos].timeStamp = status["body"]["timeStamp"]
                 else:
                     friends[pos].timeStamp = None
 
     def messageHandler(self, conn, msg):
-        print("#----Message----#")
+        #print("#----Message----#")
         if self.getIdFromJid(msg.getTo()) == self.getIdFromJid(self.jid):
             user = self.roster.getName(str(msg.getFrom()))
             text = msg.getBody()
@@ -450,12 +502,33 @@ class Cliente(object):
             if "timeStamp" in status["body"]:
                 timeStamp = status["body"]["timeStamp"]
             newFriend = Friend.Friend(jid, statusChat, name, profileIcon, level, wins, leaves, odinWins, odinLeaves, queueType, rankedLosses, rankedRating, tier, rankedSoloRestricted, championMasteryScore, statusMsg, rankedLeagueName, rankedLeagueDivision, rankedLeagueTier, rankedLeagueQueue, rankedWins, skinname, gameQueueType, gameStatus, timeStamp)
+            info = {
+                "id":self.getIdFromJid(jid),
+                "statusChat":statusChat,
+                "name":name,
+                "profileIcon":profileIcon,
+                "level":level,
+                "championMasteryScore":championMasteryScore,
+                "statusMsg":statusMsg,
+                "rankedLeagueName":rankedLeagueName,
+                "rankedLeagueDivision":rankedLeagueDivision,
+                "rankedLeagueTier":rankedLeagueTier,
+                "skinname":skinname,
+                "gameQueueType":gameQueueType,
+                "gameStatus":gameStatus,
+                "timeStamp":timeStamp,
+            }
+            self.update(typ="friendConnected",info=info)
             self.friends.append(newFriend)
 
     def removeFriend(self, friendJid):
-
         for i in range(len(self.friends)):
-            if self.friends[i].jid == friendJid:
+            if self.getIdFromJid(self.friends[i].jid) == self.getIdFromJid(friendJid):
+                info = {
+                    "id":self.getIdFromJid(self.friends[i].jid),
+                    "name":self.friends[i].name
+                }
+                self.update(typ="friendDisconnected",info=info)
                 self.friends.pop(i)
                 break
 
