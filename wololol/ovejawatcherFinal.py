@@ -3,11 +3,12 @@
 #Importando
 import json
 import requests
+import datetime
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render_to_response
 from django.shortcuts import render
 from django.template import RequestContext
-from lol.models import SummonerInfo, MostPlayedChampInfo, SummonerProfile
+from lol.models import SummonerInfo, MostPlayedChampInfo, SummonerProfile, History
 from riotwatcher import RiotWatcher
 from riotwatcher import LoLException
 from riotwatcher import BRAZIL
@@ -21,7 +22,7 @@ from riotwatcher import OCEANIA
 from riotwatcher import RUSSIA
 from riotwatcher import TURKEY
 
-riotWatcher = RiotWatcher("7088def7-f1b0-4182-a9f2-07336754983a", default_region=LATIN_AMERICA_SOUTH) #Seteando mi clave para hacer APIcalls
+riotWatcher = RiotWatcher("a129b7be-5979-46f1-8abc-5c99b9395c25", default_region=LATIN_AMERICA_SOUTH) #Seteando mi clave para hacer APIcalls
 #Diccionario con Id de los campeones
 champsId = {
     "266":"Aatrox",
@@ -152,6 +153,44 @@ champsId = {
     "59":"JarvanIV",
     "81":"Ezreal"}
 
+historyDic = {
+    "map":{
+        "1":"La Grieta del Invocador de Verano",
+        "2":"La Grieta del Invocador de Invierno",
+        "3":"Mapa del Tutorial",
+        "4":"El Bosque Retorcido Original",
+        "8":"La Cicatriz de Cristal",
+        "10":"El Bosque Retorcido",
+        "11":"La Grieta del Invocador",
+        "12":"El Abismo de los Lamentos",
+        "14":"El Puente del Carnicero",
+    },
+    "gameSubType":{
+        "NONE":"Partida Personalizada",
+        "NORMAL":"Normal 5 vs 5",
+        "NORMAL_3x3":"Normal 3 vs 3",
+        "ODIN_UNRANKED":"Partida Dominion",
+        "ARAM_UNRANKED_5x5":"ARAM 5 vs 5",
+        "BOT":"Partida Contra Bots",
+        "BOT_3x3":"Partida Contra Bots 3 vs 3",
+        "RANKED_SOLO_5x5":"Partida Clasificatoria 5 vs 5",
+        "RANKED_TEAM_3x3":"Clasificatoria por Equipos 3 vs 3",
+        "RANKED_TEAM_5x5":"Clasificatoria por Equipos 5 vs 5",
+        "ONEFORALL_5x5":"Uno para Todos 5 vs 5",
+        "FIRSTBLOOD_1x1":"Primera Sangre 1 vs 1",
+        "FIRSTBLOOD_2x2":"Primera Sangre 2 vs 2",
+        "SR_6x6":"Hexakill 6 vs 6",
+        "CAP_5x5":"Creador de Equpos 5 vs 5",
+        "URF":"Ultra Rápido y Furioso",
+        "URF_BOT":"URF vs Bots",
+        "NIGHTMARE_BOT":"Bots de Pesadilla",
+        "ASCENSION":"Ascension",
+        "HEXAKILL":"Hexakill Bosque Retorcido",
+        "KING_PORO":"Rey Poro",
+        "COUNTER_PICK":"Nemesis",
+        "BILGEWATER":"Mercado Negro",
+    }
+}
 
 leagueValue = {
     'unknow':100,
@@ -193,9 +232,7 @@ def getSummoner(summoner=None, idSum=None, region=None): #Funcion que revisa si 
             idSum = b.summonerId
             summonerInfo = getCacheSummoner(idSum = idSum, region = region)
     except(ObjectDoesNotExist):
-        print('TRABAJANDO CON LA API')
         summonerInfo = getApiSummoner(idSum = idSum, summoner=summoner, region = region)
-    print(str(summonerInfo))
     jsonFinal = json.loads(str(summonerInfo))
     return jsonFinal
 
@@ -204,6 +241,7 @@ def getApiSummoner(summoner=None, idSum=None, region=None):
         me = riotWatcher.get_summoner(_id=idSum)
     else:
         me = riotWatcher.get_summoner(name=summoner, region=region)
+    print("CHABON ENCONTRADO")
     summonerName = str(me['name'])
     summonerId = str(me['id'])
     summonerImg = str(me['profileIconId'])
@@ -237,7 +275,9 @@ def getApiSummoner(summoner=None, idSum=None, region=None):
     mostPlayedChampGold = "0.0"
     try:
         summonerLeagueInfo = riotWatcher.get_league_entry([summonerId])
+        print("INFO DE LIGA PEDIDA")
         rankedst = riotWatcher.get_ranked_stats(summonerId)
+        print("RANKED STATS PEDIDOS")
         for x in range(len(summonerLeagueInfo[summonerId])):
         #################3vs3#################
             if(summonerLeagueInfo[summonerId][x]['queue'] == 'RANKED_TEAM_3x3'):
@@ -354,7 +394,136 @@ def getApiSummoner(summoner=None, idSum=None, region=None):
         league3v3Tier = ''
         league3v3Division = ''
         league3v3Lp = ''
-        
+    
+    listapartidas=''
+    partida=''
+    hpartidasId = 0
+    champLvl = 0
+    isWin = False
+    champId = 0
+    gameType = 0
+    hmap = 0
+    hduracionMin = 0
+    hduracionSec = 0
+    deaths = 0
+    kills = 0
+    assists = 0
+    goldGained = 0
+    creepScore= 0
+    piEarned = 0
+    createDate = 0
+    item1 = 0
+    item2 = 0
+    item3 = 0
+    item4 = 0
+    item4 = 0
+    item6 = 0
+    item7 = 0
+    history = {}
+
+    historial = riotWatcher.get_recent_games(summonerId)
+    print("HISTORIAL BUSCADO")
+    for o in range(len(historial['games'])):
+        champLvl = historial['games'][o]['stats']['level']
+        if (historial['games'][o]['stats']['win']):
+            isWin = True
+        createDate = str(historial['games'][o]['createDate'])
+        createDate = createDate[0:10]
+        createTime = datetime.datetime.fromtimestamp(int(createDate)).strftime('%H:%M:%S')
+        createDate = datetime.datetime.fromtimestamp(int(createDate)).strftime('%Y-%m-%d')
+        champId = historial['games'][o]['championId']
+        champName = champsId[str(champId)]
+        spell1 = historial['games'][o]['spell1']
+        spell2 = historial['games'][o]['spell2']
+        gameType = historial['games'][o]['subType']
+        gameType = historyDic['gameSubType'][gameType]
+        hmap = str(historial['games'][o]['mapId'])
+        hmap = historyDic['map'][hmap]
+        hduracionSec = historial['games'][o]['stats']['timePlayed']
+        hduracionMin = historial['games'][o]['stats']['timePlayed'] / 60
+        if not 'numDeaths' in historial['games'][o]['stats']:
+            deaths = 0
+        else:
+            deaths = historial['games'][o]['stats']['numDeaths']
+        if not 'championsKilled' in historial['games'][o]['stats']:
+            kills = 0
+        else:
+            kills = historial['games'][o]['stats']['championsKilled']
+        if not 'assists' in historial['games'][o]['stats']:
+            assists = 0
+        else:
+            assists = historial['games'][o]['stats']['assists']
+        goldGained = historial['games'][o]['stats']['goldEarned']
+        if not 'minionsKilled' in  historial['games'][o]['stats']:
+            creepScore = 0
+        else:
+            creepScore = historial['games'][o]['stats']['minionsKilled']
+        piEarned = historial['games'][o]['ipEarned']
+        createDate = historial['games'][o]['createDate'] 
+        if not 'item0' in  historial['games'][o]['stats']:
+            item1 = 'Vacio'
+        else:
+            item1 = historial['games'][o]['stats']['item0']
+        if not 'item1' in  historial['games'][o]['stats']:
+            item2 = 'Vacio'
+        else:
+            item2 = historial['games'][o]['stats']['item1']
+        if not 'item2' in  historial['games'][o]['stats']:
+            item3 = 'Vacio'
+        else:
+            item3 = historial['games'][o]['stats']['item2']
+        if not 'item3' in  historial['games'][o]['stats']:
+            item4 = 'Vacio'
+        else:
+            item4 = historial['games'][o]['stats']['item3']
+        if not 'item4' in  historial['games'][o]['stats']:
+            item5 = 'Vacio'
+        else:
+            item5 = historial['games'][o]['stats']['item4']
+        if not 'item5' in  historial['games'][o]['stats']:
+            item6 = 'Vacio'
+        else:
+            item6 = historial['games'][o]['stats']['item5']
+        if not 'item6' in  historial['games'][o]['stats']:
+            item7 = 'Vacio'
+        else:
+            item7 = historial['games'][o]['stats']['item6']
+            
+        partida = str('{"isWin":"' + str(isWin)
+                                 + '","champId":"' + str(champId)
+                                 + '","champName":"' + str(champName)
+                                 + '","champLvl":"' + str(champLvl)
+                                 + '","spell1":"' + str(spell1)
+                                 + '","spell2":"' + str(spell2)
+                                 + '","gameSubType":"' + str(gameType)
+                                 + '","map":"' + str(hmap)
+                                 + '","timePlayed":"' + str(hduracionSec)
+                                 + '","ipEarned":"' + str(piEarned)
+                                 + '","kills":"' + str(kills)
+                                 + '","deaths":"' + str(deaths)
+                                 + '","assists":"' + str(assists)
+                                 + '","goldGained":"' + str(goldGained)
+                                 + '","creepScore":"' + str(creepScore)
+                                 + '","createDate":"' + str(createDate)
+                                 + '","createTime":"' + str(createTime)
+                                 + '","item1":"' + str(item1)
+                                 + '","item2":"' + str(item2)
+                                 + '","item3":"' + str(item3)
+                                 + '","item4":"' + str(item4)
+                                 + '","item5":"' + str(item5)
+                                 + '","item6":"' + str(item6)
+                                 + '","item7":"' + str(item7) 
+                                 + '"}'
+                                )
+        if(listapartidas==''):
+            listapartidas = '"history":[' + partida
+        if(o == len(historial['games'])-1):
+            listapartidas = listapartidas + ',' +partida + ']'
+        else:
+            listapartidas = listapartidas + ',' + partida
+    History.objects.create(summonerId=summonerId,
+                           jsonInfo=listapartidas)
+    
     MostPlayedChampInfo.objects.create(summonerId=summonerId,
                                        mostPlayedChampId = str(mostPlayedChamp),
                                        mostPlayedChampName = str(mostPlayedChampName),
@@ -394,14 +563,18 @@ def getApiSummoner(summoner=None, idSum=None, region=None):
                                    league3v3Tier = str(league3v3Tier),
                                    league3v3Division = str(league3v3Division),
                                    league3v3Lp = str(league3v3Lp))      
-    
+
     summonerJson = getCacheSummoner(idSum=summonerId, region=summonerRegion)
+    f=open('summonerJson.json', 'w')
+    f.write(summonerJson)
+    f.close()
     return summonerJson
 
 def getCacheSummoner(idSum=None, region=None): #Busca en la base de datos un jugador
     a = MostPlayedChampInfo.objects.get(summonerId = idSum)
     b = SummonerInfo.objects.get(summonerId = idSum, summonerRegion=region)
     c = SummonerProfile.objects.get(summonerId = idSum)
+    d = History.objects.get(summonerId = idSum)
     summoner = str('"summonerInfo":{"summonerId":"' + str(b.summonerId)
                     + '","summonerImg":"' + str(b.summonerImg)
                     + '","summonerName":"' + str(b.summonerName)
@@ -439,5 +612,9 @@ def getCacheSummoner(idSum=None, region=None): #Busca en la base de datos un jug
                   + '","league3v3Tier":"' + str(c.league3v3Tier).lower().capitalize()
                   + '","league3v3Division":"' + str(c.league3v3Division)
                   + '","league3v3Lp":"' + str(c.league3v3Lp) + '"}')
-    savedJson =  '{' + summoner + ',' + favoriteChamp + ',' + profile + '}'
+    history = d.jsonInfo
+    savedJson =  '{' + summoner + ',' + favoriteChamp + ',' + profile + ',' + history + '}'
+    f = open('savedJson.json', 'w')
+    f.write(savedJson)
+    f.close()
     return savedJson
