@@ -22,7 +22,7 @@ from riotwatcher import OCEANIA
 from riotwatcher import RUSSIA
 from riotwatcher import TURKEY
 
-riotWatcher = RiotWatcher("7088def7-f1b0-4182-a9f2-07336754983a", default_region=LATIN_AMERICA_SOUTH) #Seteando mi clave para hacer APIcalls
+riotWatcher = RiotWatcher("a129b7be-5979-46f1-8abc-5c99b9395c25", default_region=LATIN_AMERICA_SOUTH) #Seteando mi clave para hacer APIcalls
 #Diccionario con Id de los campeones
 champsId = {
     "266":"Aatrox",
@@ -153,6 +153,44 @@ champsId = {
     "59":"JarvanIV",
     "81":"Ezreal"}
 
+historyDic = {
+    "map":{
+        "1":"La Grieta del Invocador de Verano",
+        "2":"La Grieta del Invocador de Invierno",
+        "3":"Mapa del Tutorial",
+        "4":"El Bosque Retorcido Original",
+        "8":"La Cicatriz de Cristal",
+        "10":"El Bosque Retorcido",
+        "11":"La Grieta del Invocador",
+        "12":"El Abismo de los Lamentos",
+        "14":"El Puente del Carnicero",
+    },
+    "gameSubType":{
+        "NONE":"Partida Personalizada",
+        "NORMAL":"Normal 5 vs 5",
+        "NORMAL_3x3":"Normal 3 vs 3",
+        "ODIN_UNRANKED":"Partida Dominion",
+        "ARAM_UNRANKED_5x5":"ARAM 5 vs 5",
+        "BOT":"Partida Contra Bots",
+        "BOT_3x3":"Partida Contra Bots 3 vs 3",
+        "RANKED_SOLO_5x5":"Partida Clasificatoria 5 vs 5",
+        "RANKED_TEAM_3x3":"Clasificatoria por Equipos 3 vs 3",
+        "RANKED_TEAM_5x5":"Clasificatoria por Equipos 5 vs 5",
+        "ONEFORALL_5x5":"Uno para Todos 5 vs 5",
+        "FIRSTBLOOD_1x1":"Primera Sangre 1 vs 1",
+        "FIRSTBLOOD_2x2":"Primera Sangre 2 vs 2",
+        "SR_6x6":"Hexakill 6 vs 6",
+        "CAP_5x5":"Creador de Equpos 5 vs 5",
+        "URF":"Ultra Rápido y Furioso",
+        "URF_BOT":"URF vs Bots",
+        "NIGHTMARE_BOT":"Bots de Pesadilla",
+        "ASCENSION":"Ascension",
+        "HEXAKILL":"Hexakill Bosque Retorcido",
+        "KING_PORO":"Rey Poro",
+        "COUNTER_PICK":"Nemesis",
+        "BILGEWATER":"Mercado Negro",
+    }
+}
 
 leagueValue = {
     'unknow':100,
@@ -195,7 +233,6 @@ def getSummoner(summoner=None, idSum=None, region=None): #Funcion que revisa si 
             summonerInfo = getCacheSummoner(idSum = idSum, region = region)
     except(ObjectDoesNotExist):
         summonerInfo = getApiSummoner(idSum = idSum, summoner=summoner, region = region)
-    print(str(summonerInfo))
     jsonFinal = json.loads(str(summonerInfo))
     return jsonFinal
 
@@ -204,6 +241,7 @@ def getApiSummoner(summoner=None, idSum=None, region=None):
         me = riotWatcher.get_summoner(_id=idSum)
     else:
         me = riotWatcher.get_summoner(name=summoner, region=region)
+    print("CHABON ENCONTRADO")
     summonerName = str(me['name'])
     summonerId = str(me['id'])
     summonerImg = str(me['profileIconId'])
@@ -237,7 +275,9 @@ def getApiSummoner(summoner=None, idSum=None, region=None):
     mostPlayedChampGold = "0.0"
     try:
         summonerLeagueInfo = riotWatcher.get_league_entry([summonerId])
+        print("INFO DE LIGA PEDIDA")
         rankedst = riotWatcher.get_ranked_stats(summonerId)
+        print("RANKED STATS PEDIDOS")
         for x in range(len(summonerLeagueInfo[summonerId])):
         #################3vs3#################
             if(summonerLeagueInfo[summonerId][x]['queue'] == 'RANKED_TEAM_3x3'):
@@ -354,97 +394,7 @@ def getApiSummoner(summoner=None, idSum=None, region=None):
         league3v3Tier = ''
         league3v3Division = ''
         league3v3Lp = ''
-        
-    MostPlayedChampInfo.objects.create(summonerId=summonerId,
-                                       mostPlayedChampId = str(mostPlayedChamp),
-                                       mostPlayedChampName = str(mostPlayedChampName),
-                                       mostPlayedChampMatchesCount = str(mostPlayedChampMatchesCount),
-                                       mostPlayedChampMatchesWinCount = str(mostPlayedChampMatchesWinCount),
-                                       mostPlayedChampMatchesLoseCount = str(mostPlayedChampMatchesLoseCount),
-                                       mostPlayedChampKdaRatio = str(mostPlayedChampKdaRatio),
-                                       mostPlayedChampKills = str(mostPlayedChampKills),
-                                       mostPlayedChampDeaths = str(mostPlayedChampDeaths),
-                                       mostPlayedChampAssist = str(mostPlayedChampAssist),
-                                       mostPlayedChampCs = str(mostPlayedChampCs),
-                                       mostPlayedChampGold = str(mostPlayedChampGold))
     
-    SummonerInfo.objects.create(summonerId = summonerId,
-                                summonerServer = str(summonerRegion).upper(),
-                                summonerImg = str(summonerImg),
-                                summonerName = str(summonerName),
-                                summonerLeague = str(summonerLeague),
-                                summonerDivision = str(summonerDivision),
-                                summonerKills = str(summonerKills),
-                                summonerDeaths = str(summonerDeaths),
-                                summonerAssists = str(summonerAssists),
-                                summonerWinrate = str(summonerWinrate),
-                                summonerRegion = str(summonerRegion),
-                                summonerKdaRatio = str(summonerKdaRatio))
-    
-    SummonerProfile.objects.create(summonerId = str(summonerId),
-                                   leagueSoloQName = str(summonerLeagueName),
-                                   leagueSoloQTier = str(summonerLeague),
-                                   leagueSoloQDivision = str(summonerDivision),
-                                   leagueSoloQLp = str(summonerLeaguePoints),
-                                   leagueTeamName = str(leagueTeamName),
-                                   leagueTeamTier = str(leagueTeamTier),
-                                   leagueTeamDivision = str(leagueTeamDivision),
-                                   leagueTeamLp = str(leagueTeamLp),
-                                   league3v3Name = str(league3v3Name),
-                                   league3v3Tier = str(league3v3Tier),
-                                   league3v3Division = str(league3v3Division),
-                                   league3v3Lp = str(league3v3Lp))      
-    
-    summonerJson = getCacheSummoner(idSum=summonerId, region=summonerRegion)
-    return summonerJson
-
-def getCacheSummoner(idSum=None, region=None): #Busca en la base de datos un jugador
-    a = MostPlayedChampInfo.objects.get(summonerId = idSum)
-    b = SummonerInfo.objects.get(summonerId = idSum, summonerRegion=region)
-    c = SummonerProfile.objects.get(summonerId = idSum)
-    summoner = str('"summonerInfo":{"summonerId":"' + str(b.summonerId)
-                    + '","summonerImg":"' + str(b.summonerImg)
-                    + '","summonerName":"' + str(b.summonerName)
-                    + '","summonerLeague":"' + str(b.summonerLeague).lower().capitalize()
-                    + '","summonerDivision":"' + str(b.summonerDivision)
-                    + '","summonerKills":"' + str(b.summonerKills)
-                    + '","summonerDeaths":"' + str(b.summonerDeaths)
-                    + '","summonerAssists":"' + str(b.summonerAssists)
-                    + '","summonerServer":"' + str(b.summonerServer)
-                    + '","summonerRegion":"' + str(b.summonerRegion)
-                    + '","summonerKdaRatio":"' + str(b.summonerKdaRatio)
-                    + '","summonerWinrate":"' + str(b.summonerWinrate) + '"}')
-    favoriteChamp = str('"mostPlayedChampInfo":{"mostPlayedChampId":"' + str(a.mostPlayedChampId)
-                    #+ '","mostPlayedChampMatchesLoseCountPorcentaje":"' + str(a.mostPlayedChampMatchesLoseCountPorcentaje)
-                    #+ '","champWinPorcentaje":"' + str(a.champWinPorcentaje)
-                    + '","mostPlayedChampMatchesCount":"' + str(a.mostPlayedChampMatchesCount)
-                    + '","mostPlayedChampKdaRatio":"' + str(a.mostPlayedChampKdaRatio)
-                    + '","mostPlayedChampName":"' + str(a.mostPlayedChampName)
-                    + '","mostPlayedChampMatchesWinCount":"' + str(a.mostPlayedChampMatchesWinCount)
-                    + '","mostPlayedChampMatchesLoseCount":"' + str(a.mostPlayedChampMatchesLoseCount)
-                    + '","mostPlayedChampKills":"' + str(a.mostPlayedChampKills)
-                    + '","mostPlayedChampAssist":"' + str(a.mostPlayedChampAssist)
-                    + '","mostPlayedChampDeaths":"' + str(a.mostPlayedChampDeaths)
-                    + '","mostPlayedChampGold":"' + str(a.mostPlayedChampGold)
-                    + '","mostPlayedChampCs":"' + str(a.mostPlayedChampCs) + '"}')
-    profile = str('"profile":{"leagueSoloQName":"' + str(c.leagueSoloQName)
-                  + '","leagueSoloQTier":"' + str(c.leagueSoloQTier).lower().capitalize()
-                  + '","leagueSoloQDivision":"' + str(c.leagueSoloQDivision)
-                  + '","leagueSoloQLp":"' + str(c.leagueSoloQLp)
-                  + '","leagueTeamName":"' + str(c.leagueTeamName)
-                  + '","leagueTeamTier":"' + str(c.leagueTeamTier).lower().capitalize()
-                  + '","leagueTeamDivision":"' + str(c.leagueTeamDivision)
-                  + '","leagueTeamLp":"' + str(c.leagueTeamLp)
-                  + '","league3v3Name":"' + str(c.league3v3Name)
-                  + '","league3v3Tier":"' + str(c.league3v3Tier).lower().capitalize()
-                  + '","league3v3Division":"' + str(c.league3v3Division)
-                  + '","league3v3Lp":"' + str(c.league3v3Lp) + '"}')
-    savedJson =  '{' + summoner + ',' + favoriteChamp + ',' + profile + '}'
-    return savedJson
-
-    ###########################HISTORIAL###############################
-    
-def getApiHistory(idSum=None):
     listapartidas=''
     partida=''
     hpartidasId = 0
@@ -471,7 +421,8 @@ def getApiHistory(idSum=None):
     item7 = 0
     history = {}
 
-    historial = riotWatcher.get_recent_games(idSum)
+    historial = riotWatcher.get_recent_games(summonerId)
+    print("HISTORIAL BUSCADO")
     for o in range(len(historial['games'])):
         champLvl = historial['games'][o]['stats']['level']
         if (historial['games'][o]['stats']['win']):
@@ -485,7 +436,9 @@ def getApiHistory(idSum=None):
         spell1 = historial['games'][o]['spell1']
         spell2 = historial['games'][o]['spell2']
         gameType = historial['games'][o]['subType']
-        hmap = historial['games'][o]['mapId']
+        gameType = historyDic['gameSubType'][gameType]
+        hmap = str(historial['games'][o]['mapId'])
+        hmap = historyDic['map'][hmap]
         hduracionSec = historial['games'][o]['stats']['timePlayed']
         hduracionMin = historial['games'][o]['stats']['timePlayed'] / 60
         if not 'numDeaths' in historial['games'][o]['stats']:
@@ -563,18 +516,105 @@ def getApiHistory(idSum=None):
                                  + '"}'
                                 )
         if(listapartidas==''):
-            listapartidas = '{"history":[' + partida
+            listapartidas = '"history":[' + partida
         if(o == len(historial['games'])-1):
-            listapartidas = listapartidas + ',' +partida + ']}'
+            listapartidas = listapartidas + ',' +partida + ']'
         else:
             listapartidas = listapartidas + ',' + partida
-    History.objects.create(summonerId=idSum,jsonInfo=listapartidas)
-    history = getCacheHistory(idSum=idSum)
-    historyJson=json.loads(str(history))
-    return historyJson
+    History.objects.create(summonerId=summonerId,
+                           jsonInfo=listapartidas)
+    
+    MostPlayedChampInfo.objects.create(summonerId=summonerId,
+                                       mostPlayedChampId = str(mostPlayedChamp),
+                                       mostPlayedChampName = str(mostPlayedChampName),
+                                       mostPlayedChampMatchesCount = str(mostPlayedChampMatchesCount),
+                                       mostPlayedChampMatchesWinCount = str(mostPlayedChampMatchesWinCount),
+                                       mostPlayedChampMatchesLoseCount = str(mostPlayedChampMatchesLoseCount),
+                                       mostPlayedChampKdaRatio = str(mostPlayedChampKdaRatio),
+                                       mostPlayedChampKills = str(mostPlayedChampKills),
+                                       mostPlayedChampDeaths = str(mostPlayedChampDeaths),
+                                       mostPlayedChampAssist = str(mostPlayedChampAssist),
+                                       mostPlayedChampCs = str(mostPlayedChampCs),
+                                       mostPlayedChampGold = str(mostPlayedChampGold))
+    
+    SummonerInfo.objects.create(summonerId = summonerId,
+                                summonerServer = str(summonerRegion).upper(),
+                                summonerImg = str(summonerImg),
+                                summonerName = str(summonerName),
+                                summonerLeague = str(summonerLeague),
+                                summonerDivision = str(summonerDivision),
+                                summonerKills = str(summonerKills),
+                                summonerDeaths = str(summonerDeaths),
+                                summonerAssists = str(summonerAssists),
+                                summonerWinrate = str(summonerWinrate),
+                                summonerRegion = str(summonerRegion),
+                                summonerKdaRatio = str(summonerKdaRatio))
+    
+    SummonerProfile.objects.create(summonerId = str(summonerId),
+                                   leagueSoloQName = str(summonerLeagueName),
+                                   leagueSoloQTier = str(summonerLeague),
+                                   leagueSoloQDivision = str(summonerDivision),
+                                   leagueSoloQLp = str(summonerLeaguePoints),
+                                   leagueTeamName = str(leagueTeamName),
+                                   leagueTeamTier = str(leagueTeamTier),
+                                   leagueTeamDivision = str(leagueTeamDivision),
+                                   leagueTeamLp = str(leagueTeamLp),
+                                   league3v3Name = str(league3v3Name),
+                                   league3v3Tier = str(league3v3Tier),
+                                   league3v3Division = str(league3v3Division),
+                                   league3v3Lp = str(league3v3Lp))      
 
-def getCacheHistory(idSum=None):
-    a = History.objects.get(summonerId = idSum)
-    info = a.jsonInfo
-    return info
-    ###########################HISTORIALFIN###############################
+    summonerJson = getCacheSummoner(idSum=summonerId, region=summonerRegion)
+    f=open('summonerJson.json', 'w')
+    f.write(summonerJson)
+    f.close()
+    return summonerJson
+
+def getCacheSummoner(idSum=None, region=None): #Busca en la base de datos un jugador
+    a = MostPlayedChampInfo.objects.get(summonerId = idSum)
+    b = SummonerInfo.objects.get(summonerId = idSum, summonerRegion=region)
+    c = SummonerProfile.objects.get(summonerId = idSum)
+    d = History.objects.get(summonerId = idSum)
+    summoner = str('"summonerInfo":{"summonerId":"' + str(b.summonerId)
+                    + '","summonerImg":"' + str(b.summonerImg)
+                    + '","summonerName":"' + str(b.summonerName)
+                    + '","summonerLeague":"' + str(b.summonerLeague).lower().capitalize()
+                    + '","summonerDivision":"' + str(b.summonerDivision)
+                    + '","summonerKills":"' + str(b.summonerKills)
+                    + '","summonerDeaths":"' + str(b.summonerDeaths)
+                    + '","summonerAssists":"' + str(b.summonerAssists)
+                    + '","summonerServer":"' + str(b.summonerServer)
+                    + '","summonerRegion":"' + str(b.summonerRegion)
+                    + '","summonerKdaRatio":"' + str(b.summonerKdaRatio)
+                    + '","summonerWinrate":"' + str(b.summonerWinrate) + '"}')
+    favoriteChamp = str('"mostPlayedChampInfo":{"mostPlayedChampId":"' + str(a.mostPlayedChampId)
+                    #+ '","mostPlayedChampMatchesLoseCountPorcentaje":"' + str(a.mostPlayedChampMatchesLoseCountPorcentaje)
+                    #+ '","champWinPorcentaje":"' + str(a.champWinPorcentaje)
+                    + '","mostPlayedChampMatchesCount":"' + str(a.mostPlayedChampMatchesCount)
+                    + '","mostPlayedChampKdaRatio":"' + str(a.mostPlayedChampKdaRatio)
+                    + '","mostPlayedChampName":"' + str(a.mostPlayedChampName)
+                    + '","mostPlayedChampMatchesWinCount":"' + str(a.mostPlayedChampMatchesWinCount)
+                    + '","mostPlayedChampMatchesLoseCount":"' + str(a.mostPlayedChampMatchesLoseCount)
+                    + '","mostPlayedChampKills":"' + str(a.mostPlayedChampKills)
+                    + '","mostPlayedChampAssist":"' + str(a.mostPlayedChampAssist)
+                    + '","mostPlayedChampDeaths":"' + str(a.mostPlayedChampDeaths)
+                    + '","mostPlayedChampGold":"' + str(a.mostPlayedChampGold)
+                    + '","mostPlayedChampCs":"' + str(a.mostPlayedChampCs) + '"}')
+    profile = str('"profile":{"leagueSoloQName":"' + str(c.leagueSoloQName)
+                  + '","leagueSoloQTier":"' + str(c.leagueSoloQTier).lower().capitalize()
+                  + '","leagueSoloQDivision":"' + str(c.leagueSoloQDivision)
+                  + '","leagueSoloQLp":"' + str(c.leagueSoloQLp)
+                  + '","leagueTeamName":"' + str(c.leagueTeamName)
+                  + '","leagueTeamTier":"' + str(c.leagueTeamTier).lower().capitalize()
+                  + '","leagueTeamDivision":"' + str(c.leagueTeamDivision)
+                  + '","leagueTeamLp":"' + str(c.leagueTeamLp)
+                  + '","league3v3Name":"' + str(c.league3v3Name)
+                  + '","league3v3Tier":"' + str(c.league3v3Tier).lower().capitalize()
+                  + '","league3v3Division":"' + str(c.league3v3Division)
+                  + '","league3v3Lp":"' + str(c.league3v3Lp) + '"}')
+    history = d.jsonInfo
+    savedJson =  '{' + summoner + ',' + favoriteChamp + ',' + profile + ',' + history + '}'
+    f = open('savedJson.json', 'w')
+    f.write(savedJson)
+    f.close()
+    return savedJson
