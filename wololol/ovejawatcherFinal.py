@@ -274,10 +274,10 @@ def getApiSummoner(summoner=None, idSum=None, region=None):
     mostPlayedChampCs = "0.0"
     mostPlayedChampGold = "0.0"
     try:
-        summonerLeagueInfo = riotWatcher.get_league_entry([summonerId])
-        print("INFO DE LIGA PEDIDA")
         rankedst = riotWatcher.get_ranked_stats(summonerId)
         print("RANKED STATS PEDIDOS")
+        summonerLeagueInfo = riotWatcher.get_league_entry([summonerId])
+        print("INFO DE LIGA PEDIDA")
         for x in range(len(summonerLeagueInfo[summonerId])):
         #################3vs3#################
             if(summonerLeagueInfo[summonerId][x]['queue'] == 'RANKED_TEAM_3x3'):
@@ -565,9 +565,6 @@ def getApiSummoner(summoner=None, idSum=None, region=None):
                                    league3v3Lp = str(league3v3Lp))      
 
     summonerJson = getCacheSummoner(idSum=summonerId, region=summonerRegion)
-    f=open('summonerJson.json', 'w')
-    f.write(summonerJson)
-    f.close()
     return summonerJson
 
 def getCacheSummoner(idSum=None, region=None): #Busca en la base de datos un jugador
@@ -614,7 +611,4 @@ def getCacheSummoner(idSum=None, region=None): #Busca en la base de datos un jug
                   + '","league3v3Lp":"' + str(c.league3v3Lp) + '"}')
     history = d.jsonInfo
     savedJson =  '{' + summoner + ',' + favoriteChamp + ',' + profile + ',' + history + '}'
-    f = open('savedJson.json', 'w')
-    f.write(savedJson)
-    f.close()
     return savedJson
