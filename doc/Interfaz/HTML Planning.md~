@@ -36,27 +36,34 @@ se muestran elementos que debe haber necesariamente en cada página, si es neces
 - informaciono de que no estamos relacionados a riot
 - botones facebook-twitter-google+
 
+###Server Status: serverStatus
+obtenidos unicamente de las, y solo del service "game"
+- status (online, alert, offline, deploying)
+- lista de mensajes de alerta del game: "messages"
+	- "severity":info/alert/error
+	- "content":el texto del mensaje
+
 ##PERFIL
 *summoner info*: "summonerInfo"
-- (#)imagen baner del champion mas usado: mostPlayedChampBanerImg
+- (#)imagen baner del champion mas usado (id del champ): mostPlayedChampBanerImg
 - imagen del summoner: summonerImg
 - nombre del summoner: summonerName
 - (#)imagen de la liga actual del sumoner: summonerLeagueImg
 - liga actual del sumoner (ej:Silver): summonerLeague
 - division actual del summoner(ej:IV): summonerDivision
-- (#)server del summoner: summonerServer
+- server del summoner: summonerServer
 - prom kills en ranked: summonerKills
 - prom deaths en ranked: summonerDeaths
 - prom assists en ranked: summonerAssists
-- (#)kda: summonerKdaRatio
+- kda: summonerKdaRatio
 - porcentaje de victorias en ranked: summonerWinrate
 
 *most played champ info*: "mostPlayedChampInfo"
-- imagen (icono): mostPlayedChampImg
+- imagen (id del champ): mostPlayedChampId
 - nombre: mostPlayedChampName
 - cantidad de jugada: mostPlayedChampMatchesCount
 - cantidad de victorias: mostPlayedChampMatchesWinCount
-- cantidad de derrotas: mostPlayedChampMatchesLooseCount
+- cantidad de derrotas: mostPlayedChampMatchesLoseCount
 - kda: mostPlayedChampKdaRatio
 - prom kills: mostPlayedChampKills
 - prom deaths: mostPlayedChampDeaths
@@ -66,19 +73,20 @@ se muestran elementos que debe haber necesariamente en cada página, si es neces
 
 *free week champs*: "freeWeekChamps"
 lista de
-- imagen del champ: freeChamp_1
-- nombre del champ: freeChamp_name
-- link del champ en static (lolwc.com/static/champs/riven)
-- precio ip
-- precio rp
+- (#)imagen del champ: freeChamp1
+- Ip del champ: freeChamp
+- (#)link del champ en static (lolwc.com/static/champs/riven)
+- (#)precio ip
+- (#)precio rp
 
-*skin sales*: "skinSales"
+
+*skin sales*: "skinSales"(#)
 lista de
 - imagen del skin
 - rp del skin
 - link al champ en static
 
-*champ sales*: "champSales"
+*champ sales*: "champSales"(#)
 lista de
 - imagen del champ
 - rp del champ
@@ -88,27 +96,27 @@ lista de
 lista de 5
 - tipo de juego
 - tiempo transcurrido
-- comando para ver el game (https://developer.riotgames.com/docs/spectating-games)
+- (#)comando para ver el game (https://developer.riotgames.com/docs/spectating-games)
 - nombre 1 azul
-- imagenChamp 1 azul
+- (#)imagenChamp 1 azul
 - nombre 2 azul
-- imagenChamp 2 azul
+- (#)imagenChamp 2 azul
 - nombre 3 azul
-- imagenChamp 3 azul
+- (#)imagenChamp 3 azul
 - nombre 4 azul
-- imagenChamp 4 azul
+- (#)imagenChamp 4 azul
 - nombre 5 azul
-- imagenChamp 5 azul
+- (#)imagenChamp 5 azul
 - nombre 1 rojo
-- imagenChamp 1 rojo
+- (#)imagenChamp 1 rojo
 - nombre 2 rojo
-- imagenChamp 2 rojo
+- (#)imagenChamp 2 rojo
 - nombre 3 rojo
-- imagenChamp 3 rojo
+- (#)imagenChamp 3 rojo
 - nombre 4 rojo
-- imagenChamp 4 rojo
+- (#)imagenChamp 4 rojo
 - nombre 5 rojo
-- imagenChamp 5 rojo
+- (#)imagenChamp 5 rojo
 
 ###profile
 - (#)Icono liga individu/dobles
@@ -116,12 +124,12 @@ lista de 5
 - tier de liga i/d: leagueSoloQTier
 - division liga i/d: leagueSoloQDivision
 - lp i/d: leagueSoloQLp
-- (#)Icono liga 5v5: 
+- (#)Icono liga 5v5:
 - nombre liga 5v5: leagueTeamName
 - tier de liga 5v5: leagueTeamTier
 - division 5v5: leagueTeamDivision
 - lp 5v5: leagueTeamLp
-- (#)Icono liga 3v3: 
+- (#)Icono liga 3v3:
 - nombre liga 3v3: league3v3Name
 - tier de liga 3v3: league3v3Tier
 - division 3v3: league3v3Division
@@ -134,29 +142,27 @@ lista de 5
 - division de liga: summonerLeagueTabDivision (IV)
 - lista de en P: summonerLeagueTabPList
 	- rank de sumoner en la liga: summonerLeagueTabPListRank
-	- change (fijarse en lolking): summonerLeagueTabPListChange
 	- nombre de summoner: summonerLeagueTabPListName
 	- icono de summoner: summonerLeagueTabPListImg
 	- isReciente: summonerLeagueTabPListIsRecent
 	- isEnRacha: summonerLeagueTabPListIsOnFire
 	- wins: summonerLeagueTabPListWins
-	- cantidad de partidas que tiene que jugar para pasar de liga:summonerLeagueTabPListMatchCount
-	- cantidad ganadas: summonerLeagueTabPListWinCount
-	- cantidad perdidas: summonerLeagueTabPListLoseCount
+	- lista de partidas para promo: summonerLeagueTabPPromo
+		- Tiene una lista de largo de la cantidad de partidas que tiene que jugar, con el string "1" si la gano, "0", si la perdio, o "N" si no la jugo
 - lista de el resto: summonerLeagueTabList
 	- rank de sumoner en la liga: summonerLeagueTabListRank
-	- change: summonerLeagueTabListChange
 	- nombre de sumoner: summonerLeagueTabListName
 	- icono de sumoner: summonerLeagueTabListImg
 	- isRecienteenliga: summonerLeagueTabListIsRecent
 	- isEnRacha: summonerLeagueTabListIsOnFire
 	- wins: summonerLeagueTabListWins
-	- puntos(LP): summonerLeagueTabPListLP
+	- puntos(LP): summonerLeagueTabListLP
 
 ###history: "history"
 lista de
 - victoria o derrota: isWin
-- id del campeón: champId 
+- id del campeón: champId
+- nombre del campeon: champName
 - (#)imagen del champ: champImg
 - (#)link del champ:
 - level del champ: champLvl
@@ -166,18 +172,19 @@ lista de
 - (#)link spell1
 - (#)img spell2: spell2
 - (#)link spell2
-
 - tipo de juego: gameType (CUSTOM - MATCHED)
 - modo de juego: gameMode (CLASSIC - ARAM)
 - subtipo de juego: gameSubType (NORMAL - BOT)
-- mapa: map
-- duracion de partida: timePlayed
-- pi ganados: piEarned
-- score: score
+- mapa(en base de datos id, devuelve nombre): map
+- duracion de partida(en base timestamp devuelve lista de minutos y segundos): timePlayed=[4,2]
+- pi ganados: ipEarned
+- kills: kills
+- deaths: deaths
+- asssists: assists
 - oro: goldGained
-- creeps: creepScore
-- timestamp de inicio de partida: createDate
-- item 1: item1
+- creeps(suma de neutralMinionsKilled + minionsKilled de la api): creepScore
+- timestamp de inicio de partida(timestamp en BD, devuelve texto formateado): createDate
+- hora de inicio de partida(no va en la base de datos, devuelve texto formateado): createTime
 - (#)imagen item1:
 - (#)link item1:
 - item 1: item1
@@ -200,24 +207,94 @@ lista de
 - (#)link baratija
 - baratija: item7
 
-###runes
-- numero pagina activa
-lista de
-- nombre de pagina de runas
-- lista de
-	- id de runa
-	- posicion de runa
-	- imagen de runa
-- lista de
-	- tipo de runa
-	- total de stats que suma
+###runes: "runes"
+- nombre de pagina activa: activePage
+- lista de paginas de runas: pages (habria usado diccionario pero tengo que usar lista para que se respete el orden de las paginas)
+	- "nombre de la pagina"
+	- diccionario de la pagina: page:
+		- "id de runa" : ["imagen de runa full","Nombre de runa en español","cantidad de esa runa", "total de stats ganados"]
+			Como funciona: si tenes muchos tipos de runas en tu pagina el diccionario se va a agrandar, si no, se mantiene mas pequeño, el "total de stats ganados" es el que te da ese tipo de runa sumando todas las que tenes de ese tipo.
+<!--
+- lista de paginas de runas: pages
+	- lista de runas: runes
+    	- nombre de pagina de runas: pageName
+		- lista de las runas de la pagina
+			- lista con info de la runa: rune
+				- id de runa
+				- posicion de runa
+				- (#)imagen de runa
+		    	- (#)tipo de runa
+				- (#)total de stats que suma -->
 
 ###masteries
-- numero de pagina activa
-- distribucion de runa (21/9/0)
-lista de
+- nombre de pagina activa: activePage
+- lista de paginas maestrias: masteries (es lista para respetar el orden de paginas)
+	- "nombre de pagina"
+ 	- lista de distribucion
+		- Cantidad en Ferocidad
+		- Cantidad en Astucia
+		- Cantidad en Valor
+
+<!-- lista de
 - nombre de pagina de maestrias
 - lista de
 	- id de maestria
 	- cantidad de puntos
-	- imagen de maestria
+	- imagen de maestria -->
+
+
+##CHAT
+
+###estado del usuario
+- id del invocador: id
+- Estado de conexion (chat, dnd (do not disturb) y away): statusChat
+- Nombre de invocador: name
+- numero de icono de perfil: profileIcon
+- level: level
+- champion Mastery Score: championMasteryScore
+- (editable)mensaje de estado: statusMsg
+- Nombre de la liga, Leona Urfriders, etc: rankedLeagueName
+- Division de liga: rankedLeagueDivision
+- Liga solo queue, BRONZE, GOLD: rankedLeagueTier
+
+###conectados
+lista de:
+    - id del invocador: id
+    - Estado de conexion (chat, dnd (do not disturb) y away): statusChat
+    - Nombre de invocador: name
+    - numero de icono de perfil: profileIcon
+    - level: level
+    - champion Mastery Score: championMasteryScore
+    - mensaje de estado: statusMsg
+    - Nombre de la liga, Leona Urfriders, etc: rankedLeagueName
+    - Division de liga: rankedLeagueDivision
+    - Liga solo queue, BRONZE, GOLD: rankedLeagueTier
+    - skinname #si inGame, el champ jugado  
+    - gameQueueType #?Generalmente dice NORMAL  
+    - gameStatus #inGame, outOfGame, champSelect, hostingNormalGame  
+    - timeStamp #?si inGame, timestamp de cuando empezo, si no INDEFINIDO
+
+#**(No tocar)Contactos**  
+- friends = []  
+
+#**(No tocar)Buzon**  
+- buzon = []#Lista de mensajes sin leer  
+
+#**(No tocar salvo statusChat)Del roster**  
+- jid #Jabber ID del conectado  
+- statusChat = "dnd" #chat, dnd (do not disturb) y away  
+- name = "BanerSjK"#Nombre de invocador  
+
+#**De roster.getStatus()**  
+- profileIcon #Número de icono de invocado  
+- level #Level  
+- wins #?Victorias en general (de normal, ranked, todo?)  
+- championMasteryScore #Mastery Champ Score  
+- statusMsg #Mensaje de estado  
+- rankedLeagueName #Nombre de la liga, Leona Urfriders, etc  
+- rankedLeagueDivision #Division de la anterior I, IV, V  
+- rankedLeagueTier #Liga solo queue, BRONZE, GOLD  
+
+- skinname #si inGame, el champ jugado s
+- gameQueueType #?Generalmente dice NORMAL  
+- gameStatus #inGame, outOfGame, champSelect, hostingNormalGame  

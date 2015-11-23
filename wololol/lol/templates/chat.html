@@ -4,7 +4,10 @@
 
 {% block contenido %}
 <main>
-  <div id='messageSection' class='row center'>{{info.message|safe}}</div>
+  <div id='messageSection' class='row center'>{{info.message|safe}}
+    <p id="summonerId" style="display:none;">{{info.id}}</p>
+    <p id="summonerName" style="display:none;">{{info.name}}</p>
+  </div>
   <div id="loginSection" class="section">
     <div class="container">
       <div class="col s12 m12 l12">
@@ -118,16 +121,68 @@
 {% endblock %}
 
 {% block scripts %}
+<script type="text/javascript" src="{% static 'omnibus/omnibus.js' %}"></script>
+
 <script>
 $(document).ready(function(){
+
+  // Select a transport implementation:
+  var transport = WebSocket; // SockJS can be used alternatively
+
+  // Receive the path for the connection from the django template context:
+  var endpoint = '{{ OMNIBUS_ENDPOINT }}';
+  // Define connection options:
+  var options = {
+    // Get the omnibus authentication token:
+    authToken: '{{ OMNIBUS_AUTH_TOKEN }}'
+  };
+
+  // $(window).on('beforeunload', function(){
+  //   socket.close();
+  // });
+  // Create a new connection using transport, endpoint and options
+  var connection = new Omnibus(transport, endpoint, options);
+  var channel = connection.openChannel('chat');
+
+  channel.on("roster", function(event) {
+    console.log("roster "+event.data.payload.friends[0].name);
+    // TODO set roster funcional Se cargan todos los contactos
+  });
+  channel.on("connected", function(event) {
+    alert("connected "+event.data.payload.msg);
+    // Se muestra la seccion chat y se ocultan las otras dos
+  });
+  channel.on("disconnected", function(event) {
+    alert("disconnected "+event.data.payload.msg);
+    // Se va al home o se pone en pantalla la seccion login
+  });
+  channel.on("friendConnected", function(event) {
+    agregContact("Ωω.ΆΈ. ΉΊ","{% static 'img/sum/612.png' %}","42","Silver VI","AguanteTurquia","653","Normal","En Juego","13 horas","ThU HeNbIdIah AzE Mih EghO");
+    alert("friendConnected "+event.data.payload.name);
+    //se agrega a la seccion chat un amigo
+  });
+  channel.on("friendDisconnected", function(event) {
+    //se elimina de la seccion chat un amigo
+    alert("friendDisconnected "+event.data.payload.name);
+  });
+  channel.on("update", function(event) {
+    //se refresca de la seccion chat alguna propiedad de un amigo
+    alert("update "+event.data.payload.who + " : "+event.data.payload.what + " : "+event.data.payload.how);
+  });
+
+  function setRoster(info){
+
+  }
+
+  //////////////////////////////////////////////////
   $('#chatText').keypress(function(e){
     if(e.keyCode==13)
     $('#send').click();
   });
   var userName = "Sad Jocker King";
-  agregContact("Ωω.ΆΈ. ΉΊ","{% static 'img/sum/612.png' %}","42","Silver VI","AguanteTurquia","653","Normal","En Juego","13 horas","ThU HeNbIdIah AzE Mih EghO");
-  agregContact("Adriex","{% static 'img/sum/612.png' %}");
-  agregContact("Ovej4","{% static 'img/sum/612.png' %}");
+  // agregContact("Ωω.ΆΈ. ΉΊ","{% static 'img/sum/612.png' %}","42","Silver VI","AguanteTurquia","653","Normal","En Juego","13 horas","ThU HeNbIdIah AzE Mih EghO");
+  // agregContact("Adriex","{% static 'img/sum/612.png' %}");
+  // agregContact("Ovej4","{% static 'img/sum/612.png' %}");
   $("#contactos").height($(window).height()-100);
   $(".conversacion").height($(window).height()-180);
   if ( $("#contactos").css('display') == 'none' ){
@@ -172,7 +227,6 @@ $(document).ready(function(){
   }
   $("#estado").click(function(){
     var src = $('#estado').attr('class');
-    console.log(src);
     if (src=="material-icons right green-text"){
       $('#estado').removeClass( "green-text" );
       $('#estado').addClass( "red-text" );
@@ -269,45 +323,21 @@ $("#login").click(function(){
           $("#loginSection").attr("style","display:none;");
           $("#chatSection").attr("style","");
         }
-        console.log("Success");
-        console.log(result);
       },
       error: function(err){
-        console.log(err);
         alert("Hubo un problema intentalo de nuevo.");
       }
-    });  }
-    else{
-      if(server == null){alert("No indicó a que servidor entrar");}
-      else if(user == ""){alert("No ingresó su nombre de usuario");}
-      else if(password == ""){alert("No ingresó su contraseña");}
-      else{alert("¿Completó todos los campos?");}
-    }
+    });
+  }
+  else{
+    if(server == null){alert("No indicó a que servidor entrar");}
+    else if(user == ""){alert("No ingresó su nombre de usuario");}
+    else if(password == ""){alert("No ingresó su contraseña");}
+    else{alert("¿Completó todos los campos?");}
+  }
 
-  });
+});
 
-  </script>
+</script>
 
-  <script type="text/javascript" src="{% static 'omnibus/omnibus.js' %}"></script>
-
-  <script>
-  // Select a transport implementation:
-  var transport = WebSocket; // SockJS can be used alternatively
-
-  // Receive the path for the connection from the django template context:
-  var endpoint = '{{ OMNIBUS_ENDPOINT }}';
-  console.log(endpoint)
-  // Define connection options:
-  var options = {
-      // Get the omnibus authentication token:
-      authToken: '{{ OMNIBUS_AUTH_TOKEN }}'
-  };
-  // Create a new connection using transport, endpoint and options
-  var connection = new Omnibus(transport, endpoint, options);
-  var channel = connection.openChannel('chat');
-
-  channel.on('friendConnected', function(event) {
-      alert("friendConnected bra");
-  });
-  </script>
-  {% endblock %}
+{% endblock %}
