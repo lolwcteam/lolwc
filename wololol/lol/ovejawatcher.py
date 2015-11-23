@@ -576,7 +576,7 @@ def getCacheSummoner(idSum=None, region=None): #Busca en la base de datos un jug
     b = SummonerInfo.objects.get(summonerId = idSum, summonerRegion=region)
     c = SummonerProfile.objects.get(summonerId = idSum)
     d = SummonerLeague.objects.get(summonerId = idSum)
-    print d
+    go = True
     summoner = str('"summonerInfo":{"summonerId":"' + str(b.summonerId)
                     + '","summonerImg":"' + str(b.summonerImg)
                     + '","summonerName":"' + str(b.summonerName)
@@ -614,6 +614,11 @@ def getCacheSummoner(idSum=None, region=None): #Busca en la base de datos un jug
                   + '","league3v3Tier":"' + str(c.league3v3Tier)
                   + '","league3v3Division":"' + str(c.league3v3Division)
                   + '","league3v3Lp":"' + str(c.league3v3Lp) + '"}')
-
+    while(go):
+        count = 0
+        str('"league":{"summonerLeagueTabName
+           )
+        
+        
     savedJson =  '{' + summoner + ',' + favoriteChamp + ',' + profile + '}'
     return savedJson
