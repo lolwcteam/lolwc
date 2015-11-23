@@ -43,13 +43,23 @@ class SummonerProfile(models.Model):
     league3v3Division = models.TextField(u'division de la liga en 3v3 de un jugador especifico')
     league3v3Lp = models.TextField(u'puntos en la liga 3v3 de un jugador especifico')
 
-class league(models.Model):
-    leagueid = models.TextField(u'id de la liga', primary_key=True)
+class League(models.Model):
     summonerLeagueTabName = models.TextField(u'nombre de la liga')
-    summonerLeagueTabRank = models.TextField(u'rango de la liga')
-    summonerLeagueTabDivision = models.TextField(u'division de la liga')
-    summonerLeagueTabPList = models.TextField(u'lista de jugadores en promo') #relacionar con la CLASE del mismo nombre
-    summonerLeagueTabList = models.TextField(u'lista de jugadores') #relacionar con la CLASE del mismo nombre
+    summonerLeagueTabRank = models.TextField(u'rank del summoner')
+    summonerLeagueQueue = models.TextField(u'queue por ejemplo RANKED_SOLO_5X5')
+    summonerLeagueTabDivision = models.TextField(u'division del summoner')
+    
+class EntriesP(models.Model):
+    summonerLeagueTabName = models.TextField(u'nombre de la liga')
+    summonerLeagueTabRank = models.TextField(u'rank del summoner')
+    summonerLeagueQueue = models.TextField(u'queue por ejemplo RANKED_SOLO_5X5')
+    summonerLeagueTabDivision = models.TextField(u'division del summoner')
+    summonerLeagueTabPListName = models.TextField(u'nombre del summoner')
+    summonerLeagueTabPListWins = models.TextField(u'partidas ganadas')
+    summonerLeagueTabPPromo = models.TextField(u'su proveso en la promo (LWN)')
+    summonerLeagueTabPListIsOnFire = models.TextField(u'si el summoner esta onFire o en racha')
+    summonerLeagueTabPListIsRecent = models.TextField(u'si el summoner es reciente en su division')
+    
 
 class History(models.Model):
     summonerId = models.TextField(u'id del summoner', primary_key=True)
