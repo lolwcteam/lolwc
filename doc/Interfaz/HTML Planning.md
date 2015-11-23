@@ -247,7 +247,7 @@ lista de
 
 ###estado del usuario
 - id del invocador: id
-- Estado de conexion (chat, dnd (do not disturb) y away): statusChat
+- (editable)Estado de conexion (chat, dnd (do not disturb) y away): statusChat
 - Nombre de invocador: name
 - numero de icono de perfil: profileIcon
 - level: level
@@ -274,27 +274,41 @@ lista de:
     - gameStatus #inGame, outOfGame, champSelect, hostingNormalGame  
     - timeStamp #?si inGame, timestamp de cuando empezo, si no INDEFINIDO
 
-#**(No tocar)Contactos**  
-- friends = []  
 
-#**(No tocar)Buzon**  
-- buzon = []#Lista de mensajes sin leer  
+###Funcionamiento del Chat con django omnibus y ajax
 
-#**(No tocar salvo statusChat)Del roster**  
-- jid #Jabber ID del conectado  
-- statusChat = "dnd" #chat, dnd (do not disturb) y away  
-- name = "BanerSjK"#Nombre de invocador  
+- Cliente
+	- Send (ajax)
+		- cambiar statusMsg
+		- cambiar statusChat
+		- enviar mensaje (to, msg)
+		- desconectarse
+		- conectarse
 
-#**De roster.getStatus()**  
-- profileIcon #Número de icono de invocado  
-- level #Level  
-- wins #?Victorias en general (de normal, ranked, todo?)  
-- championMasteryScore #Mastery Champ Score  
-- statusMsg #Mensaje de estado  
-- rankedLeagueName #Nombre de la liga, Leona Urfriders, etc  
-- rankedLeagueDivision #Division de la anterior I, IV, V  
-- rankedLeagueTier #Liga solo queue, BRONZE, GOLD  
+	- Receive (websocket)
+		- roster: "roster"
+		- conectado: "connected"
+		-	desconectado: "disconnected"
+		- amigo se conecta: "friendConnected"
+		- amigo se desconecta: "friendDisconnected"
+		- amigo cambia de statusMsg: "update" - "statusMsg"
+		- amigo cambia de statusChat: "update" - "statusChat"
+		- amigo cambia de gameStatus y skinname: "update" - "gameStatus"
 
-- skinname #si inGame, el champ jugado s
-- gameQueueType #?Generalmente dice NORMAL  
-- gameStatus #inGame, outOfGame, champSelect, hostingNormalGame  
+- Server
+	- send (websocket)
+		- roster: "roster"
+		- conectado: "connected"
+		-	desconectado: "disconnected"
+		- amigo se conecta: "friendConnected"
+		- amigo se desconecta: "friendDisconnected"
+		- amigo cambia de statusMsg: "update" - "statusMsg"
+		- amigo cambia de statusChat: "update" - statusChat"
+		- amigo cambia de gameStatus y skinname: "update" - "gameStatus"
+
+	- Receive (ajax)
+		- cambiar statusMsg
+		- cambiar statusChat
+		- enviar mensaje (to, msg)
+		- desconectarse
+		- conectarse
