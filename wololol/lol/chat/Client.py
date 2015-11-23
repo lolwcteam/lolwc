@@ -81,15 +81,15 @@ class Cliente(object):
         self.server = serverList[server]
 
     def connect(self):
-        #self.conn = xmpp.Client("pvp.net",debug=[])#nodebug
-        self.conn = xmpp.Client("pvp.net")#debug
+        self.conn = xmpp.Client("pvp.net",debug=[])#nodebug
+        #self.conn = xmpp.Client("pvp.net")#debug
         if not self.conn.connect(server=("chat."+self.server+".lol.riotgames.com", 5223)):
             return "connect failed"
         if not self.conn.auth(self.user, "AIR_" + self.password, "xiff"):
             return "auth failed."
         self.conn.RegisterHandler("iq", self.iqHandler)
-        self.conn.sendInitPresence(requestRoster=1)
         self.roster = self.conn.getRoster()
+        self.conn.sendInitPresence(requestRoster=1)
         self.conn.RegisterHandler("message", self.messageHandler)
         self.conn.RegisterHandler("presence", self.presenceHandler)
         self.conn.RegisterDisconnectHandler(self.disconnectHandler)
@@ -97,6 +97,9 @@ class Cliente(object):
         self.jid = self.conn.User
         self.statusChat = "chat"
         self.name = self.conn.Summoner
+        self.profileIcon = "1"
+        self.level = "30"
+        self.statusMsg = "Conectado atraves de Wololol"
         self.keepAliveV = threading.Thread(target = self.keepAlive, args = (self.conn,))
         self.keepAliveV.start()
         self.update(typ="connected")
@@ -400,6 +403,19 @@ class Cliente(object):
                         friends[pos].timeStamp = status["body"]["timeStamp"]
                 else:
                     friends[pos].timeStamp = None
+        else:
+            print("jid igual")
+            if str(type(statusRaw)) == "<type 'str'>" or str(type(statusRaw)) == "<type 'unicode'>":
+                status = xmltodict.parse(unicode(statusRaw),encoding='utf-8')
+                self.profileIcon = status["body"]["profileIcon"]
+                info = {
+                    "who":self.getIdFromJid(self.jid),
+                    "what":"profileIcon",
+                    "how":self.profileIcon
+                }
+                self.update(typ="update", info=info)
+
+
 
     def messageHandler(self, conn, msg):
         #print("#----Message----#")
@@ -504,19 +520,19 @@ class Cliente(object):
             newFriend = Friend.Friend(jid, statusChat, name, profileIcon, level, wins, leaves, odinWins, odinLeaves, queueType, rankedLosses, rankedRating, tier, rankedSoloRestricted, championMasteryScore, statusMsg, rankedLeagueName, rankedLeagueDivision, rankedLeagueTier, rankedLeagueQueue, rankedWins, skinname, gameQueueType, gameStatus, timeStamp)
             info = {
                 "id":self.getIdFromJid(jid),
-                "statusChat":statusChat,
-                "name":name,
-                "profileIcon":profileIcon,
-                "level":level,
-                "championMasteryScore":championMasteryScore,
-                "statusMsg":statusMsg,
-                "rankedLeagueName":rankedLeagueName,
-                "rankedLeagueDivision":rankedLeagueDivision,
-                "rankedLeagueTier":rankedLeagueTier,
-                "skinname":skinname,
-                "gameQueueType":gameQueueType,
-                "gameStatus":gameStatus,
-                "timeStamp":timeStamp,
+                "statusChat":unicode(statusChat),
+                "name":unicode(name),
+                "profileIcon":unicode(profileIcon),
+                "level":unicode(level),
+                "championMasteryScore":unicode(championMasteryScore),
+                "statusMsg":unicode(statusMsg),
+                "rankedLeagueName":unicode(rankedLeagueName),
+                "rankedLeagueDivision":unicode(rankedLeagueDivision),
+                "rankedLeagueTier":unicode(rankedLeagueTier),
+                "skinname":unicode(skinname),
+                "gameQueueType":unicode(gameQueueType),
+                "gameStatus":unicode(gameStatus),
+                "timeStamp":unicode(timeStamp),
             }
             self.update(typ="friendConnected",info=info)
             self.friends.append(newFriend)

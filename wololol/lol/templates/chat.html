@@ -76,14 +76,14 @@
             <ul id="contactList" class="collection" data-collapsible="accordion" style="border:0px;">
               <!-- Perfil -->
               <!-- Tarjeta -->
-              <li id="perfil" class="collection-item darkblue" style="border-bottom:0px;">
+              <!-- <li id="perfil" class="collection-item darkblue" style="border-bottom:0px;">
                 <img class="mid chatImg" src="{% static 'img/sum/612.png' %}" width="40px"/>
                 <span class="white-text nameChat">Sad Jocker King</span>
                 <i id="estado" class="material-icons right green-text" style="cursor:pointer;">lens</i>
                 <a class="modal-trigger right" href="#modal1"><i class="waves-effect waves-light material-icons">info</i></a>
-              </li>
+              </li> -->
               <!-- Ficha de Información -->
-              <div id="modal1" class="modal blue borderBlue white-text">
+              <!-- <div id="modal1" class="modal blue borderBlue white-text">
                 <div class="modal-content">
                   <span>Nivel: </span><span>30</span><br>
                   <span>Liga Solo: </span>
@@ -97,9 +97,9 @@
                   </div>
                 </div>
                 <div class="modal-footer blue">
-                  <a href="#!" class="white-text modal-action modal-close waves-effect waves-green btn-flat">OK</a>
+                  <a class="white-text modal-action modal-close waves-effect waves-green btn-flat">OK</a>
                 </div>
-              </div>
+              </div> -->
             </ul>
           </div>
           <div id="chatBox" class="col s8">
@@ -121,10 +121,49 @@
 {% endblock %}
 
 {% block scripts %}
-<script type="text/javascript" src="{% static 'omnibus/omnibus.js' %}"></script>
+<script type="text/javascript" src="{% static 'omnibus/omnibus.min.js' %}"></script>
 
 <script>
 $(document).ready(function(){
+  $('#password').keypress(function(e){if(e.keyCode==13){$('#login').click();}});
+
+  $("#login").click(function(){
+    var server = $('#server').val();
+    var user = $('#user').val();
+    var password = $('#password').val();
+    if (server != null && user != "" && password != ""){
+      var data={
+        csrfmiddlewaretoken: '{{ csrf_token }}',
+        server:server.toLowerCase(),
+        user:user,
+        password:password
+      };
+      $.ajax({
+        type: "POST",
+        url: "{% url 'profileApp:chat' %}",
+        data: data,
+        dataType: "json",
+        success: function(result){
+          $("#messageSection").html(result.message);
+          if(result.typ == "loginCorrect"){
+            $("#loginSection").attr("style","display:none;");
+            $("#chatSection").attr("style","");
+            agregUser(result.id,result.name,"{% static 'img/sum/' %}" + result.profileIcon + ".png",result.level,result.league, result.promo,result.score,result.statusMsg);
+          }
+        },
+        error: function(err){
+          alert("Hubo un problema intentalo de nuevo.");
+        }
+      });
+    }
+    else{
+      if(server == null){alert("No indicó a que servidor entrar");}
+      else if(user == ""){alert("No ingresó su nombre de usuario");}
+      else if(password == ""){alert("No ingresó su contraseña");}
+      else{alert("¿Completó todos los campos?");}
+    }
+
+  });
 
   // Select a transport implementation:
   var transport = WebSocket; // SockJS can be used alternatively
@@ -157,89 +196,231 @@ $(document).ready(function(){
     // Se va al home o se pone en pantalla la seccion login
   });
   channel.on("friendConnected", function(event) {
-    agregContact("Ωω.ΆΈ. ΉΊ","{% static 'img/sum/612.png' %}","42","Silver VI","AguanteTurquia","653","Normal","En Juego","13 horas","ThU HeNbIdIah AzE Mih EghO");
-    alert("friendConnected "+event.data.payload.name);
-    //se agrega a la seccion chat un amigo
+    $("#messageSection").attr("style","display:none;");
+    // TODO no funciona la mas info
+    agregContact(event.data.payload.id,
+      event.data.payload.name,
+      "{% static 'img/sum/' %}"+event.data.payload.profileIcon+".png",
+      event.data.payload.level,
+      event.data.payload.rankedLeagueTier.charAt(0).toUpperCase() + event.data.payload.rankedLeagueTier.slice(1) + " " + event.data.payload.rankedLeagueDivision,
+      event.data.payload.rankedLeagueName,
+      event.data.payload.championMasteryScore,
+      event.data.payload.gameQueueType,event.data.payload.gameStatus,
+      event.data.payload.timeStamp,
+      event.data.payload.statusMsg);
   });
   channel.on("friendDisconnected", function(event) {
     //se elimina de la seccion chat un amigo
-    alert("friendDisconnected "+event.data.payload.name);
+    delContact(event.data.payload.id);
   });
   channel.on("update", function(event) {
     //se refresca de la seccion chat alguna propiedad de un amigo
-    alert("update "+event.data.payload.who + " : "+event.data.payload.what + " : "+event.data.payload.how);
+    who = event.data.payload.who;
+    what = event.data.payload.what;
+    if (what=="profileIcon"){
+      how = "{% static 'img/sum/' %}"+event.data.payload.how;+".png"
+    }
+    else {
+      how = event.data.payload.how;
+    }
+    changeProperty(who, what, how);
   });
-
-  function setRoster(info){
-
-  }
 
   //////////////////////////////////////////////////
   $('#chatText').keypress(function(e){
     if(e.keyCode==13)
     $('#send').click();
   });
-  var userName = "Sad Jocker King";
-  // agregContact("Ωω.ΆΈ. ΉΊ","{% static 'img/sum/612.png' %}","42","Silver VI","AguanteTurquia","653","Normal","En Juego","13 horas","ThU HeNbIdIah AzE Mih EghO");
-  // agregContact("Adriex","{% static 'img/sum/612.png' %}");
-  // agregContact("Ovej4","{% static 'img/sum/612.png' %}");
+  var userName = "";
+  //TODO MAYO, crear el usuario que maneja el chat con agregUser
+  // agregUser("06","Sad Jocker King","img/612.png","30","Gold V","MontaUrfs de Orianna","243","MaTeOeSeKaOcHo");
+
+  $("#saveChanges").click(function(){
+    //TODO MAYO: el boton ok que guarda el mensaje de estado del usuario
+  });
+
+  //TODO MAYO, crear los contactos con agregContact
+  // agregContact("01","Ωω.ΆΈ. ΉΊ","img/612.png","42","Silver VI","AguanteTurquia","653","Normal","En Juego","13 horas","ThU HeNbIdIah AzE Mih EghO");
   $("#contactos").height($(window).height()-100);
   $(".conversacion").height($(window).height()-180);
+
+  // changeProperty("07", "profileImage" , "img/92.png");
+
   if ( $("#contactos").css('display') == 'none' ){
     $("#chat").prepend('<button id="hiddenBtn" type="submit" class="btn-floating blue btn-flat waves-effect right mid"><i class="material-icons">send</i></button>');
     $("#chat").append('<div id="modalContacts" class="likemodal blue borderBlue white-text" style="position:fixed"><div id="contactsHere"></div><div class="blue s12"><hr><a id="closeContacts" class="right white-text waves-effect waves-green btn-flat">OK</a></div></div>');
     $('#modalContacts').hide();
     //$("#contactList").appendTo("contactsHere");
-    $("#contactList").detach().appendTo('#contactsHere');
+    $("#contactList").detach().appendTo('#contactsHere')
     $("#modalContacts").height($(window).height()-100);
     $("#modalContacts").width($(window).width()-100);
 
     $("#hiddenBtn").click(function(){
-      $('#modalContacts').fadeIn("slow");
-      $('.modal').openmodal();
+      $('#modalContacts').fadeIn( "slow");
     });
     $("#closeContacts").click(function(){
-      $('#modalContacts').fadeOut("slow");
+      $('#modalContacts').fadeOut( "slow");
     });
     $("#chatBox").removeClass("s8");
     $("#chatBox").addClass("s12");
   }
-
-
-  function agregContact(name,profileImage,level,league,promo,score,GQT,status,time,statusMsg){
-    nameID=nameToID(name);
-    $("#contactList").append($('<li/>', {
-      html : $('<img class=" mid chatImg" src="'+profileImage+'" width="40px"/><span class="white-text nameChat">'+name+'</span><i id="estado" class="material-icons right green-text">lens</i><a id="'+nameID+'"class="waves-effect circle waves-light modal-trigger right" data-target="#m'+nameID+'"><i class="material-icons">info</i></a>'),
-      'class' : 'contact collection-item blue',
-      'style': 'cursor:pointer;border-bottom:0px;'
-    }));
-    var profileLarge = '<img src="'+profileImage+'" width="80px" style="border-radius:50px"/><br>';
-    var level = '<span class="blue-text">Nivel: </span><span>'+level+'</span><br>';
-    var league = '<span>'+league+'</span><br>';
-    var promo = '<span>'+promo+'</span><br>';
-    var score = '<i class="material-icons mid tiny">grade</i><span>'+score+'</span><br>';
-    var GQT = '<span>'+GQT+'</span><br>';
-    var status = '<span class="yellow-text">'+status+'</span><br>';
-    var time = '<span>'+time+'</span><br>';
-    var statusMsg = '<span class="yellow-text" style="font-style:italic;font-size:20px">"'+statusMsg+'"</span><br>';
-
-    $("#contactList").append('<div id="m'+nameID+'" class="modal blue borderBlue white-text"><div class="modal-content"><h4 class="col s12">'+name+'</h4><div class="card lightblue col s12 m12 l3 center" style="padding:10px">'+profileLarge+league+promo+'</div><div class="col l9 s12 m12">'+level+score+GQT+status+time+statusMsg+'</div></div><div class="blue modal-footer"><hr><a class=" modal-action modal-close white-text waves-effect waves-green btn-flat">OK</a></div></div>');
+  function delContact(id){
+    $("#l"+id).remove();
+    $("#ma"+id).remove();
   }
+
+  function changeProperty(id, property, value){
+    //property: name,statusChat,profileImage,level,league,promo,score,GQT,status,time,statusMsg
+    //statusChat: connected = online(green), do not disturb = dnd(red), away = away(yellow)
+    switch(property) {
+      case "name":
+      $("#name"+id).text(value);
+      $("#nameH"+id).text(value);
+      break;
+      case "statusChat":
+      $("#stat"+id).removeClass("green-text red-text yellow-text");
+      switch(value) {
+        case "online":
+        $("#stat"+id).addClass("green-text");
+        break;
+        case "dnd":
+        $("#stat"+id).addClass("red-text");
+        break;
+        case "away":
+        $("#stat"+id).addClass("yellow-text");
+        break;
+        default:
+        console.log("wololololol");
+        break;
+      }
+      break;
+      case "profileImage":
+      imgLittle= "chatImg"+id;
+      imgLarge="profileImage"+id;
+      document.getElementById(imgLittle).src=value;
+      document.getElementById(imgLarge).src=value;
+      break;
+      case "level":
+      $("#level"+id).text(value);
+      break;
+      case "league":
+      $("#league"+id).text(value);
+      break;
+      case "promo":
+      $("#promo"+id).text(value);
+      break;
+      case "score":
+      $("#score"+id).text(value);
+      break;
+      case "GQT":
+      $("#GQT"+id).text(value);
+      break;
+      case "status":
+      switch(value) {
+        //Revisar si estos values son correctos
+        case "inGame":
+        $("#status"+id).text("En Juego");
+        break;
+        case "outOfGame":
+        $("#status"+id).text("Fuera de Juego");
+        break;
+        case "champSelect":
+        $("#status"+id).text("Seleccionando campeón");
+        break;
+        case "hostingNormalGame":
+        $("#status"+id).text("Creando Partida Normal");
+        break;
+        default:
+        console.log("wololololol");
+        break;
+      }
+      break;
+      case "time":
+      if (value==null){
+        $("#GQT"+id).hide();
+      }else{
+        $("#GQT"+id).text(value);
+      }
+      break;
+      case "statusMsg":
+      $("#statusMsg"+id).text(value);
+      break;
+      default:
+      console.log("Ha ocurrido un error inesperado... inesperado... como el viaje de Bilbo");
+      break;
+    }
+  }
+
+  function agregUser(id,name,profileImage,level,league,promo,score,statusMsg){
+    // TODO NO FUNCIONA EL MODAL
+    userName=name;
+    $("#contactList").prepend($('<li/>', {
+      'id': "perfil",
+      html : $('<img id="chatImg'+id+'" class="mid chatImg" src="'+profileImage+'" width="40px"/><span id="name'+id+'" class="white-text nameChat">'+name+'</span><i id="estado" class="material-icons right green-text">lens</i><a id="a'+id+'" class="modal-trigger right" data-target="#ma'+id+'"><i class="waves-effect waves-light material-icons">info</i></a>'),
+      'class' : 'collection-item darkBlue',
+      'style': 'border-bottom:0px;'
+    }));
+
+    var profileLarge = '<img id="profileImage'+id+'" src="'+profileImage+'" width="80px" style="border-radius:50px"/><br>';
+    var level = '<span class="blue-text">Nivel: </span><span id="level'+id+'">'+level+'</span><br>';
+    var league = '<span id="league'+id+'">'+league+'</span><br>';
+    var promo = '<span id="promo'+id+'">'+promo+'</span><br>';
+    var score = '<i class="material-icons mid tiny">grade</i><span id="score'+id+'">'+score+'</span><br>';
+    var statusMsg = '<div class="row"><div class="input-field col s12"><input value="'+statusMsg+'" id="statusMsg'+id+'" type="text"></div></div>';
+
+    $("#contactList").append('<div id="ma'+id+'" class="modal blue borderBlue white-text" style="position:fixed;z-index: 2004"><div class="modal-content"><h4 id="nameH'+id+'" class="col s12">'+name+'</h4><div class="card lightblue col s12 m12 l3 center" style="padding:10px">'+profileLarge+league+promo+'</div><div class="col l9 s12 m12">'+level+score+statusMsg+'</div></div><div class="blue modal-footer"><hr><a id="saveChanges" class="modal-action modal-close white-text waves-effect waves-green btn-flat">OK</a></div></div>');
+
+  }
+
+  function agregContact(id,name,profileImage,level,league,promo,score,GQT,status,time,statusMsg){
+    // ITEM EN LISTA DE CONTACTOS: li id = l1090
+    // MODAL DEL ITEM: m1090
+    $("#contactList").append($('<li/>', {
+      'id': 'l'+id,
+      html : $('<img id="chatImg'+id+'" class="mid chatImg" src="'+profileImage+'" width="40px"/><span id="name'+id+'" class="white-text nameChat">'+name+'</span><i id="stat'+id+'" class="material-icons right green-text">lens</i><a id="a'+id+'" class="waves-effect circle waves-light modal-trigger right" data-target="#m'+id+'"><i class="material-icons">info</i></a>'),
+      'class' : 'contact collection-item blue borderBlue',
+      'style': 'border-bottom:0px;'
+    }));
+
+    var profileLarge = '<img id="profileImage'+id+'" src="'+profileImage+'" width="80px" style="border-radius:50px"/><br>';
+    var level = '<span class="blue-text">Nivel: </span><span id="level'+id+'">'+level+'</span><br>';
+    var league = '<span id="league'+id+'">'+league+'</span><br>';
+    var promo = '<span id="promo'+id+'">'+promo+'</span><br>';
+    var score = '<i class="material-icons mid tiny">grade</i><span id="score'+id+'">'+score+'</span><br>';
+    var GQT = '<span id="GQT'+id+'">'+GQT+'</span><br>';
+    var status = '<span id="status'+id+'" class="yellow-text">'+status+'</span><br>';
+    var time = '<span id="time'+id+'">'+time+'</span><br>';
+    var statusMsg = '<span id="statusMsg'+id+'" class="yellow-text" style="font-style:italic;font-size:20px">"'+statusMsg+'"</span><br>';
+
+    $("#contactList").append('<div id="ma'+id+'" class="modal blue borderBlue white-text" style="position:fixed;z-index: 2004"><div class="modal-content"><h4 id="nameH'+id+'" class="col s12">'+name+'</h4><div class="card lightblue col s12 m12 l3 center" style="padding:10px">'+profileLarge+league+promo+'</div><div class="col l9 s12 m12">'+level+score+GQT+status+time+statusMsg+'</div></div><div class="blue modal-footer"><hr><a class="modal-action modal-close white-text waves-effect waves-green btn-flat">OK</a></div></div>');
+
+  }
+  var clickedTimes=1;
+
   $("#estado").click(function(){
-    var src = $('#estado').attr('class');
-    if (src=="material-icons right green-text"){
-      $('#estado').removeClass( "green-text" );
-      $('#estado').addClass( "red-text" );
-    }else{
-      $('#estado').removeClass( "red-text" );
-      $('#estado').addClass( "green-text" );
+    $(this).removeClass( "red-text yellow-text green-text" );
+    switch (clickedTimes){
+      case 0:
+      $('#estado').addClass("green-text");
+      break;
+      case 1:
+      $('#estado').addClass("yellow-text");
+      break;
+      case 2:
+      $('#estado').addClass("red-text");
+      break;
+      default:
+      $('#estado').addClass("green-text");
+      break;
+    }
+    clickedTimes=clickedTimes+1;
+    if (clickedTimes>=3){
+      clickedTimes=0;
     }
   });
 
-
   $(".contact").click(function(){
-    name = $(this).find("span").text();
-    tabID=nameToID(name);
+    tabID=$(this).attr('id');
     $(".contact").removeClass("lightblue");
     $(".contact").removeClass("contActive");
     $(this).addClass("lightblue");
@@ -247,17 +428,17 @@ $(document).ready(function(){
     $(".conversacion").hide();
     if ( $( "#dlog-"+tabID ).length ) {
       $("#dlog-"+tabID).show();
-      $('#modalContacts').fadeOut("slow");
     }else{
-      $("#chatBox").prepend('<div id="dlog-'+tabID+'" class="conversacion card blue text-white pad"><p class="center card-title">'+name+'</p</div>');
+      $("#chatBox").prepend('<div id="dlog-'+tabID+'" class="conversacion card blue text-white pad"></div>');
     }
     clsInputChat();
     $(".conversacion").height($(window).height()-180);
   });
 
-  function incomeMsg(from,msgFrom){
-    from=nameToID(from);
-    $("#dlog-"+from).append('<div class="section"><span class="nameChat">'+from+'</span><br><p class="messageChat">'+msgFrom+'</p></div><hr>');
+  function incomeMsg(from,name,msgFrom){
+    //from = ID del contact. Ej:2396937
+    from="l"+from;
+    $("#dlog-"+from).append('<div class="section"><span class="nameChat">'+name+'</span><br><p class="messageChat">'+msgFrom+'</p></div><hr>');
   }
 
   function clsInputChat(){
@@ -265,79 +446,28 @@ $(document).ready(function(){
   }
 
   $('.modal-trigger').click(function(){
+    console.log('#m'+name)
     if($(this).attr('href') == undefined){
       name=$(this).attr('id');
       $('#m'+name).openModal();
     }
   });
 
-  function nameToID(name){
-    var nameOutSpa = name.replace(/ /g,"-");
-    var nameID = nameOutSpa.replace(/\./g,"-");
-    return nameID;
-  }
-
-
   $("#send").click(function (){
     var msg = $("#chatText").val();
     clsInputChat();
     if ($(".contact").hasClass("contActive")){
       if (msg==""){
-        alert("Debes escribir algo");
+        alert("Debes escribir algo")
       }else{
-        msgTo=$(".contActive").find("span").text();
-        msgTo=nameToID(msgTo);
+        msgTo=$(".contActive").attr('id');
         $("#dlog-"+msgTo).append('<div class="section"><span class="nameChat">'+userName+'</span><br><p class="messageChat">'+msg+'</p></div><hr>');
       }
     }else{
-      alert("Selecciona un contacto");
+      alert("Selecciona un contacto")
     }
   });
 });
-</script>
-
-<script>
-$(document).ready(function(){
-  $('#password').keypress(function(e){if(e.keyCode==13){$('#login').click();}});
-});
-
-$("#login").click(function(){
-  var server = $('#server').val();
-  var user = $('#user').val();
-  var password = $('#password').val();
-  if (server != null && user != "" && password != ""){
-    var data={
-      csrfmiddlewaretoken: '{{ csrf_token }}',
-      server:server.toLowerCase(),
-      user:user,
-      password:password
-    };
-    $.ajax({
-      type: "POST",
-      url: "{% url 'profileApp:chat' %}",
-      data: data,
-      dataType: "json",
-      success: function(result){
-        $("#messageSection").html(result.message);
-        if(result.typ == "loginCorrect"){
-          $("#loginSection").attr("style","display:none;");
-          $("#chatSection").attr("style","");
-        }
-      },
-      error: function(err){
-        alert("Hubo un problema intentalo de nuevo.");
-      }
-    });
-  }
-  else{
-    if(server == null){alert("No indicó a que servidor entrar");}
-    else if(user == ""){alert("No ingresó su nombre de usuario");}
-    else if(password == ""){alert("No ingresó su contraseña");}
-    else{alert("¿Completó todos los campos?");}
-  }
-
-});
-
 </script>
 
 {% endblock %}

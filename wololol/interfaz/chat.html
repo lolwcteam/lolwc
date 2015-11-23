@@ -6,7 +6,7 @@
         <title>Wololol</title>
 
         <!-- CSS  -->
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> 
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection">
         <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection">
     </head>
@@ -14,13 +14,13 @@
         <nav class="blue" role="navigation">
             <div class="nav-wrapper container">
 
-                <a id="logo-container" href="#" class="white-text brand-logo">Wololol</a>               
+                <a id="logo-container" href="#" class="white-text brand-logo">Wololol</a>
                 <ul class="right hide-on-med-and-down">
                     <div class="tooltipped left input-field" data-position="bottom" data-delay="50" data-tooltip="Ingrese nombre de invocador a buscar">
                         <input id="search" placeholder="Summoner Name" type="search" required>
                         <label for="search"><i class="material-icons">search</i></label>
                         <i class="material-icons">close</i>
-                    </div>                      
+                    </div>
                     <li class="active waves-effect waves-cyan"><a href="index.html" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Información de perfil de un usuario"><i class="white-text material-icons">person_pin</i></a></li>
                     <li class="waves-effect waves-cyan"><a href="curriculum.html" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Sección de chat, debe loguearse"><i class="white-text material-icons">chat</i></a></li>
                     <li class="waves-effect waves-cyan"><a href="contacto.html" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Información estática del juego"><i class="white-text material-icons">dashboard</i></a></li>
@@ -70,9 +70,9 @@
                     <div class="row">
                         <div class="col l6 s12">
                             <h5 class="white-text">Company Bio</h5>
-                            <p class="grey-text text-lighten-4">We are a team of college 
+                            <p class="grey-text text-lighten-4">We are a team of college
                                 students working on this project like it's our full time job. Any amount
-                                would help support and continue development on this shit project and is 
+                                would help support and continue development on this shit project and is
                                 greatly appreciated.</p>
 
 
@@ -105,7 +105,7 @@
             </footer>
 
 
-            <!--  Scripts-->        
+            <!--  Scripts-->
             <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
             <script type="text/javascript" src="js/materialize.min.js"></script>
             <script src="js/init.js"></script>
@@ -120,7 +120,7 @@
 <script>
     $(document).ready(function(){
         var userName = "";
-        //TODO MAYO, crear el usuario que maneja el chat con agregUser        
+        //TODO MAYO, crear el usuario que maneja el chat con agregUser
         agregUser("06","Sad Jocker King","img/612.png","30","Gold V","MontaUrfs de Orianna","243","MaTeOeSeKaOcHo");
 
         $("#saveChanges").click(function(){
@@ -155,13 +155,15 @@
             $("#chatBox").addClass("s12");
         }
         function delContact(id){
+            // TODO probar si anda
             $("#l"+id).remove();
-            $("#m"+id).remove();
+            $("#ma"+id).remove();
         }
 
         function changeProperty(id, property, value){
             //property: name,statusChat,profileImage,level,league,promo,score,GQT,status,time,statusMsg
             //statusChat: connected = online(green), do not disturb = dnd(red), away = away(yellow)
+            // TODO que funcione para cambiar propiedades al usuario y no solo a los contatos
             switch(property) {
                 case "name":
                     $("#name"+id).text(value);
@@ -242,6 +244,7 @@
         }
 
         function agregUser(id,name,profileImage,level,league,promo,score,statusMsg){
+          // TODO no funciona el modal
             userName=name;
             $("#contactList").prepend($('<li/>', {
                 'id': "perfil",
@@ -262,6 +265,7 @@
         }
 
         function agregContact(id,name,profileImage,level,league,promo,score,GQT,status,time,statusMsg){
+          // TODO no funcionan los modals
             // ITEM EN LISTA DE CONTACTOS: li id = l1090
             // MODAL DEL ITEM: m1090
             $("#contactList").append($('<li/>', {
