@@ -314,7 +314,7 @@ def getSummoner(summoner=None, idSum=None, region=None): #Funcion que revisa si 
 #            bestLeague=30
 #            x=0
 #            for(x in range(len[])):
-#                
+#
 #            summonerSoloQLeague = summonerLeagueInfo[summonerId][0]['tier']
 #            summonerDivision = summonerLeagueInfo[summonerId][0]['entries'][0]['division']
 #            summonerSoloQLp = summonerLeagueInfo[summonerId][0]['entries'][0]['leaguePoints']
@@ -452,7 +452,7 @@ def getApiSummoner(summoner=None, idSum=None, region=None): #Busca un jugador en
         mostPlayedChampAssist = "0.0"
         mostPlayedChampCs = "0.0"
         mostPlayedChampGold = "0.0"
-    
+
     #<--Liga-->
 
     try:
@@ -484,7 +484,7 @@ def getApiSummoner(summoner=None, idSum=None, region=None): #Busca un jugador en
                     summonerLeagueTabListName = ligaWatcher[str(me['id'])][0]['entries'][li]['playerOrTeamName']
                     summonerLeagueTabListWins = ligaWatcher[str(me['id'])][0]['entries'][li]['wins']
                     summonerLeagueTabListIsRecent = ligaWatcher[str(me['id'])][0]['entries'][li]['isFreshBlood']
-                    summonerLeagueTabListIsOnFire = ligaWatcher[str(me['id'])][0]['entries'][li]['isHotStreak'] 
+                    summonerLeagueTabListIsOnFire = ligaWatcher[str(me['id'])][0]['entries'][li]['isHotStreak']
                     summonerLeagueTabListLP = ligaWatcher[str(me['id'])][0]['entries'][li]['leaguePoints']
                     league['summonerLeagueTabList'].append({'summonerLeagueTabListName':summonerLeagueTabListName,
                                                             'summonerLeagueTabListWins':summonerLeagueTabListWins,
@@ -506,9 +506,9 @@ def getApiSummoner(summoner=None, idSum=None, region=None): #Busca un jugador en
                                            'summonerLeagueTabPPromo':'No disponible',
                                            'summonerLeagueTabPListIsOnFire':'No disponible',
                                            'summonerLeagueTabPListIsRecent':'No disponible'}]
-    
+
     for summonerInLeague in range (len(league['summonerLeagueTabList'])):
-        SummonerLeague.objects.create(summonerId = summonerId, 
+        SummonerLeague.objects.create(summonerId = summonerId,
                                       summonerLeagueTabName = str(summonerLeagueTabName),
                                       summonerLeagueTabRank = str(summonerLeagueTabRank),
                                       summonerLeagueTabDivision = str(summonerDivision),
@@ -526,8 +526,8 @@ def getApiSummoner(summoner=None, idSum=None, region=None): #Busca un jugador en
                                       summonerLeagueTabPListIsOnFire = str(league['summonerLeagueTabPList'][summonerInLeagueP]['summonerLeagueTabPListIsOnFire']),
                                       summonerLeagueTabPListIsRecent = str(league['summonerLeagueTabPList'][summonerInLeagueP]['summonerLeagueTabPListIsRecent'])
                                      )
-                                      
-                    
+
+
     SummonerProfile.objects.create(summonerId = summonerId,
                                    leagueSoloQName = str(summonerSoloQLeagueName),
                                    leagueSoloQTier = str(summonerSoloQLeague),
@@ -541,7 +541,7 @@ def getApiSummoner(summoner=None, idSum=None, region=None): #Busca un jugador en
                                    league3v3Tier = str("PEPE"),
                                    league3v3Division = str("PEPE"),
                                    league3v3Lp = str("PEPE"))
-    
+
     MostPlayedChampInfo.objects.create(summonerId=summonerId,
                                    mostPlayedChampId=str(mostPlayedChamp),
                                    mostPlayedChampName=str(mostPlayedChampName),
@@ -554,7 +554,7 @@ def getApiSummoner(summoner=None, idSum=None, region=None): #Busca un jugador en
                                    mostPlayedChampAssist=str(mostPlayedChampAssist),
                                    mostPlayedChampCs=str(mostPlayedChampCs),
                                    mostPlayedChampGold=str(mostPlayedChampGold))
-    
+
     SummonerInfo.objects.create(summonerId = summonerId,
                                 summonerServer = str(summonerRegion).upper(),
                                 summonerImg = str(summonerImg),
@@ -567,7 +567,7 @@ def getApiSummoner(summoner=None, idSum=None, region=None): #Busca un jugador en
                                 summonerWinrate = str(summonerWinrate),
                                 summonerRegion = str(summonerRegion),
                                 summonerKdaRatio = str(summonerKdaRatio))
-    
+
     summoner = str(getCacheSummoner(idSum=summonerId, region=summonerRegion))
     return summoner
 
@@ -618,7 +618,7 @@ def getCacheSummoner(idSum=None, region=None): #Busca en la base de datos un jug
         count = 0
         str('"league":{"summonerLeagueTabName
            )
-        
-        
+
+
     savedJson =  '{' + summoner + ',' + favoriteChamp + ',' + profile + '}'
     return savedJson

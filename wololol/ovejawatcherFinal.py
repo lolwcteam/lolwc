@@ -9,19 +9,21 @@ from django.shortcuts import render_to_response
 from django.shortcuts import render
 from django.template import RequestContext
 from lol.models import SummonerInfo, MostPlayedChampInfo, SummonerProfile, History
-from riotwatcher import RiotWatcher
-from riotwatcher import LoLException
-from riotwatcher import BRAZIL
-from riotwatcher import EUROPE_NORDIC_EAST
-from riotwatcher import EUROPE_WEST
-from riotwatcher import KOREA
-from riotwatcher import LATIN_AMERICA_NORTH
-from riotwatcher import LATIN_AMERICA_SOUTH
-from riotwatcher import NORTH_AMERICA
-from riotwatcher import OCEANIA
-from riotwatcher import RUSSIA
-from riotwatcher import TURKEY
 
+from lol.riotwatcher import RiotWatcher
+from lol.riotwatcher import LoLException
+from lol.riotwatcher import BRAZIL
+from lol.riotwatcher import EUROPE_NORDIC_EAST
+from lol.riotwatcher import EUROPE_WEST
+from lol.riotwatcher import KOREA
+from lol.riotwatcher import LATIN_AMERICA_NORTH
+from lol.riotwatcher import LATIN_AMERICA_SOUTH
+from lol.riotwatcher import NORTH_AMERICA
+from lol.riotwatcher import OCEANIA
+from lol.riotwatcher import RUSSIA
+from lol.riotwatcher import TURKEY
+#Apikey mayo: 3239e88a-bf1e-4a88-b746-6bac356bc78a
+#Apikey mauro: 98f4f837-c794-4a58-bcb7-b436873a03d2
 riotWatcher = RiotWatcher("a129b7be-5979-46f1-8abc-5c99b9395c25", default_region=LATIN_AMERICA_SOUTH) #Seteando mi clave para hacer APIcalls
 #Diccionario con Id de los campeones
 champsId = {
@@ -397,7 +399,7 @@ def getApiSummoner(summoner=None, idSum=None, region=None):
         league3v3Tier = ''
         league3v3Division = ''
         league3v3Lp = ''
-    
+
     listapartidas=''
     partida=''
     hpartidasId = 0
@@ -492,7 +494,7 @@ def getApiSummoner(summoner=None, idSum=None, region=None):
             item7 = 'Vacio'
         else:
             item7 = historial['games'][o]['stats']['item6']
-            
+
         partida = str('{"isWin":"' + str(isWin)
                                  + '","champId":"' + str(champId)
                                  + '","champName":"' + str(champName)
@@ -516,7 +518,7 @@ def getApiSummoner(summoner=None, idSum=None, region=None):
                                  + '","item4":"' + str(item4)
                                  + '","item5":"' + str(item5)
                                  + '","item6":"' + str(item6)
-                                 + '","item7":"' + str(item7) 
+                                 + '","item7":"' + str(item7)
                                  + '"}'
                                 )
         if(listapartidas==''):
@@ -527,7 +529,7 @@ def getApiSummoner(summoner=None, idSum=None, region=None):
             listapartidas = listapartidas + ',' + partida
     History.objects.create(summonerId=summonerId,
                            jsonInfo=listapartidas)
-    
+
     MostPlayedChampInfo.objects.create(summonerId=summonerId,
                                        mostPlayedChampId = str(mostPlayedChamp),
                                        mostPlayedChampName = str(mostPlayedChampName),
@@ -540,7 +542,7 @@ def getApiSummoner(summoner=None, idSum=None, region=None):
                                        mostPlayedChampAssist = str(mostPlayedChampAssist),
                                        mostPlayedChampCs = str(mostPlayedChampCs),
                                        mostPlayedChampGold = str(mostPlayedChampGold))
-    
+
     SummonerInfo.objects.create(summonerId = summonerId,
                                 summonerServer = str(summonerRegion).upper(),
                                 summonerImg = str(summonerImg),
@@ -554,7 +556,7 @@ def getApiSummoner(summoner=None, idSum=None, region=None):
                                 summonerWinrate = str(summonerWinrate),
                                 summonerRegion = str(summonerRegion),
                                 summonerKdaRatio = str(summonerKdaRatio))
-    
+
     SummonerProfile.objects.create(summonerId = str(summonerId),
                                    leagueSoloQName = str(summonerLeagueName),
                                    leagueSoloQTier = str(summonerLeague),
@@ -567,7 +569,7 @@ def getApiSummoner(summoner=None, idSum=None, region=None):
                                    league3v3Name = str(league3v3Name),
                                    league3v3Tier = str(league3v3Tier),
                                    league3v3Division = str(league3v3Division),
-                                   league3v3Lp = str(league3v3Lp))      
+                                   league3v3Lp = str(league3v3Lp))
 
     summonerJson = getCacheSummoner(idSum=summonerId, region=summonerRegion)
     return summonerJson

@@ -76,14 +76,14 @@
             <ul id="contactList" class="collection" data-collapsible="accordion" style="border:0px;">
               <!-- Perfil -->
               <!-- Tarjeta -->
-              <!-- <li id="perfil" class="collection-item darkblue" style="border-bottom:0px;">
+              <li id="perfil" class="collection-item darkblue" style="border-bottom:0px;">
                 <img class="mid chatImg" src="{% static 'img/sum/612.png' %}" width="40px"/>
                 <span class="white-text nameChat">Sad Jocker King</span>
                 <i id="estado" class="material-icons right green-text" style="cursor:pointer;">lens</i>
                 <a class="modal-trigger right" href="#modal1"><i class="waves-effect waves-light material-icons">info</i></a>
-              </li> -->
+              </li>
               <!-- Ficha de Información -->
-              <!-- <div id="modal1" class="modal blue borderBlue white-text">
+              <div id="modal1" class="modal blue borderBlue white-text">
                 <div class="modal-content">
                   <span>Nivel: </span><span>30</span><br>
                   <span>Liga Solo: </span>
@@ -99,7 +99,7 @@
                 <div class="modal-footer blue">
                   <a class="white-text modal-action modal-close waves-effect waves-green btn-flat">OK</a>
                 </div>
-              </div> -->
+              </div>
             </ul>
           </div>
           <div id="chatBox" class="col s8">
@@ -393,7 +393,7 @@ $(document).ready(function(){
     var statusMsg = '<span id="statusMsg'+id+'" class="yellow-text" style="font-style:italic;font-size:20px">"'+statusMsg+'"</span><br>';
 
     $("#contactList").append('<div id="ma'+id+'" class="modal blue borderBlue white-text" style="position:fixed;z-index: 2004"><div class="modal-content"><h4 id="nameH'+id+'" class="col s12">'+name+'</h4><div class="card lightblue col s12 m12 l3 center" style="padding:10px">'+profileLarge+league+promo+'</div><div class="col l9 s12 m12">'+level+score+GQT+status+time+statusMsg+'</div></div><div class="blue modal-footer"><hr><a class="modal-action modal-close white-text waves-effect waves-green btn-flat">OK</a></div></div>');
-
+    $("#contactList").append("<a class='modal-trigger'>YO SUE MODAL TRIGGER</a>")
   }
   var clickedTimes=1;
 
@@ -445,11 +445,12 @@ $(document).ready(function(){
     $("#chatText").val("");
   }
 
-  $('.modal-trigger').click(function(){
-    console.log('#m'+name)
+  $('.modal-trigger').on("click", function(){
+    console.log($(this).attr('id'));
+    console.log($(this).attr('href'));
     if($(this).attr('href') == undefined){
       name=$(this).attr('id');
-      $('#m'+name).openModal();
+      $('#ma'+name).openModal();
     }
   });
 

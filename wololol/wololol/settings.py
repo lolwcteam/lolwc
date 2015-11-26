@@ -38,7 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'lol',
-#    'omnibus',
+    'omnibus',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -65,7 +65,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-#                'omnibus.context_processors.omnibus',
+                'omnibus.context_processors.omnibus',
             ],
         },
     },
@@ -104,11 +104,11 @@ LOGGING = {
        },
    },
    'loggers': {
-#       'omnibus': {
-#           'handlers': ['console'],
-#           'level': 'INFO',
-#           'propagate': False,
-#       },
+       'omnibus': {
+           'handlers': ['console'],
+           'level': 'INFO',
+           'propagate': False,
+       },
    }
 }
 
@@ -136,4 +136,4 @@ OMNIBUS_WEBAPP_FACTORY = 'omnibus.factories.websocket_webapp_factory'
 OMNIBUS_CONNECTION_FACTORY = 'omnibus.factories.websocket_connection_factory'
 
 
-#LAS SIGUIENTES LINEAS DE COLECTIVO ESTAN DE PARO: 68,41,107-111
+#LAS SIGUIENTES LINEAS DE COLECTIVO ESTAN DE PARO: 68,41,107-111 - ja - ja -ja oveja
