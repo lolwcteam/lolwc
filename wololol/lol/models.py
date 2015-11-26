@@ -6,6 +6,7 @@ class SummonerInfo(models.Model):
     summonerServer = models.TextField(u'server del summoner')
     summonerImg = models.TextField(u'imagen del summoner')
     summonerName = models.TextField(u'nombre del summoner')
+    summonerUserName = models.TextField(u'usuario con el que se busca a un invocador')
     summonerLeague = models.TextField(u'liga actual del sumoner(ej:Silver)')
     summonerDivision = models.TextField(u'division actual del summoner(ej:IV)')
     summonerKills = models.TextField(u'prom kills en ranked:')

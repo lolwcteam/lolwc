@@ -228,7 +228,8 @@ def getSummoner(summoner=None, idSum=None, region=None): #Funcion que revisa si 
             SummonerInfo.objects.get(summonerId = idSum, summonerRegion = region)
             summonerInfo = getCacheSummoner(idSum = summonerId, region = region)
         else:
-            b = SummonerInfo.objects.get(summonerName = summoner, summonerRegion = region)
+            summoner = summoner.lower()
+            b = SummonerInfo.objects.get(summonerUserName = summoner, summonerRegion = region)
             idSum = b.summonerId
             summonerInfo = getCacheSummoner(idSum = idSum, region = region)
     except(ObjectDoesNotExist):
@@ -243,6 +244,7 @@ def getApiSummoner(summoner=None, idSum=None, region=None):
         me = riotWatcher.get_summoner(name=summoner, region=region)
     print("CHABON ENCONTRADO")
     summonerName = str(me['name'])
+    summonerUserName = str(summonerName).lower()
     summonerId = str(me['id'])
     summonerImg = str(me['profileIconId'])
     summonerRegion = str(region)
@@ -274,10 +276,10 @@ def getApiSummoner(summoner=None, idSum=None, region=None):
     mostPlayedChampCs = "0.0"
     mostPlayedChampGold = "0.0"
     try:
-        summonerLeagueInfo = riotWatcher.get_league_entry([summonerId])
-        print("INFO DE LIGA PEDIDA")
         rankedst = riotWatcher.get_ranked_stats(summonerId)
         print("RANKED STATS PEDIDOS")
+        summonerLeagueInfo = riotWatcher.get_league_entry([summonerId])
+        print("INFO DE LIGA PEDIDA")
         for x in range(len(summonerLeagueInfo[summonerId])):
         #################3vs3#################
             if(summonerLeagueInfo[summonerId][x]['queue'] == 'RANKED_TEAM_3x3'):
@@ -375,6 +377,7 @@ def getApiSummoner(summoner=None, idSum=None, region=None):
         mostPlayedChampGold = ''
         summonerImg = ''
         summonerName = ''
+        summonerUserName = ''
         summonerLeague = ''
         summonerDivision = ''
         summonerKills = ''
@@ -426,7 +429,9 @@ def getApiSummoner(summoner=None, idSum=None, region=None):
     for o in range(len(historial['games'])):
         champLvl = historial['games'][o]['stats']['level']
         if (historial['games'][o]['stats']['win']):
-            isWin = True
+            isWin = '1'
+        else:
+            isWin = '0'
         createDate = str(historial['games'][o]['createDate'])
         createDate = createDate[0:10]
         createTime = datetime.datetime.fromtimestamp(int(createDate)).strftime('%H:%M:%S')
@@ -459,7 +464,6 @@ def getApiSummoner(summoner=None, idSum=None, region=None):
         else:
             creepScore = historial['games'][o]['stats']['minionsKilled']
         piEarned = historial['games'][o]['ipEarned']
-        createDate = historial['games'][o]['createDate'] 
         if not 'item0' in  historial['games'][o]['stats']:
             item1 = 'Vacio'
         else:
@@ -517,7 +521,7 @@ def getApiSummoner(summoner=None, idSum=None, region=None):
                                 )
         if(listapartidas==''):
             listapartidas = '"history":[' + partida
-        if(o == len(historial['games'])-1):
+        elif(o == len(historial['games'])-1):
             listapartidas = listapartidas + ',' +partida + ']'
         else:
             listapartidas = listapartidas + ',' + partida
@@ -541,6 +545,7 @@ def getApiSummoner(summoner=None, idSum=None, region=None):
                                 summonerServer = str(summonerRegion).upper(),
                                 summonerImg = str(summonerImg),
                                 summonerName = str(summonerName),
+                                summonerUserName = str(summonerUserName),
                                 summonerLeague = str(summonerLeague),
                                 summonerDivision = str(summonerDivision),
                                 summonerKills = str(summonerKills),
@@ -565,9 +570,6 @@ def getApiSummoner(summoner=None, idSum=None, region=None):
                                    league3v3Lp = str(league3v3Lp))      
 
     summonerJson = getCacheSummoner(idSum=summonerId, region=summonerRegion)
-    f=open('summonerJson.json', 'w')
-    f.write(summonerJson)
-    f.close()
     return summonerJson
 
 def getCacheSummoner(idSum=None, region=None): #Busca en la base de datos un jugador
@@ -578,6 +580,7 @@ def getCacheSummoner(idSum=None, region=None): #Busca en la base de datos un jug
     summoner = str('"summonerInfo":{"summonerId":"' + str(b.summonerId)
                     + '","summonerImg":"' + str(b.summonerImg)
                     + '","summonerName":"' + str(b.summonerName)
+                    + '","summonerUserName":"' + str(b.summonerUserName)
                     + '","summonerLeague":"' + str(b.summonerLeague).lower().capitalize()
                     + '","summonerDivision":"' + str(b.summonerDivision)
                     + '","summonerKills":"' + str(b.summonerKills)
@@ -614,7 +617,4 @@ def getCacheSummoner(idSum=None, region=None): #Busca en la base de datos un jug
                   + '","league3v3Lp":"' + str(c.league3v3Lp) + '"}')
     history = d.jsonInfo
     savedJson =  '{' + summoner + ',' + favoriteChamp + ',' + profile + ',' + history + '}'
-    f = open('savedJson.json', 'w')
-    f.write(savedJson)
-    f.close()
     return savedJson
