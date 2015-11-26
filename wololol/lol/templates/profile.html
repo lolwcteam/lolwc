@@ -158,8 +158,8 @@
                         </div>
                     </div>
                     <div class="hSum">
-                        <img id="hSum1" style="width:45px;height:45px;" src="{% static 'img/spell/' %}{{i.spell1}}.png"/><br>
-                        <img id="hSum2" style="width:45px;height:45px;" src="{% static 'img/spell/' %}{{i.spell2}}.png"/>
+                        <img id="hSum1" style="width:45px;height:45px;border-radius: 8px;" src="{% static 'img/spell/' %}{{i.spell1}}.png"/><br>
+                        <img id="hSum2" style="width:45px;height:45px;border-radius: 8px;" src="{% static 'img/spell/' %}{{i.spell2}}.png"/>
                     </div>
                     <div class="hMatch">
                         <h4 id="hWinText" class="truncate">{% if i.isWin == "1" %}<span class="green-text">Victoria</span>{% endif %}{% if i.isWin == "0" %}<span class="red-text">Derrota</span>{% endif %}</h4>
@@ -188,7 +188,7 @@
                         <strong class="center mid-text"><i class="mid material-icons">timer</i>24:15</strong><br>
                         <strong class="center mid-text"><i class="mid material-icons">access_time</i>{{ i.createDate }} </strong><br>
                         <strong class="left mid-text">>>>{{ i.createTime }}</strong><br>
-                        <strong class="left mid-text"><i class="mid material-icons">trending_up</i>{{ i.ipEarned }}</strong>
+                        <strong class="left mid-text"><i class="mid material-icons">trending_up</i>{{ i.ipEarned }} PI</strong>
 
                     </div>
 
