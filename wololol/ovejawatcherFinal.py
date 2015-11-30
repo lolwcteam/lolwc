@@ -227,8 +227,8 @@ leagueValue = {
 def getSummoner(summoner=None, idSum=None, region=None): #Funcion que revisa si el jugador está en la base de datos, o hay que crearlo
     try :
         if idSum != None:
-            SummonerInfo.objects.get(summonerId = idSum, summonerRegion = region)
-            summonerInfo = getCacheSummoner(idSum = summonerId, region = region)
+            SummonerInfo.objects.get(summonerId = idSum)
+            summonerInfo = getCacheSummoner(idSum = summonerId)
         else:
             summoner = summoner.lower()
             b = SummonerInfo.objects.get(summonerUserName = summoner, summonerRegion = region)
@@ -239,12 +239,41 @@ def getSummoner(summoner=None, idSum=None, region=None): #Funcion que revisa si 
     jsonFinal = json.loads(str(summonerInfo))
     return jsonFinal
 
+def refreshSummoner(summoner=None, idSum=None, region=None):
+    if idSum!=None:
+        me = riotWatcher.get_summoner(_id=idSum)
+    else:
+        me = riotWatcher.get_summoner(name=summoner, region=region)
+    idSum = str(me['id'])
+    
+    try:
+        SummonerInfo.objects.get(summonerId=idSum).delete()
+        print('Eliminado SummonerInfo')
+    except(ObjectDoesNotExist):
+        print('No tiene SummonerInfo guardado')
+    try:
+        MostPlayedChampInfo.objects.get(summonerId=idSum).delete()
+        print('Eliminado MostPlayedChampInfo')
+    except(ObjectDoesNotExist):
+        print('No tiene MostPlayedChampInfo guardado')
+    try:
+        SummonerProfile.objects.get(summonerId=idSum).delete()
+        print('Eliminado SummonerProfile')
+    except(ObjectDoesNotExist):
+        print('No tiene SummonerProfile guardado')
+    try:
+        History.objects.get(summonerId=idSum).delete()
+        print('Eliminado History')
+    except(ObjectDoesNotExist):
+        print('No tiene History guardado')
+    pepe = getSummoner(idSum=idSum,summoner=summoner,region=region)
+    return pepe
 def getApiSummoner(summoner=None, idSum=None, region=None):
     if idSum!=None:
         me = riotWatcher.get_summoner(_id=idSum)
     else:
         me = riotWatcher.get_summoner(name=summoner, region=region)
-    print("CHABON ENCONTRADO")
+    print("JUGADOR ENCONTRADO")
     summonerName = str(me['name'])
     summonerUserName = str(summonerName).lower()
     summonerId = str(me['id'])

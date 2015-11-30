@@ -136,4 +136,6 @@ OMNIBUS_WEBAPP_FACTORY = 'omnibus.factories.websocket_webapp_factory'
 OMNIBUS_CONNECTION_FACTORY = 'omnibus.factories.websocket_connection_factory'
 
 
-#LAS SIGUIENTES LINEAS DE COLECTIVO ESTAN DE PARO: 68,41,107-111 - ja - ja -ja oveja
+#LAS SIGUIENTES LINEAS DE COLECTIVO ESTAN DE PARO:
+#                   EN ESTE ARCHIVO: 68,41
+#                   EN VIEWS.py: 9
