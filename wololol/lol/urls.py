@@ -3,7 +3,7 @@ from django.conf.urls import patterns, include, url
 urlpatterns = patterns('',
                        url(r'^home/$', 'lol.views.home', name='searchHome'),
 
-                       url(r'^$', 'lol.views.profile', name='home'),
+                       url(r'^$', 'lol.views.home', name='home'),
                        url(r'^profile/$', 'lol.views.profile', name='profile'),
 
                        url(r'^profile/(?P<region>[a-z]+)/id=(?P<idSum>[0-9]+)$', 'lol.views.profile', name='profileById'),

@@ -230,7 +230,7 @@ def getSummoner(summoner=None, idSum=None, region=None): #Funcion que revisa si 
             SummonerInfo.objects.get(summonerId = idSum)
             summonerInfo = getCacheSummoner(idSum = summonerId)
         else:
-            summoner = summoner.lower()
+            summoner = str(summoner).lower()
             b = SummonerInfo.objects.get(summonerUserName = summoner, summonerRegion = region)
             idSum = b.summonerId
             summonerInfo = getCacheSummoner(idSum = idSum, region = region)
@@ -245,7 +245,7 @@ def refreshSummoner(summoner=None, idSum=None, region=None):
     else:
         me = riotWatcher.get_summoner(name=summoner, region=region)
     idSum = str(me['id'])
-    
+
     try:
         SummonerInfo.objects.get(summonerId=idSum).delete()
         print('Eliminado SummonerInfo')

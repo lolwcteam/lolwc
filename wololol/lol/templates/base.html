@@ -143,12 +143,22 @@
            </div>
        </footer>
 
+
+
+        <div class="hiddendiv common"></div><div style="left: 0px;" class="drag-target"></div></body>
         <!--  Scripts-->
         <script type="text/javascript" src="{% static 'js/jquery-2.1.1.min.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/materialize.min.js' %}"></script>
         <script src="{% static 'js/init.js' %}"></script>
+        <script>
+        $('#search').keypress(function(e){
+          if(e.keyCode==13){
+            name =$('#search').val().toLowerCase().replace(/ /g, "");
+            location.replace("{% url 'profileApp:profile' %}las/"+name);
+             }
+        });
+        </script>
 
         {% block scripts %}
         {% endblock %}
-
-        <div class="hiddendiv common"></div><div style="left: 0px;" class="drag-target"></div></body></html>
+        </html>
