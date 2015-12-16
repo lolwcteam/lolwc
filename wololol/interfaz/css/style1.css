@@ -13,15 +13,7 @@ nav .brand-logo {
 
 body{
     background-color: #04242f;
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
 }
-
-main {
-  flex: 1 0 auto;
-}
-
 p {
     line-height: 2rem;
 }
@@ -100,7 +92,7 @@ nav ul li:hover, nav ul li.active{
 .imgProfundidad:hover {
     -webkit-box-shadow: 0 16px 28px 0 rgba(0, 0, 0, 0.22), 0 25px 55px 0 rgba(0, 0, 0, 0.21);
     -moz-box-shadow: 0 16px 28px 0 rgba(0, 0, 0, 0.22), 0 25px 55px 0 rgba(0, 0, 0, 0.21);
-    box-shadow: 0 16px 28px 0 rgba(0, 0, 0, 0.22), 0 25px 55px 0 rgba(0, 0, 0, 0.21);
+    box-shadow: 0 16px 28px 0 rgba(0, 0, 0, 0.22), 0 25px 55px 0 rgba(0, 0, 0, 0.21); 
     transition: all ease 200ms;}
 
 .progress .determinate {
@@ -121,7 +113,7 @@ nav ul li:hover, nav ul li.active{
     background-color: #04242f !important; }
 
 .selectblue {
-    background-color: rgb(15, 104, 138) !important; }
+    background-color: #51a5e0 !important; }
 
 .green{
     background-color: #3ea400 !important;}
@@ -152,7 +144,7 @@ nav ul li:hover, nav ul li.active{
     margin-top: 1rem; }
 
 .input-field input[type=search]:focus {
-    background-color: rgba(81, 165, 224 , 0.25);
+    background-color: rgba(81, 165, 224 , 0.25); 
     border: 0;
     box-shadow: none;
     color: #fff; }
@@ -198,7 +190,7 @@ nav ul li:hover, nav ul li.active{
 
 .summonerName{
     position: relative;
-    bottom: 40px;
+    bottom: 40px; 
 }
 
 .summonerDescription{
@@ -261,7 +253,7 @@ nav ul li:hover, nav ul li.active{
 }
 
 .clase{
-    background-image: url("../img/rivenbaner.jpg");
+    background-image: url("../img/rivenbaner.jpg");  
 }
 
 @media only screen and (max-width : 992px) {
@@ -271,13 +263,6 @@ nav ul li:hover, nav ul li.active{
 @media only screen and (min-width : 1099px) {
     nav a.button-collapse {
         display: none; } }
-
-@media only screen and (min-width : 64px) {
-    nav, nav .nav-wrapper i, nav a.button-collapse, nav a.button-collapse i {
-        height: 64px;
-        line-height: 64px; }
-        .navbar-fixed {
-            height: 64px; } }
 
 table.striped > tbody > tr:nth-child(odd) {
     background-color: rgba(81, 165, 224 , 0.25); }
@@ -291,23 +276,19 @@ table.striped > tbody > tr:nth-child(odd) {
 }
 
 .dropdown-content {
-    background-color: #0b324b;
+    background-color: rgba(81, 165, 224 , 0.25);
     margin: 0;
     display: none;
     min-width: 10px;
     max-height: 650px;
     overflow-y: auto;
+    opacity: 0;
     position: absolute;
     z-index: 999;
     will-change: width, height; }
 .dropdown-content li:hover, .dropdown-content li.active {
     background-color: rgba(81, 165, 224 , 0.25);
 }
-.dropdown-content li > a, .dropdown-content li > span {
-  font-size: 1.2rem;
-  color: #ffffff;
-  display: block;
-  padding: 1rem 1rem; }
 
 .historyCard {
     height: 142px;
@@ -318,7 +299,7 @@ table.striped > tbody > tr:nth-child(odd) {
     width: 2%;
     height: 100%;
     float: left;
-
+    
 }
 
 .hImg{
@@ -336,7 +317,7 @@ table.striped > tbody > tr:nth-child(odd) {
 /*    background-color:red;*/
     width: 6%;
     padding-top: 22px;
-
+    
 }
 
 .hMatch{
@@ -358,10 +339,6 @@ table.striped > tbody > tr:nth-child(odd) {
     width: 15%;
 }
 
-.hItem{
-    border-radius: 8px;
-    width:49px;
-}
 .rune{
     position: relative;
     width: 69px;
@@ -575,7 +552,7 @@ hr {
 
 ::-webkit-scrollbar {
     width: 12px;
-
+    
 }
 ::-webkit-scrollbar-thumb {
     background-color: #053A65;
@@ -606,22 +583,24 @@ scrollbar[orient="vertical"] {
 }
 .borderBlue {
     border-color:#04242f;
+    border-bottom:0px;
 }
+
+
+
 .pad {
     padding-left: 20px;
 }
-.sendButton:focus{
-  background-color: #04242f;
-}
+
 .conversacion {
     overflow-y:scroll;
 }
-.contact:hover {
-    background-color: #17699c !important;
-}
+
 #perfil {
     background-color: #17699c;
 }
+
+
 
 .likemodal {
     display: none;
@@ -637,3 +616,4 @@ scrollbar[orient="vertical"] {
   border-radius: 2px;
 box-shadow: 0 16px 28px 0 rgba(0, 0, 0, 0.22), 0 25px 55px 0 rgba(0, 0, 0, 0.21);
 }
+

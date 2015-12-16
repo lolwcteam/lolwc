@@ -2,163 +2,163 @@
 
 <!DOCTYPE html>
 <html lang="en"><head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
-    <title>Wololol</title>
-    <link rel="icon" type=".png" href="{% static 'img/titulo.png' %}">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="{% static 'css/materialize.css' %}" type="text/css" rel="stylesheet" media="screen,projection">
-    <link href="{% static 'css/style.css' %}" type="text/css" rel="stylesheet" media="screen,projection">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <title>Wololol</title>
+  <link rel="icon" type=".png" href="{% static 'img/titulo.png' %}">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="{% static 'css/materialize.css' %}" type="text/css" rel="stylesheet" media="screen,projection">
+  <link href="{% static 'css/style.css' %}" type="text/css" rel="stylesheet" media="screen,projection">
 
 </head>
 <body>
-    <nav class="blue" role="navigation">
-        <div class="nav-wrapper container">
+  <nav class="blue" role="navigation">
+    <div class="nav-wrapper container">
 
-            <a id="logo-container" href="{% url 'profileApp:home' %}" class="white-text brand-logo">Wololol</a>
-            <ul class="right hide-on-med-and-down">
-                <div class="tooltipped left input-field" data-position="bottom" data-delay="50" data-tooltip="Ingrese nombre de invocador a buscar">
-                    <input id="search" placeholder="Summoner Name" type="search" required>
-                    <label for="search"><i class="material-icons">search</i></label>
-                    <i class="material-icons">close</i>
-                </div>
-                <li class="active waves-effect waves-cyan"><a href="{% url 'profileApp:profile' %}" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Información de perfil de un usuario"><i class="white-text material-icons">person_pin</i></a></li>
-                <li class="waves-effect waves-cyan"><a href="{% url 'profileApp:chat' %}" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Sección de chat, debe loguearse"><i class="white-text material-icons">chat</i></a></li>
-                <li class="waves-effect waves-cyan"><a href="{% url 'profileApp:data' %}" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Información estática del juego"><i class="white-text material-icons">dashboard</i></a></li>
-                <li class="waves-effect waves-cyan"><a href="#serverStatus" class="modal-trigger white-text">
-                    {% if info.serverStatus.status == "online" %}
-                    <i class="green-text left material-icons">check_circle</i> Online
-                    {% elif info.serverStatus.status == "alert" %}
-                    <i class="yellow-text left material-icons">error</i> Alerta
-                    {% elif info.serverStatus.status == "deploying" %}
-                    <i class="blue-text left material-icons">arrow_drop_down_circle</i> Mantenimiento
-                    {% elif info.serverStatus.status == "offline" %}
-                    <i class="red-text left material-icons">remove_circle</i> Offline
-                    {% else %}
-                    <i class="whute-text left material-icons">remove_circle</i> Desconocido
-                    {% endif %}
-                </a></li>
-                <!-- <li class="waves-effect waves-cyan"><a href="#loginModal" class="modal-trigger tooltipped" data-position="bottom" data-delay="50" data-tooltip="Ingresar al sistema"><i class="white-text material-icons">arrow_forward</i></a></li> -->
-                <li class="waves-effect waves-cyan"><a href="{% url 'profileApp:chat' %}" class="modal-trigger tooltipped" data-position="bottom" data-delay="50" data-tooltip="Ingresar al sistema"><i class="white-text material-icons">arrow_forward</i></a></li>
-            </ul>
-
-              <div id="serverStatus" class="modal blue">
-                <div class="modal-content">
-                  {% if info.serverStatus.status == "online" %}
-                  <h4><i style="display:initial !important;" class="green-text mid material-icons">check_circle</i> Online</h4>
-                  {% elif info.serverStatus.status == "alert" %}
-                  <h4><i style="display:initial !important;" class="yellow-text mid material-icons">error</i> Alerta</h4>
-                  {% elif info.serverStatus.status == "deploying" %}
-                  <h4><i style="display:initial !important;" class="blue-text mid material-icons">arrow_drop_down_circle</i> Mantenimiento</h4>
-                  {% elif info.serverStatus.status == "offline" %}
-                  <h4><i style="display:initial !important;" class="red-text mid material-icons">remove_circle</i> Offline</h4>
-                  {% else %}
-                  <h4><i style="display:initial !important;" class="white-text mid material-icons">remove_circle</i> No hay información del servidor</h4>
-                  {% endif %}
-                  <hr>
-                  <table>
-                      <tbody>
-                          {% for i in info.serverStatus.messages %}
-                          <tr>
-                            {% if i.severity == "info" %}
-                            <td><i class="mid blue-text material-icons">info</i></td>
-                            {% elif i.severity == "alert" %}
-                            <td><i class="mid yellow-text material-icons">warning</i></td>
-                            {% elif i.severity == "error" %}
-                            <td><i class="mid red-text material-icons">error</i></td>
-                            {% endif %}
-                            <td><p>{{i.message}}</p></td>
-                            {% empty %}
-                            <td><i class="mid white-text material-icons">done</i></td>
-                            <td><p>No hay ninguna noticia en el servidor.</p></td>
-
-                          </tr>
-                          {% endfor %}
-                      </tbody>
-                  </table>
-                </div>
-                <div class="blue modal-footer">
-                  <a href="#" class="white-text modal-action modal-close waves-effect waves-cyan btn-flat">Aceptar</a>
-                </div>
-              </div>
-              <div id="loginModal" class="modal blue">
-                <div class="modal-content">
-                  <h4><i style="display:initial !important;" class="white-text mid material-icons">arrow_forward</i> Ingrese</h4>
-                  <p>Ingrese región, usuario y contraseña de League of Legends</p>
-                  <hr><br>
-                  <p>Actualmente no es posible ingresar al sistema.</p>
-                  <br>
-                </div>
-                <div class="blue modal-footer">
-                    <a href="#" class="white-text modal-action modal-close waves-effect waves-cyan btn-flat">Cancelar</a>
-                </div>
-              </div>
-            <ul style="left: -27px;" id="nav-mobile" class="blue side-nav">
-                <li><a href="#modal1" class="waves-effect modal-trigger white-text">
-                    {% if info.serverStatus.status == "online" %}
-                    <i class="green-text material-icons">check_circle</i>
-                    {% elif info.serverStatus.status == "alert" %}
-                    <i class="yellow-text material-icons">error</i>
-                    {% elif info.serverStatus.status == "deploying" %}
-                    <i class="blue-text material-icons">arrow_drop_down_circle</i>
-                    {% elif info.serverStatus.status == "offline" %}
-                    <i class="red-text material-icons">remove_circle</i>
-                    {% else %}
-                    <i class="whute-text material-icons">remove_circle</i>
-                    {% endif %}
-                </a></li>
-                <li class="active"><a href="#" class="waves-effect waves-cyan tooltipped" data-position="right" data-delay="50" data-tooltip="Información de perfil de un usuario"><i class="white-text material-icons">person_pin</i></a></li>
-                <li class=""><a href="#" class="waves-effect waves-cyan tooltipped" data-position="right" data-delay="50" data-tooltip="Sección de chat, debe loguearse"><i class="white-text material-icons">chat</i></a></li>
-                <li class=""><a href="#" class="waves-effect waves-cyan tooltipped" data-position="right" data-delay="50" data-tooltip="Información estática del juego"><i class="white-text material-icons">dashboard</i></a></li>
-                <li class=""><a href="#" class="waves-effect waves-cyan tooltipped" data-position="right" data-delay="50" data-tooltip="Ingresar al sistema"><i class="white-text material-icons">arrow_forward</i></a></li>
-            </ul>
-            <a  class="waves-effect waves-cyan circle button-collapse" style="margin:0 0 0 -10%;" href="#" data-activates="nav-mobile"><i class="material-icons">menu</i></a>
+      <a id="logo-container" href="{% url 'profileApp:home' %}" class="white-text brand-logo">Wololol</a>
+      <ul class="right hide-on-med-and-down">
+        <div class="tooltipped left input-field" data-position="bottom" data-delay="50" data-tooltip="Ingrese nombre de invocador a buscar">
+          <input id="search" placeholder="Summoner Name" type="search" required>
+          <label for="search"><i class="material-icons">search</i></label>
+          <i class="material-icons">close</i>
         </div>
-    </nav>
+        <li class="active waves-effect waves-cyan"><a href="{% url 'profileApp:profile' %}" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Información de perfil de un usuario"><i class="white-text material-icons">person_pin</i></a></li>
+        <li class="waves-effect waves-cyan"><a href="{% url 'profileApp:chat' %}" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Sección de chat, debe loguearse"><i class="white-text material-icons">chat</i></a></li>
+        <li class="waves-effect waves-cyan"><a href="{% url 'profileApp:data' %}" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Información estática del juego"><i class="white-text material-icons">dashboard</i></a></li>
+        <li class="waves-effect waves-cyan"><a href="#serverStatus" class="modal-trigger white-text">
+          {% if info.serverStatus.status == "online" %}
+          <i class="green-text left material-icons">check_circle</i> Online
+          {% elif info.serverStatus.status == "alert" %}
+          <i class="yellow-text left material-icons">error</i> Alerta
+          {% elif info.serverStatus.status == "deploying" %}
+          <i class="blue-text left material-icons">arrow_drop_down_circle</i> Mantenimiento
+          {% elif info.serverStatus.status == "offline" %}
+          <i class="red-text left material-icons">remove_circle</i> Offline
+          {% else %}
+          <i class="whute-text left material-icons">remove_circle</i> Desconocido
+          {% endif %}
+        </a></li>
+        <!-- <li class="waves-effect waves-cyan"><a href="#loginModal" class="modal-trigger tooltipped" data-position="bottom" data-delay="50" data-tooltip="Ingresar al sistema"><i class="white-text material-icons">arrow_forward</i></a></li> -->
+        <li class="waves-effect waves-cyan"><a href="{% url 'profileApp:chat' %}" class="modal-trigger tooltipped" data-position="bottom" data-delay="50" data-tooltip="Ingresar al sistema"><i class="white-text material-icons">arrow_forward</i></a></li>
+      </ul>
 
+      <div id="serverStatus" class="modal blue">
+        <div class="modal-content">
+          {% if info.serverStatus.status == "online" %}
+          <h4><i style="display:initial !important;" class="green-text mid material-icons">check_circle</i> Online</h4>
+          {% elif info.serverStatus.status == "alert" %}
+          <h4><i style="display:initial !important;" class="yellow-text mid material-icons">error</i> Alerta</h4>
+          {% elif info.serverStatus.status == "deploying" %}
+          <h4><i style="display:initial !important;" class="blue-text mid material-icons">arrow_drop_down_circle</i> Mantenimiento</h4>
+          {% elif info.serverStatus.status == "offline" %}
+          <h4><i style="display:initial !important;" class="red-text mid material-icons">remove_circle</i> Offline</h4>
+          {% else %}
+          <h4><i style="display:initial !important;" class="white-text mid material-icons">remove_circle</i> No hay información del servidor</h4>
+          {% endif %}
+          <hr>
+          <table>
+            <tbody>
+              {% for i in info.serverStatus.messages %}
+              <tr>
+                {% if i.severity == "info" %}
+                <td><i class="mid blue-text material-icons">info</i></td>
+                {% elif i.severity == "alert" %}
+                <td><i class="mid yellow-text material-icons">warning</i></td>
+                {% elif i.severity == "error" %}
+                <td><i class="mid red-text material-icons">error</i></td>
+                {% endif %}
+                <td><p>{{i.message}}</p></td>
+                {% empty %}
+                <td><i class="mid white-text material-icons">done</i></td>
+                <td><p>No hay ninguna noticia en el servidor.</p></td>
+
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <div class="blue modal-footer">
+          <a href="#" class="white-text modal-action modal-close waves-effect waves-cyan btn-flat">Aceptar</a>
+        </div>
+      </div>
+      <div id="loginModal" class="modal blue">
+        <div class="modal-content">
+          <h4><i style="display:initial !important;" class="white-text mid material-icons">arrow_forward</i> Ingrese</h4>
+          <p>Ingrese región, usuario y contraseña de League of Legends</p>
+          <hr><br>
+          <p>Actualmente no es posible ingresar al sistema.</p>
+          <br>
+        </div>
+        <div class="blue modal-footer">
+          <a href="#" class="white-text modal-action modal-close waves-effect waves-cyan btn-flat">Cancelar</a>
+        </div>
+      </div>
+      <ul style="left: -27px;" id="nav-mobile" class="blue side-nav">
+        <li><a href="#modal1" class="waves-effect modal-trigger white-text">
+          {% if info.serverStatus.status == "online" %}
+          <i class="green-text material-icons">check_circle</i>
+          {% elif info.serverStatus.status == "alert" %}
+          <i class="yellow-text material-icons">error</i>
+          {% elif info.serverStatus.status == "deploying" %}
+          <i class="blue-text material-icons">arrow_drop_down_circle</i>
+          {% elif info.serverStatus.status == "offline" %}
+          <i class="red-text material-icons">remove_circle</i>
+          {% else %}
+          <i class="whute-text material-icons">remove_circle</i>
+          {% endif %}
+        </a></li>
+        <li class="active"><a href="#" class="waves-effect waves-cyan tooltipped" data-position="right" data-delay="50" data-tooltip="Información de perfil de un usuario"><i class="white-text material-icons">person_pin</i></a></li>
+        <li class=""><a href="#" class="waves-effect waves-cyan tooltipped" data-position="right" data-delay="50" data-tooltip="Sección de chat, debe loguearse"><i class="white-text material-icons">chat</i></a></li>
+        <li class=""><a href="#" class="waves-effect waves-cyan tooltipped" data-position="right" data-delay="50" data-tooltip="Información estática del juego"><i class="white-text material-icons">dashboard</i></a></li>
+        <li class=""><a href="#" class="waves-effect waves-cyan tooltipped" data-position="right" data-delay="50" data-tooltip="Ingresar al sistema"><i class="white-text material-icons">arrow_forward</i></a></li>
+      </ul>
+      <a  class="waves-effect waves-cyan circle button-collapse" style="margin:0 0 0 -10%;" href="#" data-activates="nav-mobile"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
+  <main>
     {% block contenido %}
     {% endblock %}
+  </main>
+  <footer class="page-footer blue">
+    <div class="container">
+      <div class="row">
+        <div class="col l9 s12">
+          <h5 class="white-text"><img src="{% static 'img/logo.png' %}" class="mid" width="64px"/> Wololol</h5>
+          <p class="grey-text text-lighten-4">Wololol es una página de código abierto hecha por WoloTeam complemento para el juego League of Legends, puedes explorar perfiles de invocadores, información del juego, y puedes loguearte usando tu cuenta de League of Legends para chatear con tus amigos conectados al juego.</p>
+        </div>
+        <div class="col l3 s12">
+          <h5 class="white-text">Enlaces</h5>
+          <ul>
+            <li><a class="white-text" href="http://github.com/lolwcteam/lolwc">Proyecto en Github</a></li>
+            <li><a class="white-text" href="mail://mateodemayo@gmail.com">Envíanos un mail</a></li>
+            <li><a class="white-text" href="http://riotgames.com">Riot Games</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <div class="container">
+        <img src="{% static 'img/riot.png' %}" class="mid" width="32px"/> <a class="grey-text text-lighten-3" href="http://riotgmes.com/">Wololol no tiene relación alguna con Riot Games ni sus marcas.</a>
+      </div>
+    </div>
+  </footer>
 
-    <footer class="page-footer blue">
-           <div class="container">
-               <div class="row">
-                   <div class="col l9 s12">
-                       <h5 class="white-text"><img src="{% static 'img/logo.png' %}" class="mid" width="64px"/> Wololol</h5>
-                       <p class="grey-text text-lighten-4">Wololol es una página de código abierto hecha por WoloTeam complemento para el juego League of Legends, puedes explorar perfiles de invocadores, información del juego, y puedes loguearte usando tu cuenta de League of Legends para chatear con tus amigos conectados al juego.</p>
-                   </div>
-                   <div class="col l3 s12">
-                       <h5 class="white-text">Enlaces</h5>
-                       <ul>
-                           <li><a class="white-text" href="http://github.com/lolwcteam/lolwc">Proyecto en Github</a></li>
-                           <li><a class="white-text" href="mail://mateodemayo@gmail.com">Envíanos un mail</a></li>
-                           <li><a class="white-text" href="http://riotgames.com">Riot Games</a></li>
-                       </ul>
-                   </div>
-               </div>
-           </div>
-           <div class="footer-copyright">
-               <div class="container">
-                   <img src="{% static 'img/riot.png' %}" class="mid" width="32px"/> <a class="grey-text text-lighten-3" href="http://riotgmes.com/">Wololol no tiene relación alguna con Riot Games ni sus marcas.</a>
-               </div>
-           </div>
-       </footer>
 
 
+  <div class="hiddendiv common"></div><div style="left: 0px;" class="drag-target"></div></body>
+  <!--  Scripts-->
+  <script type="text/javascript" src="{% static 'js/jquery-2.1.1.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/materialize.min.js' %}"></script>
+  <script src="{% static 'js/init.js' %}"></script>
+  <script>
+  $('#search').keypress(function(e){
+    if(e.keyCode==13){
+      name =$('#search').val().toLowerCase().replace(/ /g, "");
+      location.replace("{% url 'profileApp:profile' %}las/"+name);
+    }
+  });
+  </script>
 
-        <div class="hiddendiv common"></div><div style="left: 0px;" class="drag-target"></div></body>
-        <!--  Scripts-->
-        <script type="text/javascript" src="{% static 'js/jquery-2.1.1.min.js' %}"></script>
-        <script type="text/javascript" src="{% static 'js/materialize.min.js' %}"></script>
-        <script src="{% static 'js/init.js' %}"></script>
-        <script>
-        $('#search').keypress(function(e){
-          if(e.keyCode==13){
-            name =$('#search').val().toLowerCase().replace(/ /g, "");
-            location.replace("{% url 'profileApp:profile' %}las/"+name);
-             }
-        });
-        </script>
-
-        {% block scripts %}
-        {% endblock %}
-        </html>
+  {% block scripts %}
+  {% endblock %}
+  </html>

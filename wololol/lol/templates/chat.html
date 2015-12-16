@@ -3,7 +3,6 @@
 {% load lolwc_tags %}
 
 {% block contenido %}
-<main>
   <div id='messageSection' class='row center'>{{info.message|safe}}
     <p id="summonerId" style="display:none;">{{info.id}}</p>
     <p id="summonerName" style="display:none;">{{info.name}}</p>
@@ -34,7 +33,6 @@
                   <option value0"TR">TR</option>
                   <option value0"RU">RU</option>
                   <option value0"PBE">PBE</option>
-
                 </select>
               </div>
             </div>
@@ -62,7 +60,7 @@
             <p class="center">El chat funciona de forma similar al del cliente oficial</p>
             <p class="center">Nos contactamos con los servidores de Riot e intercambiamos información</p>
             <p class="center">Tu nombre de usuario y tu contraseña están seguros con nosotros</p>
-            <p class="center">Nunca los usaremos para fines siniestros</p><br>
+            <p class="center">Nunca los usaremos con fines siniestros</p><br>
           </form>
         </div>
       </div>
@@ -117,7 +115,6 @@
       </div>
     </div>
   </div>
-</main>
 {% endblock %}
 
 {% block scripts %}
